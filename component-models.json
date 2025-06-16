@@ -311,17 +311,5 @@
         "valueType": "string"
       }
     ]
-  },
-  {
-    "id": "test",
-    "fields": [
-      {
-        "component": "richtext",
-        "name": "title",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
   }
 ]
