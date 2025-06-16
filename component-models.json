@@ -242,7 +242,7 @@
     ]
   },
   {
-    "id": "slider-teaser",
+    "id": "slider-teaser-content",
     "fields": [
       {
         "component": "text",
@@ -273,39 +273,23 @@
         "value": ""
       },
       {
-        "component": "checkbox",
-        "valueType": "boolean",
-        "name": "isExternalLink",
-        "label": "Is External Link",
-        "value": false
-      },
-      {
         "component": "text",
         "valueType": "string",
         "name": "slideText",
         "label": "Slide Text",
         "value": ""
-      },
+      }
+    ]
+  },
+  {
+    "id": "slider-teaser-image",
+    "fields": [
       {
         "component": "reference",
         "valueType": "string",
         "name": "image",
         "label": "Image",
         "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
-      },
-      {
-        "component": "checkbox",
-        "valueType": "boolean",
-        "name": "isVideo",
-        "label": "Is Video",
-        "value": false
       }
     ]
   },

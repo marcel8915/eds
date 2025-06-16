@@ -15,9 +15,14 @@
       "columns",
       "fragment",
       "teaser",
-      "slider-teaser",
+      "slider-teaser-content",
+      "slider-teaser-media",
       "carousel-card"
     ]
+  },
+  {
+    "id": "slider-teaser-media",
+    "components": ["slider-teaser-image"]
   },
   {
     "id": "cards",
