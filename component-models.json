@@ -240,5 +240,52 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "carousel-with-desc",
+    "fields": [
+      {
+        "component": "text",
+        "name": "header",
+        "label": "Header",
+        "valueType": "string"
+      },
+      {
+        "component": "checkbox",
+        "name": "variant",
+        "label": "Variant Style",
+        "value": false
+      },
+      {
+        "component": "array",
+        "name": "cards",
+        "label": "Cards",
+        "model": "carousel-card",
+        "multi": true
+      }
+    ]
+  },
+  {
+    "id": "carousel-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      }
+    ]
   }
 ]
