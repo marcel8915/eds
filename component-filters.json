@@ -15,7 +15,8 @@
       "columns",
       "fragment",
       "teaser",
-      "slider-teaser"
+      "slider-teaser",
+      "carousel-card"
     ]
   },
   {
