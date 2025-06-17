@@ -186,7 +186,7 @@
         },
         {
           "title": "Carousel Cards",
-          "id": "carousel cards",
+          "id": "carousel-cards",
           "plugins": {
             "xwalk": {
               "page": {
@@ -201,7 +201,7 @@
         },
         {
           "title": "Carousel Card",
-          "id": "carousel card",
+          "id": "carousel-card",
           "plugins": {
             "xwalk": {
               "page": {
