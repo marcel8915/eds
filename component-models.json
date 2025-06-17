@@ -216,25 +216,6 @@
     ]
   },
   {
-    "id": "block-teaser",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Title",
-        "value": ""
-      }
-    ]
-  },
-  {
     "id": "slider-teaser-content",
     "fields": [
       {
