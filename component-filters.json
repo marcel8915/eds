@@ -1,7 +1,9 @@
 [
   {
     "id": "main",
-    "components": ["section"]
+    "components": [
+      "section"
+    ]
   },
   {
     "id": "section",
@@ -14,24 +16,20 @@
       "cards",
       "columns",
       "fragment",
-      "carousel-with-desc",
-      "teaser",
-      "slider-teaser-content",
-      "slider-teaser-media",
-      "carousel-card"
+      "carousel-with-desc"
     ]
   },
   {
-    "id": "slider-teaser-media",
-    "components": ["slider-teaser-image"]
-  },
-  {
     "id": "cards",
-    "components": ["card"]
+    "components": [
+      "card"
+    ]
   },
   {
     "id": "columns",
-    "components": ["column"]
+    "components": [
+      "column"
+    ]
   },
   {
     "id": "column",
@@ -40,12 +38,6 @@
       "image",
       "button",
       "title"
-    ]
-  },
-  {
-    "id": "carousel-with-desc",
-    "components": [
-      "carousel-with-desc-item"
     ]
   }
 ]
