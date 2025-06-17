@@ -1,6 +1,7 @@
 {
   "mappings": [
-    "/content/eds/:/",
+    "/content/eds/patina/osaka/en:/osaka",
+    "/content/eds/patina/osaka/ja:/osaka/ja",
     "/content/eds/configuration:/.helix/config.json",
     "/content/eds/metadata:/metadata.json"
   ],
