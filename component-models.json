@@ -311,5 +311,49 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "carousel-with-desc",
+    "fields": [
+      {
+        "component": "text",
+        "name": "header",
+        "label": "Header",
+        "valueType": "string"
+      },
+      {
+        "component": "checkbox",
+        "name": "variant",
+        "label": "Variant Style",
+        "value": false,
+        "valueType": "boolean"
+      }
+    ]
+  },
+  {
+    "id": "carousel-with-desc-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "description": "The main image for the carousel slide.",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string",
+        "description": "The title text for the slide."
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string",
+        "description": "The description text for the slide."
+      }
+    ]
   }
 ]
