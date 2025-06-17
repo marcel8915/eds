@@ -14,6 +14,7 @@
       "cards",
       "columns",
       "fragment",
+      "carousel-with-desc",
       "teaser",
       "slider-teaser-content",
       "slider-teaser-media",
@@ -34,6 +35,17 @@
   },
   {
     "id": "column",
-    "components": ["text", "image", "button", "title"]
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
+    ]
+  },
+  {
+    "id": "carousel-with-desc",
+    "components": [
+      "carousel-with-desc-item"
+    ]
   }
 ]
