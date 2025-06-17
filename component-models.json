@@ -284,52 +284,6 @@
     ]
   },
   {
-    "id": "carousel-with-desc",
-    "fields": [
-      {
-        "component": "text",
-        "name": "header",
-        "label": "Header",
-        "valueType": "string"
-      },
-      {
-        "component": "checkbox",
-        "name": "variant",
-        "label": "Variant Style",
-        "value": false,
-        "valueType": "boolean"
-      },
-      {
-        "component": "multifield",
-        "name": "cards",
-        "label": "Carousel Slides",
-        "field": {
-          "component": "fieldset",
-          "fields": [
-            {
-              "component": "reference",
-              "name": "image",
-              "label": "Image",
-              "multi": false
-            },
-            {
-              "component": "text",
-              "name": "title",
-              "label": "Title",
-              "valueType": "string"
-            },
-            {
-              "component": "text",
-              "name": "description",
-              "label": "Description",
-              "valueType": "string"
-            }
-          ]
-        }
-      }
-    ]
-  },
-  {
     "id": "carousel-card",
     "fields": [
       {
