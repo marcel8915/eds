@@ -40,5 +40,11 @@
       "button",
       "title"
     ]
+  },
+  {
+    "id": "carousel-with-desc",
+    "components": [
+      "carousel-card"
+    ]
   }
 ]
