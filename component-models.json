@@ -252,6 +252,13 @@
         "name": "slideText",
         "label": "Slide Text",
         "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
       }
     ]
   },
