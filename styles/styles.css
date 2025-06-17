@@ -35,11 +35,11 @@
 }
 
 /* Desktop Styling */
-@media (width > 1024) {
+@media (width >= 1024) {
 }
 
 /* tablate styling */
-@media (width >= 768px) and (width <= 1024px) {
+@media (width >= 768px) and (width < 1024px) {
 }
 
 /* Defult-Mobile Styling */
@@ -100,8 +100,9 @@ footer .footer[data-block-status="loaded"] {
 h1,h2,h3,h4,h5,h6 {
   font-weight: 300;
   letter-spacing: -.03em;
+  line-height: 100%;
 }
-.text-h1 {
+h1, .text-h1 {
   line-height: 95%;
   font-size: clamp(48px,8vw,100px);
 }
@@ -109,7 +110,7 @@ h1,h2,h3,h4,h5,h6 {
   line-height: 100%;
 
 }
-.text-h2, .text-h5 {
+.text-h2, .text-h5, h2, h5 {
   line-height: 110%
 }
 .text-p1,.text-p2,.text-p3,.text-p4 {
@@ -123,16 +124,16 @@ h1,h2,h3,h4,h5,h6 {
 .text-b {
   font-size: clamp(14px,1.5vw,16px)
 }
-.text-h2 {
+h2, .text-h2 {
   font-size: clamp(28px,3vw,40px)
 }
-.text-h3 {
+h3, .text-h3 {
   font-size: clamp(24px,2.5vw,36px)
 }
-.text-h4 {
+h4, .text-h4 {
   font-size: clamp(24px,3vw,32px)
 }
-.text-h5 {
+h5, .text-h5 {
   font-size: clamp(24px,1.8vw,24px)
 }
 .text-l1 {
