@@ -256,26 +256,13 @@
     ]
   },
   {
-    "id": "carousel-card",
+    "id": "grid-card",
     "fields": [
       {
         "component": "text",
         "valueType": "string",
         "name": "title",
         "label": "Title"
-      },
-      {
-        "component": "reference",
-        "valueType": "array",
-        "name": "images",
-        "label": "Images",
-        "multi": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "guest",
-        "label": "Guest"
       },
       {
         "component": "text",
@@ -290,12 +277,6 @@
         "label": "CTA Text"
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLabel",
-        "label": "CTA Label"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -303,62 +284,10 @@
         "multi": false
       },
       {
-        "component": "checkbox",
-        "valueType": "boolean",
-        "name": "isExternalLink",
-        "label": "Is External Link",
-        "value": false
-      },
-      {
         "component": "text",
         "valueType": "string",
         "name": "label",
         "label": "Label"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "secondLink",
-        "label": "Second Link"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "secondLinkText",
-        "label": "Second Link Text"
-      },
-      {
-        "component": "checkbox",
-        "valueType": "boolean",
-        "name": "isSecondLinkExternal",
-        "label": "Is Second Link External",
-        "value": false
-      },
-      {
-        "component": "checkbox",
-        "valueType": "boolean",
-        "name": "showSecondLink",
-        "label": "Show Second Link",
-        "value": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "bedType",
-        "label": "Bed Type"
-      },
-      {
-        "component": "reference",
-        "valueType": "array",
-        "name": "roomImage",
-        "label": "Room Images",
-        "multi": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "roomSize",
-        "label": "Room Size"
       }
     ]
   },
