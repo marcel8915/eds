@@ -16,10 +16,10 @@
       "cards",
       "columns",
       "fragment",
-      "carousel-cards",
       "slider-teaser-content",
       "slider-teaser-media",
-      "swiper"
+      "swiper",
+      "grid"
     ]
   },
   {
@@ -42,12 +42,6 @@
     ]
   },
   {
-    "id": "carousel-cards",
-    "components": [
-      "carousel-card"
-    ]
-  },
-  {
     "id": "columns",
     "components": [
       "column"
@@ -65,5 +59,9 @@
   {
     "id": "swiper", 
     "components": ["swiper-card"] 
+  },
+  {
+    "id": "grid", 
+    "components": ["grid-card"] 
   }
 ]
