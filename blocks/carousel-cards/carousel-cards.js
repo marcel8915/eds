@@ -7,6 +7,7 @@ export default function decorate(block) {
 
   const gridBlock = document.createElement('div');
   gridBlock.className = 'grid-cards';
+
   Array.from(block.children).forEach((card) => {
     const hasContent = card.textContent.trim() !== '' || card.querySelector('picture');
     if (!hasContent) return;
@@ -15,6 +16,16 @@ export default function decorate(block) {
 
     while (card.firstChild) {
       cardContainer.appendChild(card.firstChild);
+    }
+
+    const paragraphs = cardContainer.querySelectorAll('p');
+    paragraphs.forEach((p, index) => {
+      p.classList.add(`grid-card-p-${index + 1}`);
+    });
+
+    const picture = cardContainer.querySelector('picture');
+    if (picture) {
+      picture.classList.add('grid-card-picture');
     }
 
     gridBlock.appendChild(cardContainer);

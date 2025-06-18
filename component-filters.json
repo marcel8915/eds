@@ -25,6 +25,12 @@
     ]
   },
   {
+    "id": "carousel-cards",
+    "components": [
+      "carousel-card"
+    ]
+  },
+  {
     "id": "columns",
     "components": [
       "column"
@@ -37,12 +43,6 @@
       "image",
       "button",
       "title"
-    ]
-  },
-  {
-    "id": "carousel-cards",
-    "components": [
-      "carousel-card"
     ]
   }
 ]

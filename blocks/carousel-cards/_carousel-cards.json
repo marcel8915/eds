@@ -36,11 +36,17 @@
             "id": "carousel-card",
             "fields": [
               {
+                "component": "reference",
+                "valueType": "string",
+                "name": "image",
+                "label": "Image",
+                "multi": false
+              },
+              {
                 "component": "text",
                 "valueType": "string",
-                "name": "title",
-                "value": "",
-                "label": "Title"
+                "name": "label",
+                "label": "Label"
               },
               {
                 "component": "text",
@@ -55,17 +61,11 @@
                 "label": "CTA Text"
               },
               {
-                "component": "reference",
-                "valueType": "string",
-                "name": "image",
-                "label": "Image",
-                "multi": false
-              },
-              {
                 "component": "text",
                 "valueType": "string",
-                "name": "label",
-                "label": "Label"
+                "name": "title",
+                "value": "",
+                "label": "Title"
               }
             ]
         }
