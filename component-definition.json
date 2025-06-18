@@ -233,6 +233,21 @@
           }
         },
         {
+          "title": "CTA Link",
+          "id": "cta-link",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "CTA Link",
+                  "model": "cta-link"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Swiper",
           "id": "swiper",
           "plugins": {
@@ -257,6 +272,21 @@
                 "template": {
                   "name": "Swiper Card",
                   "model": "swiper-card-model"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Title",
+          "id": "title",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Title",
+                  "model": "title"
                 }
               }
             }
