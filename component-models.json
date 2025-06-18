@@ -380,5 +380,45 @@
         "label": "Room Size"
       }
     ]
+  },
+  {
+    "id": "swiper",
+    "fields": [
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "autoplay",
+        "label": "Autoplay",
+        "value": false
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "delay",
+        "label": "Autoplay Delay (ms)",
+        "value": 3000
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "loop",
+        "label": "Loop",
+        "value": false
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "showPagination",
+        "label": "Show Pagination",
+        "value": true
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "showNavigation",
+        "label": "Show Navigation Arrows",
+        "value": true
+      }
+    ]
   }
 ]
