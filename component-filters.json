@@ -24,6 +24,10 @@
     "components": ["slider-teaser-image"]
   },
   {
+    "id": "slider-teaser-content",
+    "components": ["cta-link", "title"]
+  },
+  {
     "id": "cards",
     "components": ["card"]
   },
