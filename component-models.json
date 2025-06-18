@@ -382,42 +382,43 @@
     ]
   },
   {
-    "id": "swiper",
+    "id": "swiper-card-model",
     "fields": [
       {
-        "component": "checkbox",
-        "valueType": "boolean",
-        "name": "autoplay",
-        "label": "Autoplay",
-        "value": false
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Card Title"
       },
       {
-        "component": "number",
-        "valueType": "number",
-        "name": "delay",
-        "label": "Autoplay Delay (ms)",
-        "value": 3000
+        "component": "richtext",
+        "name": "description",
+        "valueType": "string",
+        "label": "Card Description"
       },
       {
-        "component": "checkbox",
-        "valueType": "boolean",
-        "name": "loop",
-        "label": "Loop",
-        "value": false
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Card Image",
+        "multi": false
       },
       {
-        "component": "checkbox",
-        "valueType": "boolean",
-        "name": "showPagination",
-        "label": "Show Pagination",
-        "value": true
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text"
       },
       {
-        "component": "checkbox",
-        "valueType": "boolean",
-        "name": "showNavigation",
-        "label": "Show Navigation Arrows",
-        "value": true
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Link Text"
+      },
+      {
+        "component": "aem-content",
+        "name": "linkUrl",
+        "label": "Link URL"
       }
     ]
   }
