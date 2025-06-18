@@ -17,7 +17,7 @@
       "carousel-cards",
       "slider-teaser-content",
       "slider-teaser-media",
-      "swiper" 
+      "swiper"
     ]
   },
   {
@@ -26,7 +26,7 @@
   },
   {
     "id": "slider-teaser-content",
-    "components": ["cta-link", "title"]
+    "components": ["cta-link", "title, slider-teaser-image"]
   },
   {
     "id": "cards",
@@ -45,7 +45,7 @@
     "components": ["text", "image", "button", "title"]
   },
   {
-    "id": "swiper", 
-    "components": ["swiper-card"] 
+    "id": "swiper",
+    "components": ["swiper-card"]
   }
 ]
