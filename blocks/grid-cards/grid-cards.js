@@ -1,5 +1,4 @@
 export default function decorate(block) {
-  console.log('Grid cards block loaded'); 
   const container = document.createElement('div');
   container.className = 'grid-cards-container';
 
@@ -8,12 +7,9 @@ export default function decorate(block) {
 
   const gridBlock = document.createElement('div');
   gridBlock.className = 'grid-cards';
-
   Array.from(block.children).forEach((card) => {
-    const hasContent =
-      card.textContent.trim() !== '' || card.querySelector('picture');
+    const hasContent = card.textContent.trim() !== '' || card.querySelector('picture');
     if (!hasContent) return;
-
     const cardContainer = document.createElement('div');
     cardContainer.className = 'grid-card';
 
@@ -26,6 +22,6 @@ export default function decorate(block) {
 
   wrapper.appendChild(gridBlock);
   container.appendChild(wrapper);
-  block.innerHTML = "";
+  block.innerHTML = '';
   block.appendChild(container);
 }
