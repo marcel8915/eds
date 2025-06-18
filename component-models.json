@@ -382,7 +382,7 @@
     ]
   },
   {
-    "id": "swiper-card-model",
+    "id": "swiper-card",
     "fields": [
       {
         "component": "text",
@@ -414,11 +414,6 @@
         "valueType": "string",
         "name": "linkText",
         "label": "Link Text"
-      },
-      {
-        "component": "aem-content",
-        "name": "linkUrl",
-        "label": "Link URL"
       }
     ]
   }

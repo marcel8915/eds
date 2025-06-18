@@ -41,7 +41,7 @@
     "components": ["text", "image", "button", "title"]
   },
   {
-    "id": "swiper-items", 
+    "id": "swiper", 
     "components": ["swiper-card"] 
   }
 ]
