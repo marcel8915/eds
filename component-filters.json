@@ -16,7 +16,8 @@
       "fragment",
       "carousel-cards",
       "slider-teaser-content",
-      "slider-teaser-media"
+      "slider-teaser-media",
+      "swiper"
     ]
   },
   {
@@ -38,5 +39,9 @@
   {
     "id": "column",
     "components": ["text", "image", "button", "title"]
+  },
+  {
+    "id": "swiper-items",
+    "components": ["card"]
   }
 ]
