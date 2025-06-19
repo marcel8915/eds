@@ -15,22 +15,7 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "slider-teaser-content",
-      "slider-teaser-media",
-      "swiper",
-      "grid"
-    ]
-  },
-  {
-    "id": "slider-teaser-media",
-    "components": ["slider-teaser-image"]
-  },
-  {
-    "id": "slider-teaser-content",
-    "components": [
-      "cta-link",
-      "title, slider-teaser-image, text"
+      "fragment"
     ]
   },
   {
@@ -53,10 +38,6 @@
       "button",
       "title"
     ]
-  },
-  {
-    "id": "swiper", 
-    "components": ["swiper-card"] 
   },
   {
     "id": "grid",
