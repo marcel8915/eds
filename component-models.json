@@ -468,7 +468,7 @@
         "name": "ctaLink",
         "label": "CTA Link",
         "value": "",
-        "condition": { "===": [{ "var": "ctaText" }, true] }
+        "condition": { "!==": [{ "var": "ctaText" }, ""] }
       },
       {
         "component": "boolean",
@@ -476,22 +476,15 @@
         "name": "isExternalLink",
         "label": "Is External Link",
         "value": false,
-        "condition": { "===": [{ "var": "ctaText" }, true] }
+        "condition": { "!==": [{ "var": "ctaText" }, ""] }
       },
       {
         "component": "reference",
         "valueType": "string",
-        "name": "image",
-        "label": "Image",
+        "name": "media",
+        "label": "Media",
         "multi": false,
         "required": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
       },
       {
         "component": "boolean",
@@ -499,6 +492,14 @@
         "name": "isVideo",
         "label": "Is Video",
         "value": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": "",
+        "condition": { "===": [{ "var": "isVideo" }, false] }
       }
     ]
   }
