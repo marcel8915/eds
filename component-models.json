@@ -477,6 +477,15 @@
         "value": false
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "logo",
+        "label": "Logo",
+        "multi": false,
+        "required": true,
+        "condition": { "===": [{ "var": "overlay" }, true] }
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "text",
