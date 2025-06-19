@@ -1,78 +1,13 @@
-/* Grid card container */
-.grid-card {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  /* Image styling */
-  .grid-card-picture {
-    display: block;
-    width: 100%;
-  }
-  
-  .grid-card-picture img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  
-  /* Text container */
-  .grid-card-text-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 72px; /* This creates the 72px gap between left and right */
-  }
-  
-  /* Left column */
-  .grid-card-left {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Right column */
-  .grid-card-right {
-    display: flex;
-    align-items: flex-start; /* Aligns content to the top */
-  }
-  
-  /* Paragraph styling */
-  .grid-card-p-1,
-  .grid-card-p-2,
-  .grid-card-p-3,
-  .grid-card-p-4 {
-    margin: 0;
-  }
-  
-  .grid-card-p-1 {
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  
-  .grid-card-p-2 a {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  /* Optional: If you want p3 to appear right after p2 without extra space */
-  .grid-card-p-2 + .grid-card-p-3 {
-    margin-top: 4px;
-  }
-
-  .grid-cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Creates 2 equal-width columns */
-  gap: 20px; /* Space between cards */
-  width: 100%;
-}
-
 .grid-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid #e0e0e0; /* Optional border */
-  border-radius: 8px; /* Optional rounded corners */
-  overflow: hidden; /* Ensures content stays within border radius */
+  gap: 16px;
+  border-radius: 8px;
+}
 
+.grid-card-picture {
+  display: block;
+  width: 100%;
 }
 
 .grid-card-picture img {
@@ -81,45 +16,122 @@
   display: block;
 }
 
-/* Optional: Add some padding and styling to the card content */
-.grid-card > div {
+.grid-card-text-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 72px;
+}
+
+.grid-card-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-card-right {
+  display: flex;
+  align-items: flex-start;
+}
+
+.grid-card-p-1,
+.grid-card-p-2,
+.grid-card-p-3,
+.grid-card-p-4 {
+  margin: 0;
+}
+
+.grid-card-p-1 {
+  color: var(--Text-text-black, #333);
+  font-family: "Gill Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+.grid-card-p-3 {
+  color: var(--Text-text-black, #333);
+  font-family: Cormorant;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: -1.2px;
+}
+
+.grid-card-p-4 {
+  color: #000;
+  font-family: Cormorant;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  letter-spacing: -0.72px;
+}
+
+.grid-card-p-2 a {
+  text-decoration: none;
+}
+
+.grid-card-p-2+.grid-card-p-3 {
+  margin-top: 4px;
+}
+
+.grid-card-picture img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.grid-card>div {
   padding: 15px;
 }
 
-/* Responsive behavior - switch to 1 column on smaller screens */
-@media (max-width: 600px) {
-  .grid-cards {
-    grid-template-columns: 1fr;
-  }
+.grid-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
 }
+
+.grid-card-picture img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.grid-card>div {
+  padding: 15px;
+}
+
 /**/
-.grid-cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 20px; 
-  width: 100%;
+.grid-cards-wrapper {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
 }
 
-.grid-card {
+.grid-cards {
   display: flex;
   flex-direction: column;
-  border: 1px solid #e0e0e0; 
-  border-radius: 8px; 
-  overflow: hidden; 
+  gap: 2.5rem;
+  padding-bottom: 4px;
 }
 
-.grid-card-picture img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.grid-card > div {
-  padding: 15px;
-}
-
-@media (max-width: 600px) {
+@media (min-width: 768px) {
+  .grid-cards-wrapper {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  
+  }
   .grid-cards {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    row-gap: 5rem;
   }
 }
+
+
+
+
