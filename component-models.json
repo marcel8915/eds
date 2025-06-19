@@ -483,6 +483,7 @@
         "label": "Logo",
         "multi": false,
         "required": true,
+        "value": "",
         "condition": { "===": [{ "var": "overlay" }, true] }
       },
       {
