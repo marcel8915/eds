@@ -441,11 +441,44 @@
     "id": "slider-teaser-content",
     "fields": [
       {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "overlay",
+        "label": "Overlay",
+        "value": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": "",
+        "required": true,
+        "condition": { "===": [{ "var": "overlay" }, true] }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonText",
+        "label": "Button Text",
+        "value": "",
+        "condition": { "===": [{ "var": "overlay" }, true] }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonUrl",
+        "label": "Button URL",
+        "value": "",
+        "condition": { "===": [{ "var": "overlay" }, true] }
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "label",
         "label": "Label",
-        "value": ""
+        "value": "",
+        "condition": { "===": [{ "var": "overlay" }, false] }
       },
       {
         "component": "text",
@@ -453,22 +486,30 @@
         "name": "title",
         "label": "Title",
         "value": "",
-        "required": true
+        "required": true,
+        "condition": { "===": [{ "var": "overlay" }, false] }
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "ctaText",
         "label": "CTA Text",
-        "value": ""
+        "value": "",
+        "condition": { "===": [{ "var": "overlay" }, false] }
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "ctaLink",
-        "label": "CTA Link",
+        "name": "ctaUrl",
+        "label": "CTA Url",
         "value": "",
-        "condition": { "!==": [{ "var": "ctaText" }, ""] }
+        "required": true,
+        "condition": {
+          "and": [
+            { "!==": [{ "var": "ctaText" }, ""] },
+            { "===": [{ "var": "overlay" }, false] }
+          ]
+        }
       },
       {
         "component": "boolean",
@@ -476,7 +517,12 @@
         "name": "isExternalLink",
         "label": "Is External Link",
         "value": false,
-        "condition": { "!==": [{ "var": "ctaText" }, ""] }
+        "condition": {
+          "and": [
+            { "!==": [{ "var": "ctaText" }, ""] },
+            { "===": [{ "var": "overlay" }, false] }
+          ]
+        }
       },
       {
         "component": "reference",
@@ -487,19 +533,12 @@
         "required": true
       },
       {
-        "component": "boolean",
-        "valueType": "boolean",
-        "name": "isVideo",
-        "label": "Is Video",
-        "value": false
-      },
-      {
         "component": "text",
         "valueType": "string",
         "name": "imageAlt",
         "label": "Image Alt Text",
         "value": "",
-        "condition": { "===": [{ "var": "isVideo" }, false] }
+        "description": "Add alt text to media if media is an image"
       }
     ]
   },
