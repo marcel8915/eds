@@ -477,16 +477,6 @@
         "value": false
       },
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "logo",
-        "label": "Logo",
-        "multi": false,
-        "required": true,
-        "value": "",
-        "condition": { "===": [{ "var": "overlay" }, true] }
-      },
-      {
         "component": "text",
         "valueType": "string",
         "name": "text",
@@ -580,6 +570,16 @@
         "label": "Image Alt Text",
         "value": "",
         "description": "Add alt text to media if media is an image"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "logo",
+        "label": "Logo",
+        "multi": false,
+        "required": true,
+        "value": "",
+        "condition": { "===": [{ "var": "overlay" }, true] }
       }
     ]
   }
