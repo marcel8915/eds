@@ -559,8 +559,7 @@
         "label": "Label"
       },
       {
-        "component": "text",
-        "valueType": "string",
+        "component": "group",
         "name": "cta",
         "label": "CTA",
         "fields": [
@@ -604,8 +603,7 @@
         "label": "Label"
       },
       {
-        "component": "text",
-        "valueType": "string",
+        "component": "group",
         "name": "cta",
         "label": "CTA",
         "fields": [
