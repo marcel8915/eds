@@ -50,16 +50,24 @@
               "label": "Label"
             },
             {
-              "component": "text",
-              "valueType": "string",
-              "name": "ctaLink",
-              "label": "CTA Link"
-            },
-            {
-              "component": "text",
-              "valueType": "string",
-              "name": "ctaText",
-              "label": "CTA Text"
+              "component": "link",
+              "valueType": "object",
+              "name": "cta",
+              "label": "CTA",
+              "fields": [
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "url",
+                "label": "Link"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "text",
+                "label": "Text"
+              }
+              ]
             },
             {
               "component": "text",
