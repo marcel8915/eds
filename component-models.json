@@ -582,5 +582,45 @@
         "condition": { "===": [{ "var": "overlay" }, true] }
       }
     ]
-  }
+  },
+  {
+  "id": "three-image-description",
+  "fields": [
+    {
+      "component": "text",
+      "name": "title",
+      "label": "Section Title",
+      "description": "Main title for the section"
+    },
+    {
+      "component": "richtext",
+      "name": "description",
+      "label": "Description",
+      "description": "Main description text for the section"
+    },
+    {
+      "component": "select",
+      "name": "layout",
+      "label": "Layout Style",
+      "options": [
+        {
+          "name": "Images Above",
+          "value": "images-above"
+        },
+        {
+          "name": "Images Below",
+          "value": "images-below"
+        },
+        {
+          "name": "Images Left",
+          "value": "images-left"
+        },
+        {
+          "name": "Images Right",
+          "value": "images-right"
+        }
+      ]
+    }
+  ]
+}
 ]

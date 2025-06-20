@@ -59,5 +59,15 @@
       "hero-card",
       "secondary-card"
     ]
-  }
+  },
+  {
+  "id": "three-image-description",
+  "components": [
+    "title",
+    "text",
+    "cards",
+    "card",
+    "grid-card"
+  ]
+}
 ]
