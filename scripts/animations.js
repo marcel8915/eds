@@ -35,3 +35,8 @@ export function initTextSplitAnimation(
     });
   });
 }
+
+// Smooth scrolling with Lenis
+const lenis = new Lenis({
+  autoRaf: true,
+});
