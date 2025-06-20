@@ -138,21 +138,22 @@ function enableSliderTeaserContent() {
 
     // Label and title styling
     labelText.forEach((el) => {
-      el.classList.add("text-l2");
+      el.classList.add("text-l2", "split-text");
       el.style.color = "white";
     });
     titleText.forEach((el) => {
-      el.classList.add("text-t1");
+      el.classList.add("text-t1", "split-text");
       el.style.color = "white";
     });
 
     // CTA links
     ctaText.forEach((el, idx) => {
       const anchor = document.createElement("a");
-      anchor.className = "cta-link animate-underline";
+      anchor.className = "cta-link animate-underline split-text";
       anchor.textContent = el.textContent;
       anchor.style.color = "white";
       const link = ctaUrl[idx];
+
       if (link) anchor.href = link.textContent.trim();
       const isExternal = isExternalLink[idx];
       if (isExternal?.textContent.trim() === "true") {
