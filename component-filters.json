@@ -19,7 +19,8 @@
       "slider-teaser-content",
       "swiper",
       "grid",
-      "three-column-grid"
+      "three-column-grid",
+      "tiles"
     ]
   },
   {
@@ -68,6 +69,12 @@
     "cards",
     "card",
     "grid-card"
+  ]
+},
+{
+  "id": "tiles",
+  "components": [
+    "tiles-card"
   ]
 }
 ]

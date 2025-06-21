@@ -1,0 +1,71 @@
+/* Target the main tiles container */
+.tiles-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* Style the image container */
+  .tiles-card > div:first-child {
+    order: 1;
+    margin-bottom: 1rem;
+    line-height: 0; 
+  }
+  
+  /* Target the content container */
+  .tiles-card > div:nth-child(2) {
+    order: 2;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem 1rem;
+  }
+  
+  /* Style the left column container */
+  .tiles-card > div:nth-child(2) > div:first-child {
+    flex: 1;
+    padding-right: 1rem;
+  }
+  
+  /* Style the right column (title) */
+  .tiles-card > div:nth-child(2) > div:last-child {
+    flex: 1;
+    text-align: right;
+    align-self: center;
+  }
+  
+  /* Style the label */
+  .tiles-card [data-field-name="label"] {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+    font-size: 1.1em;
+  }
+  
+  /* Style the CTA */
+  .tiles-card [data-field-name="ctaLink"] {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--eds-primary-brand-color, #007bff);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .tiles-card [data-field-name="ctaLink"]:hover {
+    background-color: var(--eds-primary-brand-hover, #0056b3);
+  }
+  
+  /* Hide the CTA text label */
+  .tiles-card [data-field-name="ctaText"] {
+    display: none;
+  }
+  
+  /* Title styling */
+  .tiles-card [data-field-name="title"] {
+    font-size: 1.2em;
+    color: var(--eds-text-primary, #333);
+  }
