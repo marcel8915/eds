@@ -1,0 +1,150 @@
+.tiles-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.tiles-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tiles-card-image {
+    overflow: hidden;
+}
+
+.tiles-card-image img {
+    width: 100%;
+    height: auto;
+    object-fit: unset;
+    border-radius: 10px;
+}
+
+.tiles-card-content {
+    display: flex;
+    padding-top: 32px;
+    gap: 20px;
+}
+
+.tiles-card-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tiles-card-label {
+    color: var(--Text-text-black, #333);
+    font-family: "Gill Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+}
+
+.tiles-card-right {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+}
+
+.tiles-card-title {
+    color: #000;
+    font-family: Cormorant;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: -0.72px;
+}
+
+.tiles-cta-button {
+    position: relative;
+    display: inline-block;
+    color: var(--Text-text-black, #333);
+    font-family: Cormorant;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -1.2px;
+    text-decoration: none;
+    transition: color 0.5s ease;
+    width: fit-content;
+}
+
+.tiles-cta-button::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 4px;
+    width: 0px; 
+    height: 1px;
+    background-color: #9C856B;
+    transition: width 0.5s ease; 
+}
+
+.tiles-cta-button:hover {
+    color: #9C856B;
+}
+
+.tiles-cta-button:hover::after {
+    width: 100%;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .tiles-card-content {
+        flex-direction: column;
+    }
+
+    .tiles-card-right {
+        margin-top: 15px;
+    }
+
+    .tiles-card-label {
+        font-size: 16px;
+    }
+
+    .tiles-card-title {
+        font-size: 14px;
+    }
+}
+
+.tiles-card-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+
+}
+
+.tiles-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding-bottom: 4px;
+}
+
+@media (min-width: 768px) {
+    .tiles-card-container {
+        padding-left: 5rem;
+        padding-right: 5rem;
+
+    }
+
+    .tiles-card-wrapper {
+        display: grid;
+        grid-auto-rows: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        row-gap: 5rem;
+    }
+}
