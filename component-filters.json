@@ -20,7 +20,8 @@
       "swiper",
       "grid",
       "three-column-grid",
-      "tile"
+      "tile",
+      "layout"
     ]
   },
   {
@@ -75,6 +76,12 @@
   "id": "tile",
   "components": [
     "tile-card"
+  ]
+},
+{
+  "id": "layout",
+  "components": [
+    "layout-card"
   ]
 }
 ]
