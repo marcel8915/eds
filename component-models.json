@@ -624,7 +624,7 @@
   ]
  },
  {
-  "id": "tiles-card",
+  "id": "tile-card",
   "fields": [
     {
       "component": "reference",
