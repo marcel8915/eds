@@ -20,7 +20,8 @@
       "swiper",
       "grid",
       "three-column-grid",
-      "three-image-description"
+      "three-image-description",
+      "tiles-grid"
     ]
   },
   {
@@ -45,8 +46,10 @@
     ]
   },
   {
-    "id": "swiper", 
-    "components": ["swiper-card"] 
+    "id": "swiper",
+    "components": [
+      "swiper-card"
+    ]
   },
   {
     "id": "grid",
@@ -62,13 +65,19 @@
     ]
   },
   {
-  "id": "three-image-description",
-  "components": [
-    "title",
-    "text",
-    "cards",
-    "card",
-    "grid-card"
-  ]
-}
+    "id": "three-image-description",
+    "components": [
+      "title",
+      "text",
+      "cards",
+      "card",
+      "grid-card"
+    ]
+  },
+  {
+    "id": "tiles-grid",
+    "components": [
+      "tiles-card"
+    ]
+  }
 ]
