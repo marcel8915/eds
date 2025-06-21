@@ -624,7 +624,7 @@
   ]
  },
  {
-  "id": "tiles-card",
+  "id": "layout-card",
   "fields": [
     {
       "component": "reference",
@@ -670,5 +670,5 @@
       "label": "Title"
     }
   ]
-}
+ }
 ]
