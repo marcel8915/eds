@@ -295,6 +295,36 @@
               }
             }
           }
+        },
+        {
+          "title": "Tiles Grid",
+          "id": "tiles-grid",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Tiles Grid",
+                  "filter": "tiles grid"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Tiles Card",
+          "id": "tiles-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Tiles Card",
+                  "model": "tiles-card"
+                }
+              }
+            }
+          }
         }
       ]
     }
