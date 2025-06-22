@@ -1,0 +1,51 @@
+.title-and-description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5rem; 
+  margin-bottom: 3rem; 
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .title-and-description {
+    margin-bottom: 5rem; 
+  }
+}
+
+
+.title-and-description__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; 
+  max-width: 716px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .title-and-description__wrapper {
+    gap: 2rem; 
+  }
+}
+
+
+.title-and-description__title {
+ 
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+}
+
+.title-and-description__description {
+  
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: #333;
+}
+
+.title-and-description__mini-text {
+  
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #555;
+}
