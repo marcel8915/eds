@@ -1,53 +1,53 @@
 export default function decorate(block) {
-  const container = document.createElement("div");
-  container.className = "three-image-description-container";
+  const leftCol = document.createElement("div");
+  leftCol.className = "three-image-grid__left-col";
 
-  const layout = block.dataset.layout || "images-above";
+  const rightCol = document.createElement("div");
+  rightCol.className = "three-image-grid__right-col";
 
-  const headerSection = document.createElement("div");
-  headerSection.className = "three-image-description-header";
-
-  const contentSection = document.createElement("div");
-  contentSection.className = "three-image-description-content";
-
+  const items = [];
   const children = [...block.children];
+  while (children.length > 0) {
+    const currentDiv = children.shift();
 
-  if (children.length > 0) {
-    const titleEl = children.shift();
-    titleEl.className = "three-image-description-title";
-    headerSection.appendChild(titleEl);
+    if (currentDiv.querySelector("picture, img")) {
+      const imageDiv = currentDiv;
+      let captionDiv;
+
+      if (children.length > 0 && !children[0].querySelector("picture, img")) {
+        captionDiv = children.shift();
+      } else {
+        captionDiv = document.createElement("div");
+      }
+      items.push({ imageDiv, captionDiv });
+    }
   }
 
-  if (children.length > 0) {
-    const descEl = children.shift();
-    descEl.className = "three-image-description-text";
-    headerSection.appendChild(descEl);
-  }
+  items.forEach((item, index) => {
+    const card = document.createElement("div");
+    card.className = "three-image-grid__card";
 
-  children.forEach((child) => {
-    contentSection.appendChild(child);
+    item.imageDiv.classList.add("three-image-grid__image");
+    item.captionDiv.classList.add("three-image-grid__caption");
+
+    card.append(item.imageDiv);
+    card.append(item.captionDiv);
+
+    if (index === 0) {
+      leftCol.append(card);
+    } else if (index === 1) {
+      const cardWrapper = document.createElement("div");
+      cardWrapper.className = "three-image-grid__card-wrapper--staggered";
+      cardWrapper.append(card);
+      leftCol.append(cardWrapper);
+    } else if (index === 2) {
+      rightCol.append(card);
+    }
   });
 
-  if (layout === "images-above") {
-    container.appendChild(contentSection);
-    container.appendChild(headerSection);
-  } else if (layout === "images-below") {
-    container.appendChild(headerSection);
-    container.appendChild(contentSection);
-  } else if (layout === "images-left") {
-    const flexContainer = document.createElement("div");
-    flexContainer.className = "three-image-description-flex";
-    flexContainer.appendChild(contentSection);
-    flexContainer.appendChild(headerSection);
-    container.appendChild(flexContainer);
-  } else {
-    const flexContainer = document.createElement("div");
-    flexContainer.className = "three-image-description-flex";
-    flexContainer.appendChild(headerSection);
-    flexContainer.appendChild(contentSection);
-    container.appendChild(flexContainer);
-  }
-
   block.innerHTML = "";
-  block.appendChild(container);
+
+  block.className = "three-image-grid";
+
+  block.append(leftCol, rightCol);
 }
