@@ -23,7 +23,8 @@
       "three-image-description",
       "layout",
       "tiles",
-      "title-and-description"
+      "title-and-description",
+      "text-image"
     ]
   },
   {
@@ -88,11 +89,20 @@
       "tiles-card"
     ]
   },
-  { 
+  {
     "id": "title-and-description",
     "components": [
       "title",
       "text"
+    ]
+  },
+  {
+    "id": "text-image",
+    "components": [
+      "title",
+      "text",
+      "image",
+      "button"
     ]
   }
 ]

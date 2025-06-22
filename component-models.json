@@ -483,7 +483,14 @@
         "label": "Text",
         "value": "",
         "required": true,
-        "condition": { "===": [{ "var": "overlay" }, true] }
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            true
+          ]
+        }
       },
       {
         "component": "text",
@@ -492,7 +499,14 @@
         "label": "Button Text",
         "value": "",
         "required": true,
-        "condition": { "===": [{ "var": "overlay" }, true] }
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            true
+          ]
+        }
       },
       {
         "component": "text",
@@ -501,7 +515,14 @@
         "label": "Button URL",
         "value": "",
         "required": true,
-        "condition": { "===": [{ "var": "overlay" }, true] }
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            true
+          ]
+        }
       },
       {
         "component": "text",
@@ -509,7 +530,14 @@
         "name": "label",
         "label": "Label",
         "value": "",
-        "condition": { "===": [{ "var": "overlay" }, false] }
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "text",
@@ -518,7 +546,14 @@
         "label": "Title",
         "value": "",
         "required": true,
-        "condition": { "===": [{ "var": "overlay" }, false] }
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "text",
@@ -526,7 +561,14 @@
         "name": "ctaText",
         "label": "CTA Text",
         "value": "",
-        "condition": { "===": [{ "var": "overlay" }, false] }
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "text",
@@ -537,8 +579,22 @@
         "required": true,
         "condition": {
           "and": [
-            { "!==": [{ "var": "ctaText" }, ""] },
-            { "===": [{ "var": "overlay" }, false] }
+            {
+              "!==": [
+                {
+                  "var": "ctaText"
+                },
+                ""
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "overlay"
+                },
+                false
+              ]
+            }
           ]
         }
       },
@@ -550,8 +606,22 @@
         "value": false,
         "condition": {
           "and": [
-            { "!==": [{ "var": "ctaText" }, ""] },
-            { "===": [{ "var": "overlay" }, false] }
+            {
+              "!==": [
+                {
+                  "var": "ctaText"
+                },
+                ""
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "overlay"
+                },
+                false
+              ]
+            }
           ]
         }
       },
@@ -579,147 +649,154 @@
         "multi": false,
         "required": true,
         "value": "",
-        "condition": { "===": [{ "var": "overlay" }, true] }
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            true
+          ]
+        }
       }
     ]
   },
   {
-  "id": "three-image-description",
-  "fields": [
-    {
-      "component": "text",
-      "name": "title",
-      "label": "Section Title",
-      "description": "Main title for the section"
-    },
-    {
-      "component": "richtext",
-      "name": "description",
-      "label": "Description",
-      "description": "Main description text for the section"
-    },
-    {
-      "component": "select",
-      "name": "layout",
-      "label": "Layout Style",
-      "options": [
-        {
-          "name": "Images Above",
-          "value": "images-above"
-        },
-        {
-          "name": "Images Below",
-          "value": "images-below"
-        },
-        {
-          "name": "Images Left",
-          "value": "images-left"
-        },
-        {
-          "name": "Images Right",
-          "value": "images-right"
-        }
-      ]
-    }
-  ]
- },
- {
-  "id": "layout-card",
-  "fields": [
-    {
-      "component": "reference",
-      "valueType": "string",
-      "name": "image",
-      "label": "Image",
-      "multi": false
-    },
-    {
-      "component": "container",
-      "label": "Content Section",
-      "fields": [
-        {
-          "component": "container",
-          "label": "Left Column",
-          "fields": [
-            {
-              "component": "text",
-              "valueType": "string",
-              "name": "label",
-              "label": "Label"
-            },
-            {
-              "component": "text",
-              "valueType": "string",
-              "name": "ctaLink",
-              "label": "CTA Link"
-            },
-            {
-              "component": "text",
-              "valueType": "string",
-              "name": "ctaText",
-              "label": "CTA Text"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "component": "text",
-      "valueType": "string",
-      "name": "title",
-      "label": "Title"
-    }
-  ]
- },
- {
-  "id": "tiles-card",
-  "fields": [
-    {
-      "component": "reference",
-      "valueType": "string",
-      "name": "image",
-      "label": "Image",
-      "multi": false
-    },
-    {
-      "component": "container",
-      "label": "Content Section",
-      "fields": [
-        {
-          "component": "container",
-          "label": "Left Column",
-          "fields": [
-            {
-              "component": "text",
-              "valueType": "string",
-              "name": "label",
-              "label": "Label"
-            },
-            {
-              "component": "text",
-              "valueType": "string",
-              "name": "ctaLink",
-              "label": "CTA Link"
-            },
-            {
-              "component": "text",
-              "valueType": "string",
-              "name": "ctaText",
-              "label": "CTA Text"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "component": "text",
-      "valueType": "string",
-      "name": "title",
-      "label": "Title"
-    }
-  ]
-},
-{
+    "id": "three-image-description",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Section Title",
+        "description": "Main title for the section"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Main description text for the section"
+      },
+      {
+        "component": "select",
+        "name": "layout",
+        "label": "Layout Style",
+        "options": [
+          {
+            "name": "Images Above",
+            "value": "images-above"
+          },
+          {
+            "name": "Images Below",
+            "value": "images-below"
+          },
+          {
+            "name": "Images Left",
+            "value": "images-left"
+          },
+          {
+            "name": "Images Right",
+            "value": "images-right"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "layout-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "container",
+        "label": "Content Section",
+        "fields": [
+          {
+            "component": "container",
+            "label": "Left Column",
+            "fields": [
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "label",
+                "label": "Label"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "ctaLink",
+                "label": "CTA Link"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "ctaText",
+                "label": "CTA Text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "tiles-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "container",
+        "label": "Content Section",
+        "fields": [
+          {
+            "component": "container",
+            "label": "Left Column",
+            "fields": [
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "label",
+                "label": "Label"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "ctaLink",
+                "label": "CTA Link"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "ctaText",
+                "label": "CTA Text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      }
+    ]
+  },
+  {
     "id": "title-and-description-model",
     "fields": [
       {
@@ -736,6 +813,112 @@
         "component": "text",
         "name": "miniText",
         "label": "Mini Text"
+      }
+    ]
+  },
+  {
+    "id": "text-image-model",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content"
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image"
+      },
+      {
+        "component": "text",
+        "name": "imageLink",
+        "label": "Image Link (URL)"
+      },
+      {
+        "component": "group",
+        "name": "primaryCta",
+        "label": "Primary CTA",
+        "fields": [
+          {
+            "component": "text",
+            "name": "ctaText",
+            "label": "Button Text"
+          },
+          {
+            "component": "text",
+            "name": "ctaLink",
+            "label": "Button Link (URL)"
+          },
+          {
+            "component": "checkbox",
+            "name": "isExternalLink",
+            "label": "Is External Link"
+          }
+        ]
+      },
+      {
+        "component": "group",
+        "name": "secondaryCta",
+        "label": "Secondary CTA",
+        "fields": [
+          {
+            "component": "text",
+            "name": "secondCtaText",
+            "label": "Button Text"
+          },
+          {
+            "component": "text",
+            "name": "secondCtaLink",
+            "label": "Button Link (URL)"
+          },
+          {
+            "component": "checkbox",
+            "name": "secondCtaIsExternal",
+            "label": "Is External Link"
+          }
+        ]
+      },
+      {
+        "component": "group",
+        "name": "contactDetails",
+        "label": "Contact Details",
+        "fields": [
+          {
+            "component": "text",
+            "name": "phone",
+            "label": "Phone Number"
+          },
+          {
+            "component": "text",
+            "name": "whatsappNumber",
+            "label": "WhatsApp Number"
+          },
+          {
+            "component": "text",
+            "name": "email",
+            "label": "Email Address"
+          },
+          {
+            "component": "text",
+            "name": "note",
+            "label": "Note"
+          },
+          {
+            "component": "text",
+            "name": "linkText",
+            "label": "Special Link Text"
+          },
+          {
+            "component": "text",
+            "name": "link",
+            "label": "Special Link URL"
+          }
+        ]
       }
     ]
   }
