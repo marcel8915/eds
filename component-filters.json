@@ -22,7 +22,8 @@
       "three-column-grid",
       "three-image-description",
       "layout",
-      "tiles"
+      "tiles",
+      "title-and-description"
     ]
   },
   {
@@ -85,6 +86,13 @@
     "id": "tiles",
     "components": [
       "tiles-card"
+    ]
+  },
+  { 
+    "id": "title-and-description",
+    "components": [
+      "title",
+      "text"
     ]
   }
 ]
