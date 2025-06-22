@@ -47,14 +47,14 @@
     }
 }
 
-.hero-card {
+/* .hero-card {
     flex: 2;
-}
+} */
 
-.secondary-card-1,
+/* .secondary-card-1,
 .secondary-card-2 {
     flex: 1;
-}
+} */
 
 .grid-card-content {
     display: flex;
