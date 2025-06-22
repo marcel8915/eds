@@ -1,6 +1,22 @@
+.three-column-grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .three-column-grid-wrapper {
     padding-left: 5rem;
     padding-right: 5rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+
+}
+
+@media screen and (max-width: 768px) {
+    .three-column-grid-wrapper {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
 }
 
 .three-column-grid {
@@ -16,5 +32,75 @@
 }
 
 .three-column-grid img {
+    width: 100%;
+    border-radius: 10px;
+
+}
+
+@media screen and (max-width: 768px) {
+    .three-column-grid img {
+        height: 262px;
+        object-fit: cover;
+    }
+}
+
+.hero-card {
+    flex: 2;
+}
+
+.secondary-card-1,
+.secondary-card-2 {
+    flex: 1;
+}
+
+.grid-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.grid-card-category {
+    color: var(--Text-text-black, #333);
+    font-family: "Gill Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-transform: capitalize;
+}
+
+
+.grid-card-title {
+    position: relative;
+    display: inline-block;
+    color: var(--Text-text-black, #333);
+    font-family: Cormorant;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -1.2px;
+    text-decoration: none;
+    transition: color 0.5s ease;
+    width: fit-content;
+}
+
+.grid-card-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 4px;
+    width: 0px;
+    height: 1px;
+    background-color: #9C856B;
+    transition: width 0.5s ease;
+}
+
+.grid-card-title:hover {
+    color: #9C856B;
+}
+
+.grid-card-title:hover::after {
     width: 100%;
 }
