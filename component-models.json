@@ -718,5 +718,25 @@
       "label": "Title"
     }
   ]
-}
+},
+{
+    "id": "title-and-description-model",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description"
+      },
+      {
+        "component": "text",
+        "name": "miniText",
+        "label": "Mini Text"
+      }
+    ]
+  }
 ]
