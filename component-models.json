@@ -806,14 +806,14 @@
         "value": ""
       },
       {
-        "component": "text",
+        "component": "richtext",
         "name": "title",
         "label": "Title",
         "required": true,
         "value": ""
       },
       {
-        "component": "text",
+        "component": "richtext",
         "name": "description",
         "label": "Description",
         "value": ""
