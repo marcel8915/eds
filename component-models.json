@@ -327,7 +327,7 @@
     ]
   },
   {
-    "id": "swiper-card",
+    "id": "swiper-card-model",
     "fields": [
       {
         "component": "text",

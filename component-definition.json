@@ -228,7 +228,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Swiper Card",
-                  "model": "swiper-card"
+                  "model": "swiper-card-model"
                 }
               }
             }
