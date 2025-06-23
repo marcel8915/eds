@@ -12,33 +12,31 @@ export default function decorate(block) {
   const ctaText = ctaTextDiv?.querySelector("p");
   const ctaLink = ctaLinkDiv?.querySelector("a");
 
-  console.log(title);
-  console.log(description);
-
   if (title) {
-    if (title.querySelectorAll("p").length > 1) {
-      const ps = Array.from(title.querySelectorAll("p"));
+    const ps = Array.from(title.querySelectorAll("p"));
+    if (ps.length > 1) {
+      const combinedHTML = ps.map((p) => p.innerHTML).join("<br>");
+      ps.forEach((p) => p.remove());
       const paragraph = document.createElement("p");
-
-      ps.forEach((p) => {
-        p.className = "text-t1 split-text title";
-      });
+      paragraph.className = "text-t1 split-text title";
+      paragraph.innerHTML = combinedHTML;
       title.appendChild(paragraph);
-    } else {
-      title.className = "text-t1 split-text title";
+    } else if (ps.length === 1) {
+      ps[0].className = "text-t1 split-text title";
     }
   }
-  if (description) {
-    if (description.querySelectorAll("p").length > 1) {
-      const ps = Array.from(description.querySelectorAll("p"));
-      const paragraph = document.createElement("p");
 
-      ps.forEach((p) => {
-        p.className = "text-p1 split-text desc";
-      });
-      title.appendChild(paragraph);
-    } else {
-      description.className = "text-p1 split-text desc" ;
+  if (description) {
+    const ps = Array.from(description.querySelectorAll("p"));
+    if (ps.length > 1) {
+      const combinedHTML = ps.map((p) => p.innerHTML).join("<br>");
+      ps.forEach((p) => p.remove());
+      const paragraph = document.createElement("p");
+      paragraph.className = "text-p1 split-text desc";
+      paragraph.innerHTML = combinedHTML;
+      description.appendChild(paragraph);
+    } else if (ps.length === 1) {
+      ps[0].className = "text-p1 split-text desc";
     }
   }
 

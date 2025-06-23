@@ -19,7 +19,7 @@
     color: rgb(var(--text-black));
 }
 .section-header .desc {
-    margin-top: 2rem;
+    padding-top: 2rem;
 }
 
 .section-header div:has(.label) {
