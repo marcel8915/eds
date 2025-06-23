@@ -1,5 +1,5 @@
 /* Main Swiper Container */
-.swiper2.block {
+.swiper3.block {
     z-index: 10;
     width: 100%;
     background-color: #fff;
@@ -8,14 +8,14 @@
 }
 
 @media (min-width: 768px) {
-    .swiper2.block {
+    .swiper3.block {
         padding-left: 5rem;
         padding-right: 5rem;
     }
 }
 
 @media (min-width: 1024px) {
-    .swiper2.block {
+    .swiper3.block {
         padding-top: 7.5rem;
     }
 }
@@ -36,7 +36,7 @@
     overflow: visible !important;
 }
 
-.swiper2-wrapper {
+.swiper3-wrapper {
     display: flex;
     width: auto;
     height: auto;
