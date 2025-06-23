@@ -9,7 +9,7 @@ export default async function decorate(block) {
   swiperContainer.className = "swiper-container";
 
   const swiperWrapper = document.createElement("div");
-  swiperWrapper.className = "swiper-wrapper";
+  swiperWrapper.className = "swiper2-wrapper";
 
   const arrowsContainer = document.createElement("div");
   arrowsContainer.className = "swiper-arrows-container";
