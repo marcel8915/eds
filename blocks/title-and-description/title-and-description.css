@@ -27,38 +27,10 @@
     }
 }
 
-.title-and-description__title {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-    font-weight: 700;
+#find-your-rhythm-between-tradition-and-transformative-luxury {
+    margin: 0;
 }
 
-.title-and-description__description {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-    color: #333;
-}
-
-.title-and-description__mini-text {
-    font-size: 1rem;
-    line-height: 1.5rem;
-    color: #555;
-}
-
-.tiles-card-ctatext {
-    color: var(--Text-text-black, #333);
-    font-family: Cormorant;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%;
-    margin-top: 8px;
-    margin-bottom: 16px;
-}
-
-@media (max-width: 768px) {
-    .tiles-card-ctatext {
-        font-size: 20px;
-        margin-bottom: 12px;
-    }
+.title-and-description__wrapper > div:first-child p {
+    margin: 0;
 }

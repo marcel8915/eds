@@ -53,9 +53,15 @@ export default async function decorate(block) {
   arrowsContainer.appendChild(rightArrow);
   container.appendChild(arrowsContainer);
 
+  // const
+
   const imageContainers = [];
 
   Array.from(block.children).forEach((card) => {
+    const para = card.querySelector("p");
+    if (para) {
+      para.className = "split-text";
+    }
     const hasContent =
       card.textContent.trim() !== "" || card.querySelector("picture");
     if (!hasContent) return;
