@@ -749,7 +749,7 @@
     ]
   },
   {
-    "id": "tiles-card",
+    "id": "tile-grid-card",
     "fields": [
       {
         "component": "reference",
