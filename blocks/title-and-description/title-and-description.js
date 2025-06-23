@@ -8,13 +8,16 @@ export default function decorate(block) {
 
   const title = block.children[0];
   if (title) {
-    title.classList.add("title-and-description__title");
+    const para = title.querySelector("p");
+    para.className = "text-l2 split-text";
+
     wrapper.append(title);
   }
 
   const description = block.children[0];
   if (description) {
-    description.classList.add("title-and-description__description");
+    const desc = description.querySelector("h1");
+    desc.className = "text-t1 split-text";
     wrapper.append(description);
   }
 
