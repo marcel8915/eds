@@ -58,8 +58,8 @@
     "components": ["layout-card"]
   },
   {
-    "id": "tiles",
-    "components": ["tiles-card"]
+    "id": "tile-grid",
+    "components": ["tile-grid-card"]
   },
   {
     "id": "title-and-description",
