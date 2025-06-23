@@ -66,8 +66,8 @@ console.log(fragment)
         <!-- Logo -->
         <div class="nav-logo">
             <a href="/">
-              <img src="/icons/patina-white-flower.svg" alt="Patina Logo" />
-              <img src="/icons/patina-white-flower.svg" alt="Patina Logo" />
+              <img src="/icons/patina-white-flower.svg" class="white" alt="Patina Logo" />
+              <img src="/icons/patina-green-flower.svg" class="green" alt="Patina Logo" />
             </a>
 
         </div>
@@ -175,7 +175,7 @@ console.log(fragment)
 
   // Scroll listener
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
+    if (window.scrollY > 100) {
       header.classList.add('is-scrolled');
     } else {
       header.classList.remove('is-scrolled');
