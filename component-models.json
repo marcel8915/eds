@@ -797,22 +797,45 @@
     ]
   },
   {
-    "id": "title-and-description-model",
+    "id": "section-header",
     "fields": [
       {
         "component": "text",
-        "name": "title",
-        "label": "Title"
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "label": "Description"
+        "name": "label",
+        "label": "Label",
+        "value": ""
       },
       {
         "component": "text",
-        "name": "miniText",
-        "label": "Mini Text"
+        "name": "title",
+        "label": "Title",
+        "required": true,
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "ctaText",
+        "label": "CTA Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "ctaLink",
+        "label": "CTA Link",
+        "condition": {
+          "!==": [
+            {
+              "var": "ctaText"
+            },
+            ""
+          ]
+        }
       }
     ]
   },
