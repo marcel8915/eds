@@ -58,13 +58,41 @@
   align-items: center;
   color: var(--header-text-color);
   transition: color 0.3s ease;
+  cursor: pointer;
   margin-top: 15px; 
   button {
-    margin-left: -4px;
+    margin-left: -35px;
+    padding-left: 35px;
   }
 }
 
-.header-wrapper.is-scrolled .nav-hamburger {
+.green {
+  display: none;
+  width: 42px;
+  height: 42px;
+}
+
+header.header-wrapper.is-scrolled
+{ 
+  .nav-hamburger {
+    margin-top: 0;
+    button {
+      color: var(--header-scrolled-text-color);
+    }
+  }
+  .nav-logo {
+    top: 57%;
+  }
+
+  .green {
+    display: block;
+  }
+  .white {
+    display: none;
+  }
+}
+
+.header-wrapper.is-scrolled .nav-hamburger, body.appear.nav-open .nav-hamburger, body.appear.nav-open .nav-hamburger span {
   color: var(--header-scrolled-text-color);
 }
 
@@ -224,14 +252,14 @@
     font-size: 0.95rem;
 }
 .language-options button:hover, .language-options button.selected {
-    color: var(--brand-golden);
+    color: rgb(var(--brand-golden));
 }
 
 /* Reserve Button */
-.header-wrapper.is-scrolled .reserve-button {
+/* .header-wrapper.is-scrolled .reserve-button {
   background-color: var(--header-scrolled-text-color);
   color: var(--header-scrolled-bg-color);
-}
+} */
 
 @media (min-width: 768px) {
   .reserve-button {
