@@ -17,7 +17,7 @@ export default function decorate(block) {
   const description = block.children[0];
   if (description) {
     const desc = description.querySelector("h1");
-    desc.className = "text-t1 split-text";
+    desc.className = "text-t1 split-text header";
     wrapper.append(description);
   }
 
