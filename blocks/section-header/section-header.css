@@ -15,8 +15,11 @@
 }
 
 .section-header .cta-link {
-    margin-top: 48px;
+    margin-top: 3rem;
     color: rgb(var(--text-black));
+}
+.section-header .desc {
+    margin-top: 2rem;
 }
 
 .section-header div:has(.label) {
@@ -30,10 +33,6 @@
 }
 
 .section-header-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 716px;
     text-align: center;
 }
 
@@ -43,7 +42,7 @@
 
 .section-header.block {
     margin-bottom: 0;
-    margin-top: 120px;
+    margin-top: 7.5rem;
 }
 .section-header .title {
     margin-bottom: 0px !important;
