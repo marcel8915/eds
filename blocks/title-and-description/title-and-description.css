@@ -21,16 +21,15 @@
     text-align: center;
 }
 
-@media (min-width: 768px) {
-    .title-and-description__wrapper {
-        gap: 2rem;
-    }
-}
-
 #find-your-rhythm-between-tradition-and-transformative-luxury {
     margin: 0;
 }
 
 .title-and-description__wrapper > div:first-child p {
     margin: 0;
+}
+
+.title-and-description.block {
+    margin-bottom: 0;
+    margin-top: 200px;
 }
