@@ -15,7 +15,7 @@
       "columns",
       "fragment",
       "slider-teaser-content",
-      "swiper2",
+      "swiper",
       "grid",
       "three-column-grid",
       "three-image-description",
@@ -38,8 +38,8 @@
     "components": ["text", "image", "button", "title"]
   },
   {
-    "id": "swiper2",
-    "components": ["swiper-card2"]
+    "id": "swiper",
+    "components": ["swiper-card"]
   },
   {
     "id": "grid",
