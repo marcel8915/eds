@@ -21,7 +21,7 @@
       "three-image-description",
       "layout",
       "tile-gallery",
-      "title-and-description",
+      "section-header",
       "text-image"
     ]
   },
@@ -60,10 +60,6 @@
   {
     "id": "tile-gallery",
     "components": ["tile-gallery-item"]
-  },
-  {
-    "id": "title-and-description",
-    "components": ["title", "text"]
   },
   {
     "id": "text-image",
