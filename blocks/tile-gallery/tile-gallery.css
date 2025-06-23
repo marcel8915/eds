@@ -165,3 +165,11 @@
         margin-bottom: 12px;
     }
 }
+
+.tiles-card-container {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.tile-gallery-wrapper {
+    margin: 80px 0;
+}
