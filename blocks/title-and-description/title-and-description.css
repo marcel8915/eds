@@ -33,3 +33,6 @@
     margin-bottom: 0;
     margin-top: 200px;
 }
+.title-and-description .header {
+    margin-bottom: 0px !important;
+}
