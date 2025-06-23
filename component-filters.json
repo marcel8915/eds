@@ -20,7 +20,7 @@
       "three-column-grid",
       "three-image-description",
       "layout",
-      "tile-grid",
+      "tile-gallery",
       "title-and-description",
       "text-image"
     ]
@@ -58,8 +58,8 @@
     "components": ["layout-card"]
   },
   {
-    "id": "tile-grid",
-    "components": ["tile-grid-card"]
+    "id": "tile-gallery",
+    "components": ["tile-gallery-item"]
   },
   {
     "id": "title-and-description",
