@@ -10,7 +10,6 @@ import {
   loadSection,
   loadSections,
   loadCSS,
-  getMetadata,
 } from "./aem.js";
 import {  initTextSplitAnimation } from "./animations.js";
 
@@ -91,83 +90,6 @@ export function decorateMain(main) {
   decorateBlocks(main);
 }
 
-// AT - START
-function initATJS(path, config) {
-  window.targetGlobalSettings = config;
-  return new Promise((resolve) => {
-    import(path).then(resolve);
-  });
-}
-
-function onDecoratedElement(fn) {
-  // Apply propositions to all already decorated blocks/sections
-  if (document.querySelector('[data-block-status="loaded"],[data-section-status="loaded"]')) {
-    fn();
-  }
-
-  const observer = new MutationObserver((mutations) => {
-    if (mutations.some((m) => m.target.tagName === 'BODY'
-      || m.target.dataset.sectionStatus === 'loaded'
-      || m.target.dataset.blockStatus === 'loaded')) {
-      fn();
-    }
-  });
-  // Watch sections and blocks being decorated async
-  observer.observe(document.querySelector('main'), {
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['data-block-status', 'data-section-status'],
-  });
-  // Watch anything else added to the body
-  observer.observe(document.querySelector('body'), { childList: true });
-}
-
-function toCssSelector(selector) {
-  return selector.replace(/(\.\S+)?:eq\((\d+)\)/g, (_, clss, i) => `:nth-child(${Number(i) + 1}${clss ? ` of ${clss})` : ''}`);
-}
-
-async function getElementForOffer(offer) {
-  const selector = offer.cssSelector || toCssSelector(offer.selector);
-  return document.querySelector(selector);
-}
-
-async function getElementForMetric(metric) {
-  const selector = toCssSelector(metric.selector);
-  return document.querySelector(selector);
-}
-
-async function getAndApplyOffers() {
-  const response = await window.adobe.target.getOffers({ request: { execute: { pageLoad: {} } } });
-  const { options = [], metrics = [] } = response.execute.pageLoad;
-  onDecoratedElement(() => {
-    window.adobe.target.applyOffers({ response });
-    // keeping track of offers that were already applied
-    options.forEach((o) => o.content = o.content.filter((c) => !getElementForOffer(c)));
-    // keeping track of metrics that were already applied
-    metrics.map((m, i) => getElementForMetric(m) ? i : -1)
-        .filter((i) => i >= 0)
-        .reverse()
-        .map((i) => metrics.splice(i, 1));
-  });
-}
-
-let atjsPromise = Promise.resolve();
-if (getMetadata('target')) {
-  atjsPromise = initATJS('./at.js', {
-    clientCode: 'capellahotelgroup',
-    serverDomain: 'capellahotelgroup.tt.omtrdc.net',
-    imsOrgId: '1B101ED4679CC37C0A495C44@AdobeOrg',
-    bodyHidingEnabled: false,
-    cookieDomain: window.location.hostname,
-    pageLoadEnabled: false,
-    secureOnly: true,
-    viewsEnabled: false,
-    withWebGLRenderer: false,
-  });
-  document.addEventListener('at-library-loaded', () => getAndApplyOffers());
-}
-// AT - END
-
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
@@ -178,14 +100,8 @@ async function loadEager(doc) {
   const main = doc.querySelector("main");
   if (main) {
     decorateMain(main);
-    await atjsPromise;
-    await new Promise((resolve) => {
-      window.setTimeout(async () => {
-        document.body.classList.add('appear');
-        await loadSection(main.querySelector('.section'), waitForFirstImage);
-        resolve();
-      }, 0);
-    });
+    document.body.classList.add("appear");
+    await loadSection(main.querySelector(".section"), waitForFirstImage);
   }
 
   try {
