@@ -208,9 +208,6 @@ function enableSliderTeaserContent() {
     });
   });
 }
-if (!window.location.href.includes("universal-editor")) {
-  enableSliderTeaserContent();
-}
 
 /* ---------------------------------- Parallax Effect --------------------------------- */
 
@@ -261,7 +258,7 @@ function positionContentWrappers(wrappers) {
 /**
  * Main initialization
  */
-(function initSliderTeaserMedia() {
+function initSliderTeaserMedia() {
   // For each slider-teaser-content-container, set up its own independent slider logic
   const allSections = Array.from(
     document.querySelectorAll(".slider-teaser-content-container")
@@ -311,4 +308,9 @@ function positionContentWrappers(wrappers) {
     // Initialize
     updateSlides(activeIndex);
   });
-})();
+}
+
+if (!window.location.href.includes("universal-editor")) {
+  enableSliderTeaserContent();
+  initSliderTeaserMedia();
+}
