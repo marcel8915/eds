@@ -48,7 +48,7 @@ export default async function decorate(block) {
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta).pathname : '/nav';
   const fragment = await loadFragment(navPath);
-console.log(fragment)
+console.log('fragment',fragment)
   // --- 1. Build the basic structure ---
   const nav = document.createElement('nav');
   nav.innerHTML = `
@@ -134,6 +134,8 @@ console.log(fragment)
   }
 
   // There are 3 lists in the nav fragment
+  const lists2 = fragment.querySelectorAll('ul');
+  if (lists2.length > 0) mainLinks.append(lists2[0]);
   const lists = fragment.querySelector('.highlight ul');
   console.log(lists)
   if (lists) { // Second list is languages
