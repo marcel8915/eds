@@ -388,6 +388,21 @@
           }
         },
         {
+          "title": "Contact Detail Item",
+          "id": "contact-detail-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Contact Detail Item",
+                  "model": "contact-detail-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Info Card",
           "id": "info-card",
           "plugins": {
