@@ -858,88 +858,49 @@
         "label": "Image"
       },
       {
-        "component": "text",
-        "name": "imageLink",
-        "label": "Image Link (URL)"
-      },
-      {
-        "component": "group",
-        "name": "primaryCta",
-        "label": "Primary CTA",
-        "fields": [
-          {
-            "component": "text",
-            "name": "ctaText",
-            "label": "Button Text"
-          },
-          {
-            "component": "text",
-            "name": "ctaLink",
-            "label": "Button Link (URL)"
-          },
-          {
-            "component": "checkbox",
-            "name": "isExternalLink",
-            "label": "Is External Link"
-          }
-        ]
-      },
-      {
-        "component": "group",
-        "name": "secondaryCta",
-        "label": "Secondary CTA",
-        "fields": [
-          {
-            "component": "text",
-            "name": "secondCtaText",
-            "label": "Button Text"
-          },
-          {
-            "component": "text",
-            "name": "secondCtaLink",
-            "label": "Button Link (URL)"
-          },
-          {
-            "component": "checkbox",
-            "name": "secondCtaIsExternal",
-            "label": "Is External Link"
-          }
-        ]
-      },
-      {
         "component": "group",
         "name": "contactDetails",
         "label": "Contact Details",
+        "model": "contact-details-model"
+      }
+    ]
+  },
+  {
+    "id": "contact-details-model",
+    "fields": [
+      {
+        "component": "group",
+        "name": "contactItems",
+        "label": "Contact Items",
+        "multi": true,
         "fields": [
           {
-            "component": "text",
-            "name": "phone",
-            "label": "Phone Number"
+            "component": "select",
+            "name": "icon",
+            "label": "Icon",
+            "options": [
+              {
+                "value": "phone",
+                "label": "Phone"
+              },
+              {
+                "value": "email",
+                "label": "Email"
+              },
+              {
+                "value": "location",
+                "label": "Location"
+              },
+              {
+                "value": "whatsapp",
+                "label": "WhatsApp"
+              }
+            ]
           },
           {
             "component": "text",
-            "name": "whatsappNumber",
-            "label": "WhatsApp Number"
-          },
-          {
-            "component": "text",
-            "name": "email",
-            "label": "Email Address"
-          },
-          {
-            "component": "text",
-            "name": "note",
-            "label": "Note"
-          },
-          {
-            "component": "text",
-            "name": "linkText",
-            "label": "Special Link Text"
-          },
-          {
-            "component": "text",
-            "name": "link",
-            "label": "Special Link URL"
+            "name": "text",
+            "label": "Text"
           }
         ]
       }
