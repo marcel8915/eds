@@ -1,3 +1,5 @@
+import { parallaxSection } from "../../scripts/animations.js";
+
 const sliderTeaserSection = document.querySelectorAll(
   ".slider-teaser-content-container"
 );
@@ -14,6 +16,7 @@ function enableSliderTeaserContent() {
 
     const selectors = [
       { key: "sliderTeaserContent", sel: ".slider-teaser-content" },
+      { key: "sliderTeaserWrapper", sel: ".slider-teaser-content-wrapper" },
       {
         key: "overlay",
         sel: ".slider-teaser-content > div:nth-child(1) > div > p",
@@ -64,6 +67,7 @@ function enableSliderTeaserContent() {
     const elements = getElements(selectors);
     const {
       sliderTeaserContent,
+      sliderTeaserWrapper,
       overlay,
       overlayText,
       overlayButtonText,
@@ -206,6 +210,20 @@ function enableSliderTeaserContent() {
         sliderTeaserMedia.appendChild(childDiv);
       }
     });
+
+    if (sliderTeaserContent.length === 1) {
+      setTimeout(() => {
+        section.style.overflow = "hidden";
+        const parallaxWrapper = document.createElement("div");
+        while (section.firstChild) {
+          parallaxWrapper.appendChild(section.firstChild);
+        }
+        section.appendChild(parallaxWrapper);
+        parallaxSection(parallaxWrapper);
+      }, 1000);
+    } else {
+      initSliderTeaserMedia();
+    }
   });
 }
 
@@ -312,5 +330,4 @@ function initSliderTeaserMedia() {
 
 if (!window.location.href.includes("universal-editor")) {
   enableSliderTeaserContent();
-  initSliderTeaserMedia();
 }

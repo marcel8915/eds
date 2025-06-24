@@ -40,3 +40,31 @@ export function initTextSplitAnimation(
 const lenis = new Lenis({
   autoRaf: true,
 });
+
+export function parallaxSection(section) {
+  const speed = 0.5; // Parallax speed
+  const offsetTop = 0; // px or string, e.g. "100px"
+  const zIndex = 1; // z-index value
+
+  console.log("test", section);
+  if (section) {
+    section.style.zIndex = zIndex;
+    section.style.top =
+      typeof offsetTop === "number" ? offsetTop + "px" : offsetTop;
+    section.style.position = "sticky";
+    section.style.height = "100vh";
+    console.log(section);
+
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(section, {
+      y: () => window.innerHeight * speed,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+  }
+}

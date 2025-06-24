@@ -56,7 +56,9 @@ body.appear {
     display: block;
 }
 
-.animate-underline, button.secondary span, .main-links a {
+.animate-underline,
+button.secondary span,
+.main-links a {
     position: relative;
     transition-property: all;
     transition-duration: 0.7s;
@@ -65,7 +67,9 @@ body.appear {
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.animate-underline:before, button.secondary span:before, .main-links a:before {
+.animate-underline:before,
+button.secondary span:before,
+.main-links a:before {
     position: absolute;
     bottom: 0px;
     left: 0;
@@ -80,7 +84,9 @@ body.appear {
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.animate-underline:hover:before, button.secondary:hover span:before, .main-links a:hover:before {
+.animate-underline:hover:before,
+button.secondary:hover span:before,
+.main-links a:hover:before {
     content: "";
     width: 100%;
 }
@@ -222,7 +228,8 @@ button {
     cursor: pointer;
 }
 
-.cta-link, button.secondary {
+.cta-link,
+button.secondary {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -235,7 +242,9 @@ button {
     padding: 0;
 }
 
-.cta-button, button.primary, .reserve-button {
+.cta-button,
+button.primary,
+.reserve-button {
     width: fit-content;
     border-radius: 9999px;
     background-color: rgb(var(--text-white));
@@ -255,7 +264,9 @@ button {
     text-decoration: none;
 }
 
-.cta-button:hover, button.primary:hover, .reserve-button:hover {
+.cta-button:hover,
+button.primary:hover,
+.reserve-button:hover {
     background-color: rgb(var(--brand-golden));
     color: rgb(var(--text-white));
 }

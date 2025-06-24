@@ -1,160 +1,160 @@
 /* hero.css */
 .hero.block {
-  width: 100%;
-  overflow: hidden;
+    width: 100%;
+    overflow: hidden;
 }
 
 .hero-container {
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  background-color: #53645c; /* Fallback color */
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-color: #53645c; /* Fallback color */
 }
 
 .hero-video-background {
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  width: 100%;
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
 }
 
 .hero-video {
-  height: 100%;
-  width: 100vw;
-  object-fit: cover;
-  background-size: cover;
+    height: 100%;
+    width: 100vw;
+    object-fit: cover;
+    background-size: cover;
 }
 
 .hero-overlay {
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .hero-content {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem; /* 32px */
-  text-align: center;
-  color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem; /* 32px */
+    text-align: center;
+    color: white;
 }
 
 @media (min-width: 640px) {
-  .hero-text-wrapper h1,
-  .hero-text-wrapper h2 {
-    white-space: nowrap;
-  }
+    .hero-text-wrapper h1,
+    .hero-text-wrapper h2 {
+        white-space: nowrap;
+    }
 }
 
 .hero-cta {
-  display: none;
-  align-items: center;
-  gap: 0.5rem; /* 8px */
-  margin-top: 2rem; /* 32px */
-  padding: 1rem 0; /* py-4 */
-  font-family: 'gillsans', sans-serif; /* Example font */
-  font-size: 0.875rem; /* text-sm */
-  text-transform: uppercase;
-  letter-spacing: 2.1px;
-  color: white;
-  background: none;
-  border: none;
-  cursor: pointer;
+    display: none;
+    align-items: center;
+    gap: 0.5rem; /* 8px */
+    margin-top: 2rem; /* 32px */
+    padding: 1rem 0; /* py-4 */
+    font-family: "gillsans", sans-serif; /* Example font */
+    font-size: 0.875rem; /* text-sm */
+    text-transform: uppercase;
+    letter-spacing: 2.1px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .hero-cta span {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .hero-cta span::after {
-  content: '';
-  position: absolute;
-  bottom: 0px;
-  left: 0;
-  height: 1px;
-  width: 0;
-  background-color: currentColor;
-  transition: all 0.3s;
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    height: 1px;
+    width: 0;
+    background-color: currentColor;
+    transition: all 0.3s;
 }
 
 .hero-cta:hover span::after {
-  width: 100%;
+    width: 100%;
 }
 
 @media (min-width: 768px) {
-  .hero-cta span::after {
-    bottom: 4px;
-  }
-  .hero-cta {
-    font-size: 1rem; /* md:text-base */
-  }
+    .hero-cta span::after {
+        bottom: 4px;
+    }
+    .hero-cta {
+        font-size: 1rem; /* md:text-base */
+    }
 }
 
 .hero-cta-icon {
-  width: 24px;
-  height: 24px;
-  background-color: white;
-  mask: url('/icons/play-outline.svg') center / contain no-repeat;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    mask: url("/icons/play-outline.svg") center / contain no-repeat;
 }
 
 /* --- Video Modal Styles --- */
 .hero-video-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.8);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
 .hero-video-modal.is-open {
-  opacity: 1;
-  pointer-events: auto;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .hero-modal-close {
-  position: absolute;
-  top: 2rem;
-  left: 4rem;
-  z-index: 1001;
-  color: white;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: 'gillsans', sans-serif;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    position: absolute;
+    top: 2rem;
+    left: 4rem;
+    z-index: 1001;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: "gillsans", sans-serif;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .hero-modal-close::before {
-  content: '';
-  display: block;
-  width: 24px;
-  height: 24px;
-  background-color: white;
-  mask: url('/icons/close.svg') center / contain no-repeat;
+    content: "";
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    mask: url("/icons/close.svg") center / contain no-repeat;
 }
 
 .hero-modal-video-container {
-  width: 90%;
-  max-width: 1200px;
+    width: 90%;
+    max-width: 1200px;
 }
 
 .hero-modal-video-container video {
-  width: 100%;
-  height: auto;
+    width: 100%;
+    height: auto;
 }
