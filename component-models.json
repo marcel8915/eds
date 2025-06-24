@@ -868,24 +868,16 @@
         "label": "Contact Line 1 Icon",
         "options": [
           {
-            "value": "phone",
-            "label": "Phone"
+            "name": "phone",
+            "value": "Phone"
           },
           {
-            "value": "email",
-            "label": "Email"
+            "name": "email",
+            "value": "Email"
           },
           {
-            "value": "whatsapp",
-            "label": "WhatsApp"
-          },
-          {
-            "value": "book-event",
-            "label": "Book Event"
-          },
-          {
-            "value": "event",
-            "label": "Event"
+            "name": "event",
+            "value": "Event"
           }
         ]
       },
@@ -900,24 +892,16 @@
         "label": "Contact Line 2 Icon",
         "options": [
           {
-            "value": "phone",
-            "label": "Phone"
+            "name": "phone",
+            "value": "Phone"
           },
           {
-            "value": "email",
-            "label": "Email"
+            "name": "email",
+            "value": "Email"
           },
           {
-            "value": "whatsapp",
-            "label": "WhatsApp"
-          },
-          {
-            "value": "book-event",
-            "label": "Book Event"
-          },
-          {
-            "value": "event",
-            "label": "Event"
+            "name": "event",
+            "value": "Event"
           }
         ]
       },
@@ -932,24 +916,16 @@
         "label": "Contact Line 3 Icon",
         "options": [
           {
-            "value": "phone",
-            "label": "Phone"
+            "name": "phone",
+            "value": "Phone"
           },
           {
-            "value": "email",
-            "label": "Email"
+            "name": "email",
+            "value": "Email"
           },
           {
-            "value": "whatsapp",
-            "label": "WhatsApp"
-          },
-          {
-            "value": "book-event",
-            "label": "Book Event"
-          },
-          {
-            "value": "event",
-            "label": "Event"
+            "name": "event",
+            "value": "Event"
           }
         ]
       }
