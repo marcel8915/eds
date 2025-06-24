@@ -97,7 +97,8 @@
       "title",
       "text",
       "image",
-      "icon-text"
+      "icon-text",
+      "button"
     ]
   }
 ]
