@@ -94,11 +94,7 @@
     "components": [
       "title",
       "text",
-      "image",
-      "button",
-      "primaryCta",
-      "secondaryCta",
-      "contactDetails"
+      "image"
     ]
   }
 ]
