@@ -858,51 +858,60 @@
         "label": "Image"
       },
       {
-        "component": "group",
+        "component": "reference",
         "name": "contactDetails",
         "label": "Contact Details",
-        "model": "contact-details-model"
+        "description": "Add one or more contact items.",
+        "model": "contact-detail-item",
+        "multi": true
       }
     ]
   },
   {
-    "id": "contact-details-model",
+    "id": "contact-detail-item",
     "fields": [
       {
-        "component": "group",
-        "name": "contactItems",
-        "label": "Contact Items",
-        "multi": true,
-        "fields": [
+        "component": "select",
+        "name": "iconType",
+        "label": "Icon Type",
+        "valueType": "string",
+        "options": [
           {
-            "component": "select",
-            "name": "icon",
-            "label": "Icon",
-            "options": [
-              {
-                "value": "phone",
-                "label": "Phone"
-              },
-              {
-                "value": "email",
-                "label": "Email"
-              },
-              {
-                "value": "location",
-                "label": "Location"
-              },
-              {
-                "value": "whatsapp",
-                "label": "WhatsApp"
-              }
-            ]
+            "name": "Phone / Call",
+            "value": "phone"
           },
           {
-            "component": "text",
-            "name": "text",
-            "label": "Text"
+            "name": "Email",
+            "value": "email"
+          },
+          {
+            "name": "WhatsApp",
+            "value": "whatsapp"
+          },
+          {
+            "name": "Note",
+            "value": "note"
+          },
+          {
+            "name": "Link",
+            "value": "link"
+          },
+          {
+            "name": "Book Event",
+            "value": "book-event"
+          },
+          {
+            "name": "Event",
+            "value": "event"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label / Value",
+        "valueType": "string",
+        "description": "Enter the phone number, email address, or text here."
       }
     ]
   }
