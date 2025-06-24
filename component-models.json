@@ -856,6 +856,45 @@
         "component": "reference",
         "name": "image",
         "label": "Image"
+      },
+      {
+        "component": "reference",
+        "name": "contactDetails",
+        "label": "Contact Details",
+        "description": "Add one or more contact items.",
+        "model": "contact-detail-item",
+        "multi": true
+      }
+    ]
+  },
+  {
+    "id": "contact-detail-item",
+    "fields": [
+      {
+        "component": "select",
+        "name": "iconType",
+        "label": "Icon",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Phone",
+            "value": "phone"
+          },
+          {
+            "name": "Email",
+            "value": "email"
+          },
+          {
+            "name": "Event",
+            "value": "event"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "labelText",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   }

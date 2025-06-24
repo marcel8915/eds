@@ -94,7 +94,8 @@
     "components": [
       "title",
       "text",
-      "image"
+      "image",
+      "contact-detail-item"
     ]
   }
 ]
