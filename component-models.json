@@ -897,5 +897,22 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "info-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Section Title",
+        "description": "Main title for the card"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Main description text for the card"
+      }
+    ]
   }
 ]
