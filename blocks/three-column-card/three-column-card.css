@@ -1,4 +1,4 @@
-.three-column-grid-container {
+.three-column-card-container {
     display: flex;
     flex-direction: column;
 
@@ -7,7 +7,7 @@
     }
 }
 
-.three-column-grid-wrapper {
+.three-column-card-wrapper {
     padding-left: 5rem;
     padding-right: 5rem;
     padding-top: 1.25rem;
@@ -16,32 +16,32 @@
 }
 
 @media screen and (max-width: 768px) {
-    .three-column-grid-wrapper {
+    .three-column-card-wrapper {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
 }
 
-.three-column-grid {
+.three-column-card {
     display: flex;
     gap: 32px;
     flex-direction: row;
 }
 
 @media screen and (max-width: 768px) {
-    .three-column-grid {
+    .three-column-card {
         flex-direction: column;
     }
 }
 
-.three-column-grid img {
+.three-column-card img {
     width: 100%;
     border-radius: 10px;
 
 }
 
 @media screen and (max-width: 768px) {
-    .three-column-grid img {
+    .three-column-card img {
         height: 262px;
         object-fit: cover;
     }
