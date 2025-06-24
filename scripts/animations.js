@@ -42,7 +42,6 @@ const lenis = new Lenis({
 });
 
 export function parallaxSection(section) {
-  // Parameters (customize as needed)
   const speed = 0.5; // Parallax speed
   const offsetTop = 0; // px or string, e.g. "100px"
   const zIndex = 1; // z-index value

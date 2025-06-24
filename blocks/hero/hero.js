@@ -111,5 +111,5 @@ export default function decorate(block) {
   heroWrapper.append(heroContent);
   block.append(heroWrapper);
 
-  parallaxSection(heroWrapper);
+  setTimeout(() => parallaxSection(heroWrapper), 100);
 }
