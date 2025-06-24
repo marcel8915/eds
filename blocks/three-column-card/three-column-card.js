@@ -1,37 +1,37 @@
 export default function decorate(block) {
-    // Preserve the original wrapper and grid classes
-    const gridContainer = document.createElement('div');
-    gridContainer.className = 'three-column-grid-wrapper-main';
+    // Preserve the original wrapper and card classes
+    const cardContainer = document.createElement('div');
+    cardContainer.className = 'three-column-card-wrapper-main';
     
-    const gridWrapper = document.createElement('div');
-    gridWrapper.className = 'three-column-grid block';
-    gridWrapper.setAttribute('data-block-name', 'three-column-grid');
-    gridWrapper.setAttribute('data-block-status', 'loaded');
-    gridContainer.appendChild(gridWrapper);
+    const cardWrapper = document.createElement('div');
+    cardWrapper.className = 'three-column-card block';
+    cardWrapper.setAttribute('data-block-name', 'three-column-card');
+    cardWrapper.setAttribute('data-block-status', 'loaded');
+    cardContainer.appendChild(cardWrapper);
     
     // Process each column in the block (should be exactly 3)
     const columns = Array.from(block.children);
     
     // Create hero card (first column)
     if (columns.length > 0) {
-        const heroCard = createCard(columns[0], 'hero-card');
-        gridWrapper.appendChild(heroCard);
+        const mainCard = createCard(columns[0], 'main-card');
+        cardWrapper.appendChild(mainCard);
     }
     
     // Create secondary cards (second and third columns)
     if (columns.length > 1) {
-        const secondaryCard1 = createCard(columns[1], 'secondary-card-1');
-        gridWrapper.appendChild(secondaryCard1);
+        const subCard1 = createCard(columns[1], 'sub-card-1');
+        cardWrapper.appendChild(subCard1);
         
         if (columns.length > 2) {
-            const secondaryCard2 = createCard(columns[2], 'secondary-card-2');
-            gridWrapper.appendChild(secondaryCard2);
+            const subCard2 = createCard(columns[2], 'sub-card-2');
+            cardWrapper.appendChild(subCard2);
         }
     }
     
     // Replace block content with our new structure
     block.innerHTML = '';
-    block.appendChild(gridContainer);
+    block.appendChild(cardContainer);
 }
 
 function createCard(column, cardClass) {

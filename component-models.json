@@ -379,7 +379,7 @@
     ]
   },
   {
-    "id": "hero-card",
+    "id": "main-card",
     "fields": [
       {
         "component": "reference",
@@ -423,7 +423,7 @@
     ]
   },
   {
-    "id": "secondary-card",
+    "id": "sub-card",
     "fields": [
       {
         "component": "reference",

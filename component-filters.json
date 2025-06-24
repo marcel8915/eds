@@ -19,7 +19,7 @@
       "slider-teaser-content",
       "swiper3",
       "grid",
-      "three-column-grid",
+      "three-column-card",
       "three-image-description",
       "layout",
       "tile-gallery",
@@ -65,8 +65,8 @@
   {
     "id": "three-column-grid",
     "components": [
-      "hero-card",
-      "secondary-card"
+      "main-card",
+      "sub-card"
     ]
   },
   {
