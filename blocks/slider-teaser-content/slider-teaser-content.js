@@ -1,3 +1,5 @@
+import { parallaxSection } from "../../scripts/animations.js";
+
 const sliderTeaserSection = document.querySelectorAll(
   ".slider-teaser-content-container"
 );
