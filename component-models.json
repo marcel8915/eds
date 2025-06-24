@@ -965,23 +965,16 @@
         "label": "Label"
       },
       {
-        "component": "group",
-        "name": "cta",
-        "label": "CTA",
-        "fields": [
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "ctaLink",
-            "label": "CTA Link"
-          },
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "ctaText",
-            "label": "CTA Text"
-          }
-        ]
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
       },
       {
         "component": "text",
@@ -1009,23 +1002,16 @@
         "label": "Label"
       },
       {
-        "component": "group",
-        "name": "cta",
-        "label": "CTA",
-        "fields": [
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "ctaLink",
-            "label": "CTA Link"
-          },
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "ctaText",
-            "label": "CTA Text"
-          }
-        ]
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
       },
       {
         "component": "text",
