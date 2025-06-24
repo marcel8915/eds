@@ -899,5 +899,14 @@
       }
     ]
   },
-  { "id": "events-listing" }
+  {
+    "id": "events-listing",
+    "fields": [
+      {
+        "component": "text",
+        "name": "test",
+        "label": "Test"
+      }
+    ]
+  }
 ]
