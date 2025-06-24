@@ -19,14 +19,14 @@
       "slider-teaser-content",
       "swiper3",
       "grid",
-      "three-column-card",
       "three-image-description",
       "layout",
       "tile-gallery",
       "section-header",
       "text-image",
       "info-card",
-      "events-listing"
+      "events-listing",
+      "three-column-tile"
     ]
   },
   {
@@ -63,13 +63,6 @@
     ]
   },
   {
-    "id": "three-column-grid",
-    "components": [
-      "main-card",
-      "sub-card"
-    ]
-  },
-  {
     "id": "three-image-description",
     "components": [
       "title",
@@ -99,6 +92,13 @@
       "image",
       "icon-text",
       "button"
+    ]
+  },
+  {
+    "id": "three-column-tile",
+    "components": [
+      "hero-card",
+      "secondary-card"
     ]
   }
 ]
