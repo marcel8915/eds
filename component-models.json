@@ -858,90 +858,60 @@
         "label": "Image"
       },
       {
-        "component": "text",
-        "name": "imageLink",
-        "label": "Image Link (URL)"
-      },
-      {
-        "component": "group",
-        "name": "primaryCta",
-        "label": "Primary CTA",
-        "fields": [
-          {
-            "component": "text",
-            "name": "ctaText",
-            "label": "Button Text"
-          },
-          {
-            "component": "text",
-            "name": "ctaLink",
-            "label": "Button Link (URL)"
-          },
-          {
-            "component": "checkbox",
-            "name": "isExternalLink",
-            "label": "Is External Link"
-          }
-        ]
-      },
-      {
-        "component": "group",
-        "name": "secondaryCta",
-        "label": "Secondary CTA",
-        "fields": [
-          {
-            "component": "text",
-            "name": "secondCtaText",
-            "label": "Button Text"
-          },
-          {
-            "component": "text",
-            "name": "secondCtaLink",
-            "label": "Button Link (URL)"
-          },
-          {
-            "component": "checkbox",
-            "name": "secondCtaIsExternal",
-            "label": "Is External Link"
-          }
-        ]
-      },
-      {
-        "component": "group",
+        "component": "reference",
         "name": "contactDetails",
         "label": "Contact Details",
-        "fields": [
+        "description": "Add one or more contact items.",
+        "model": "contact-detail-item",
+        "multi": true
+      }
+    ]
+  },
+  {
+    "id": "contact-detail-item",
+    "fields": [
+      {
+        "component": "select",
+        "name": "iconType",
+        "label": "Icon",
+        "valueType": "string",
+        "options": [
           {
-            "component": "text",
-            "name": "phone",
-            "label": "Phone Number"
+            "name": "Phone",
+            "value": "phone"
           },
           {
-            "component": "text",
-            "name": "whatsappNumber",
-            "label": "WhatsApp Number"
+            "name": "Email",
+            "value": "email"
           },
           {
-            "component": "text",
-            "name": "email",
-            "label": "Email Address"
-          },
-          {
-            "component": "text",
-            "name": "note",
-            "label": "Note"
-          },
-          {
-            "component": "text",
-            "name": "linkText",
-            "label": "Special Link Text"
-          },
-          {
-            "component": "text",
-            "name": "link",
-            "label": "Special Link URL"
+            "name": "Event",
+            "value": "event"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "labelText",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "info-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Section Title",
+        "description": "Main title for the card"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Main description text for the card"
       }
     ]
   }

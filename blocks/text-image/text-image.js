@@ -1,5 +1,5 @@
 /**
- * text-image block.
+ * Decorates the text-image block.
  * @param {Element} block The text-image block element.
  */
 export default function decorate(block) {
