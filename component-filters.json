@@ -70,6 +70,6 @@
   },
   {
     "id": "swiper-highlight",
-    "components": ["highlight-card"]
+    "components": ["highlight-card2"]
   }
 ]
