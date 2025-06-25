@@ -59,10 +59,14 @@ export function createCalendar({
     leftArrowImg.height = 24;
     leftArrowImg.style.filter = "invert(1)";
     left.onmouseenter = () => {
-      leftArrowImg.style.filter = "invert(1) brightness(2)";
+      if (!left.disabled) {
+        leftArrowImg.style.filter = "invert(1) brightness(2)";
+      }
     };
     left.onmouseleave = () => {
-      leftArrowImg.style.filter = "invert(1)";
+      if (!left.disabled) {
+        leftArrowImg.style.filter = "invert(1)";
+      }
     };
     left.appendChild(leftArrowImg);
     left.className = "calendar-nav calendar-nav-left";

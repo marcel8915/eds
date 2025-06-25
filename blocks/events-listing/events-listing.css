@@ -407,3 +407,7 @@
     color: rgb(var(--text-black));
     cursor: pointer;
 }
+
+.calendar-nav-disabled {
+    cursor: default;
+}
