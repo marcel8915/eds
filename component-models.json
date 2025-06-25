@@ -1055,6 +1055,13 @@
         "name": "venue",
         "label": "Venue",
         "description": "Location "
+      },
+      {
+        "component": "datetime",
+        "name": "eventDateTime",
+        "label": "Event Date/Time",
+        "format": "YYYY-MM-DDTHH:mm",
+        "description": "Used for sorting/calculations"
       }
     ]
   }
