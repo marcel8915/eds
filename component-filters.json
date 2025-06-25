@@ -19,7 +19,7 @@
       "grid",
       "three-image-description",
       "layout",
-      "tile-gallery",
+      "two-column-tile",
       "section-header",
       "text-image",
       "info-card",
@@ -57,8 +57,8 @@
     "components": ["layout-card"]
   },
   {
-    "id": "tile-gallery",
-    "components": ["tile-gallery-item"]
+    "id": "two-column-tile",
+    "components": ["tile-card-item"]
   },
   {
     "id": "text-image",

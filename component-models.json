@@ -749,7 +749,7 @@
     ]
   },
   {
-    "id": "tile-gallery-item",
+    "id": "tile-card-item",
     "fields": [
       {
         "component": "reference",
