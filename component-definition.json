@@ -510,14 +510,14 @@
         },
         {
           "title": "Highlight Card",
-          "id": "highlight-card",
+          "id": "highlight-card2",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Highlight Card",
-                  "model": "highlight-card"
+                  "model": "highlight-card2"
                 }
               }
             }
