@@ -379,7 +379,7 @@
     ]
   },
   {
-    "id": "hero-card",
+    "id": "main-card",
     "fields": [
       {
         "component": "reference",
@@ -423,7 +423,7 @@
     ]
   },
   {
-    "id": "secondary-card",
+    "id": "sub-card",
     "fields": [
       {
         "component": "reference",
@@ -749,7 +749,7 @@
     ]
   },
   {
-    "id": "tile-gallery-item",
+    "id": "tile-card-item",
     "fields": [
       {
         "component": "reference",
@@ -880,22 +880,61 @@
     "id": "icon-text",
     "fields": [
       {
-        "component": "text",
-        "name": "phone",
-        "label": "Phone Number",
-        "description": "Format: +1 (123) 456-7890"
+        "component": "group",
+        "name": "phoneItem",
+        "label": "Phone",
+        "fields": [
+          {
+            "component": "reference",
+            "name": "phoneIcon",
+            "label": "Phone Icon",
+            "description": "Upload phone icon SVG"
+          },
+          {
+            "component": "text",
+            "name": "phoneNumber",
+            "label": "Phone Number",
+            "description": "Format: +1 (123) 456-7890"
+          }
+        ]
       },
       {
-        "component": "text",
-        "name": "email",
-        "label": "Email Address",
-        "description": "Format: user@example.com"
+        "component": "group",
+        "name": "emailItem",
+        "label": "Email",
+        "fields": [
+          {
+            "component": "reference",
+            "name": "emailIcon",
+            "label": "Email Icon",
+            "description": "Upload email icon SVG"
+          },
+          {
+            "component": "text",
+            "name": "emailAddress",
+            "label": "Email Address",
+            "description": "Format: user@example.com"
+          }
+        ]
       },
       {
-        "component": "text",
-        "name": "event",
-        "label": "Event Details",
-        "description": "E.g.: June 25, 2:00 PM EST"
+        "component": "group",
+        "name": "eventItem",
+        "label": "Event",
+        "fields": [
+          {
+            "component": "reference",
+            "name": "eventIcon",
+            "label": "Event Icon",
+            "description": "Upload event icon SVG"
+          },
+          {
+            "component": "text",
+            "name": "eventDetails",
+            "label": "Event Details",
+            "description": "E.g.: June 25, 2:00 PM EST"
+          }
+        ]
       }
     ]
   },
@@ -906,6 +945,198 @@
         "component": "text",
         "name": "test",
         "label": "Test"
+      }
+    ]
+  },
+  {
+    "id": "hero-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "secondary-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "highlight-card2",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "description": "Short identifying label"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "required": true,
+        "description": "Main headline for the card"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Detailed content about the highlight"
+      },
+      {
+        "component": "text",
+        "name": "time",
+        "label": "Time",
+        "description": "2pm example"
+      },
+      {
+        "component": "text",
+        "name": "venue",
+        "label": "Venue",
+        "description": "Location "
+      },
+      {
+        "component": "datetime",
+        "name": "eventDateTime",
+        "label": "Event Date/Time",
+        "format": "YYYY-MM-DDTHH:mm",
+        "description": "Used for sorting/calculations"
+      }
+    ]
+  },
+  {
+    "id": "image-gallery-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "container",
+        "label": "Content Section",
+        "fields": [
+          {
+            "component": "container",
+            "label": "Left Column",
+            "fields": [
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "label",
+                "label": "Label"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "ctaLink",
+                "label": "CTA Link"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "ctaText",
+                "label": "CTA Text"
+              }
+            ]
+          },
+          {
+            "component": "container",
+            "label": "Right Column",
+            "fields": [
+              {
+                "component": "group",
+                "label": "Image and Text Pair",
+                "fields": [
+                  {
+                    "component": "reference",
+                    "valueType": "string",
+                    "name": "image",
+                    "label": "Image",
+                    "multi": false
+                  },
+                  {
+                    "component": "text",
+                    "valueType": "string",
+                    "name": "label",
+                    "label": "Label"
+                  }
+                ],
+                "maxItems": 3
+              }
+            ]
+          }
+        ]
       }
     ]
   }

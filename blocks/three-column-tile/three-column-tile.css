@@ -1,4 +1,4 @@
-.three-column-grid-container {
+.three-column-tile-container {
     display: flex;
     flex-direction: column;
 
@@ -7,7 +7,7 @@
     }
 }
 
-.three-column-grid-wrapper {
+.three-column-tile-wrapper {
     padding-left: 5rem;
     padding-right: 5rem;
     padding-top: 1.25rem;
@@ -16,32 +16,32 @@
 }
 
 @media screen and (max-width: 768px) {
-    .three-column-grid-wrapper {
+    .three-column-tile-wrapper {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
 }
 
-.three-column-grid {
+.three-column-tile {
     display: flex;
     gap: 32px;
     flex-direction: row;
 }
 
 @media screen and (max-width: 768px) {
-    .three-column-grid {
+    .three-column-tile {
         flex-direction: column;
     }
 }
 
-.three-column-grid img {
+.three-column-tile img {
     width: 100%;
     border-radius: 10px;
 
 }
 
 @media screen and (max-width: 768px) {
-    .three-column-grid img {
+    .three-column-tile img {
         height: 262px;
         object-fit: cover;
     }
@@ -106,4 +106,64 @@
 
 .grid-card-title:hover::after {
     width: 100%;
+}
+
+.grid-tile-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.grid-tile-title p {
+    margin: 0;
+}
+
+.grid-tile-category {
+    color: var(--Text-text-black, #333);
+
+    /* Label/L02 */
+    font-family: "Gill Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    /* 16px */
+    text-transform: capitalize;
+    @media screen and (max-width:767px){
+        font-size: 14px;
+    }
+}
+
+.grid-tile-title {
+    color: var(--Text-text-black, #333);
+
+    /* Heading/H02 */
+    font-family: Cormorant;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    /* 40px */
+    letter-spacing: -1.2px;
+    @media screen and (max-width:767px){
+        font-size: 24px;
+    }
+}
+
+.main-tile,
+.sub-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    @media screen and (max-width:767px){
+        gap: 24px;
+    }
+}
+
+.grid-tile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    @media screen and (max-width:767px){
+        gap: 8px;
+    }
 }
