@@ -88,7 +88,7 @@
     max-width: 368px;
 }
 
-div:has(> .cta-button) {
+.slider-teaser-content div:has(> .cta-button) {
     margin-top: 40px;
     height: 48px;
     display: flex;
