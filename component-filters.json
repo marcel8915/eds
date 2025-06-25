@@ -25,7 +25,8 @@
       "info-card",
       "events-listing",
       "three-column-tile",
-      "swiper-highlight2"
+      "swiper-highlight2",
+      "image-gallery-tile"
     ]
   },
   {
@@ -71,5 +72,9 @@
   {
     "id": "swiper-highlight2",
     "components": ["highlight-card2"]
+  },
+  {
+    "id": "image-gallery-tile",
+    "components": ["image-gallery-card"]
   }
 ]
