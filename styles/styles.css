@@ -164,11 +164,11 @@ h5,
     font-size: clamp(14px, 2vw, 20px);
 }
 .text-l2 {
-    font-size: clamp(14px, 1.8vw, 14px);
+    font-size: clamp(14px, 1.8vw, 16px);
     font-family: var(--font-gill-sans, "Cabin", sans-serif);
 }
 .text-l3 {
-    font-size: clamp(10px, 1.5vw, 10px);
+    font-size: clamp(14px, 1.5vw, 14px);
     font-family: var(--font-gill-sans, "Cabin", sans-serif);
 }
 .text-l4 {

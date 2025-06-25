@@ -1,18 +1,23 @@
-const EVENTS_PER_PAGE = 8;
-
 import {
   formatDate,
   getDayOfWeek,
   getWeeklyDates,
   getMonthlyDates,
 } from "./events-listing-utils.js";
+import { createCalendar } from "./calendar-component.js";
+
+const EVENTS_PER_PAGE = 8;
+const API_URL =
+  "https://publish-p152536-e1620746.adobeaemcloud.com/graphql/execute.json/CHG/GetEventList";
+const FILTER_PILL_CLASS = "pill-dropdown-button";
+const FILTER_DROPDOWN_CLASS = "events-filter-dropdown";
+const FILTER_DONE_BTN_CLASS = "events-filter-done-btn";
+const FILTER_SELECT_ALL_BTN_CLASS = "events-filter-select-all-btn";
+const FILTER_WRAPPER_CLASS = "events-filter-container";
+const wrapper = document.querySelector(".events-listing-wrapper");
 
 export default async function decorate(block) {
-  const API_URL =
-    "https://publish-p152536-e1620746.adobeaemcloud.com/graphql/execute.json/CHG/GetEventList";
-
   function renderEventCard(event, dateObj, timing) {
-    console.log(event);
     const imgUrl =
       event.images && event.images.length > 0
         ? event.images[0]._publishUrl
@@ -49,13 +54,16 @@ export default async function decorate(block) {
   function expandEvents(events) {
     const expanded = [];
     events.forEach((event) => {
+      let hasRecurrence = false;
       if (event.onceDate) {
         expanded.push({
           event,
           date: event.onceDate,
           timing: event.onceTiming,
         });
-      } else if (event.dailyStartDate && event.dailyEndDate) {
+        hasRecurrence = true;
+      }
+      if (event.dailyStartDate && event.dailyEndDate) {
         let current = new Date(event.dailyStartDate);
         const end = new Date(event.dailyEndDate);
         while (current <= end) {
@@ -66,7 +74,9 @@ export default async function decorate(block) {
           });
           current.setDate(current.getDate() + 1);
         }
-      } else if (
+        hasRecurrence = true;
+      }
+      if (
         event.weeklyStartDate &&
         event.weeklyEndDate &&
         event.weeklyDays &&
@@ -84,55 +94,499 @@ export default async function decorate(block) {
             timing: event.weeklyTiming,
           });
         });
-      } else if (
-        event.monthlyStartDate &&
-        event.monthlyEndDate &&
-        event.monthlyDays &&
-        event.monthlyDays.length
-      ) {
-        const days = event.monthlyDays.map((d) => parseInt(d, 10));
-        const dates = getMonthlyDates(
-          event.monthlyStartDate,
-          event.monthlyEndDate,
-          days
-        );
-        dates.forEach((dateObj) => {
-          expanded.push({
-            event,
-            date: dateObj.toISOString(),
-            timing: event.monthlyTiming,
-          });
-        });
-      } else {
+        hasRecurrence = true;
+      }
+      if (event.monthlyStartDate && event.monthlyEndDate) {
+        let days = [];
+        let useWeekday = false;
+        if (Array.isArray(event.monthlyDays) && event.monthlyDays.length) {
+          days = event.monthlyDays.map((d) => parseInt(d, 10));
+        } else {
+          // Use the weekday of monthlyStartDate for each month
+          useWeekday = true;
+        }
+        const start = new Date(event.monthlyStartDate);
+        const end = new Date(event.monthlyEndDate);
+        let current = new Date(start.getFullYear(), start.getMonth(), 1);
+        while (current <= end) {
+          if (useWeekday) {
+            // Find all dates in this month that match the weekday
+            const weekday = start.getDay();
+            let d = new Date(current.getFullYear(), current.getMonth(), 1);
+            while (d.getMonth() === current.getMonth()) {
+              if (d.getDay() === weekday) {
+                // Only add if in range
+                if (d >= start && d <= end) {
+                  expanded.push({
+                    event,
+                    date: d.toISOString(),
+                    timing: event.monthlyTiming,
+                  });
+                }
+              }
+              d.setDate(d.getDate() + 1);
+            }
+          } else {
+            // Use provided days
+            days.forEach((day) => {
+              const d = new Date(current.getFullYear(), current.getMonth(), day);
+              if (d.getMonth() === current.getMonth() && d >= start && d <= end) {
+                expanded.push({
+                  event,
+                  date: d.toISOString(),
+                  timing: event.monthlyTiming,
+                });
+              }
+            });
+          }
+          // Next month
+          current.setMonth(current.getMonth() + 1);
+        }
+        hasRecurrence = true;
+      }
+      if (!hasRecurrence) {
         expanded.push({ event, date: null, timing: null });
       }
     });
-    return expanded;
+    // Deduplicate by event and date
+    const seen = new Set();
+    return expanded.filter(({ event, date }) => {
+      const key =
+        (event.id || event.title || JSON.stringify(event)) + "|" + (date || "");
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
   }
 
-  function renderEvents(events) {
-    const container = document.querySelector(".events-listing");
-    const wrapper = document.querySelector(".events-listing-wrapper");
-    if (!container) return;
-    if (!events || events.length === 0) {
-      container.innerHTML = "<p>No events found.</p>";
+  let allEvents = [];
+  let filterState = {
+    selected: [], // array of subcategory strings
+    allSubcategories: [],
+    categories: {}, // { category: [subcategories] }
+  };
+
+  // --- Date filter button ---
+
+  // State for date filter
+  let dateFilterState = {
+    selected: [], // [startDate, endDate] or [singleDate]
+  };
+
+  function extractCategories(events) {
+    const categories = {};
+    events.forEach((event) => {
+      if (!event.category || !event.subcategory) return;
+      if (!categories[event.category]) categories[event.category] = new Set();
+      // Handle subcategory as array, comma-separated string, or single string
+      let subs = event.subcategory;
+      if (typeof subs === "string") {
+        subs = subs
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
+      }
+      if (!Array.isArray(subs)) subs = [subs];
+      subs.forEach((sub) => categories[event.category].add(sub));
+    });
+    // Convert sets to arrays
+    Object.keys(categories).forEach((cat) => {
+      categories[cat] = Array.from(categories[cat]);
+    });
+    return categories;
+  }
+
+  function getAllSubcategories(categories) {
+    return Object.values(categories).flat();
+  }
+
+  // Create filter wrapper div if not present
+  let filterWrapper = document.querySelector(`.${FILTER_WRAPPER_CLASS}`);
+  if (!filterWrapper) {
+    filterWrapper = document.createElement("div");
+    filterWrapper.className = FILTER_WRAPPER_CLASS;
+    wrapper.prepend(filterWrapper);
+  }
+  // Create filter-button-wrapper for category filter if not present
+  let catButtonWrapper = filterWrapper.querySelector(
+    ".filter-button-wrapper.category"
+  );
+  if (!catButtonWrapper) {
+    catButtonWrapper = document.createElement("div");
+    catButtonWrapper.className = "filter-button-wrapper category";
+    filterWrapper.appendChild(catButtonWrapper);
+  }
+  // Create filter-button-wrapper for date filter if not present
+  let dateButtonWrapper = filterWrapper.querySelector(
+    ".filter-button-wrapper.date"
+  );
+  if (!dateButtonWrapper) {
+    dateButtonWrapper = document.createElement("div");
+    dateButtonWrapper.className = "filter-button-wrapper date";
+    filterWrapper.appendChild(dateButtonWrapper);
+  }
+
+  // Update renderFilterPill and toggleDropdown to use catButtonWrapper
+  function renderFilterPill() {
+    let pill = catButtonWrapper.querySelector(`.${FILTER_PILL_CLASS}`);
+    if (!pill) {
+      pill = document.createElement("button");
+      pill.className = FILTER_PILL_CLASS;
+      pill.type = "button";
+      pill.addEventListener("click", toggleDropdown);
+      catButtonWrapper.appendChild(pill);
+    }
+    pill.textContent = getPillText();
+    // Set aria-expanded for chevron animation
+    const dropdownOpen = !!catButtonWrapper.querySelector(
+      `.${FILTER_DROPDOWN_CLASS}`
+    );
+    pill.setAttribute("aria-expanded", dropdownOpen ? "true" : "false");
+  }
+
+  function getPillText() {
+    const sel = filterState.selected;
+    const MAX_CHARS = 28;
+    if (!sel.length || sel.length === filterState.allSubcategories.length)
+      return "All Events";
+    if (sel.length === 1) return sel[0];
+    if (sel.length === 2 || sel.length === 3) {
+      const joined = sel.join(", ");
+      if (joined.length > MAX_CHARS) {
+        let out = "";
+        let i = 0;
+        for (; i < sel.length; i++) {
+          const next = (out ? ", " : "") + sel[i];
+          if ((out + next).length > MAX_CHARS) {
+            // If nothing has been added yet, still add part of the first item
+            if (!out) {
+              out = sel[i].slice(0, MAX_CHARS - 3) + "...";
+            } else {
+              out +=
+                (out ? ", " : "") +
+                sel[i].slice(
+                  0,
+                  Math.max(0, MAX_CHARS - out.length - (out ? 2 : 0) - 3)
+                ) +
+                "...";
+            }
+            break;
+          }
+          out += next;
+        }
+        // Only add ", ..." if there are more items not shown
+        if (i < sel.length - 1) {
+          if (!out.endsWith("...")) out += ", ...";
+        }
+        return out;
+      }
+      return joined;
+    }
+    return `${sel.length} Selected`;
+  }
+
+  function toggleDropdown() {
+    let dropdown = catButtonWrapper.querySelector(`.${FILTER_DROPDOWN_CLASS}`);
+    if (dropdown) {
+      dropdown.setAttribute("aria-open", "false");
+      setTimeout(() => {
+        dropdown.remove();
+        document.removeEventListener("mousedown", handleOutsideClick, true);
+        renderFilterPill(); // update chevron
+      }, 350); // match transition duration
       return;
     }
+    dropdown = document.createElement("div");
+    dropdown.className = FILTER_DROPDOWN_CLASS;
+    dropdown.setAttribute("aria-open", "false");
+    // Build dropdown content
+    let html = `<div class="filter-dropdown-inner">`;
+    html += `<div class="filter-dropdown-header"><p class="text-l2">Select Event</p><button type="button" class="${FILTER_SELECT_ALL_BTN_CLASS} text-l3">${
+      filterState.selected.length === filterState.allSubcategories.length
+        ? "Deselect All"
+        : "Select All"
+    }</button></div>`;
+    Object.entries(filterState.categories).forEach(([cat, subs]) => {
+      html += `<div class="filter-category text-l3"><div class="filter-category-title">${cat}</div>`;
+      subs.forEach((sub) => {
+        const checked = filterState.selected.includes(sub) ? "checked" : "";
+        html += `<label class="filter-subcategory text-l2"> ${sub}<input type="checkbox" value="${sub}" ${checked}/></label>`;
+      });
+      html += `</div>`;
+    });
+    html += `<button type="button" class="${FILTER_DONE_BTN_CLASS} cta-button">Done</button>`;
+    html += `</div>`;
+    dropdown.innerHTML = html;
+    catButtonWrapper.appendChild(dropdown);
+    setTimeout(() => {
+      dropdown.setAttribute("aria-open", "true");
+    }, 10);
+    renderFilterPill(); // update chevron
+
+    // Add outside click handler
+    function handleOutsideClick(e) {
+      if (
+        !dropdown.contains(e.target) &&
+        !catButtonWrapper
+          .querySelector(`.${FILTER_PILL_CLASS}`)
+          .contains(e.target)
+      ) {
+        dropdown.setAttribute("aria-open", "false");
+        setTimeout(() => {
+          if (dropdown.parentNode) dropdown.remove();
+          document.removeEventListener("mousedown", handleOutsideClick, true);
+          renderFilterPill();
+        }, 350);
+      }
+    }
+    document.addEventListener("mousedown", handleOutsideClick, true);
+
+    // Add listeners
+    dropdown.querySelectorAll("input[type=checkbox]").forEach((cb) => {
+      cb.addEventListener("change", (e) => {
+        const val = e.target.value;
+        if (e.target.checked) {
+          if (!filterState.selected.includes(val))
+            filterState.selected.push(val);
+        } else {
+          filterState.selected = filterState.selected.filter((s) => s !== val);
+        }
+        renderFilterPill();
+        // Update select all button text
+        const selectAllBtn = dropdown.querySelector(
+          `.${FILTER_SELECT_ALL_BTN_CLASS}`
+        );
+        if (selectAllBtn)
+          selectAllBtn.textContent =
+            filterState.selected.length === filterState.allSubcategories.length
+              ? "Deselect All"
+              : "Select All";
+      });
+    });
+    dropdown
+      .querySelector(`.${FILTER_DONE_BTN_CLASS}`)
+      .addEventListener("click", () => {
+        dropdown.remove();
+        renderEvents(allEvents);
+      });
+    dropdown
+      .querySelector(`.${FILTER_SELECT_ALL_BTN_CLASS}`)
+      .addEventListener("click", () => {
+        if (
+          filterState.selected.length === filterState.allSubcategories.length
+        ) {
+          filterState.selected = [];
+        } else {
+          filterState.selected = [...filterState.allSubcategories];
+        }
+        // Update all checkboxes
+        dropdown.querySelectorAll("input[type=checkbox]").forEach((cb) => {
+          cb.checked = filterState.selected.includes(cb.value);
+        });
+        renderFilterPill();
+        // Update select all button text
+        const selectAllBtn = dropdown.querySelector(
+          `.${FILTER_SELECT_ALL_BTN_CLASS}`
+        );
+        if (selectAllBtn)
+          selectAllBtn.textContent =
+            filterState.selected.length === filterState.allSubcategories.length
+              ? "Deselect All"
+              : "Select All";
+      });
+  }
+
+  // Update renderDateFilterPill and toggleDateDropdown to use dateButtonWrapper
+  function renderDateFilterPill() {
+    let pill = dateButtonWrapper.querySelector(".date-filter-pill");
+    if (!pill) {
+      pill = document.createElement("button");
+      pill.className = FILTER_PILL_CLASS + " date-filter-pill";
+      pill.type = "button";
+      pill.addEventListener("click", toggleDateDropdown);
+      dateButtonWrapper.appendChild(pill);
+    }
+    pill.textContent = getDatePillText();
+    // Set aria-expanded for chevron animation
+    const dropdownOpen =
+      !!dateButtonWrapper.querySelector(".calendar-dropdown");
+    pill.setAttribute("aria-expanded", dropdownOpen ? "true" : "false");
+  }
+
+  function getDatePillText() {
+    if (!dateFilterState.selected.length) {
+      // Default: today
+      const today = new Date();
+      return today.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+    }
+    if (dateFilterState.selected.length === 1) {
+      const d = dateFilterState.selected[0];
+      return d.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+    }
+    if (dateFilterState.selected.length === 2) {
+      const d1 = dateFilterState.selected[0];
+      const d2 = dateFilterState.selected[1];
+      // If same day, show only one date
+      if (
+        d1.getFullYear() === d2.getFullYear() &&
+        d1.getMonth() === d2.getMonth() &&
+        d1.getDate() === d2.getDate()
+      ) {
+        return d1.toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        });
+      }
+      return `${d1.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })} - ${d2.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })}`;
+    }
+    return "";
+  }
+
+  function toggleDateDropdown() {
+    let dropdown = dateButtonWrapper.querySelector(".calendar-dropdown");
+    if (dropdown) {
+      dropdown.setAttribute("aria-open", "false");
+      setTimeout(() => {
+        dropdown.remove();
+        document.removeEventListener("mousedown", handleOutsideClick, true);
+        renderDateFilterPill();
+      }, 350);
+      return;
+    }
+    // Create calendar dropdown
+    dropdown = createCalendar({
+      selectedDate: dateFilterState.selected[0] || new Date(),
+      selectedRange:
+        dateFilterState.selected.length === 2 ? dateFilterState.selected : null,
+      onSelect: (range) => {
+        dateFilterState.selected = range.map((d) => new Date(d));
+      },
+      onDone: () => {
+        console.log("Selected dates:", dateFilterState.selected, allEvents);
+        dropdown.remove();
+        renderDateFilterPill();
+        renderEvents(allEvents);
+      },
+    });
+    dateButtonWrapper.appendChild(dropdown);
+    setTimeout(() => {
+      dropdown.setAttribute("aria-open", "true");
+    }, 10);
+    renderDateFilterPill();
+
+    function handleOutsideClick(e) {
+      if (
+        !dropdown.contains(e.target) &&
+        !dateButtonWrapper.querySelector(".date-filter-pill").contains(e.target)
+      ) {
+        dropdown.setAttribute("aria-open", "false");
+        setTimeout(() => {
+          if (dropdown.parentNode) dropdown.remove();
+          document.removeEventListener("mousedown", handleOutsideClick, true);
+          renderDateFilterPill();
+        }, 350);
+      }
+    }
+    document.addEventListener("mousedown", handleOutsideClick, true);
+  }
+
+  function filterEvents(events) {
+    if (
+      !filterState.selected.length ||
+      filterState.selected.length === filterState.allSubcategories.length
+    )
+      return events;
+    return events.filter((event) => {
+      if (!event.subcategory) return false;
+      let subs = event.subcategory;
+      if (typeof subs === "string") {
+        subs = subs
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
+      }
+      if (!Array.isArray(subs)) subs = [subs];
+      return subs.some((sub) => filterState.selected.includes(sub));
+    });
+  }
+
+  // Update renderEvents to call renderDateFilterPill
+  function renderEvents(events) {
+    renderFilterPill();
+    renderDateFilterPill();
+    const container = document.querySelector(".events-listing");
+    console.log("Rendering events:", events, events.length, allEvents);
+    if (!container) return;
+
     const expanded = expandEvents(events);
     // Sort by date ascending and filter out past events
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const futureEvents = expanded.filter(({ date }) => {
+    let futureEvents = expanded.filter(({ date }) => {
       if (!date) return true;
       const eventDate = new Date(date);
       eventDate.setHours(0, 0, 0, 0);
       return eventDate >= today;
     });
+    // Filter by subcategory
+    futureEvents = futureEvents.filter(
+      ({ event }) => filterEvents([event]).length
+    );
+
+    // Filter by date
+    if (dateFilterState.selected.length === 1) {
+      const d = dateFilterState.selected[0];
+      futureEvents = futureEvents.filter(({ date }) => {
+        if (!date) return false;
+        const eventDate = new Date(date);
+        eventDate.setHours(0, 0, 0, 0);
+        return eventDate.getTime() === d.setHours(0, 0, 0, 0);
+      });
+    } else if (dateFilterState.selected.length === 2) {
+      const [start, end] = dateFilterState.selected;
+      const startTime = start.setHours(0, 0, 0, 0);
+      const endTime = end.setHours(0, 0, 0, 0);
+      futureEvents = futureEvents.filter(({ date }) => {
+        if (!date) return false;
+        const eventDate = new Date(date);
+        eventDate.setHours(0, 0, 0, 0);
+        const t = eventDate.getTime();
+        return t >= startTime && t <= endTime;
+      });
+    }
     futureEvents.sort((a, b) => {
       if (!a.date) return 1;
       if (!b.date) return -1;
       return new Date(a.date) - new Date(b.date);
     });
+
+    if (!futureEvents || futureEvents.length === 0) {
+      container.innerHTML = `<div class="no-events-message">
+        <h2 class="text-t1">No hosted experiences today, wander at will</h2>
+        <a class="cta-link split-text arrowRight"><span class="animate-underline">Know when experiences arrive</span></a>
+      </div>`;
+      // Remove pagination if present
+      const oldPagination = wrapper.querySelector(".events-pagination");
+      if (oldPagination) oldPagination.remove();
+      return;
+    }
 
     const pageSize = EVENTS_PER_PAGE;
     let currentPage = 1;
@@ -155,7 +609,6 @@ export default async function decorate(block) {
       if (totalPages <= 1) return;
       const pagination = document.createElement("div");
       pagination.className = "events-pagination";
-
       // Left arrow
       const leftArrowSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left h-4 w-4"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>`;
       const leftArrow = document.createElement("button");
@@ -238,6 +691,12 @@ export default async function decorate(block) {
     .then((res) => res.json())
     .then((data) => {
       const events = data.data?.eventList?.items || [];
+      allEvents = events;
+      filterState.categories = extractCategories(events);
+      filterState.allSubcategories = getAllSubcategories(
+        filterState.categories
+      );
+      filterState.selected = []; // Deselect everything by default
       renderEvents(events);
     })
     .catch(() => {
