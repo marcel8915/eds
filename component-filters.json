@@ -1,9 +1,7 @@
 [
   {
     "id": "main",
-    "components": [
-      "section"
-    ]
+    "components": ["section"]
   },
   {
     "id": "section",
@@ -26,79 +24,52 @@
       "text-image",
       "info-card",
       "events-listing",
-      "three-column-tile"
+      "three-column-tile",
+      "swiper-highlight"
     ]
   },
   {
     "id": "cards",
-    "components": [
-      "card"
-    ]
+    "components": ["card"]
   },
   {
     "id": "columns",
-    "components": [
-      "column"
-    ]
+    "components": ["column"]
   },
   {
     "id": "column",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "title"
-    ]
+    "components": ["text", "image", "button", "title"]
   },
   {
     "id": "swiper3",
-    "components": [
-      "swiper-card3"
-    ]
+    "components": ["swiper-card3"]
   },
   {
     "id": "grid",
-    "components": [
-      "grid-card"
-    ]
+    "components": ["grid-card"]
   },
   {
     "id": "three-image-description",
-    "components": [
-      "title",
-      "text",
-      "cards",
-      "card",
-      "grid-card"
-    ]
+    "components": ["title", "text", "cards", "card", "grid-card"]
   },
   {
     "id": "layout",
-    "components": [
-      "layout-card"
-    ]
+    "components": ["layout-card"]
   },
   {
     "id": "tile-gallery",
-    "components": [
-      "tile-gallery-item"
-    ]
+    "components": ["tile-gallery-item"]
   },
   {
     "id": "text-image",
-    "components": [
-      "title",
-      "text",
-      "image",
-      "icon-text",
-      "button"
-    ]
+    "components": ["title", "text", "image", "icon-text", "button"]
   },
   {
     "id": "three-column-tile",
-    "components": [
-      "hero-card",
-      "secondary-card"
-    ]
+    "components": ["hero-card", "secondary-card"]
+  },
+  {
+    "id": "swiper-highlight",
+    "components": ["highlight-card"]
   }
 ]

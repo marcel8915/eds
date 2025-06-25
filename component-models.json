@@ -1021,5 +1021,48 @@
         "label": "Title"
       }
     ]
+  },
+  {
+    "id": "highlight-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "description": "Short identifying label"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "required": true,
+        "description": "Main headline for the card"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Detailed content about the highlight"
+      },
+      {
+        "component": "text",
+        "name": "time",
+        "label": "Time",
+        "description": "2pm example"
+      },
+      {
+        "component": "text",
+        "name": "venue",
+        "label": "Venue",
+        "description": "Location "
+      },
+      {
+        "component": "datetime",
+        "name": "eventDateTime",
+        "label": "Event Date/Time",
+        "format": "YYYY-MM-DDTHH:mm",
+        "description": "Used for sorting/calculations"
+      }
+    ]
   }
 ]
