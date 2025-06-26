@@ -4,6 +4,10 @@
     overflow-y: visible;
 }
 
+.events-listing-container .text-p1 {
+    font-size: clamp(16px, 2.5vw, 20px);
+}
+
 .events-filter-container .pill-dropdown-button {
     margin: 0;
 }
