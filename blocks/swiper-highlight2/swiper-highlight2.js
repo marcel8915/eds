@@ -59,6 +59,7 @@ export default async function decorate(block) {
   leftArrow.className = "swiper-arrow-button left-arrow";
   leftArrow.innerHTML = `<div class="arrow-icon"></div>`;
   leftArrow.setAttribute("aria-label", "Previous Slide");
+  leftArrow.style.opacity = "0";
 
   const rightArrow = document.createElement("button");
   rightArrow.className = "swiper-arrow-button right-arrow";
@@ -68,22 +69,22 @@ export default async function decorate(block) {
   arrowsContainer.append(leftArrow, rightArrow);
   container.append(arrowsContainer);
 
-  const cards = []; // Track all card elements
+  const cards = [];
 
   const rows = [...block.children];
   rows.forEach((row) => {
-    const hasContent =
-      row.textContent.trim() !== "" || row.querySelector("picture");
-    if (!hasContent) return;
+    if (!row.textContent.trim() && !row.querySelector("picture")) return;
 
     const slide = document.createElement("div");
     slide.className = "swiper-slide";
 
     const card = document.createElement("div");
     card.className = "card";
-    cards.push(card); // Add card to tracking array
+    cards.push(card);
 
-    const [imageCell, titleCell, descCell, ...metaCells] = [...row.children];
+    const [imageCell, labelCell, titleCell, descCell, timeCell, venueCell] = [
+      ...row.children,
+    ];
 
     const picture = imageCell?.querySelector("picture");
     if (picture) {
@@ -96,31 +97,70 @@ export default async function decorate(block) {
     const cardContent = document.createElement("div");
     cardContent.className = "card-content";
 
+    const mainRow = document.createElement("div");
+    mainRow.className = "card-content__main-row";
+
+    const leftCol = document.createElement("div");
+    leftCol.className = "card-content__left-col";
+
+    const rightCol = document.createElement("div");
+    rightCol.className = "card-content__right-col";
+
+    if (labelCell?.textContent.trim()) {
+      const labelEl = document.createElement("div");
+      labelEl.className = "card-label";
+      labelEl.innerHTML = `<p>${labelCell.textContent}</p>`;
+      leftCol.appendChild(labelEl);
+    }
+
     if (titleCell?.textContent.trim()) {
       const titleEl = document.createElement("h3");
       titleEl.className = "card-title";
       titleEl.textContent = titleCell.textContent;
-      cardContent.appendChild(titleEl);
+      leftCol.appendChild(titleEl);
     }
+
+    const createIconLine = (cell, defaultIconName) => {
+      if (!cell || !cell.textContent.trim()) return null;
+      const text = cell.textContent.trim();
+
+      let iconName = defaultIconName;
+      let iconText = text;
+
+      if (text.includes("|")) {
+        const parts = text.split("|").map((s) => s.trim());
+        iconName = parts[0];
+        iconText = parts[1];
+      }
+
+      const item = document.createElement("div");
+      item.className = "card-icon-line";
+
+      const icon = document.createElement("div");
+      icon.className = `card-icon icon-${iconName.toLowerCase()}`;
+
+      const p = document.createElement("p");
+      p.className = "card-icon-text";
+      p.textContent = iconText;
+
+      item.append(icon, p);
+      return item;
+    };
+
+    const timeLine = createIconLine(timeCell, "clock");
+    if (timeLine) rightCol.appendChild(timeLine);
+
+    const venueLine = createIconLine(venueCell, "location");
+    if (venueLine) rightCol.appendChild(venueLine);
+
+    mainRow.append(leftCol, rightCol);
+    cardContent.append(mainRow);
 
     if (descCell?.textContent.trim()) {
       const descEl = document.createElement("p");
-      descEl.className = "card-description split-text";
+      descEl.className = "card-description";
       descEl.textContent = descCell.textContent;
       cardContent.appendChild(descEl);
-    }
-
-    if (metaCells.length > 0) {
-      const metaEl = document.createElement("div");
-      metaEl.className = "card-meta";
-      metaCells.forEach((cell) => {
-        if (cell.textContent.trim()) {
-          const p = document.createElement("p");
-          p.innerHTML = cell.innerHTML;
-          metaEl.appendChild(p);
-        }
-      });
-      cardContent.appendChild(metaEl);
     }
 
     card.appendChild(cardContent);
@@ -133,69 +173,44 @@ export default async function decorate(block) {
   block.innerHTML = "";
   block.appendChild(container);
 
-  // Function to update arrow container height based on active card
   const positionArrows = (swiper) => {
     if (!cards.length) return;
-
     const activeIndex = swiper.activeIndex;
     const activeCard = cards[activeIndex];
-
     if (activeCard) {
       const cardHeight = activeCard.offsetHeight;
       arrowsContainer.style.height = `${cardHeight}px`;
-
-      // Adjust arrow vertical position to stay centered
-      const arrowHeight = 40; // Match your arrow button height
+      const arrowHeight = 40;
       const centerPosition = cardHeight / 2 - arrowHeight / 2;
-
       leftArrow.style.top = `${centerPosition}px`;
       rightArrow.style.top = `${centerPosition}px`;
     }
   };
 
-  // Initialize Swiper
   const swiper = new Swiper(swiperContainer, {
-    slidesPerView: "auto",
+    slidesPerView: 1.25,
+    spaceBetween: 24,
     freeMode: true,
-    keyboard: {
-      enabled: true,
-      onlyInViewport: true,
-    },
+    keyboard: { enabled: true, onlyInViewport: true },
     watchOverflow: true,
     preventClicksPropagation: true,
     resistance: true,
-    slidesOffsetAfter: -130,
     resistanceRatio: 0.85,
-    spaceBetween: 24,
-    mousewheel: {
-      forceToAxis: true,
-    },
-    navigation: {
-      nextEl: rightArrow,
-      prevEl: leftArrow,
-    },
-
+    mousewheel: { forceToAxis: true },
+    breakpoints: { 640: { slidesPerView: 2 } },
+    navigation: { nextEl: rightArrow, prevEl: leftArrow },
     on: {
       init: (s) => {
         updateArrowVisibility(s);
         positionArrows(s);
-
-        // Initial positioning fallback
-        if (!cards.length) {
-          arrowsContainer.style.height = "400px"; // Default card height
-        }
+        if (!cards.length) arrowsContainer.style.height = "400px";
       },
-      slideChange: (s) => {
-        updateArrowVisibility(s);
-        positionArrows(s);
-      },
-      resize: (s) => {
-        positionArrows(s);
-      },
+      progress: (s) => updateArrowVisibility(s),
+      slideChange: (s) => positionArrows(s),
+      resize: (s) => positionArrows(s),
     },
   });
 
-  // Function to handle arrow visibility
   function updateArrowVisibility(s) {
     leftArrow.style.opacity = s.isBeginning ? "0" : "1";
     rightArrow.style.opacity = s.isEnd ? "0" : "1";
@@ -203,15 +218,8 @@ export default async function decorate(block) {
     rightArrow.style.pointerEvents = s.isEnd ? "none" : "auto";
   }
 
-  // Initial resize observer for cards
   if (window.ResizeObserver && cards.length) {
-    const resizeObserver = new ResizeObserver(() => {
-      positionArrows(swiper);
-    });
-
-    // Observe all cards for height changes
-    cards.forEach((card) => {
-      resizeObserver.observe(card);
-    });
+    const resizeObserver = new ResizeObserver(() => positionArrows(swiper));
+    cards.forEach((card) => resizeObserver.observe(card));
   }
 }
