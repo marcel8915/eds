@@ -3,36 +3,64 @@
 // Import GSAP and plugins as needed
 
 /**
- * Initializes GSAP SplitText/ScrollTrigger animations for headings.
- * @param {Element|Document} root - The root element to scope the animation (default: document)
- * @param {string} selector - The selector for headings to animate (default: '.split-heading')
+ * Initializes GSAP SplitText/ScrollTrigger animations for headings using custom osmo-ease and responsive matchMedia.
  */
-export function initTextSplitAnimation(
-  root = document,
-  selector = ".split-text"
-) {
-  if (!window.gsap || !window.ScrollTrigger || !window.SplitText) return;
-  const headings = (root || document).querySelectorAll(selector);
-  headings.forEach((heading) => {
-    // Clean up previous splits if any
-    if (heading._splitText) {
-      heading._splitText.revert();
-    }
-    const split = new window.SplitText(heading, { type: "lines,words" });
-    heading._splitText = split;
-    window.gsap.set(split.words, { opacity: 0, y: 40 });
-    window.gsap.to(split.words, {
-      scrollTrigger: {
-        trigger: heading,
-        start: "top 90%",
-        once: true,
-      },
-      opacity: 1,
-      y: 0,
-      duration: 0.7,
-      ease: "power2.out",
-      stagger: 0.04,
-    });
+export function initTextSplitAnimation() {
+  if (
+    !window.gsap ||
+    !window.ScrollTrigger ||
+    !window.SplitText ||
+    !window.CustomEase
+  )
+    return;
+  // Register the GSAP plugins
+  gsap.registerPlugin(SplitText, ScrollTrigger, CustomEase);
+
+  // Create the custom ease function from the original Pen
+  CustomEase.create("osmo-ease", "0.625, 0.05, 0, 1");
+
+  // Use ScrollTrigger.matchMedia() to create responsive animations.
+  ScrollTrigger.matchMedia({
+    "(min-width: 1px)": function () {
+      const headings = document.querySelectorAll(".split-text");
+      headings.forEach((heading) => {
+        // Split the text for the current heading. Because this is inside matchMedia, it will be re-done on resize.
+        const split = SplitText.create(heading, {
+          type: "lines",
+          mask: "lines",
+          linesClass: "line",
+        });
+        // Set the initial hidden state for the lines.
+        gsap.set(split.lines, { yPercent: 110 });
+        // Create a unique ScrollTrigger for each heading.
+        ScrollTrigger.create({
+          trigger: heading,
+          start: "top 85%",
+          onEnter: () => {
+            gsap.to(split.lines, {
+              yPercent: 0,
+              duration: 0.8,
+              stagger: 0.08,
+              ease: "osmo-ease",
+            });
+          },
+          // onLeaveBack: () => {
+          //   gsap.to(split.lines, {
+          //     yPercent: 110,
+          //     duration: 0.8,
+          //     stagger: 0.08,
+          //     ease: "osmo-ease",
+          //   });
+          // },
+        });
+      });
+      // Return a cleanup function. GSAP will call this when the media query no longer matches (or before re-running the setup).
+      return () => {
+        // Revert all SplitText instances to avoid issues.
+        const allSplits = SplitText.getAll();
+        allSplits.forEach((split) => split.revert());
+      };
+    },
   });
 }
 
