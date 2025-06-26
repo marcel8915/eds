@@ -1139,5 +1139,79 @@
         ]
       }
     ]
+  },
+  {
+    "id": "hero-banner-alt",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "upperHeroText",
+        "label": "Upper Hero Text",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "lowerHeroText",
+        "label": "Lower Hero Text",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": " "
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "firstCtaText",
+        "label": "First CTA Text",
+        "value": " "
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "firstCtaLink",
+        "label": "First CTA Link",
+        "value": " ",
+        "required": true,
+        "condition": {
+          "!==": [
+            {
+              "var": "firstCtaText"
+            },
+            " "
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "secondCtaText",
+        "label": "Second CTA Text",
+        "value": " "
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "secondCtaLink",
+        "label": "Second CTA Link",
+        "value": " ",
+        "required": true,
+        "condition": {
+          "!==": [
+            {
+              "var": "secondCtaText"
+            },
+            " "
+          ]
+        }
+      }
+    ]
   }
 ]
