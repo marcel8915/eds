@@ -1,0 +1,36 @@
+.hero-banner-alt-container {
+    margin-top: 13.75rem;
+    font-weight: 100vw;
+}
+
+.hero-banner-alt-container .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.25rem;
+}
+
+.hero-banner-alt-container .text-h1 {
+    margin: 0;
+    font-weight: 300;
+}
+
+.hero-banner-alt-container .description {
+    max-width: 37rem;
+    padding: 0 1.25rem;
+}
+
+.hero-banner-alt-container .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.hero-banner-alt-container .first-cta {
+    padding: 1rem 1.5rem;
+}
+.hero-banner-alt-container .second-cta {
+    padding: 0 1.5rem 1rem 1.5rem;
+}
