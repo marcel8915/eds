@@ -1176,10 +1176,11 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "firstCtaLink",
-        "label": "First CTA Link",
+        "name": "firstCtaUrl",
+        "label": "First CTA Url",
         "value": " ",
         "required": true,
+        "description": "For email links, use 'mailto:' prefix. Eg. mailto:someone@example.com",
         "condition": {
           "!==": [
             {
@@ -1199,8 +1200,8 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "secondCtaLink",
-        "label": "Second CTA Link",
+        "name": "secondCtaUrl",
+        "label": "Second CTA Url",
         "value": " ",
         "required": true,
         "condition": {
