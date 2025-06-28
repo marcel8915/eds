@@ -27,7 +27,8 @@
       "three-column-tile",
       "swiper-highlight2",
       "image-gallery-tile",
-      "hero-banner-alt"
+      "hero-banner-alt",
+      "accordion"
     ]
   },
   {
@@ -77,5 +78,9 @@
   {
     "id": "image-gallery-tile",
     "components": ["image-gallery-card"]
+  },
+  {
+    "id": "accordion",
+    "components": ["accordion-item"]
   }
 ]
