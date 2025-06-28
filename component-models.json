@@ -1214,5 +1214,23 @@
         }
       }
     ]
+  },
+  {
+    "id": "accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "required": true,
+        "description": "Accordion title"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Detailed content about the accordion item"
+      }
+    ]
   }
 ]
