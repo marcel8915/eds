@@ -749,7 +749,7 @@
     ]
   },
   {
-    "id": "tile-card-item2",
+    "id": "column-card2",
     "fields": [
       {
         "component": "reference",
@@ -1216,14 +1216,14 @@
     ]
   },
   {
-    "id": "accordion-item",
+    "id": "faq-accordion-item",
     "fields": [
       {
         "component": "text",
         "name": "title",
         "label": "Title",
         "required": true,
-        "description": "Accordion title"
+        "description": "Faq ccordion title"
       },
       {
         "component": "richtext",
