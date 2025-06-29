@@ -28,7 +28,7 @@
       "swiper-highlight2",
       "image-gallery-tile",
       "hero-banner-alt",
-      "accordion"
+      "faq-accordion"
     ]
   },
   {
@@ -80,7 +80,7 @@
     "components": ["image-gallery-card"]
   },
   {
-    "id": "accordion",
-    "components": ["accordion-item"]
+    "id": "faq-accordion",
+    "components": ["faq-accordion-item"]
   }
 ]
