@@ -133,20 +133,44 @@
     }
 }
 
+
 .grid-tile-title {
+    position: relative;
+    width: fit-content;
+}
+
+.grid-tile-title p {
+
     color: var(--Text-text-black, #333);
 
     /* Heading/H02 */
     font-family: Cormorant;
     font-size: 40px;
     font-style: normal;
-    font-weight: 400;
-    line-height: 100%;
-    /* 40px */
+    font-weight: 200;
+    line-height: 100%; /* 40px */
     letter-spacing: -1.2px;
     @media screen and (max-width:767px){
         font-size: 24px;
     }
+}
+.grid-tile-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    width: 0px;
+    height: 1px;
+    background-color: #9c856b;
+    transition: width 0.5s ease;
+}
+
+.grid-tile-title p:hover {
+    color: #9c856b;
+}
+
+.grid-tile-title:hover::after {
+    width: 100%;
 }
 
 .main-tile,
@@ -167,3 +191,4 @@
         gap: 8px;
     }
 }
+

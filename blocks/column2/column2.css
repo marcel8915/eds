@@ -157,6 +157,7 @@
     line-height: 120%;
     margin-top: 8px;
     margin-bottom: 16px;
+    display: none;
 }
 
 @media (max-width: 768px) {
