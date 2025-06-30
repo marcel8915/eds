@@ -1067,10 +1067,12 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "mainImages", 
-        "label": "Main Images",
-        "description": "Multiple images for the carousel",
-        "multi": true 
+        "name": "mainImages",
+        "label": "Main Images (Swiper)",
+        "description": "Add multiple images for the carousel/swiper",
+        "multi": true,
+        "required": false,
+        "rules": { "maxItems": 5 } 
       },
       {
         "component": "text",
@@ -1094,21 +1096,23 @@
         "component": "container",
         "name": "features",
         "label": "Features",
-        "maxItems": 3,
+        "minItems": 1, 
+        "maxItems": 3, 
+        "addLabel": "Add Feature", 
         "fields": [
           {
             "component": "reference",
             "valueType": "string",
             "name": "icon",
             "label": "Icon",
-            "description": "Small icon for the feature",
-            "multi": false 
+            "description": "Small icon for this feature",
+            "multi": false
           },
           {
             "component": "text",
             "valueType": "string",
             "name": "description",
-            "label": "Feature Description"
+            "label": "Description"
           }
         ]
       }
