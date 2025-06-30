@@ -5086,5 +5086,1027 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "carousel-card",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "reference",
+        "valueType": "array",
+        "name": "images",
+        "label": "Images",
+        "multi": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link",
+        "value": ""
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "isExternalLink",
+        "label": "Is External Link",
+        "value": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "slideText",
+        "label": "Slide Text",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "isVideo",
+        "label": "Is Video",
+        "value": false
+      }
+    ]
+  },
+  {
+    "id": "swiper-card3",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Card Title"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "valueType": "string",
+        "label": "Card Description"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Card Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Link Text"
+      }
+    ]
+  },
+  {
+    "id": "swiper3",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Swiper Title"
+      },
+      {
+        "component": "text",
+        "name": "autoplay",
+        "label": "Autoplay (ms)",
+        "description": "Set to 0 to disable autoplay"
+      }
+    ]
+  },
+  {
+    "id": "main-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "group",
+        "name": "cta",
+        "label": "CTA",
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "ctaLink",
+            "label": "CTA Link"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "ctaText",
+            "label": "CTA Text"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "sub-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "group",
+        "name": "cta",
+        "label": "CTA",
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "ctaLink",
+            "label": "CTA Link"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "ctaText",
+            "label": "CTA Text"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "slider-teaser-content",
+    "fields": [
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "overlay",
+        "label": "Overlay",
+        "value": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": "",
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonText",
+        "label": "Button Text",
+        "value": "",
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonUrl",
+        "label": "Button URL",
+        "value": "",
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            false
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": "",
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            false
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            false
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaUrl",
+        "label": "CTA Url",
+        "value": "",
+        "required": true,
+        "condition": {
+          "and": [
+            {
+              "!==": [
+                {
+                  "var": "ctaText"
+                },
+                ""
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "overlay"
+                },
+                false
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "isExternalLink",
+        "label": "Is External Link",
+        "value": false,
+        "condition": {
+          "and": [
+            {
+              "!==": [
+                {
+                  "var": "ctaText"
+                },
+                ""
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "overlay"
+                },
+                false
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "media",
+        "label": "Media",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": "",
+        "description": "Add alt text to media if media is an image"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "logo",
+        "label": "Logo",
+        "multi": false,
+        "required": true,
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            true
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "three-image-description",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Section Title",
+        "description": "Main title for the section"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Main description text for the section"
+      },
+      {
+        "component": "select",
+        "name": "layout",
+        "label": "Layout Style",
+        "options": [
+          {
+            "name": "Images Above",
+            "value": "images-above"
+          },
+          {
+            "name": "Images Below",
+            "value": "images-below"
+          },
+          {
+            "name": "Images Left",
+            "value": "images-left"
+          },
+          {
+            "name": "Images Right",
+            "value": "images-right"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "layout-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "container",
+        "label": "Content Section",
+        "fields": [
+          {
+            "component": "container",
+            "label": "Left Column",
+            "fields": [
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "label",
+                "label": "Label"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "ctaLink",
+                "label": "CTA Link"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "ctaText",
+                "label": "CTA Text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "column-card2",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "section-header",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Title",
+        "required": true,
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "ctaText",
+        "label": "CTA Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "ctaLink",
+        "label": "CTA Link",
+        "condition": {
+          "!==": [
+            {
+              "var": "ctaText"
+            },
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "text-image-model",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content"
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image"
+      }
+    ]
+  },
+  {
+    "id": "info-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Section Title",
+        "description": "Main title for the card"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Main description text for the card"
+      }
+    ]
+  },
+  {
+    "id": "icon-text",
+    "fields": [
+      {
+        "component": "group",
+        "name": "phoneItem",
+        "label": "Phone",
+        "fields": [
+          {
+            "component": "reference",
+            "name": "phoneIcon",
+            "label": "Phone Icon",
+            "description": "Upload phone icon SVG"
+          },
+          {
+            "component": "text",
+            "name": "phoneNumber",
+            "label": "Phone Number",
+            "description": "Format: +1 (123) 456-7890"
+          }
+        ]
+      },
+      {
+        "component": "group",
+        "name": "emailItem",
+        "label": "Email",
+        "fields": [
+          {
+            "component": "reference",
+            "name": "emailIcon",
+            "label": "Email Icon",
+            "description": "Upload email icon SVG"
+          },
+          {
+            "component": "text",
+            "name": "emailAddress",
+            "label": "Email Address",
+            "description": "Format: user@example.com"
+          }
+        ]
+      },
+      {
+        "component": "group",
+        "name": "eventItem",
+        "label": "Event",
+        "fields": [
+          {
+            "component": "reference",
+            "name": "eventIcon",
+            "label": "Event Icon",
+            "description": "Upload event icon SVG"
+          },
+          {
+            "component": "text",
+            "name": "eventDetails",
+            "label": "Event Details",
+            "description": "E.g.: June 25, 2:00 PM EST"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "events-listing",
+    "fields": [
+      {
+        "component": "text",
+        "name": "test",
+        "label": "Test"
+      }
+    ]
+  },
+  {
+    "id": "hero-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "secondary-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "highlight-card2",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "description": "Short identifying label"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "required": true,
+        "description": "Main headline for the card"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Detailed content about the highlight"
+      },
+      {
+        "component": "text",
+        "name": "time",
+        "label": "Time",
+        "description": "2pm example"
+      },
+      {
+        "component": "text",
+        "name": "venue",
+        "label": "Venue",
+        "description": "Location "
+      },
+      {
+        "component": "datetime",
+        "name": "eventDateTime",
+        "label": "Event Date/Time",
+        "format": "YYYY-MM-DDTHH:mm",
+        "description": "Used for sorting/calculations"
+      }
+    ]
+  },
+  {
+    "id": "image-gallery-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "container",
+        "label": "Content Section",
+        "fields": [
+          {
+            "component": "container",
+            "label": "Left Column",
+            "fields": [
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "label",
+                "label": "Label"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "ctaLink",
+                "label": "CTA Link"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "ctaText",
+                "label": "CTA Text"
+              }
+            ]
+          },
+          {
+            "component": "container",
+            "label": "Right Column",
+            "fields": [
+              {
+                "component": "group",
+                "label": "Image and Text Pair",
+                "fields": [
+                  {
+                    "component": "reference",
+                    "valueType": "string",
+                    "name": "image",
+                    "label": "Image",
+                    "multi": false
+                  },
+                  {
+                    "component": "text",
+                    "valueType": "string",
+                    "name": "label",
+                    "label": "Label"
+                  }
+                ],
+                "maxItems": 3
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hero-banner-alt",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "upperHeroText",
+        "label": "Upper Hero Text",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "lowerHeroText",
+        "label": "Lower Hero Text",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": " "
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "firstCtaText",
+        "label": "First CTA Text",
+        "value": " "
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "firstCtaUrl",
+        "label": "First CTA Url",
+        "value": " ",
+        "required": true,
+        "description": "For email links, use 'mailto:' prefix. Eg. mailto:someone@example.com",
+        "condition": {
+          "!==": [
+            {
+              "var": "firstCtaText"
+            },
+            " "
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "secondCtaText",
+        "label": "Second CTA Text",
+        "value": " "
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "secondCtaUrl",
+        "label": "Second CTA Url",
+        "value": " ",
+        "required": true,
+        "condition": {
+          "!==": [
+            {
+              "var": "secondCtaText"
+            },
+            " "
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "faq-accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "required": true,
+        "description": "Faq ccordion title"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Detailed content about the accordion item"
+      }
+    ]
+  },
+  {
+    "id": "table-board",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Section Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Section Label",
+        "description": "Optional subtitle for the section"
+      }
+    ]
+  },
+  {
+    "id": "table-board-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "description": "title"
+      },
+      {
+        "component": "text",
+        "name": "date",
+        "label": "Date",
+        "description": "Display date (format: Month Day, Year)"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "link",
+        "label": "Link URL",
+        "description": "URL for the title and button"
+      }
+    ]
   }
 ]
