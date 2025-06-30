@@ -146,7 +146,7 @@ function enableSliderTeaserContent() {
       el.style.color = "white";
     });
     titleText.forEach((el) => {
-      el.classList.add("text-t1", "split-text");
+      el.classList.add("text-h1", "split-text");
       el.style.color = "white";
     });
 

@@ -49,8 +49,8 @@ export default async function decorate(block) {
   } = elements;
 
   /* -------------------------- Styling the elements -------------------------- */
-  upperHeroText[0]?.classList.add("text-h1");
-  lowerHeroText[0]?.classList.add("text-h1");
+  upperHeroText[0]?.classList.add("text-t1");
+  lowerHeroText[0]?.classList.add("text-t1");
   description[0]?.classList.add("text-p1", "split-text");
 
   let firstAnchor, secondAnchor;

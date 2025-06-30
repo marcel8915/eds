@@ -44,7 +44,7 @@ export default async function decorate(block) {
           event.ctaText && ctaLink
             ? `<a class="event-cta cta-link arrowRight" href="${ctaLink}"><span class="animate-underline">${event.ctaText}</span></a>`
             : event.ctaText
-            ? `<p class="event-cta cta-link text-p1">${event.ctaText}</p>`
+            ? `<p class="event-cta cta-link text-b">${event.ctaText}</p>`
             : ""
         }
       </section>
