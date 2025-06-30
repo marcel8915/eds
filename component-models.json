@@ -212,6 +212,12 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      },
+      {
+        "component": "date-time",
+        "label": "Date & Time",
+        "name": "date",
+        "valueType": "date"
       }
     ]
   },
