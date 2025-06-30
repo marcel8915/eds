@@ -616,7 +616,10 @@ export default async function decorate(block) {
         sectionContainer.getBoundingClientRect().top +
         window.pageYOffset +
         yOffset;
-      window.scrollTo({ top: y, behavior: "smooth" });
+      // Only scroll if not the first page render (i.e., user clicked pagination)
+      if (page !== 1) {
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
     }
 
     function renderPagination(page) {
