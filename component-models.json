@@ -1272,5 +1272,31 @@
         "label": "Description"
       }
     ]
+  },
+  {
+    "id": "newsletter-modal",
+    "fields": [
+      {
+        "component": "text",
+        "name": "headerText",
+        "label": "Header Text",
+        "value": "Subscribe to our Newsletter",
+        "description": "Text displayed at the top of the modal"
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Button Text",
+        "value": "Continue",
+        "description": "Text displayed on the button"
+      },
+      {
+        "component": "richtext",
+        "name": "termsText",
+        "label": "Terms Text",
+        "value": "<p>By Subscribing To Our Newsletter, You Accept The <a href='https://capellahotelgroup.com/privacy-policy/'>Privacy Policy</a>.</p>",
+        "description": "Text displayed at the bottom of the modal"
+      }
+    ]
   }
 ]
