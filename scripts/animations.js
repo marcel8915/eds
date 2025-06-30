@@ -64,6 +64,40 @@ export function initTextSplitAnimation() {
   });
 }
 
+/**
+ * Animates children of elements with .animate-stagger class to fade in and up one by one on scroll into view.
+ */
+export function initStaggerAnimations() {
+  console.log("Initializing stagger animations");
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  const staggerParents = document.querySelectorAll(".animate-stagger");
+  staggerParents.forEach((parent) => {
+    const children = Array.from(parent.children);
+    console.log(
+      "Staggering children for parent:",
+      parent,
+      "Children:",
+      children
+    );
+    gsap.set(children, { opacity: 0, y: 50 });
+    ScrollTrigger.create({
+      trigger: parent,
+      start: "top 80%",
+      once: true,
+      onEnter: () => {
+        gsap.to(children, {
+          opacity: 1,
+          y: 0,
+          duration: 2,
+          ease: "power3.out",
+          stagger: 0.3,
+        });
+      },
+    });
+  });
+}
+
 // Smooth scrolling with Lenis
 const lenis = new Lenis({
   autoRaf: true,
