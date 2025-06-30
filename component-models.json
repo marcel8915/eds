@@ -1250,27 +1250,26 @@
       },
       {
         "component": "text",
-        "name": "title",
-        "label": "Title",
-        "description": "title"
+        "name": "date",
+        "label": "Date",
+        "description": "Display date "
       },
       {
         "component": "text",
-        "name": "date",
-        "label": "Date",
-        "description": "Display date (format: Month Day, Year)"
+        "name": "title",
+        "label": "Title (Link Text)",
+        "description": "title with link"
+      },
+      {
+        "component": "aem-content",
+        "name": "titleLink",
+        "label": "Title Link URL",
+        "description": "URL link for title"
       },
       {
         "component": "richtext",
         "name": "description",
-        "label": "Description",
-        "required": true
-      },
-      {
-        "component": "text",
-        "name": "link",
-        "label": "Link URL",
-        "description": "URL for the title and button"
+        "label": "Description"
       }
     ]
   }
