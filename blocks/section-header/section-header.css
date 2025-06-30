@@ -23,7 +23,7 @@
 }
 
 .section-header div:has(.label) {
-    margin-bottom: 8px;
+    margin-bottom: 1rem;
 }
 
 @media (min-width: 768px) {
