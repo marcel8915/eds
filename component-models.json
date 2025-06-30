@@ -1067,12 +1067,26 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "mainImages",
-        "label": "Main Images (Swiper)",
-        "description": "Add multiple images for the carousel/swiper",
-        "multi": true,
-        "required": false,
-        "rules": { "maxItems": 5 } 
+        "name": "mainImages 1",  
+        "label": "Main Images 1",
+        "description": "Multiple images 1",
+        "multi": false 
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mainImages 2",  
+        "label": "Main Images 2",
+        "description": "Multiple images 2",
+        "multi": false 
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mainImages 3",  
+        "label": "Main Images 3",
+        "description": "Multiple images 3",
+        "multi": false 
       },
       {
         "component": "text",
@@ -1096,23 +1110,48 @@
         "component": "container",
         "name": "features",
         "label": "Features",
-        "minItems": 1, 
-        "maxItems": 3, 
-        "addLabel": "Add Feature", 
         "fields": [
           {
             "component": "reference",
             "valueType": "string",
-            "name": "icon",
-            "label": "Icon",
-            "description": "Small icon for this feature",
-            "multi": false
+            "name": "icon 1",
+            "label": "Icon 1",
+            "description": "Small icon 1 for the feature",
+            "multi": false  
           },
           {
             "component": "text",
             "valueType": "string",
-            "name": "description",
-            "label": "Description"
+            "name": "description 1",
+            "label": "Feature Description 1"
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "icon 2",
+            "label": "Icon 2",
+            "description": "Small icon 2 for the feature",
+            "multi": false  
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "description 2",
+            "label": "Feature Description 2"
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "icon 3",
+            "label": "Icon 3",
+            "description": "Small icon 3 for the feature",
+            "multi": false  
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "description 3",
+            "label": "Feature Description 3"
           }
         ]
       }
