@@ -67,7 +67,12 @@ export default async function decorate(block) {
   if (secondCtaText[0] && secondCtaUrl[0]) {
     secondAnchor = document.createElement("a");
     secondAnchor.href = secondCtaUrl[0].textContent.trim();
-    secondAnchor.classList.add("cta-link", "arrowRight", "split-text");
+    secondAnchor.classList.add(
+      "cta-link",
+      "arrowRight",
+      "split-text",
+      "animate-underline"
+    );
 
     const span = document.createElement("span");
     span.textContent = secondCtaText[0].textContent.trim();

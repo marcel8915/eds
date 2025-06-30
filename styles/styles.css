@@ -84,6 +84,12 @@ button.secondary span:before,
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.animate-underline.arrowRight:hover:before,
+button.secondary:hover span:before,
+.main-links a:hover:before {
+    width: calc(100% - 30px);
+}
+
 .animate-underline:hover:before,
 button.secondary:hover span:before,
 .main-links a:hover:before {
