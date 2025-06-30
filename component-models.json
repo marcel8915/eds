@@ -1221,5 +1221,56 @@
         "description": "Detailed content about the accordion item"
       }
     ]
+  },
+  {
+    "id": "table-board",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Section Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Section Label",
+        "description": "Optional subtitle for the section"
+      }
+    ]
+  },
+  {
+    "id": "table-board-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "date",
+        "label": "Date",
+        "description": "Display date "
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title (Link Text)",
+        "description": "title with link"
+      },
+      {
+        "component": "aem-content",
+        "name": "titleLink",
+        "label": "Title Link URL",
+        "description": "URL link for title"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description"
+      }
+    ]
   }
 ]
