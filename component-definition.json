@@ -644,6 +644,21 @@
               }
             }
           }
+        },
+        {
+          "title": "Newsletter Modal",
+          "id": "newsletter-modal",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Newsletter Modal",
+                  "model": "newsletter-modal"
+                }
+              }
+            }
+          }
         }
       ]
     }
