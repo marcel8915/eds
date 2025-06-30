@@ -84,6 +84,12 @@ button.secondary span:before,
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.animate-underline.arrowRight:hover:before,
+button.secondary:hover span:before,
+.main-links a:hover:before {
+    width: calc(100% - 30px);
+}
+
 .animate-underline:hover:before,
 button.secondary:hover span:before,
 .main-links a:hover:before {
@@ -114,7 +120,7 @@ h6 {
 h1,
 .text-h1 {
     line-height: 95%;
-    font-size: clamp(48px, 8vw, 100px);
+    font-size: clamp(32px, 4vw, 52px);
 }
 .text-t2,
 .text-h4,
@@ -142,11 +148,11 @@ h5 {
 }
 
 .text-b {
-    font-size: clamp(14px, 1.5vw, 16px);
+    font-size: clamp(14px, 1.5vw, 15px);
 }
 h2,
 .text-h2 {
-    font-size: clamp(28px, 3vw, 40px);
+    font-size: clamp(24px, 3vw, 40px);
 }
 h3,
 .text-h3 {
@@ -154,7 +160,7 @@ h3,
 }
 h4,
 .text-h4 {
-    font-size: clamp(24px, 3vw, 32px);
+    font-size: clamp(24px, 2vw, 32px);
 }
 h5,
 .text-h5 {
@@ -175,7 +181,7 @@ h5,
     font-size: clamp(8px, 1.2vw, 10px);
 }
 .text-p1 {
-    font-size: clamp(16px, 2.5vw, 24px);
+    font-size: clamp(20px, 2.5vw, 24px);
 }
 .text-p2 {
     font-size: clamp(16px, 2vw, 20px);
@@ -187,7 +193,7 @@ h5,
     font-size: clamp(12px, 1.2vw, 14px);
 }
 .text-t1 {
-    font-size: clamp(32px, 4vw, 52px);
+    font-size: clamp(48px, 8vw, 100px);
 }
 .text-t2 {
     font-size: clamp(40px, 4.5vw, 80px);
@@ -296,4 +302,8 @@ button.primary:hover,
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
+}
+
+.line {
+    padding-bottom: 0.13em;
 }

@@ -33,7 +33,7 @@ export default function decorate(block) {
   const backgroundVideoSrc =
     "https://publish-p152536-e1620746.adobeaemcloud.com/content/dam/patina/osaka/assets/home-hero-video.mp4";
   const modalVideoSrc = config["modal-video"];
-  const headingHtml = "<h1 class='text-h1'>THE RHYTHM<br>OF FREEDOM</h1>";
+  const headingHtml = "<h1 class='text-t1'>THE RHYTHM<br>OF FREEDOM</h1>";
   const buttonLabel = "ENTER THE RHYTHM";
 
   const heroWrapper = document.createElement("section");

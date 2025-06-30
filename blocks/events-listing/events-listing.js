@@ -44,7 +44,7 @@ export default async function decorate(block) {
           event.ctaText && ctaLink
             ? `<a class="event-cta cta-link arrowRight" href="${ctaLink}"><span class="animate-underline">${event.ctaText}</span></a>`
             : event.ctaText
-            ? `<p class="event-cta cta-link text-p1">${event.ctaText}</p>`
+            ? `<p class="event-cta cta-link text-b">${event.ctaText}</p>`
             : ""
         }
       </section>
@@ -129,8 +129,16 @@ export default async function decorate(block) {
           } else {
             // Use provided days
             days.forEach((day) => {
-              const d = new Date(current.getFullYear(), current.getMonth(), day);
-              if (d.getMonth() === current.getMonth() && d >= start && d <= end) {
+              const d = new Date(
+                current.getFullYear(),
+                current.getMonth(),
+                day
+              );
+              if (
+                d.getMonth() === current.getMonth() &&
+                d >= start &&
+                d <= end
+              ) {
                 expanded.push({
                   event,
                   date: d.toISOString(),
@@ -479,7 +487,6 @@ export default async function decorate(block) {
         dateFilterState.selected = range.map((d) => new Date(d));
       },
       onDone: () => {
-        console.log("Selected dates:", dateFilterState.selected, allEvents);
         dropdown.remove();
         renderDateFilterPill();
         renderEvents(allEvents);
@@ -532,7 +539,7 @@ export default async function decorate(block) {
     renderFilterPill();
     renderDateFilterPill();
     const container = document.querySelector(".events-listing");
-    console.log("Rendering events:", events, events.length, allEvents);
+
     if (!container) return;
 
     const expanded = expandEvents(events);
@@ -593,6 +600,9 @@ export default async function decorate(block) {
     const totalPages = Math.ceil(futureEvents.length / pageSize);
 
     function renderPage(page) {
+      const sectionContainer = document.querySelector(
+        `.${FILTER_WRAPPER_CLASS}`
+      );
       const start = (page - 1) * pageSize;
       const end = start + pageSize;
       container.innerHTML = futureEvents
@@ -600,6 +610,16 @@ export default async function decorate(block) {
         .map(({ event, date, timing }) => renderEventCard(event, date, timing))
         .join("");
       renderPagination(page);
+
+      const yOffset = -40;
+      const y =
+        sectionContainer.getBoundingClientRect().top +
+        window.pageYOffset +
+        yOffset;
+      // Only scroll if not the first page render (i.e., user clicked pagination)
+      if (page !== 1) {
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
     }
 
     function renderPagination(page) {

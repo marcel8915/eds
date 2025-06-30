@@ -49,8 +49,8 @@ export default async function decorate(block) {
   } = elements;
 
   /* -------------------------- Styling the elements -------------------------- */
-  upperHeroText[0]?.classList.add("text-h1");
-  lowerHeroText[0]?.classList.add("text-h1");
+  upperHeroText[0]?.classList.add("text-t1");
+  lowerHeroText[0]?.classList.add("text-t1");
   description[0]?.classList.add("text-p1", "split-text");
 
   let firstAnchor, secondAnchor;
@@ -67,7 +67,12 @@ export default async function decorate(block) {
   if (secondCtaText[0] && secondCtaUrl[0]) {
     secondAnchor = document.createElement("a");
     secondAnchor.href = secondCtaUrl[0].textContent.trim();
-    secondAnchor.classList.add("cta-link", "arrowRight", "split-text");
+    secondAnchor.classList.add(
+      "cta-link",
+      "arrowRight",
+      "split-text",
+      "animate-underline"
+    );
 
     const span = document.createElement("span");
     span.textContent = secondCtaText[0].textContent.trim();

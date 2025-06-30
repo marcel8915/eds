@@ -146,7 +146,7 @@ function enableSliderTeaserContent() {
       el.style.color = "white";
     });
     titleText.forEach((el) => {
-      el.classList.add("text-t1", "split-text");
+      el.classList.add("text-h1", "split-text");
       el.style.color = "white";
     });
 
@@ -161,10 +161,9 @@ function enableSliderTeaserContent() {
       if (link) anchor.href = link.textContent.trim();
       const isExternal = isExternalLink[idx];
       if (isExternal?.textContent.trim() === "true") {
-        anchor.className = "cta-link arrowRight split-text";
+        anchor.className = "cta-link arrowRight split-text animate-underline";
         anchor.target = "_blank";
         anchor.rel = "noopener noreferrer";
-        anchor.classList.add("arrowRight");
         const span = document.createElement("span");
         span.textContent = el.textContent;
         span.className = "animate-underline";

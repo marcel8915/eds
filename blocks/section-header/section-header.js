@@ -18,11 +18,11 @@ export default function decorate(block) {
       const combinedHTML = ps.map((p) => p.innerHTML).join("<br>");
       ps.forEach((p) => p.remove());
       const paragraph = document.createElement("p");
-      paragraph.className = "text-t1 split-text title";
+      paragraph.className = "text-h1 split-text title";
       paragraph.innerHTML = combinedHTML;
       title.appendChild(paragraph);
     } else if (ps.length === 1) {
-      ps[0].className = "text-t1 split-text title";
+      ps[0].className = "text-h1 split-text title";
     }
   }
 
