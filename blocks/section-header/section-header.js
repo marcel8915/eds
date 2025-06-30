@@ -11,6 +11,7 @@ export default function decorate(block) {
   const description = descDiv;
   const ctaText = ctaTextDiv?.querySelector("p");
   const ctaLink = ctaLinkDiv?.querySelector("a");
+  const container = document.createElement("div");
 
   if (title) {
     const ps = Array.from(title.querySelectorAll("p"));
@@ -51,4 +52,8 @@ export default function decorate(block) {
     ctaText.replaceWith(anchor);
     ctaLink.style.display = "none";
   }
+  container.append(labelDiv, titleDiv, descDiv, ctaTextDiv, ctaLinkDiv);
+
+  block.innerHTML = "";
+  block.appendChild(container);
 }
