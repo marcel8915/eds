@@ -1069,61 +1069,46 @@
         "valueType": "string",
         "name": "image",
         "label": "Image",
-        "multi": false
+        "multi": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
       },
       {
         "component": "container",
-        "label": "Content Section",
+        "name": "repeatedFields",
+        "label": "Repeated Fields",
+        "maxItems": 3,
         "fields": [
           {
-            "component": "container",
-            "label": "Left Column",
-            "fields": [
-              {
-                "component": "text",
-                "valueType": "string",
-                "name": "label",
-                "label": "Label"
-              },
-              {
-                "component": "text",
-                "valueType": "string",
-                "name": "ctaLink",
-                "label": "CTA Link"
-              },
-              {
-                "component": "text",
-                "valueType": "string",
-                "name": "ctaText",
-                "label": "CTA Text"
-              }
-            ]
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "description": "Icon for text",
+        "multi": false
           },
           {
-            "component": "container",
-            "label": "Right Column",
-            "fields": [
-              {
-                "component": "group",
-                "label": "Image and Text Pair",
-                "fields": [
-                  {
-                    "component": "reference",
-                    "valueType": "string",
-                    "name": "image",
-                    "label": "Image",
-                    "multi": false
-                  },
-                  {
-                    "component": "text",
-                    "valueType": "string",
-                    "name": "label",
-                    "label": "Label"
-                  }
-                ],
-                "maxItems": 3
-              }
-            ]
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "value": "",
+        "label": "Description"
           }
         ]
       }
