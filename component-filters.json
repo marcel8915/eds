@@ -1,9 +1,7 @@
 [
   {
     "id": "main",
-    "components": [
-      "section"
-    ]
+    "components": ["section"]
   },
   {
     "id": "section",
@@ -16,64 +14,73 @@
       "cards",
       "columns",
       "fragment",
-      "form",
-      "embed-adaptive-form"
+      "slider-teaser-content",
+      "swiper3",
+      "grid",
+      "three-image-description",
+      "layout",
+      "column2",
+      "section-header",
+      "text-image",
+      "info-card",
+      "events-listing",
+      "three-column-tile",
+      "swiper-highlight2",
+      "image-gallery-tile",
+      "hero-banner-alt",
+      "faq-accordion"
     ]
   },
   {
     "id": "cards",
-    "components": [
-      "card"
-    ]
+    "components": ["card"]
   },
   {
     "id": "columns",
-    "components": [
-      "column"
-    ]
+    "components": ["column"]
   },
   {
     "id": "column",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "title"
-    ]
+    "components": ["text", "image", "button", "title"]
   },
   {
-    "id": "form",
-    "components": [
-      "captcha",
-      "checkbox",
-      "checkbox-group",
-      "date-input",
-      "drop-down",
-      "email",
-      "file-input",
-      "form-accordion",
-      "form-button",
-      "form-fragment",
-      "form-image",
-      "form-modal",
-      "form-reset-button",
-      "form-submit-button",
-      "number-input",
-      "panel",
-      "password",
-      "plain-text",
-      "radio-group",
-      "rating",
-      "telephone-input",
-      "text-input",
-      "tnc",
-      "wizard"
-    ]
+    "id": "swiper3",
+    "components": ["swiper-card3"]
   },
   {
     "id": "grid",
-    "components": [
-      "grid-card"
-    ]
+    "components": ["grid-card"]
+  },
+  {
+    "id": "three-image-description",
+    "components": ["title", "text", "cards", "card", "grid-card"]
+  },
+  {
+    "id": "layout",
+    "components": ["layout-card"]
+  },
+  {
+    "id": "column2",
+    "components": ["column-card2"]
+  },
+  {
+    "id": "text-image",
+    "components": ["title", "text", "image", "icon-text", "button"]
+  },
+  {
+    "id": "three-column-tile",
+    "components": ["hero-card", "secondary-card"]
+  },
+  {
+    "id": "swiper-highlight2",
+    "components": ["highlight-card2"]
+  },
+  {
+    "id": "image-gallery-tile",
+    "components": ["image-gallery-card"]
+  },
+  {
+    "id": "faq-accordion",
+    "components": ["faq-accordion-item"]
   }
 ]
