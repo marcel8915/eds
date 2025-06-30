@@ -303,3 +303,7 @@ button.primary:hover,
     transform: translateY(-50%);
     pointer-events: none;
 }
+
+.line {
+    padding-bottom: 0.13em;
+}
