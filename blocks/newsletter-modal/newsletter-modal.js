@@ -178,7 +178,47 @@ export default function decorate(block) {
         hasError = true;
       }
       if (hasError) return;
-      console.log(values);
+      // reCAPTCHA integration
+      if (typeof grecaptcha === "undefined") {
+        grecaptcha = {
+          ready: function (cb) {
+            // window.__grecaptcha_cfg is a global variable that stores reCAPTCHA's
+            // configuration. By default, any functions listed in its 'fns' property
+            // are automatically executed when reCAPTCHA loads.
+            const c = "___grecaptcha_cfg";
+            window[c] = window[c] || {};
+            (window[c]["fns"] = window[c]["fns"] || []).push(cb);
+          },
+        };
+      }
+      window.grecaptcha.ready(function () {
+        window.grecaptcha
+          .execute("6LfOjnMrAAAAANBfprNNS8C0cETBLIkZ2b_t-akk", {
+            action: "submit",
+          })
+          .then(function (token) {
+            // Add token to values
+            values.captchaValue = token;
+            // POST request
+            fetch(
+              "https://publish-p152536-e1620746.adobeaemcloud.com/bin/chg/newsletter.json",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values),
+              }
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                console.log("Newsletter signup response:", data);
+              })
+              .catch((err) => {
+                console.error("Newsletter signup error:", err);
+              });
+          });
+      });
     });
   }
 }
