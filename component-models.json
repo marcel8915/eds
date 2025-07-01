@@ -1067,26 +1067,26 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "mainImages 1",  
+        "name": "mainImages 1",
         "label": "Main Images 1",
         "description": "Multiple images 1",
-        "multi": false 
+        "multi": false
       },
       {
         "component": "reference",
         "valueType": "string",
-        "name": "mainImages 2",  
+        "name": "mainImages 2",
         "label": "Main Images 2",
         "description": "Multiple images 2",
-        "multi": false 
+        "multi": false
       },
       {
         "component": "reference",
         "valueType": "string",
-        "name": "mainImages 3",  
+        "name": "mainImages 3",
         "label": "Main Images 3",
         "description": "Multiple images 3",
-        "multi": false 
+        "multi": false
       },
       {
         "component": "text",
@@ -1117,7 +1117,7 @@
             "name": "icon 1",
             "label": "Icon 1",
             "description": "Small icon 1 for the feature",
-            "multi": false  
+            "multi": false
           },
           {
             "component": "text",
@@ -1131,7 +1131,7 @@
             "name": "icon 2",
             "label": "Icon 2",
             "description": "Small icon 2 for the feature",
-            "multi": false  
+            "multi": false
           },
           {
             "component": "text",
@@ -1145,7 +1145,7 @@
             "name": "icon 3",
             "label": "Icon 3",
             "description": "Small icon 3 for the feature",
-            "multi": false  
+            "multi": false
           },
           {
             "component": "text",
@@ -1305,25 +1305,60 @@
     "id": "newsletter-modal",
     "fields": [
       {
-        "component": "text",
+        "component": "richtext",
         "name": "headerText",
         "label": "Header Text",
-        "value": "Subscribe to our Newsletter",
-        "description": "Text displayed at the top of the modal"
+        "value": "<p>Subscribe to<br></br>our Newsletter</p>",
+        "description": "Text displayed at the top of the modal",
+        "required": true
       },
       {
         "component": "text",
         "name": "buttonText",
         "label": "Button Text",
         "value": "Continue",
-        "description": "Text displayed on the button"
+        "description": "Text displayed on the button",
+        "required": true
       },
       {
         "component": "richtext",
         "name": "termsText",
         "label": "Terms Text",
         "value": "<p>By Subscribing To Our Newsletter, You Accept The <a href='https://capellahotelgroup.com/privacy-policy/'>Privacy Policy</a>.</p>",
-        "description": "Text displayed at the bottom of the modal"
+        "description": "Text displayed at the bottom of the modal",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "description": "Image displayed when the user successfully subscribes",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "successHeaderText",
+        "label": "Success Header Text",
+        "value": "<p>You're in.<br></br>The journey begins</p>",
+        "description": "Text displayed when the user successfully subscribes",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "successDescriptionText",
+        "label": "Success Description Text",
+        "value": "Expect exclusive updates from the world of Patina, sent straight to your inbox",
+        "description": "Text displayed when the user successfully subscribes",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "closeButtonText",
+        "label": "Close Button Text",
+        "value": "Done",
+        "description": "Text displayed on the button to close the modal after subscription",
+        "required": true
       }
     ]
   }
