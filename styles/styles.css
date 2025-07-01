@@ -384,6 +384,10 @@ button.primary:hover,
     text-decoration: none;
 }
 
+.grecaptcha-badge {
+    visibility: hidden;
+}
+
 @media screen and (max-width: 768px) {
     .cta-button {
         padding-top: 1rem;
