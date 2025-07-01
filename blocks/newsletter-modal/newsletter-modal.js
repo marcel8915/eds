@@ -187,16 +187,20 @@ export default function decorate(block) {
             })
             .then(function (token) {
               // Add token to values
-              values.captchaValue = token;
-              // POST request
+              // Use FormData for form-data submission
+              const fd = new FormData();
+              fd.append("salutation", values.salutation);
+              fd.append("firstName", values.firstName);
+              fd.append("lastName", values.lastName);
+              fd.append("email", values.email);
+              fd.append("country", values.country);
+              fd.append("captchaValue", token);
+              // POST request as form-data
               fetch(
                 "https://publish-p152536-e1620746.adobeaemcloud.com/bin/chg/newsletter.json",
                 {
                   method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(values),
+                  body: fd,
                 }
               )
                 .then((res) => res.json())
