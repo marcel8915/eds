@@ -12,7 +12,45 @@ const API_ENDPOINT =
 const RECAPTCHA_SITE_KEY = "6LdZZnMrAAAAAGqiMLFf9k-fhMoG7rX7PwLAMiyj";
 const BLOCK_CLASS_NAME = "newsletter-modal";
 
-export default function decorate(block) {
+// Module-level state for modal
+let isOpen = false;
+let isSuccess = false;
+let modalBlock = null;
+
+function renderNewsletterModal(block) {
+  if (!isOpen) {
+    block.style.opacity = "0";
+    const overlay = block.parentElement?.parentElement;
+    if (overlay) {
+      overlay.style.background = "transparent";
+      overlay.style.pointerEvents = "none";
+      // Remove overlay click listener if present
+      overlay.removeEventListener(
+        "click",
+        overlay._newsletterModalClickHandler
+      );
+      overlay._newsletterModalClickHandler = null;
+    }
+    return;
+  }
+
+  block.style.opacity = "1";
+  const overlay = block.parentElement?.parentElement;
+  if (overlay) {
+    overlay.style.background = "rgba(0, 0, 0, 0.8)";
+    overlay.style.pointerEvents = "auto";
+    // Add overlay click-to-close logic
+    if (!overlay._newsletterModalClickHandler) {
+      overlay._newsletterModalClickHandler = function (e) {
+        if (e.target === overlay) {
+          isOpen = false;
+          renderNewsletterModal(block);
+        }
+      };
+      overlay.addEventListener("click", overlay._newsletterModalClickHandler);
+    }
+  }
+
   const selectors = [
     {
       key: "headerText",
@@ -68,10 +106,6 @@ export default function decorate(block) {
 
   const salutationsSelection = ["Mr", "Mrs", "Ms", "Dr", "Prof"];
 
-  // Toggle for modal state
-  let isSuccess = false; // Set to true to show success state for testing
-
-  console.log(image[0]);
   function renderModalContent() {
     if (isSuccess) {
       return `
@@ -122,18 +156,16 @@ export default function decorate(block) {
     }
   }
 
-  // Initial render
-  block.innerHTML = "";
   block.innerHTML = renderModalContent();
+  block.style.display = "block";
 
   // Add close button event
   function addCloseButtonHandler() {
     const closeBtns = block.querySelectorAll('[aria-label="Close"]');
     closeBtns.forEach((closeBtn) => {
       closeBtn.addEventListener("click", () => {
-        block.parentElement.parentElement.style.background = "transparent";
-        block.parentElement.parentElement.style.pointerEvents = "none";
-        block.remove();
+        isOpen = false;
+        renderNewsletterModal(block);
       });
     });
   }
@@ -209,8 +241,7 @@ export default function decorate(block) {
                     // }
                     // On success, toggle to success UI
                     isSuccess = true;
-                    block.innerHTML = renderModalContent();
-                    addCloseButtonHandler();
+                    renderNewsletterModal(block);
                   })
                   .catch((err) => {
                     console.error("Newsletter signup error:", err);
@@ -224,4 +255,21 @@ export default function decorate(block) {
     }
   }
   addFormHandler();
+}
+
+export default function decorate(block) {
+  modalBlock = block;
+  renderNewsletterModal(block);
+}
+
+const anchor = document.querySelector('a[href="/newsletter"]');
+if (anchor) {
+  anchor.addEventListener("click", (e) => {
+    e.preventDefault();
+    isOpen = true;
+    isSuccess = false;
+    if (modalBlock) {
+      renderNewsletterModal(modalBlock);
+    }
+  });
 }
