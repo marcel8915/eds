@@ -1,15 +1,22 @@
+import {
+  getElements,
+  showFieldError,
+  clearAllErrors,
+  addFieldErrorListeners,
+  populateCountrySelect,
+  formatRichText,
+} from "./newsletter-modal-utils.js";
+
+const API_ENDPOINT =
+  "https://publish-p152536-e1620746.adobeaemcloud.com/bin/chg/newsletter.json";
+const RECAPTCHA_SITE_KEY = "6LdZZnMrAAAAAGqiMLFf9k-fhMoG7rX7PwLAMiyj";
 const BLOCK_CLASS_NAME = "newsletter-modal";
 
 export default function decorate(block) {
-  const getElements = (selectors) =>
-    Object.fromEntries(
-      selectors.map(({ key, sel }) => [key, block.querySelectorAll(sel)])
-    );
-
   const selectors = [
     {
       key: "headerText",
-      sel: `.${BLOCK_CLASS_NAME} > div:nth-child(1) > div > p`,
+      sel: `.${BLOCK_CLASS_NAME} > div:nth-child(1) > div`,
     },
     {
       key: "buttonText",
@@ -19,202 +26,202 @@ export default function decorate(block) {
       key: "termsText",
       sel: `.${BLOCK_CLASS_NAME} > div:nth-child(3) > div`,
     },
+    {
+      key: "image",
+      sel: `.${BLOCK_CLASS_NAME} > div:nth-child(4) > div`,
+    },
+    {
+      key: "successHeaderText",
+      sel: `.${BLOCK_CLASS_NAME} > div:nth-child(5) > div `,
+    },
+    {
+      key: "successDescriptionText",
+      sel: `.${BLOCK_CLASS_NAME} > div:nth-child(6) > div > p`,
+    },
+    {
+      key: "closeButtonText",
+      sel: `.${BLOCK_CLASS_NAME} > div:nth-child(7) > div > p`,
+    },
   ];
 
-  const elements = getElements(selectors);
-  const { headerText, buttonText, termsText } = elements;
+  const elements = getElements(block, selectors);
+  const {
+    headerText,
+    buttonText,
+    termsText,
+    image,
+    successHeaderText,
+    successDescriptionText,
+    closeButtonText,
+  } = elements;
 
-  console.log(termsText[0]);
-  const ps = Array.from(termsText[0].querySelectorAll("p"));
-  if (ps.length > 1) {
-    const combinedHTML = ps.map((p) => p.innerHTML).join("<br>");
-    ps.forEach((p) => p.remove());
-    const paragraph = document.createElement("p");
-    paragraph.className = "text-p3 desc terms-text text-text-grey-800";
-    paragraph.innerHTML = combinedHTML;
-    termsText[0].appendChild(paragraph);
-  } else if (ps.length === 1) {
-    ps[0].className = "text-p3 desc terms-text text-text-grey-800";
-  }
+  // Header text formatting
+  formatRichText(headerText[0], "text-h4 modal-header", "h4");
+  // Terms text formatting
+  formatRichText(
+    termsText[0],
+    "text-p3 desc terms-text text-text-black-800",
+    "p"
+  );
+  // Success header text formatting
+  formatRichText(successHeaderText[0], "text-h4 modal-header", "h4");
 
   const salutationsSelection = ["Mr", "Mrs", "Ms", "Dr", "Prof"];
 
-  const modal = document.createElement("div");
-  modal.className = `${BLOCK_CLASS_NAME}-modal`;
-  modal.innerHTML = `
-    <button class="newsletter-modal-close" aria-label="Close" type="button" style="position:absolute;top:1.5rem;left:1.5rem;background:none;border:none;font-size:2rem;line-height:1;cursor:pointer;z-index:10;">&times;</button>
-    <div class="${BLOCK_CLASS_NAME}-header">
-      <h4 class="text-h4 modal-header">${headerText[0].textContent.trim()}</h4>
-        <form novalidate="">
-          <div class="relative">
-            <div class="relative">
-              <select name="salutation" class="pill-dropdown-button"><option value="">Salutation*</option>${salutationsSelection
-                .map(
-                  (salutation) =>
-                    `<option value="${salutation}">${salutation}</option>`
-                )
-                .join("")}</select>
-            </div>
-            <div class="name-inputs">
-              <div class="relative">
-                <input class="pill-dropdown-button" placeholder="First Name*" type="text" value="" name="firstName">
-              </div>
-              <div class="relative">
-                <input class="pill-dropdown-button" placeholder="Last Name*"  type="text" value="" name="lastName">
-              </div>
-            </div>
-            <div class="relative">
-              <input class="pill-dropdown-button" placeholder="Email Address*" type="email" value="" name="email">
-            </div>
-            <div class="relative">
-              <select name="country" class="pill-dropdown-button"><option value="">Country*</option></select>
-            </div>
+  // Toggle for modal state
+  let isSuccess = false; // Set to true to show success state for testing
 
-          <button class="text-b cta-button">${buttonText[0].textContent.trim()}</button>
-        </form>
-      ${termsText[0].innerHTML.trim()}
-    </div>
-  `;
-  block.innerHTML = ""; // Clear the block content
-  block.appendChild(modal);
+  console.log(image[0]);
+  function renderModalContent() {
+    if (isSuccess) {
+      return `
+        <button class="close-button" aria-label="Close" type="button"></button>
+        <div class="image-container">
+          ${image[0].innerHTML}
+        </div>
+        <div class="${BLOCK_CLASS_NAME}-success-header">
+          ${successHeaderText[0].innerHTML.trim()}
+          <h5 class="text-h5 text-text-black-800">${successDescriptionText[0].textContent.trim()}</h5>
+          <button class="text-b cta-button text-close-button" aria-label="Close">${closeButtonText[0].textContent.trim()}</button>
+        </div>
+      `;
+    } else {
+      return `
+        <button class="close-button" aria-label="Close" type="button"></button>
+        <div class="${BLOCK_CLASS_NAME}-header">
+          ${headerText[0].innerHTML.trim()}
+            <form novalidate="">
+              <div class="relative">
+                <div class="relative">
+                  <select name="salutation" class="pill-dropdown-button"><option value="">Salutation*</option>${salutationsSelection
+                    .map(
+                      (salutation) =>
+                        `<option value="${salutation}">${salutation}</option>`
+                    )
+                    .join("")}</select>
+                </div>
+                <div class="name-inputs">
+                  <div class="relative">
+                    <input class="pill-dropdown-button" placeholder="First Name*" type="text" value="" name="firstName">
+                  </div>
+                  <div class="relative">
+                    <input class="pill-dropdown-button" placeholder="Last Name*"  type="text" value="" name="lastName">
+                  </div>
+                </div>
+                <div class="relative">
+                  <input class="pill-dropdown-button" placeholder="Email Address*" type="email" value="" name="email">
+                </div>
+                <div class="relative">
+                  <select name="country" class="pill-dropdown-button"><option value="">Country*</option></select>
+                </div>
+              <button class="text-b cta-button">${buttonText[0].textContent.trim()}</button>
+            </form>
+          ${termsText[0].innerHTML.trim()}
+        </div>
+      `;
+    }
+  }
+
+  // Initial render
+  block.innerHTML = "";
+  block.innerHTML = renderModalContent();
 
   // Add close button event
-  const closeBtn = modal.querySelector(".newsletter-modal-close");
-  if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-      modal.remove();
+  function addCloseButtonHandler() {
+    const closeBtns = block.querySelectorAll('[aria-label="Close"]');
+    closeBtns.forEach((closeBtn) => {
+      closeBtn.addEventListener("click", () => {
+        block.parentElement.parentElement.style.background = "transparent";
+        block.parentElement.parentElement.style.pointerEvents = "none";
+        block.remove();
+      });
     });
   }
+  addCloseButtonHandler();
 
   // Populate country select
-  const countrySelect = () => modal.querySelector('select[name="country"]');
-  fetch("https://restcountries.com/v3.1/all?fields=name,cca2,translations")
-    .then((res) => res.json())
-    .then((data) => {
-      const sortedCountries = data
-        .map((country) => ({
-          value: country.cca2,
-          en: country.name.common,
-          // ja: country.translations?.jpn?.common || country.name.common,
-          label: country.name.common,
-        }))
-        .sort((a, b) => a.en.localeCompare(b.en));
-      const select = countrySelect();
-      if (select) {
-        sortedCountries.forEach((country) => {
-          const opt = document.createElement("option");
-          opt.value = country.value;
-          opt.textContent = country.label;
-          select.appendChild(opt);
-        });
-      }
-    });
+  const countrySelect = () => block.querySelector('select[name="country"]');
+  populateCountrySelect(countrySelect());
 
   // Handle form submission and log values
-  const form = modal.querySelector("form");
-  if (form) {
-    // Helper to show error below a field
-    function showFieldError(name, message) {
-      const field = form.querySelector(`[name="${name}"]`);
-      if (!field) return;
-      let error = field.parentElement.querySelector(".field-error");
-      if (!error) {
-        error = document.createElement("div");
-        const exclaimation = document.createElement("span");
-        exclaimation.className = "text-p2";
-        const text = document.createElement("span");
-        text.className = "text-p3";
-        text.textContent = message;
-        exclaimation.textContent = "!";
-        error.className = "field-error";
-        error.appendChild(exclaimation);
-        error.appendChild(text);
-        field.parentElement.appendChild(error);
-      } else {
-        error.querySelector(".text-p3").textContent = message;
-      }
-    }
-    // Helper to clear all errors
-    function clearAllErrors() {
-      form.querySelectorAll(".field-error").forEach((e) => e.remove());
-    }
-    // Hide all errors on input/change of any field
-    ["salutation", "firstName", "lastName", "email", "country"].forEach(
-      (name) => {
-        const field = form.querySelector(`[name="${name}"]`);
-        if (field) {
-          field.addEventListener("input", () => {
-            clearAllErrors();
-          });
-          field.addEventListener("change", () => {
-            clearAllErrors();
-          });
-        }
-      }
-    );
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      clearAllErrors();
-      const formData = new FormData(form);
-      const values = {
-        salutation: formData.get("salutation"),
-        firstName: formData.get("firstName"),
-        lastName: formData.get("lastName"),
-        email: formData.get("email"),
-        country: formData.get("country"),
-      };
-      let hasError = false;
-      // Validation: check if any field is empty
-      Object.entries(values).forEach(([key, value]) => {
-        if (!value || value.trim() === "") {
-          showFieldError(key, "Please fill out the field");
+  function addFormHandler() {
+    const form = block.querySelector("form");
+    if (form) {
+      addFieldErrorListeners(form, () => clearAllErrors(form));
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        clearAllErrors(form);
+        const formData = new FormData(form);
+        const values = {
+          salutation: formData.get("salutation"),
+          firstName: formData.get("firstName"),
+          lastName: formData.get("lastName"),
+          email: formData.get("email"),
+          country: formData.get("country"),
+        };
+        let hasError = false;
+        // Validation: check if any field is empty
+        Object.entries(values).forEach(([key, value]) => {
+          if (!value || value.trim() === "") {
+            showFieldError(form, key, "Please fill out the field");
+            hasError = true;
+          }
+        });
+        // Email format validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (values.email && !emailRegex.test(values.email)) {
+          showFieldError(form, "email", "Please enter a valid email address");
           hasError = true;
         }
-      });
-      // Email format validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (values.email && !emailRegex.test(values.email)) {
-        showFieldError("email", "Please enter a valid email address");
-        hasError = true;
-      }
-      if (hasError) return;
-      // reCAPTCHA integration
-      if (typeof window.grecaptcha !== "undefined") {
-        window.grecaptcha.enterprise.ready(function () {
-          window.grecaptcha.enterprise
-            .execute("6LdZZnMrAAAAAGqiMLFf9k-fhMoG7rX7PwLAMiyj", {
-              action: "submit",
-            })
-            .then(function (token) {
-              // Add token to values
-              // Use FormData for form-data submission
-              const fd = new FormData();
-              fd.append("salutation", values.salutation);
-              fd.append("firstName", values.firstName);
-              fd.append("lastName", values.lastName);
-              fd.append("email", values.email);
-              fd.append("country", values.country);
-              fd.append("captchaValue", token);
-              // POST request as form-data
-              fetch(
-                "https://publish-p152536-e1620746.adobeaemcloud.com/bin/chg/newsletter.json",
-                {
+        if (hasError) return;
+        // reCAPTCHA integration
+        if (typeof window.grecaptcha !== "undefined") {
+          window.grecaptcha.enterprise.ready(function () {
+            window.grecaptcha.enterprise
+              .execute(RECAPTCHA_SITE_KEY, {
+                action: "submit",
+              })
+              .then(function (token) {
+                // Use FormData for form-data submission
+                const fd = new FormData();
+                fd.append("salutation", values.salutation);
+                fd.append("firstName", values.firstName);
+                fd.append("lastName", values.lastName);
+                fd.append("email", values.email);
+                fd.append("country", values.country);
+                fd.append("captchaValue", token);
+                // POST request as form-data
+                fetch(API_ENDPOINT, {
                   method: "POST",
                   body: fd,
-                }
-              )
-                .then((res) => res.json())
-                .then((data) => {
-                  console.log("Newsletter signup response:", data);
                 })
-                .catch((err) => {
-                  console.error("Newsletter signup error:", err);
-                });
-            });
-        });
-      } else {
-        console.error("reCAPTCHA not loaded");
-      }
-    });
+                  .then((res) => res.json())
+                  .then((data) => {
+                    console.log("Newsletter signup response:", data);
+                    // TODO // Uncomment the following lines to handle errors
+                    // if (!data.success) {
+                    //   showFieldError(
+                    //     form,
+                    //     "email",
+                    //     "There was an error signing up. Please try again."
+                    //   );
+                    //   return;
+                    // }
+                    // On success, toggle to success UI
+                    isSuccess = true;
+                    block.innerHTML = renderModalContent();
+                    addCloseButtonHandler();
+                  })
+                  .catch((err) => {
+                    console.error("Newsletter signup error:", err);
+                  });
+              });
+          });
+        } else {
+          console.error("reCAPTCHA not loaded");
+        }
+      });
+    }
   }
+  addFormHandler();
 }
