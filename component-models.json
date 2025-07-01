@@ -1308,7 +1308,7 @@
         "component": "richtext",
         "name": "headerText",
         "label": "Header Text",
-        "value": "<p>Subscribe to<br></br>our Newsletter</p>",
+        "value": "<p>Subscribe to<br></br>our newsletter</p>",
         "description": "Text displayed at the top of the modal",
         "required": true
       },
@@ -1334,6 +1334,14 @@
         "label": "Image",
         "multi": false,
         "description": "Image displayed when the user successfully subscribes",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": "Patina Osaka",
+        "description": "Alternative text for the image displayed when the user successfully subscribes",
         "required": true
       },
       {
