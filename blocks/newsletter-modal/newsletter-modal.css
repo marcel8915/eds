@@ -1,0 +1,149 @@
+.newsletter-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.newsletter-modal.block {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    height: 100%;
+    width: 32.5rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 4rem 2.5rem;
+    position: relative;
+}
+
+.newsletter-modal .newsletter-modal-header {
+    text-align: center;
+}
+
+.newsletter-modal input,
+.newsletter-modal select {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    display: block;
+}
+
+.newsletter-modal .name-inputs {
+    display: flex;
+    gap: 1rem;
+    max-width: 436px;
+    flex-direction: row;
+}
+
+.newsletter-modal .name-inputs input {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.newsletter-modal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newsletter-modal form > div {
+    width: 100%;
+    max-width: 436px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newsletter-modal form > div > div {
+    width: 100%;
+    max-width: 436px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newsletter-modal form > div > div,
+.newsletter-modal form > div > div > select,
+.newsletter-modal form > div > div > input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.newsletter-modal input {
+    width: 100%;
+    font-size: 1rem;
+}
+
+.newsletter-modal .pill-dropdown-button {
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+.newsletter-modal .cta-button {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.field-error {
+    position: absolute;
+    top: calc(100% - 0.5rem);
+    left: 0;
+    margin-top: 0.25em;
+    margin-bottom: 0.5em;
+    z-index: 1;
+    background-color: rgb(243 244 246);
+    padding: 0.5rem 0.75rem;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    font-family: var(--font-gill-sans, "Cabin", sans-serif);
+    width: calc(100% - 1.5rem);
+    text-align: left;
+    gap: 0.5rem;
+}
+
+.relative {
+    position: relative;
+}
+
+.newsletter-modal .terms-text a {
+    color: inherit;
+}
+
+.newsletter-modal .terms-text {
+    margin-bottom: 0;
+}
+
+.newsletter-modal .modal-header {
+    max-width: 140px;
+    margin-top: 0;
+}
+
+.newsletter-modal select:focus,
+.newsletter-modal input:focus {
+    outline: 1px solid #333333;
+}
+
+.newsletter-modal input::placeholder {
+    opacity: 0.6;
+    color: #333333;
+}
+
+.newsletter-modal select:has(option:first-child:checked) {
+    color: #333333;
+    opacity: 0.6;
+    border: 1px solid rgba(204, 204, 204, 1) !important;
+}
