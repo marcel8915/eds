@@ -1107,6 +1107,25 @@
         "label": "CTA Text"
       },
       {
+        "component": "select",
+        "name": "roomtype",
+        "label": "room type",
+        "options": [
+          {
+            "name": "default",
+            "value": "default"
+          },
+          {
+            "name": "rooms",
+            "value": "rooms"
+          },
+          {
+            "name": "suites",
+            "value": "suites"
+          }
+        ]
+      },
+      {
         "component": "container",
         "name": "features",
         "label": "Features",
