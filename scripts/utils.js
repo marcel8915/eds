@@ -15,12 +15,13 @@ export function getElements(block, selectors) {
 }
 
 /**
- * Formats rich text content within a given element by combining multiple <p> nodes into a single wrapper element,
- * or by applying a class to a single <p> node.
+ * Formats the child elements of a given DOM element by wrapping them in a new div with a specified class name,
+ * and adds additional class names to each child based on its tag name and an optional text class name.
+ * Only element children with non-empty text content are processed.
  *
- * @param {Element} element - The DOM element containing the rich text to format.
- * @param {string} className - The CSS class to apply to the formatted wrapper or <p> element.
- * @param {string} [wrapperTag="p"] - The tag name to use for the wrapper element if combining multiple paragraphs.
+ * @param {HTMLElement} element - The DOM element whose children will be formatted.
+ * @param {string} wrapperClassName - The class name to assign to the wrapper div.
+ * @param {string} [textClassName] - An optional class name to add to each child element.
  */
 export function formatRichText(element, wrapperClassName, textClassName) {
   const wrapper = document.createElement("div");
