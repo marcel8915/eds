@@ -1388,5 +1388,17 @@
         "required": true
       }
     ]
+  },
+  {
+    "id": "flower-splash-screen",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "mainText",
+        "label": "Main Text",
+        "value": "<h4>Freedom is the luxury to<br>move effortlessly across worlds</h4>",
+        "required": true
+      }
+    ]
   }
 ]
