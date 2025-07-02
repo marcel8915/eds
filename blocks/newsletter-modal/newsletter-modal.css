@@ -289,3 +289,7 @@
         width: 100%;
     }
 }
+
+.success-newsletter-modal {
+    display: none;
+}
