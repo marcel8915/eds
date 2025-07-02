@@ -1,11 +1,7 @@
 // newsletter-modal-utils.js
 // Utility functions for newsletter modal
 
-export function getElements(block, selectors) {
-  return Object.fromEntries(
-    selectors.map(({ key, sel }) => [key, block.querySelectorAll(sel)])
-  );
-}
+
 
 export function showFieldError(form, name, message) {
   const field = form.querySelector(`[name="${name}"]`);
@@ -75,16 +71,3 @@ export function populateCountrySelect(select) {
     });
 }
 
-export function formatRichText(element, className, wrapperTag = "p") {
-  const nodes = Array.from(element.querySelectorAll("p"));
-  if (nodes.length > 1) {
-    const combinedHTML = nodes.map((n) => n.innerHTML).join("<br>");
-    nodes.forEach((n) => n.remove());
-    const wrapper = document.createElement(wrapperTag);
-    wrapper.className = className;
-    wrapper.innerHTML = combinedHTML;
-    element.appendChild(wrapper);
-  } else if (nodes.length === 1) {
-    nodes[0].className = className;
-  }
-}

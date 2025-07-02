@@ -145,6 +145,11 @@
 
 .newsletter-modal .modal-header {
     margin-top: 0;
+    margin-bottom: 2.5rem;
+}
+.newsletter-modal .newsletter-modal-success-header .modal-header {
+    margin-top: 0;
+    margin-bottom: 1.4rem;
 }
 
 .newsletter-modal select:focus,
@@ -259,6 +264,11 @@
 
     .newsletter-modal.block {
         padding: 2rem 1.25rem;
+    }
+
+    .newsletter-modal .modal-header {
+        margin-top: 0;
+        margin-bottom: 1rem;
     }
 }
 @media screen and (max-width: 640px) {
