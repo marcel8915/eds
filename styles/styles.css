@@ -129,6 +129,7 @@ h1,
 .text-t5,
 .text-l2 {
     line-height: 100%;
+    margin: 0;
 }
 .text-h2,
 .text-h5,
@@ -141,6 +142,7 @@ h5 {
 .text-p3,
 .text-p4 {
     line-height: 120%;
+    margin: 0;
 }
 .text-b {
     line-height: 110%;

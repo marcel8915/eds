@@ -1,11 +1,11 @@
 import {
-  getElements,
   showFieldError,
   clearAllErrors,
   addFieldErrorListeners,
   populateCountrySelect,
-  formatRichText,
 } from "./newsletter-modal-utils.js";
+
+import { formatRichText, getElements } from "../../scripts/utils.js";
 
 const API_ENDPOINT =
   "https://publish-p152536-e1620746.adobeaemcloud.com/bin/chg/newsletter.json";
@@ -94,15 +94,15 @@ function renderNewsletterModal(block) {
   } = elements;
 
   // Header text formatting
-  formatRichText(headerText[0], "text-h4 modal-header", "h4");
+  formatRichText(headerText[0], "modal-header");
   // Terms text formatting
   formatRichText(
     termsText[0],
-    "text-p3 desc terms-text text-text-black-800",
-    "p"
+    "desc terms-text text-text-black-800",
+    "text-p3"
   );
   // Success header text formatting
-  formatRichText(successHeaderText[0], "text-h4 modal-header", "h4");
+  formatRichText(successHeaderText[0], "modal-header");
 
   const salutationsSelection = ["Mr", "Mrs", "Ms", "Dr", "Prof"];
 
