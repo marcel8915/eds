@@ -1062,7 +1062,7 @@
     ]
   },
   {
-    "id": "image-gallery-card",
+    "id": "image-gallery-card2",
     "fields": [
       {
         "component": "reference",
