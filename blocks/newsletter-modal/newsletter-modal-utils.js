@@ -33,19 +33,24 @@ export function clearAllErrors(form) {
 }
 
 export function addFieldErrorListeners(form, clearAllErrorsFn) {
-  ["salutation", "firstName", "lastName", "email", "country"].forEach(
-    (name) => {
-      const field = form.querySelector(`[name="${name}"]`);
-      if (field) {
-        field.addEventListener("input", () => {
-          clearAllErrorsFn();
-        });
-        field.addEventListener("change", () => {
-          clearAllErrorsFn();
-        });
-      }
+  [
+    "salutation",
+    "firstName",
+    "lastName",
+    "email",
+    "country",
+    "captchaValue",
+  ].forEach((name) => {
+    const field = form.querySelector(`[name="${name}"]`);
+    if (field) {
+      field.addEventListener("input", () => {
+        clearAllErrorsFn();
+      });
+      field.addEventListener("change", () => {
+        clearAllErrorsFn();
+      });
     }
-  );
+  });
 }
 
 export function populateCountrySelect(select) {

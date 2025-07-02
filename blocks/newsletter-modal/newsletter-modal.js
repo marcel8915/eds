@@ -13,7 +13,7 @@ const RECAPTCHA_SITE_KEY = "6LfpYh8rAAAAAPaE-icNeXk4b8ktPXqLKwHhqp6d";
 const BLOCK_CLASS_NAME = "newsletter-modal";
 
 // Module-level state for modal
-let isOpen = true;
+let isOpen = false;
 let isSuccess = false;
 let modalBlock = null;
 
@@ -148,7 +148,9 @@ function renderNewsletterModal(block) {
                 <div class="relative">
                   <select name="country" class="pill-dropdown-button"><option value="">Country*</option></select>
                 </div>
-                      <div id="html_element"></div>
+                <div class="relative">
+                  <div id="html_element" name="captchaValue"></div>
+                </div>
 
                 <button class="text-b cta-button" type="submit">${buttonText[0].textContent.trim()}</button>
                 </form>
@@ -219,17 +221,12 @@ function renderNewsletterModal(block) {
         // Check reCAPTCHA response
         const captchaValue = grecaptcha.getResponse();
         if (!captchaValue) {
-          //TODO handle reCAPTCHA error
-          // let errorDiv = form.querySelector(".newsletter-error");
-          // if (!errorDiv) {
-          //   errorDiv = document.createElement("div");
-          //   errorDiv.className = "newsletter-error";
-          //   errorDiv.style.color = "red";
-          //   errorDiv.style.marginTop = "1em";
-          //   form.appendChild(errorDiv);
-          // }
-          // errorDiv.textContent = "Please complete the reCAPTCHA.";
-          // hasError = true;
+          showFieldError(
+            form,
+            "captchaValue",
+            "Please complete the reCAPTCHA verification"
+          );
+          hasError = true;
         }
         if (hasError) return;
         formData.append("captchaValue", captchaValue);
@@ -255,20 +252,20 @@ function renderNewsletterModal(block) {
             renderNewsletterModal(block);
           })
           .catch((err) => {
-            let errorDiv = form.querySelector(".newsletter-error");
-            if (!errorDiv) {
-              errorDiv = document.createElement("div");
-              errorDiv.className = "newsletter-error";
-              errorDiv.style.color = "red";
-              errorDiv.style.marginTop = "1em";
-              form.appendChild(errorDiv);
-            }
-            errorDiv.textContent =
-              "There was a problem submitting the form. Please try again.";
-            console.error(
-              "Newsletter signup error:",
-              err && err.message ? err.message : err || "Unknown error"
-            );
+            // let errorDiv = form.querySelector(".newsletter-error");
+            // if (!errorDiv) {
+            //   errorDiv = document.createElement("div");
+            //   errorDiv.className = "newsletter-error";
+            //   errorDiv.style.color = "red";
+            //   errorDiv.style.marginTop = "1em";
+            //   form.appendChild(errorDiv);
+            // }
+            // errorDiv.textContent =
+            //   "There was a problem submitting the form. Please try again.";
+            // console.error(
+            //   "Newsletter signup error:",
+            //   err && err.message ? err.message : err || "Unknown error"
+            // );
           });
       });
     }
