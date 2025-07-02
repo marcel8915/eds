@@ -172,7 +172,7 @@ function createGallery(block) {
           el: swiperEl.querySelector('.swiper-pagination'),
           clickable: true,
         },
-        loop: false,
+        loop: true,
         autoplay: false,
       });
     });
