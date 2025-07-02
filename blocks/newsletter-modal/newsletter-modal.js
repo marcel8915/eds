@@ -9,11 +9,11 @@ import {
 
 const API_ENDPOINT =
   "https://publish-p152536-e1620746.adobeaemcloud.com/bin/chg/newsletter.json";
-const RECAPTCHA_SITE_KEY = "6LdZZnMrAAAAAGqiMLFf9k-fhMoG7rX7PwLAMiyj";
+const RECAPTCHA_SITE_KEY = "6LfpYh8rAAAAAPaE-icNeXk4b8ktPXqLKwHhqp6d";
 const BLOCK_CLASS_NAME = "newsletter-modal";
 
 // Module-level state for modal
-let isOpen = false;
+let isOpen = true;
 let isSuccess = false;
 let modalBlock = null;
 
@@ -124,7 +124,7 @@ function renderNewsletterModal(block) {
         <button class="close-button" aria-label="Close" type="button"></button>
         <div class="${BLOCK_CLASS_NAME}-header">
           ${headerText[0].innerHTML.trim()}
-            <form novalidate="">
+            <form action="" method="POST">
               <div class="relative">
                 <div class="relative">
                   <select name="salutation" class="pill-dropdown-button"><option value="">Salutation*</option>${salutationsSelection
@@ -148,13 +148,18 @@ function renderNewsletterModal(block) {
                 <div class="relative">
                   <select name="country" class="pill-dropdown-button"><option value="">Country*</option></select>
                 </div>
-              <button class="text-b cta-button">${buttonText[0].textContent.trim()}</button>
-            </form>
-          ${termsText[0].innerHTML.trim()}
-        </div>
-      `;
+                      <div id="html_element"></div>
+
+                <input type="submit" value="Submit">
+                </form>
+                ${termsText[0].innerHTML.trim()}
+                </div>
+                `;
     }
   }
+  // <div class="g-recaptcha" data-sitekey="6LfpYh8rAAAAAPaE-icNeXk4b8ktPXqLKwHhqp6d" data-action="LOGIN"></div>
+  // <button class="text-b cta-button" type="submit">${buttonText[0].textContent.trim()}</button>
+  // <div class="g-recaptcha" data-sitekey=${RECAPTCHA_SITE_KEY} data-action="LOGIN"></div>
 
   block.innerHTML = renderModalContent();
   block.style.display = "block";
@@ -180,6 +185,71 @@ function renderNewsletterModal(block) {
     const form = block.querySelector("form");
     if (form) {
       addFieldErrorListeners(form, () => clearAllErrors(form));
+      var onloadCallback = function () {
+        grecaptcha.render("html_element", {
+          sitekey: RECAPTCHA_SITE_KEY,
+          theme: "light", // or 'dark'
+          size: "normal", // or 'compact' or 'invisible'
+          tabindex: 0,
+          callback: function (token) {
+            console.log("reCAPTCHA token:", token);
+            // You can use the token here for troubleshooting
+          },
+        });
+      };
+      onloadCallback();
+      return;
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        clearAllErrors(form);
+        const formData = new FormData(form);
+        const values = {
+          salutation: formData.get("salutation"),
+          firstName: formData.get("firstName"),
+          lastName: formData.get("lastName"),
+          email: formData.get("email"),
+          country: formData.get("country"),
+        };
+        // const item = grecaptcha.enterprise.execute();
+        // console.log(item);
+        // grecaptcha.ready(function () {
+        //   grecaptcha.render("recaptcha-container", {
+        //     sitekey: RECAPTCHA_SITE_KEY,
+        //   });
+        // });
+        console.log(values);
+      });
+      return;
+      // Expose onSubmit globally for reCAPTCHA enterprise
+      // window.onSubmit = function (token) {
+      //   // Custom AJAX submission, not form.submit()
+      //   console.log("Form submitted with token:", token);
+      //   const formData = new FormData(form);
+      //   formData.append("captchaValue", token);
+      //   fetch(API_ENDPOINT, {
+      //     method: "POST",
+      //     body: formData,
+      //   })
+      //     .then(async (res) => {
+      //       if (!res.ok) throw new Error("Network response was not ok");
+      //       const text = await res.text();
+      //       if (!text) return {}; // treat empty as success
+      //       try {
+      //         return JSON.parse(text);
+      //       } catch (e) {
+      //         throw new Error("Invalid JSON response");
+      //       }
+      //     })
+      //     .then((data) => {
+      //       console.log("Newsletter signup response:", data);
+      //       isSuccess = true;
+      //       renderNewsletterModal(block);
+      //     })
+      //     .catch((err) => {
+      //       console.error("Newsletter signup error:", err);
+      //     });
+      // };
+
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         clearAllErrors(form);
@@ -206,50 +276,15 @@ function renderNewsletterModal(block) {
           hasError = true;
         }
         if (hasError) return;
-        // reCAPTCHA integration
-        if (typeof window.grecaptcha !== "undefined") {
+        // Trigger reCAPTCHA enterprise (v3 pattern)
+        if (window.grecaptcha && window.grecaptcha.enterprise) {
           window.grecaptcha.enterprise.ready(function () {
             window.grecaptcha.enterprise
-              .execute(RECAPTCHA_SITE_KEY, {
-                action: "submit",
-              })
-              .then(function (token) {
-                // Use FormData for form-data submission
-                const fd = new FormData();
-                fd.append("salutation", values.salutation);
-                fd.append("firstName", values.firstName);
-                fd.append("lastName", values.lastName);
-                fd.append("email", values.email);
-                fd.append("country", values.country);
-                fd.append("captchaValue", token);
-                // POST request as form-data
-                fetch(API_ENDPOINT, {
-                  method: "POST",
-                  body: fd,
-                })
-                  .then((res) => res.json())
-                  .then((data) => {
-                    console.log("Newsletter signup response:", data);
-                    // TODO // Uncomment the following lines to handle errors
-                    // if (!data.success) {
-                    //   showFieldError(
-                    //     form,
-                    //     "email",
-                    //     "There was an error signing up. Please try again."
-                    //   );
-                    //   return;
-                    // }
-                    // On success, toggle to success UI
-                    isSuccess = true;
-                    renderNewsletterModal(block);
-                  })
-                  .catch((err) => {
-                    console.error("Newsletter signup error:", err);
-                  });
-              });
+              .execute(RECAPTCHA_SITE_KEY, { action: "submit" })
+              .then(window.onSubmit);
           });
         } else {
-          console.error("reCAPTCHA not loaded");
+          console.error("reCAPTCHA enterprise not loaded");
         }
       });
     }
