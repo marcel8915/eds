@@ -13,7 +13,7 @@ const RECAPTCHA_SITE_KEY = "6LfpYh8rAAAAAPaE-icNeXk4b8ktPXqLKwHhqp6d";
 const BLOCK_CLASS_NAME = "newsletter-modal";
 
 // Module-level state for modal
-let isOpen = true;
+let isOpen = false;
 let isSuccess = false;
 let modalBlock = null;
 
@@ -124,7 +124,7 @@ function renderNewsletterModal(block) {
         <button class="close-button" aria-label="Close" type="button"></button>
         <div class="${BLOCK_CLASS_NAME}-header">
           ${headerText[0].innerHTML.trim()}
-            <form action="" method="POST">
+            <form >
               <div class="relative">
                 <div class="relative">
                   <select name="salutation" class="pill-dropdown-button"><option value="">Salutation*</option>${salutationsSelection
@@ -148,9 +148,11 @@ function renderNewsletterModal(block) {
                 <div class="relative">
                   <select name="country" class="pill-dropdown-button"><option value="">Country*</option></select>
                 </div>
-                      <div id="html_element"></div>
+                <div class="relative">
+                  <div id="html_element" name="captchaValue"></div>
+                </div>
 
-                <input type="submit" value="Submit">
+                <button class="text-b cta-button" type="submit">${buttonText[0].textContent.trim()}</button>
                 </form>
                 ${termsText[0].innerHTML.trim()}
                 </div>
@@ -158,7 +160,6 @@ function renderNewsletterModal(block) {
     }
   }
   // <div class="g-recaptcha" data-sitekey="6LfpYh8rAAAAAPaE-icNeXk4b8ktPXqLKwHhqp6d" data-action="LOGIN"></div>
-  // <button class="text-b cta-button" type="submit">${buttonText[0].textContent.trim()}</button>
   // <div class="g-recaptcha" data-sitekey=${RECAPTCHA_SITE_KEY} data-action="LOGIN"></div>
 
   block.innerHTML = renderModalContent();
@@ -185,72 +186,15 @@ function renderNewsletterModal(block) {
     const form = block.querySelector("form");
     if (form) {
       addFieldErrorListeners(form, () => clearAllErrors(form));
-      var onloadCallback = function () {
-        grecaptcha.render("html_element", {
-          sitekey: RECAPTCHA_SITE_KEY,
-          theme: "light", // or 'dark'
-          size: "normal", // or 'compact' or 'invisible'
-          tabindex: 0,
-          callback: function (token) {
-            console.log("reCAPTCHA token:", token);
-            // You can use the token here for troubleshooting
-          },
-        });
-      };
-      onloadCallback();
-      return;
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        clearAllErrors(form);
-        const formData = new FormData(form);
-        const values = {
-          salutation: formData.get("salutation"),
-          firstName: formData.get("firstName"),
-          lastName: formData.get("lastName"),
-          email: formData.get("email"),
-          country: formData.get("country"),
-        };
-        // const item = grecaptcha.enterprise.execute();
-        // console.log(item);
-        // grecaptcha.ready(function () {
-        //   grecaptcha.render("recaptcha-container", {
-        //     sitekey: RECAPTCHA_SITE_KEY,
-        //   });
-        // });
-        console.log(values);
+      // Render checkbox reCAPTCHA
+      grecaptcha.render("html_element", {
+        sitekey: RECAPTCHA_SITE_KEY,
+        theme: "light",
+        size: "normal",
+        tabindex: 0,
       });
-      return;
-      // Expose onSubmit globally for reCAPTCHA enterprise
-      // window.onSubmit = function (token) {
-      //   // Custom AJAX submission, not form.submit()
-      //   console.log("Form submitted with token:", token);
-      //   const formData = new FormData(form);
-      //   formData.append("captchaValue", token);
-      //   fetch(API_ENDPOINT, {
-      //     method: "POST",
-      //     body: formData,
-      //   })
-      //     .then(async (res) => {
-      //       if (!res.ok) throw new Error("Network response was not ok");
-      //       const text = await res.text();
-      //       if (!text) return {}; // treat empty as success
-      //       try {
-      //         return JSON.parse(text);
-      //       } catch (e) {
-      //         throw new Error("Invalid JSON response");
-      //       }
-      //     })
-      //     .then((data) => {
-      //       console.log("Newsletter signup response:", data);
-      //       isSuccess = true;
-      //       renderNewsletterModal(block);
-      //     })
-      //     .catch((err) => {
-      //       console.error("Newsletter signup error:", err);
-      //     });
-      // };
-
-      form.addEventListener("submit", (e) => {
+      // Prevent default form POST by intercepting submit
+      form.addEventListener("submit", function (e) {
         e.preventDefault();
         clearAllErrors(form);
         const formData = new FormData(form);
@@ -261,31 +205,68 @@ function renderNewsletterModal(block) {
           email: formData.get("email"),
           country: formData.get("country"),
         };
+
         let hasError = false;
-        // Validation: check if any field is empty
         Object.entries(values).forEach(([key, value]) => {
           if (!value || value.trim() === "") {
             showFieldError(form, key, "Please fill out the field");
             hasError = true;
           }
         });
-        // Email format validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (values.email && !emailRegex.test(values.email)) {
           showFieldError(form, "email", "Please enter a valid email address");
           hasError = true;
         }
-        if (hasError) return;
-        // Trigger reCAPTCHA enterprise (v3 pattern)
-        if (window.grecaptcha && window.grecaptcha.enterprise) {
-          window.grecaptcha.enterprise.ready(function () {
-            window.grecaptcha.enterprise
-              .execute(RECAPTCHA_SITE_KEY, { action: "submit" })
-              .then(window.onSubmit);
-          });
-        } else {
-          console.error("reCAPTCHA enterprise not loaded");
+        // Check reCAPTCHA response
+        const captchaValue = grecaptcha.getResponse();
+        if (!captchaValue) {
+          showFieldError(
+            form,
+            "captchaValue",
+            "Please complete the reCAPTCHA verification"
+          );
+          hasError = true;
         }
+        if (hasError) return;
+        formData.append("captchaValue", captchaValue);
+        // Remove g-recaptcha-response from FormData if present
+        formData.delete("g-recaptcha-response");
+
+        fetch(API_ENDPOINT, {
+          method: "POST",
+          body: formData,
+        })
+          .then(async (res) => {
+            if (!res.ok) throw new Error("Network response was not ok");
+            const text = await res.text();
+            if (!text) return {}; // treat empty as success
+            try {
+              return JSON.parse(text);
+            } catch (e) {
+              throw new Error("Invalid JSON response");
+            }
+          })
+          .then((data) => {
+            isSuccess = true;
+            renderNewsletterModal(block);
+          })
+          .catch((err) => {
+            // let errorDiv = form.querySelector(".newsletter-error");
+            // if (!errorDiv) {
+            //   errorDiv = document.createElement("div");
+            //   errorDiv.className = "newsletter-error";
+            //   errorDiv.style.color = "red";
+            //   errorDiv.style.marginTop = "1em";
+            //   form.appendChild(errorDiv);
+            // }
+            // errorDiv.textContent =
+            //   "There was a problem submitting the form. Please try again.";
+            // console.error(
+            //   "Newsletter signup error:",
+            //   err && err.message ? err.message : err || "Unknown error"
+            // );
+          });
       });
     }
   }
