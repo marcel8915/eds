@@ -79,7 +79,7 @@
   },
   {
     "id": "image-gallery-tile",
-    "components": ["image-gallery-card"]
+    "components": ["image-gallery-card2"]
   },
   {
     "id": "faq-accordion",
