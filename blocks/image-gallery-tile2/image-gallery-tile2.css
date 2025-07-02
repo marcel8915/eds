@@ -79,7 +79,7 @@
 
 .image-gallery-tile-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 3rem;
     max-width: 1200px;
     width: 100%;
@@ -88,7 +88,7 @@
 .image-gallery-tile-card {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 32px;
 }
 
 .image-gallery-tile-images {
@@ -127,12 +127,25 @@
     align-items: center;
     justify-content: center;
     transition: opacity 0.3s ease;
-    opacity: 0;
+    opacity: 0!important;
+    background-image: url('/icons/white-arrow.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px; 
+    width: 40px!important; 
+    height: 40px!important; 
+    backdrop-filter: blur(19.53125px);
+  
 }
 
 .swiper:hover .swiper-button-next,
 .swiper:hover .swiper-button-prev {
-    opacity: 1;
+    opacity: 1!important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  display: none;
 }
 
 .swiper-button-next:after,
@@ -140,13 +153,22 @@
     font-size: 20px;
 }
 
+.swiper-button-prev {
+    transform: rotate(180deg);
+  }
+  
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    width: 25px !important;
+  }
+  
 .swiper-pagination-bullet {
-    background: white;
-    opacity: 0.5;
-    width: 4px;
-    height: 4px;
-    border-radius: 4px;
-    margin: 0 4px !important;
+    background-color: rgba(var(--border-grey)) !important;
+    opacity: 1 !important;
+    border-radius: 4px !important;
+    width: 4px !important;
+    height: 4px !important;
+    margin: 0 4px 0 0 !important;
     transition: all 0.3s ease;
 }
 
@@ -164,7 +186,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 16px;
 }
 
 .image-gallery-tile-right {
@@ -174,13 +196,13 @@
 }
 
 .image-gallery-tile-title {
-    font-family: "Cormorant", serif;
-    font-size: 2rem;
+    color: var(--Text-text-black, #333);
+    font-family: "Gill Sans";
+    font-size: 16px;
+    font-style: normal;
     font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: -0.72px;
+    line-height: 100%; 
     margin: 0;
-    color: #000;
 }
 
 .image-gallery-tile-link {
@@ -190,10 +212,13 @@
 }
 
 .image-gallery-tile-description {
-    font-family: "Gill Sans", sans-serif;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #333;
+    color: var(--Text-text-black, #333);
+    font-family: Cormorant;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; 
+    letter-spacing: -1.2px;
     margin: 0;
     transition: color 0.3s ease;
     position: relative;
@@ -203,7 +228,7 @@
 .image-gallery-tile-description::after {
     content: "";
     position: absolute;
-    bottom: 0;
+    bottom: 4px;
     left: 0;
     width: 0;
     height: 1px;
@@ -222,14 +247,14 @@
 .image-gallery-tile-features {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 16px;
     max-width: 300px;
 }
 
 .image-gallery-tile-feature {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 16px;
 }
 
 .image-gallery-tile-feature-icon {
@@ -244,10 +269,13 @@
 }
 
 .image-gallery-tile-feature-text {
-    font-family: "Gill Sans", sans-serif;
-    font-size: 0.875rem;
-    line-height: 1.4;
-    color: #333;
+    color: #000;
+    font-family: Cormorant;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; 
+    letter-spacing: -0.72px;
 }
 
 @media (max-width: 768px) {
@@ -264,7 +292,15 @@
         max-width: 100%;
     }
 
+    .image-gallery-tile-description {
+        font-size: 24px;
+    }
+
+    .image-gallery-tile-feature-text {
+        font-size: 20px;
+    }
+
     .image-gallery-tile-title {
-        font-size: 1.5rem;
+        font-size: 14px;
     }
 }

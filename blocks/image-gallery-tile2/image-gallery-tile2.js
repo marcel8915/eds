@@ -191,7 +191,7 @@ function createGalleryWithFilters(block) {
             el: swiperEl.querySelector(".swiper-pagination"),
             clickable: true,
           },
-          loop: true,
+          loop: false,
           autoplay: false,
         });
       });

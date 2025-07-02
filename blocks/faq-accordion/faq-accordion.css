@@ -10,9 +10,9 @@
         width: 828px;
     }
     
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 900px) {
         .accordion-container-item {
-            width: 100%;
+            width: unset;
         }
     }
     
@@ -72,8 +72,8 @@
         flex-direction: row;
     }
 }
-@media screen and (max-width: 768px) {
-    .accordion-container {
+@media screen and (max-width: 900px) {
+    .accordion-container-item {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
 
