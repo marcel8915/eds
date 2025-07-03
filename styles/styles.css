@@ -137,7 +137,10 @@ h2,
 h5 {
     line-height: 110%;
 }
-.text-p1,
+.text-p1 {
+    line-height: 120%;
+    letter-spacing: -0.03em;
+}
 .text-p2,
 .text-p3,
 .text-p4 {
