@@ -5,33 +5,34 @@ export default function decorate(block) {
   const rightCol = document.createElement("div");
   rightCol.className = "three-image-grid__right-col";
 
-  const items = [];
-  const children = [...block.children];
-  while (children.length > 0) {
-    const currentDiv = children.shift();
+  const imageContainers = [...block.children].filter((child) =>
+    child.querySelector("picture, img")
+  );
 
-    if (currentDiv.querySelector("picture, img")) {
-      const imageDiv = currentDiv;
-      let captionDiv;
-
-      if (children.length > 0 && !children[0].querySelector("picture, img")) {
-        captionDiv = children.shift();
-      } else {
-        captionDiv = document.createElement("div");
-      }
-      items.push({ imageDiv, captionDiv });
-    }
-  }
-
-  items.forEach((item, index) => {
+  imageContainers.forEach((container, index) => {
     const card = document.createElement("div");
     card.className = "three-image-grid__card";
 
-    item.imageDiv.classList.add("three-image-grid__image");
-    item.captionDiv.classList.add("three-image-grid__caption");
+    const imageDiv = container.querySelector(":scope > div:first-child");
 
-    card.append(item.imageDiv);
-    card.append(item.captionDiv);
+    const captionDiv = container.querySelector(":scope > div:nth-child(2)");
+
+    const imageContainer = document.createElement("div");
+    imageContainer.className = "three-image-grid__image";
+    if (imageDiv?.querySelector("picture, img")) {
+      imageContainer.append(
+        imageDiv.querySelector("picture, img").cloneNode(true)
+      );
+    }
+
+    const captionContainer = document.createElement("div");
+    captionContainer.className = "text-p2";
+    if (captionDiv) {
+      captionContainer.innerHTML = captionDiv.innerHTML;
+    }
+
+    card.append(imageContainer);
+    card.append(captionContainer);
 
     if (index === 0) {
       leftCol.append(card);
@@ -46,8 +47,6 @@ export default function decorate(block) {
   });
 
   block.innerHTML = "";
-
   block.className = "three-image-grid";
-
   block.append(leftCol, rightCol);
 }
