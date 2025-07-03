@@ -51,7 +51,7 @@ export default function decorate(block) {
     const dateCol = columns[1];
     if (dateCol) {
       const dateElement = document.createElement("div");
-      dateElement.className = "table-board2-date";
+      dateElement.className = "text-l1 table-board2-date";
       dateElement.textContent = dateCol.textContent.trim();
       textContent.append(dateElement);
     }
@@ -60,7 +60,7 @@ export default function decorate(block) {
     const linkCol = columns[3];
     if (titleCol) {
       const titleWrapper = document.createElement("span");
-      titleWrapper.className = "table-board2-item-title";
+      titleWrapper.className = "text-h2";
 
       const titleText = titleCol.textContent.trim();
       const titleHtml = titleCol.innerHTML.trim();
@@ -85,7 +85,7 @@ export default function decorate(block) {
           groupContainer.appendChild(document.createElement("br"));
 
           const secondLine = document.createElement("span");
-          secondLine.className = "table-board2-title-line";
+          secondLine.className = "text-h2 table-board2-title-line";
           secondLine.textContent = lines[1] ? lines[1].trim() : "";
 
           const underline = document.createElement("span");
@@ -95,7 +95,7 @@ export default function decorate(block) {
           groupContainer.appendChild(secondLine);
         } else {
           const titleLine = document.createElement("span");
-          titleLine.className = "table-board2-title-line";
+          titleLine.className = "text-h2 table-board2-title-line";
           titleLine.textContent = titleText;
 
           const underline = document.createElement("span");
@@ -125,7 +125,7 @@ export default function decorate(block) {
     const descCol = columns[4];
     if (descCol) {
       const descElement = document.createElement("div");
-      descElement.className = "table-board2-description";
+      descElement.className = "text-p2";
       descElement.innerHTML = descCol.innerHTML;
       textContent.append(descElement);
     }
@@ -137,7 +137,19 @@ export default function decorate(block) {
       mobileButton.target = "_blank";
       mobileButton.rel = "noopener noreferrer";
       mobileButton.className = "table-board2-mobile-button secondary-button";
-      mobileButton.textContent = "View Press Info";
+
+      const underlineContainer = document.createElement("span");
+      underlineContainer.className = "underline-container";
+
+      const buttonText = document.createElement("span");
+      buttonText.textContent = "View Press Info";
+
+      const underline = document.createElement("span");
+      underline.className = "underline";
+
+      underlineContainer.appendChild(buttonText);
+      underlineContainer.appendChild(underline);
+      mobileButton.appendChild(underlineContainer);
       textContent.append(mobileButton);
     }
 
