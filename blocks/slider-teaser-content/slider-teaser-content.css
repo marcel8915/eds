@@ -4,13 +4,6 @@
     flex-direction: column;
     background: #000;
     color: #fff;
-    margin-top: 7.5rem;
-}
-
-@media screen and (max-width: 1024px) {
-    .section.slider-teaser-content-container {
-        margin-top: 5rem;
-    }
 }
 
 .slider-teaser-content-wrapper {
@@ -102,8 +95,4 @@
     align-items: center;
     justify-content: center;
     border: none;
-}
-
-.overlay-container .text-h4 {
-    margin-top: 2.5rem;
 }

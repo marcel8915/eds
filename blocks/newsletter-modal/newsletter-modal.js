@@ -302,7 +302,8 @@ export default function decorate(block) {
   renderNewsletterModal(block);
 }
 
-document.querySelectorAll('a[href="/newsletter"]').forEach((anchor) => {
+const anchor = document.querySelector('a[href="/newsletter"]');
+if (anchor) {
   anchor.addEventListener("click", (e) => {
     e.preventDefault();
     isOpen = true;
@@ -312,4 +313,4 @@ document.querySelectorAll('a[href="/newsletter"]').forEach((anchor) => {
       renderNewsletterModal(modalBlock);
     }
   });
-});
+}
