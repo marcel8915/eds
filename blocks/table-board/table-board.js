@@ -1,6 +1,6 @@
 export default function decorate(block) {
   const container = document.createElement("div");
-  container.className = "table-board2-container";
+  container.className = "table-board-container";
 
   const rows = [...block.children];
 
@@ -17,13 +17,13 @@ export default function decorate(block) {
 
   if (sectionTitle) {
     const titleElement = document.createElement("h2");
-    titleElement.className = "table-board2-section-title";
+    titleElement.className = "table-board-section-title";
     titleElement.textContent = sectionTitle;
     container.append(titleElement);
   }
 
   const itemsContainer = document.createElement("div");
-  itemsContainer.className = "table-board2-items";
+  itemsContainer.className = "table-board-items";
 
   for (let i = 1; i < rows.length; i++) {
     const row = rows[i];
@@ -32,26 +32,26 @@ export default function decorate(block) {
     if (columns.length < 5) continue;
 
     const item = document.createElement("div");
-    item.className = "table-board2-item";
+    item.className = "table-board-item";
 
     const itemContent = document.createElement("div");
-    itemContent.className = "table-board2-item-content";
+    itemContent.className = "table-board-item-content";
 
     const imageCol = columns[0];
     if (imageCol && imageCol.querySelector("picture")) {
       const imageContainer = document.createElement("div");
-      imageContainer.className = "table-board2-image-container";
+      imageContainer.className = "table-board-image-container";
       imageContainer.append(imageCol.querySelector("picture").cloneNode(true));
       itemContent.append(imageContainer);
     }
 
     const textContent = document.createElement("div");
-    textContent.className = "table-board2-text-content";
+    textContent.className = "table-board-text-content";
 
     const dateCol = columns[1];
     if (dateCol) {
       const dateElement = document.createElement("div");
-      dateElement.className = "text-l1 table-board2-date";
+      dateElement.className = "text-l1 table-board-date";
       dateElement.textContent = dateCol.textContent.trim();
       textContent.append(dateElement);
     }
@@ -72,11 +72,11 @@ export default function decorate(block) {
         linkElement.href = link;
         linkElement.target = "_blank";
         linkElement.rel = "noopener noreferrer";
-        linkElement.className = "table-board2-title-link";
+        linkElement.className = "table-board-title-link";
         linkElement.style.whiteSpace = "pre-line";
 
         const groupContainer = document.createElement("div");
-        groupContainer.className = "table-board2-title-group";
+        groupContainer.className = "table-board-title-group";
 
         if (hasNewline) {
           const lines = titleText.split("\n");
@@ -85,21 +85,21 @@ export default function decorate(block) {
           groupContainer.appendChild(document.createElement("br"));
 
           const secondLine = document.createElement("span");
-          secondLine.className = "text-h2 table-board2-title-line";
+          secondLine.className = "text-h2 table-board-title-line";
           secondLine.textContent = lines[1] ? lines[1].trim() : "";
 
           const underline = document.createElement("span");
-          underline.className = "table-board2-title-underline";
+          underline.className = "table-board-title-underline";
 
           secondLine.appendChild(underline);
           groupContainer.appendChild(secondLine);
         } else {
           const titleLine = document.createElement("span");
-          titleLine.className = "text-h2 table-board2-title-line";
+          titleLine.className = "text-h2 table-board-title-line";
           titleLine.textContent = titleText;
 
           const underline = document.createElement("span");
-          underline.className = "table-board2-title-underline";
+          underline.className = "table-board-title-underline";
 
           titleLine.appendChild(underline);
           groupContainer.appendChild(titleLine);
@@ -136,7 +136,7 @@ export default function decorate(block) {
       mobileButton.href = link;
       mobileButton.target = "_blank";
       mobileButton.rel = "noopener noreferrer";
-      mobileButton.className = "table-board2-mobile-button secondary-button";
+      mobileButton.className = "table-board-mobile-button secondary-button";
 
       const underlineContainer = document.createElement("span");
       underlineContainer.className = "underline-container";
