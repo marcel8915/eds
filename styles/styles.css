@@ -246,7 +246,7 @@ button.secondary {
     color: inherit;
     text-decoration: none;
     font-family: var(--font-gill-sans, "Cabin", sans-serif);
-    font-size: 0.95rem;
+    font-size: clamp(14px, 1.5vw, 15px);
     letter-spacing: 0.15em;
     text-transform: uppercase;
     padding: 0;
