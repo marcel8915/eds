@@ -83,14 +83,14 @@
 .table-board2-item-content {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 1.5rem;
     width: 100%;
 }
 
 @media (min-width: 768px) {
     .table-board2-item-content {
         flex-direction: row;
-        gap: 80px;
+        gap: 5rem;
     }
 }
 
@@ -128,17 +128,28 @@
     }
 }
 
-.table-board2-date {
-    font-size: clamp(14px, 2vw, 20px);
-    line-height: 1.5;
-    margin-bottom: 16px;
+.text-l1 {
+    font-family: Gill Sans, sans-serif;
+    margin-bottom: 0.5rem;
     word-break: break-word;
 }
 
-.table-board2-item-title {
-    font-size: clamp(24px, 3vw, 40px);
-    line-height: 1.3;
+@media (min-width: 768px) {
+    .text-l1 {
+        margin-bottom: 1rem;
+    }
+}
+
+.text-h2 {
     word-break: break-word;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .text-h2 {
+        margin-bottom: 1.5rem;
+    }
 }
 
 .table-board2-item-title a {
@@ -164,46 +175,54 @@
     }
 }
 
-.table-board2-description {
-    font-size: clamp(16px, 2vw, 20px);
-    line-height: 1.5;
+.text-p2 {
     margin-bottom: 40px;
     word-break: break-word;
 }
 
 .table-board2-mobile-button {
-    display: inline-block;
-    padding: 8px 16px;
-    border: 1px solid #000;
-    background: none;
-    cursor: pointer;
+    display: block;
+    width: fit-content;
+    padding: 0;
+    font-family: "Gill Sans", sans-serif;
     font-size: 0.875rem;
-    text-decoration: none;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 2.1px;
     color: #000;
-    max-width: 100%;
-    box-sizing: border-box;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    font-weight: inherit;
+}
+
+.table-board2-mobile-button:hover {
+    color: #333;
+}
+
+.table-board2-mobile-button .underline-container {
+    position: relative;
+    display: inline-block;
+}
+
+.table-board2-mobile-button .underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 0;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+}
+
+.table-board2-mobile-button:hover .underline {
+    width: 100%;
 }
 
 @media (min-width: 768px) {
     .table-board2-mobile-button {
         display: none;
-    }
-}
-
-.secondary-button {
-}
-
-@media (max-width: 767px) {
-    .table-board2-item-content {
-        gap: 20px;
-    }
-
-    .table-board2-item {
-        padding-bottom: 30px;
-        margin-bottom: 30px;
-    }
-
-    .table-board2-section-title {
-        margin-bottom: 30px;
     }
 }

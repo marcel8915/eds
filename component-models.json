@@ -1344,6 +1344,18 @@
         "name": "label",
         "label": "Section Label",
         "description": "Optional subtitle for the section"
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Button Text",
+        "description": "text for action button"
+      },
+      {
+        "component": "aem-content",
+        "name": "buttonLink",
+        "label": "Button Link URL",
+        "description": "URL for the action button"
       }
     ]
   },
@@ -1360,24 +1372,36 @@
         "component": "text",
         "name": "date",
         "label": "Date",
-        "description": "Display date "
+        "description": "Display date"
       },
       {
         "component": "text",
         "name": "title",
-        "label": "Title (Link Text)",
-        "description": "title with link"
+        "label": "Title",
+        "description": "Title text"
       },
       {
         "component": "aem-content",
         "name": "titleLink",
         "label": "Title Link URL",
-        "description": "URL link for title"
+        "description": "URL for the title"
       },
       {
         "component": "richtext",
         "name": "description",
         "label": "Description"
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Button Text",
+        "description": "text for action button"
+      },
+      {
+        "component": "aem-content",
+        "name": "buttonLink",
+        "label": "Button Link URL",
+        "description": "URL for the action button"
       }
     ]
   },
