@@ -395,9 +395,6 @@ body.nav-open {
     .main-links a {
         font-size: 2.25rem;
     }
-    .main-links ul {
-        gap: 1.875rem;
-    }
 }
 
 /* --- Bottom Links --- */
