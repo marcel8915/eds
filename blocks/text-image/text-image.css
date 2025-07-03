@@ -51,18 +51,6 @@
     flex-shrink: 0;
 }
 
-.contact-detail__item--phone .icon {
-    background-image: url("/icons/call.svg");
-}
-
-.contact-detail__item--email .icon {
-    background-image: url("/icons/book-event.svg");
-}
-
-.contact-detail__item--event .icon {
-    background-image: url("/icons/event.svg");
-}
-
 .contact-detail__text {
     font-size: 1.5rem;
     line-height: 1.5;

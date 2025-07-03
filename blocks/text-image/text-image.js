@@ -52,7 +52,7 @@ export default function decorate(block) {
     const contactWrapper = document.createElement("div");
     contactWrapper.className = "contact-detail";
 
-    const contactTypes = ["phone", "email", "event"];
+    const contactTypes = ["call", "book-event", "event"];
 
     [...lastDiv.children].forEach((item, index) => {
       const type = contactTypes[index];
@@ -60,7 +60,7 @@ export default function decorate(block) {
 
       if (value) {
         const contactItem = document.createElement("div");
-        contactItem.className = `contact-detail__item contact-detail__item--${type}`;
+        contactItem.className = `contact-detail__item`;
 
         const icon = document.createElement("span");
         icon.className = `icon icon-${type}`;
