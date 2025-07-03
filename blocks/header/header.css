@@ -10,34 +10,31 @@
     --header-height-mobile: 50px;
 }
 
-/* --- Wrapper and General --- */
+/* --- Header Wrapper --- */
 .header-wrapper {
     position: fixed;
     left: 0;
     top: 0;
     width: 100%;
     z-index: 500;
-    transition: background-color 0.3s ease,
+    transition: background-color 0.3s,
         transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
 }
-
 .header-wrapper.is-scrolled {
     background-color: var(--header-scrolled-bg-color);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .header nav {
     height: var(--header-height-mobile);
 }
-
 @media (min-width: 768px) {
     .header nav {
         height: var(--header-height);
     }
 }
 
-/* --- Main Navbar --- */
+/* --- Navbar --- */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -47,7 +44,6 @@
     position: relative;
     z-index: 501;
 }
-
 @media (min-width: 768px) {
     .navbar {
         padding: 0 4rem;
@@ -59,40 +55,20 @@
     display: flex;
     align-items: center;
     color: var(--header-text-color);
-    transition: color 0.3s ease;
+    transition: color 0.3s;
     cursor: pointer;
     margin-top: 15px;
-    button {
-        margin-left: -35px;
-        padding-left: 35px;
-    }
 }
-
-.green {
-    display: block;
-    width: 42px;
-    height: 42px;
+.nav-hamburger button {
+    margin-left: -35px;
+    padding-left: 35px;
 }
-
-header.header-wrapper.is-scrolled {
-    .nav-hamburger {
-        margin-top: 0;
-        button {
-            color: var(--header-scrolled-text-color);
-        }
-    }
-    .nav-logo {
-        top: 54%;
-    }
-
-    .green {
-        display: block;
-    }
-    .white {
-        display: none;
-    }
+.header-wrapper.is-scrolled .nav-hamburger {
+    margin-top: 0;
 }
-
+.header-wrapper.is-scrolled .nav-hamburger button {
+    color: var(--header-scrolled-text-color);
+}
 .header-wrapper.is-scrolled .nav-hamburger,
 body.appear.nav-open .nav-hamburger,
 body.appear.nav-open .nav-hamburger span {
@@ -106,7 +82,6 @@ body.appear.nav-open .nav-hamburger span {
     position: relative;
     transition: transform 0.3s cubic-bezier(0, 0, 0, 1);
 }
-
 .hamburger-react div {
     background: currentColor;
     height: 2px;
@@ -116,7 +91,6 @@ body.appear.nav-open .nav-hamburger span {
     width: 20px;
     transition: all 0.3s cubic-bezier(0, 0, 0, 1);
 }
-
 .hamburger-react div:nth-child(1) {
     top: 17px;
 }
@@ -137,7 +111,6 @@ body.appear.nav-open .nav-hamburger span {
 .nav-open .hamburger-react div:nth-child(3) {
     transform: rotate(-45deg) translate(4px, -5px);
 }
-
 @media (min-width: 768px) {
     .menu-text-button {
         display: block;
@@ -153,34 +126,36 @@ body.appear.nav-open .nav-hamburger span {
     height: 30px;
     width: 30px;
 }
-
+@media (min-width: 768px) {
+    .nav-logo {
+        height: 50px;
+        width: 50px;
+    }
+}
 .nav-logo a {
     display: flex;
     width: 100%;
     height: 100%;
 }
-
-.nav-logo .logo-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
 .nav-logo img {
     position: absolute;
     inset: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s;
     margin: auto;
 }
-.nav-logo .green-flower {
-    opacity: 1;
+.green {
+    display: block;
+    width: 42px;
+    height: 42px;
 }
-
-.header-wrapper.is-scrolled .nav-logo .white-flower {
-    opacity: 0;
+.header-wrapper.is-scrolled .nav-logo {
+    top: 50%;
 }
-.header-wrapper.is-scrolled .nav-logo .green-flower {
-    opacity: 1;
+.header-wrapper.is-scrolled .green {
+    display: block;
+}
+.header-wrapper.is-scrolled .white {
+    display: none;
 }
 
 .nav-logo-text {
@@ -189,47 +164,49 @@ body.appear.nav-open .nav-hamburger span {
     left: 50%;
     top: 55px;
     transform: translateX(-50%);
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s;
     opacity: 1;
 }
-
 .header-wrapper.is-scrolled .nav-logo-text {
     opacity: 0;
 }
-
 @media (min-width: 768px) {
-    .nav-logo {
-        height: 50px;
-        width: 50px;
-    }
     .nav-logo-text {
         top: 98px;
         max-width: 195px;
         width: 100%;
-        img {
-            width: 100%;
-            height: auto;
-        }
+    }
+    .nav-logo-text img {
+        width: 100%;
+        height: auto;
     }
 }
 
-/* --- Right Side Controls --- */
+/* --- Controls --- */
 .nav-controls {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-/* Language Selector */
+/* --- Language Selector --- */
 .nav-language {
     position: relative;
 }
 .language-selector {
     display: flex;
     align-items: center;
+    color: var(--header-text-color);
+    transition: color 0.3s;
 }
-.header-wrapper.is-scrolled .language-selector {
-    color: var(--header-scrolled-text-color);
+.language-selector span,
+.language-icon {
+    color: var(--header-text-color);
+}
+.language-selector.is-scrolled,
+.language-selector.is-scrolled span,
+.language-selector.is-scrolled .language-icon {
+    color: var(--header-scrolled-text-color) !important;
 }
 .language-selector p {
     font-family: "gillsans", Cabin, sans-serif;
@@ -240,7 +217,7 @@ body.appear.nav-open .nav-hamburger span {
     height: 16px;
     background-color: currentColor;
     mask: url("/icons/down-arrow.svg") center / contain no-repeat;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s;
 }
 .language-selector[aria-expanded="true"] .language-icon {
     transform: rotate(180deg);
@@ -248,7 +225,7 @@ body.appear.nav-open .nav-hamburger span {
 .language-options {
     position: absolute;
     right: 0;
-    top: 150%;
+    top: 200%;
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(24px);
     border-radius: 10px;
@@ -259,7 +236,8 @@ body.appear.nav-open .nav-hamburger span {
     opacity: 0;
     pointer-events: none;
     transform: translateY(-10px);
-    transition: all 0.3s ease;
+    transition: all 0.3s;
+    align-items: end;
 }
 .language-selector[aria-expanded="true"] + .language-options {
     opacity: 1;
@@ -273,18 +251,19 @@ body.appear.nav-open .nav-hamburger span {
     white-space: nowrap;
     text-align: right;
     font-size: 0.95rem;
+    width: fit-content;
+    padding: 0;
 }
-.language-options button:hover,
 .language-options button.selected {
-    color: rgb(var(--brand-golden));
+    color: rgb(var(--text-grey));
+    pointer-events: none;
 }
 
-/* Reserve Button */
+/* --- Reserve Button --- */
 /* .header-wrapper.is-scrolled .reserve-button {
   background-color: var(--header-scrolled-text-color);
   color: var(--header-scrolled-bg-color);
 } */
-
 @media (min-width: 768px) {
     .reserve-button {
         display: block;
@@ -305,14 +284,12 @@ body.appear.nav-open .nav-hamburger span {
     pointer-events: none;
     overflow-y: auto;
 }
-
 body.nav-open .nav-menu {
     transform: translateY(0);
     pointer-events: auto;
 }
-
 body.nav-open {
-    overflow: hidden; /* Prevent scrolling when menu is open */
+    overflow: hidden;
 }
 
 .nav-menu-content {
@@ -324,13 +301,13 @@ body.nav-open {
     min-height: 100%;
     padding: 6rem 1rem;
 }
-
 @media (min-width: 768px) {
     .nav-menu-content {
         gap: 5rem;
     }
 }
 
+/* --- Main Links --- */
 .main-links ul {
     display: flex;
     flex-direction: column;
@@ -340,13 +317,12 @@ body.nav-open {
     padding: 0;
 }
 .main-links a {
-    font-size: 1.75rem; /* text-h4 ish */
+    font-size: 1.75rem;
     text-transform: capitalize;
     color: black;
     position: relative;
     text-decoration: none;
 }
-
 .main-links a::after {
     content: "";
     position: absolute;
@@ -355,27 +331,24 @@ body.nav-open {
     width: 0;
     height: 2px;
     background-color: var(--brand-golden);
-    transition: width 0.3s ease;
+    transition: width 0.3s;
 }
-
 .main-links a:hover {
     color: var(--brand-golden);
 }
-
 .main-links a:hover::after {
     width: 100%;
 }
-
 @media (min-width: 768px) {
     .main-links a {
-        font-size: 2.25rem; /* 36px */
+        font-size: 2.25rem;
     }
     .main-links ul {
-        gap: 1.875rem; /* 30px */
+        gap: 1.875rem;
     }
 }
 
-/* Bottom Links (External + Social) */
+/* --- Bottom Links --- */
 .bottom-links {
     display: flex;
     flex-direction: column;
@@ -384,7 +357,16 @@ body.nav-open {
     padding: 0 2rem;
     width: 100%;
 }
-
+@media (min-width: 768px) {
+    .bottom-links {
+        position: absolute;
+        bottom: 4rem;
+        left: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 4rem;
+    }
+}
 .external-link a {
     display: flex;
     align-items: center;
@@ -400,7 +382,6 @@ body.nav-open {
     background-color: black;
     mask: url("/icons/exit.svg") no-repeat center / contain;
 }
-
 .social-links {
     display: flex;
     gap: 1rem;
@@ -408,15 +389,4 @@ body.nav-open {
 .social-links img {
     width: 24px;
     height: 24px;
-}
-
-@media (min-width: 768px) {
-    .bottom-links {
-        position: absolute;
-        bottom: 4rem;
-        left: 0;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 0 4rem;
-    }
 }
