@@ -42,7 +42,7 @@ export default async function decorate(block) {
         <p class="event-venue text-p1">${event.venue ? event.venue : ""}</p>
         ${
           event.ctaText && ctaLink
-            ? `<a class="event-cta cta-link arrowRight" href="${ctaLink}"><span class="animate-underline">${event.ctaText}</span></a>`
+            ? `<a class="event-cta cta-link arrowRight text-b" href="${ctaLink}"><span class="animate-underline">${event.ctaText}</span></a>`
             : event.ctaText
             ? `<p class="event-cta cta-link text-b">${event.ctaText}</p>`
             : ""
