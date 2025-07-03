@@ -19,7 +19,7 @@
       "grid",
       "three-image-description",
       "layout",
-      "column2",
+      "column-tile",
       "section-header",
       "text-image",
       "info-card",
@@ -63,8 +63,8 @@
     "components": ["layout-card"]
   },
   {
-    "id": "column2",
-    "components": ["column-card2"]
+    "id": "column-tile",
+    "components": ["column-card-tile"]
   },
   {
     "id": "text-image",

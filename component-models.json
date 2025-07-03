@@ -749,7 +749,7 @@
     ]
   },
   {
-    "id": "column-card2",
+    "id": "column-card-tile",
     "fields": [
       {
         "component": "reference",
@@ -767,6 +767,18 @@
       {
         "component": "text",
         "valueType": "string",
+        "name": "ctaTitleLink",
+        "label": "CTA Title Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaTitleText",
+        "label": "CTA Title Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
         "name": "ctaLink",
         "label": "CTA Link"
       },
@@ -779,9 +791,58 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "title",
+        "name": "singleDescription",
         "value": "",
-        "label": "Title"
+        "label": "Single Description"
+      },
+      {
+        "component": "container",
+        "name": "features",
+        "label": "Features",
+        "fields": [
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "icon 1",
+            "label": "Icon 1",
+            "description": "Small icon 1 for the feature",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "description 1",
+            "label": "Feature Description 1"
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "icon 2",
+            "label": "Icon 2",
+            "description": "Small icon 2 for the feature",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "description 2",
+            "label": "Feature Description 2"
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "icon 3",
+            "label": "Icon 3",
+            "description": "Small icon 3 for the feature",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "description 3",
+            "label": "Feature Description 3"
+          }
+        ]
       }
     ]
   },
