@@ -1331,7 +1331,7 @@
     ]
   },
   {
-    "id": "table-board",
+    "id": "table-board2",
     "fields": [
       {
         "component": "text",
@@ -1360,7 +1360,7 @@
     ]
   },
   {
-    "id": "table-board-item",
+    "id": "table-board-item2",
     "fields": [
       {
         "component": "reference",

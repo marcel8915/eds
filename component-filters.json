@@ -29,7 +29,7 @@
       "image-gallery-tile2",
       "hero-banner-alt",
       "faq-accordion",
-      "table-board",
+      "table-board2",
       "newsletter-modal",
       "flower-splash-screen"
     ]
@@ -87,7 +87,7 @@
     "components": ["faq-accordion-item"]
   },
   {
-    "id": "table-board",
-    "components": ["table-board-item"]
+    "id": "table-board2",
+    "components": ["table-board-item2"]
   }
 ]
