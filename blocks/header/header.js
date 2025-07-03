@@ -4,16 +4,62 @@ import { loadFragment } from "../fragment/fragment.js";
 function toggleMenu(header, forceClose = false) {
   const hamburger = header.querySelector(".hamburger-react");
   const navMenu = header.querySelector(".nav-menu");
+  const navLogoWhite = header.querySelector(".nav-logo .white");
+  const navLogoGreen = header.querySelector(".nav-logo .green");
+  const langSelector = header.querySelector(".language-selector");
+  const menuTextButton = header.querySelector(".menu-text-button span");
   const body = document.body;
   const isOpen = hamburger.getAttribute("aria-expanded") === "true";
   if (forceClose || isOpen) {
     hamburger.setAttribute("aria-expanded", "false");
     navMenu.setAttribute("aria-hidden", "true");
     body.classList.remove("nav-open");
+    // Restore scroll position
+    const scrollY =
+      parseInt(body.style.getPropertyValue("--scroll-lock-top")) || 0;
+    body.style.removeProperty("--scroll-lock-top");
+    body.classList.remove("no-scroll");
+    window.scrollTo(0, -scrollY);
+    // Restore logo state based on scroll/hero
+    if (navLogoWhite && navLogoGreen) {
+      const hasHero = !!document.querySelector(".hero-container");
+      if (!hasHero || window.scrollY > window.innerHeight) {
+        navLogoWhite.style.opacity = 0;
+        navLogoGreen.style.opacity = 1;
+      } else {
+        navLogoWhite.style.opacity = 1;
+        navLogoGreen.style.opacity = 0;
+      }
+    }
+    // Remove nav-open color from language selector
+    if (langSelector) {
+      langSelector.classList.remove("nav-open");
+    }
+    // Set menu text to 'Menu'
+    if (menuTextButton) {
+      menuTextButton.textContent = "Menu";
+    }
   } else {
     hamburger.setAttribute("aria-expanded", "true");
     navMenu.setAttribute("aria-hidden", "false");
     body.classList.add("nav-open");
+    // Lock scroll and retain position
+    const scrollY = window.scrollY;
+    body.style.setProperty("--scroll-lock-top", `-${scrollY}px`);
+    body.classList.add("no-scroll");
+    // Show green logo when menu is open
+    if (navLogoWhite && navLogoGreen) {
+      navLogoWhite.style.opacity = 0;
+      navLogoGreen.style.opacity = 1;
+    }
+    // Make language selector black when menu is open
+    if (langSelector) {
+      langSelector.classList.add("nav-open");
+    }
+    // Set menu text to 'Close'
+    if (menuTextButton) {
+      menuTextButton.textContent = "Close";
+    }
   }
 }
 
@@ -95,13 +141,27 @@ export default async function decorate(block) {
   // Reserve button
   const reserveBtn = fragment.querySelector(".button-container a");
   if (reserveBtn) {
-    reserveBtn.className = "reserve-button";
+    reserveBtn.className = "cta-button";
     navReserve.append(reserveBtn);
   }
 
   // Main and language links
   const lists2 = fragment.querySelectorAll("ul");
   if (lists2.length > 0) mainLinks.append(lists2[0]);
+  lists2.forEach((ul) => {
+    ul.querySelectorAll("a").forEach((a) => {
+      if (a.href.includes("https")) {
+        a.classList.add("text-b");
+        const span = document.createElement("span");
+        span.textContent = a.textContent.trim();
+        a.innerHTML = "";
+        span.classList.add("animate-underline");
+        a.append(span);
+      } else {
+        a.classList.add("text-h4", "nav-link");
+      }
+    });
+  });
   const lists = fragment.querySelector(".highlight ul");
   if (lists) {
     lists.querySelectorAll("li").forEach((li) => {
@@ -120,8 +180,8 @@ export default async function decorate(block) {
   }
 
   // External and social links
-  if (lists && lists.length > 2) {
-    lists[2].querySelectorAll("li").forEach((li) => {
+  if (lists2 && lists2.length > 2) {
+    lists2[2].querySelectorAll("li").forEach((li) => {
       const a = li.querySelector("a");
       if (!a) return;
       const href = a.getAttribute("href");
@@ -147,6 +207,7 @@ export default async function decorate(block) {
   let lastScrollY = window.scrollY;
   let ticking = false;
   let navHidden = false;
+  let scrollListener = null;
 
   function setHeaderBackground(scrolled) {
     if (scrolled) {
@@ -216,22 +277,41 @@ export default async function decorate(block) {
     ticking = false;
   }
 
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (!ticking) {
-        window.requestAnimationFrame(handleScroll);
-        ticking = true;
-      }
-    },
-    { passive: true }
-  );
+  function addScrollListener() {
+    if (!scrollListener) {
+      scrollListener = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(handleScroll);
+          ticking = true;
+        }
+      };
+      window.addEventListener("scroll", scrollListener, { passive: true });
+    }
+  }
+
+  function removeScrollListener() {
+    if (scrollListener) {
+      window.removeEventListener("scroll", scrollListener, { passive: true });
+      scrollListener = null;
+    }
+  }
+
+  addScrollListener();
 
   // Menu toggle
   const hamburger = nav.querySelector(".hamburger-react");
   const menuTextButton = nav.querySelector(".menu-text-button");
-  hamburger.addEventListener("click", () => toggleMenu(header));
-  menuTextButton.addEventListener("click", () => toggleMenu(header));
+  function menuHandler() {
+    const menuIsOpen = hamburger.getAttribute("aria-expanded") === "true";
+    toggleMenu(header);
+    if (!menuIsOpen) {
+      removeScrollListener();
+    } else {
+      addScrollListener();
+    }
+  }
+  hamburger.addEventListener("click", menuHandler);
+  menuTextButton.addEventListener("click", menuHandler);
 
   // Language selector toggle
 
