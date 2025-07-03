@@ -103,3 +103,7 @@
     justify-content: center;
     border: none;
 }
+
+.overlay-container .text-h4 {
+    margin-top: 2.5rem;
+}
