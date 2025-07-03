@@ -34,6 +34,9 @@
 
 .info-card-title {
     margin: 0px;
+    font-size: 24px;
+    font-weight: 300;
+
 
     @media (min-width: 768px) {
         margin: 16px;
@@ -41,21 +44,21 @@
         font-family: Cormorant;
         font-size: 24px;
         font-style: normal;
-        font-weight: 400;
+        font-weight: 300;
         line-height: 100%;
         letter-spacing: -0.72px;
     }
 }
 
 .info-card-item {
-    margin: 16px;
+    margin: 20px;
     margin-left: 0px;
 
     @media (max-width: 767px) {
         margin: 0;
         color: var(--Text-text-black, #333);
         font-family: Cormorant;
-        font-size: 20px;
+        font-size: 16px;
         font-style: normal;
         font-weight: 400;
         line-height: 120%;
@@ -66,7 +69,7 @@
 .info-card-content {
     display: flex;
     flex-direction: column;
-    gap: 4rem;
+    gap: 24px;
 
     @media (min-width: 768px) {
         gap: 0;
