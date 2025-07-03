@@ -1,3 +1,45 @@
+function loadScript(src, attrs) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) {
+      resolve();
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = src;
+    if (attrs) {
+      Object.keys(attrs).forEach((key) => {
+        script.setAttribute(key, attrs[key]);
+      });
+    }
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
+function loadCSS(href) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`link[href="${href}"]`)) {
+      resolve();
+      return;
+    }
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    link.onload = resolve;
+    link.onerror = reject;
+    document.head.appendChild(link);
+  });
+}
+
+async function loadDependencies() {
+  if (window.Swiper) return;
+  await Promise.all([
+    loadCSS("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"),
+    loadScript("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"),
+  ]);
+}
+
 export default async function decorate(block) {
   await loadDependencies();
 
@@ -53,18 +95,17 @@ export default async function decorate(block) {
   arrowsContainer.appendChild(rightArrow);
   container.appendChild(arrowsContainer);
 
-  // const
-
   const imageContainers = [];
 
   Array.from(block.children).forEach((card) => {
-    const para = card.querySelector("p");
-    if (para) {
-      para.className = "split-text";
-    }
     const hasContent =
       card.textContent.trim() !== "" || card.querySelector("picture");
     if (!hasContent) return;
+
+    const para = card.querySelector("p");
+    if (para) {
+      para.className = "card-description text-p1";
+    }
 
     const slide = document.createElement("div");
     slide.className = "swiper-slide";
@@ -82,10 +123,11 @@ export default async function decorate(block) {
       cardContainer.appendChild(imageWrapper);
     }
 
-    Array.from(card.children).forEach((element) => {
-      if (element !== picture) {
-        cardContainer.appendChild(element);
-      }
+    const contentElements = [...card.children].filter(
+      (el) => !el.querySelector("picture")
+    );
+    contentElements.forEach((element) => {
+      cardContainer.appendChild(element);
     });
 
     slide.appendChild(cardContainer);
@@ -188,34 +230,4 @@ export default async function decorate(block) {
   }
 
   window.addEventListener("load", () => positionArrows(swiper));
-}
-
-async function loadDependencies() {
-  if (window.Swiper) return;
-
-  await Promise.all([
-    loadCSS("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"),
-    loadScript("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"),
-  ]);
-}
-
-function loadScript(src) {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
-}
-
-function loadCSS(href) {
-  return new Promise((resolve, reject) => {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = href;
-    link.onload = resolve;
-    link.onerror = reject;
-    document.head.appendChild(link);
-  });
 }
