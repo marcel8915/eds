@@ -1,89 +1,76 @@
 .three-image-grid {
-  display: grid;
-  grid-template-columns: 1fr; 
-  gap: 2.5rem; 
-  padding: 0 5rem;
-  box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 3rem 1.5rem;
+    box-sizing: border-box;
 }
 
-
 @media (min-width: 768px) {
-  .three-image-grid {
-    grid-template-columns: repeat(12, 1fr); 
-    gap: 0; 
-  }
+    .three-image-grid {
+        grid-template-columns: repeat(12, 1fr);
+        padding: 5rem 5rem;
+        gap: 0;
+    }
 }
 
 .three-image-grid__left-col {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .three-image-grid__right-col {
-  display: grid;
-  place-items: center;
+    display: grid;
+    place-items: center;
 }
 
 @media (min-width: 768px) {
-  .three-image-grid__left-col {
-    grid-column: span 6;
-  }
+    .three-image-grid__left-col {
+        grid-column: span 6;
+    }
 
-  .three-image-grid__right-col {
-    grid-column: 8 / span 5; 
-  }
+    .three-image-grid__right-col {
+        grid-column: 8 / span 5;
+    }
 }
 
-
 .three-image-grid__card {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem; 
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
 }
 
 .three-image-grid__card-wrapper--staggered {
-  margin-top: 2.5rem; 
-  width: 100%;
+    margin-top: 2.5rem;
+    width: 100%;
 }
 
 @media (min-width: 768px) {
-  .three-image-grid__card-wrapper--staggered {
-    align-self: flex-end; 
-    width: 80%; 
-    margin-top: 4rem; 
-  }
+    .three-image-grid__card-wrapper--staggered {
+        align-self: flex-end;
+        width: 80%;
+        margin-top: 4rem;
+    }
 }
 
 @media (min-width: 1024px) {
-  .three-image-grid__card-wrapper--staggered {
-    margin-top: 9rem; 
-  }
+    .three-image-grid__card-wrapper--staggered {
+        margin-top: 9rem;
+    }
 }
-
 
 .three-image-grid__image img,
 .three-image-grid__image picture {
-  width: 100%;
-  height: auto;
-  border-radius: 0.5rem;
-  object-fit: contain;
-  display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    object-fit: contain;
+    display: block;
 }
-
-.three-image-grid__caption {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #333;
-}
-
-.three-image-grid__caption p {
-  margin: 0;
-}
-
 
 @media (min-width: 768px) {
-  .three-image-grid__caption {
-    max-width: 50%; 
-  }
+    .text-p2 {
+        max-width: 50%;
+    }
 }
