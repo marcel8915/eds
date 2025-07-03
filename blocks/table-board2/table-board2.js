@@ -15,6 +15,21 @@ export default function decorate(block) {
     rows[1].remove();
   }
 
+  let viewAllText = "";
+  let viewAllLink = "";
+  if (rows.length > 2) {
+    const viewAllTextRow = rows[2];
+    viewAllText = viewAllTextRow.textContent.trim();
+
+    if (rows.length > 3 && rows[3].querySelector(".button-container a")) {
+      viewAllLink = rows[3]
+        .querySelector(".button-container a")
+        .getAttribute("href");
+
+      rows.splice(2, 2);
+    }
+  }
+
   if (sectionTitle) {
     const titleElement = document.createElement("h2");
     titleElement.className = "table-board-section-title";
@@ -57,17 +72,17 @@ export default function decorate(block) {
     }
 
     const titleCol = columns[2];
-    const linkCol = columns[3];
+    const titleLinkCol = columns[3];
     if (titleCol) {
-      const titleWrapper = document.createElement("span");
-      titleWrapper.className = "text-h2";
+      const titleWrapper = document.createElement("div");
+      titleWrapper.className = "table-board-item-title text-h2";
 
       const titleText = titleCol.textContent.trim();
       const titleHtml = titleCol.innerHTML.trim();
       const hasNewline = titleText.includes("\n") || titleHtml.includes("<br>");
 
-      if (linkCol && linkCol.querySelector("a")) {
-        const link = linkCol.querySelector("a").getAttribute("href");
+      if (titleLinkCol && titleLinkCol.querySelector("a")) {
+        const link = titleLinkCol.querySelector("a").getAttribute("href");
         const linkElement = document.createElement("a");
         linkElement.href = link;
         linkElement.target = "_blank";
@@ -85,7 +100,7 @@ export default function decorate(block) {
           groupContainer.appendChild(document.createElement("br"));
 
           const secondLine = document.createElement("span");
-          secondLine.className = "text-h2 table-board-title-line";
+          secondLine.className = "table-board-title-line";
           secondLine.textContent = lines[1] ? lines[1].trim() : "";
 
           const underline = document.createElement("span");
@@ -95,7 +110,7 @@ export default function decorate(block) {
           groupContainer.appendChild(secondLine);
         } else {
           const titleLine = document.createElement("span");
-          titleLine.className = "text-h2 table-board-title-line";
+          titleLine.className = "table-board-title-line";
           titleLine.textContent = titleText;
 
           const underline = document.createElement("span");
@@ -108,15 +123,7 @@ export default function decorate(block) {
         linkElement.appendChild(groupContainer);
         titleWrapper.appendChild(linkElement);
       } else {
-        if (hasNewline) {
-          const lines = titleText.split("\n");
-          titleWrapper.appendChild(document.createTextNode(lines[0].trim()));
-          titleWrapper.appendChild(document.createElement("br"));
-          titleWrapper.appendChild(document.createTextNode(lines[1].trim()));
-        } else {
-          titleWrapper.textContent = titleText;
-        }
-        titleWrapper.style.whiteSpace = "pre-line";
+        titleWrapper.textContent = titleText;
       }
 
       textContent.append(titleWrapper);
@@ -125,32 +132,42 @@ export default function decorate(block) {
     const descCol = columns[4];
     if (descCol) {
       const descElement = document.createElement("div");
-      descElement.className = "text-p2";
+      descElement.className = "text-p2 table-board-description";
       descElement.innerHTML = descCol.innerHTML;
       textContent.append(descElement);
     }
 
-    if (linkCol && linkCol.querySelector("a")) {
-      const link = linkCol.querySelector("a").getAttribute("href");
-      const mobileButton = document.createElement("a");
-      mobileButton.href = link;
-      mobileButton.target = "_blank";
-      mobileButton.rel = "noopener noreferrer";
-      mobileButton.className = "table-board-mobile-button secondary-button";
+    if (columns.length > 6) {
+      const buttonTextCol = columns[5];
+      const buttonLinkCol = columns[6];
 
-      const underlineContainer = document.createElement("span");
-      underlineContainer.className = "underline-container";
+      if (buttonTextCol && buttonLinkCol && buttonLinkCol.querySelector("a")) {
+        const buttonText =
+          buttonTextCol.textContent.trim() || "View Press Info";
+        const buttonLink = buttonLinkCol
+          .querySelector("a")
+          .getAttribute("href");
 
-      const buttonText = document.createElement("span");
-      buttonText.textContent = "View Press Info";
+        if (buttonLink) {
+          const mobileButton = document.createElement("a");
+          mobileButton.href = buttonLink;
+          mobileButton.target = "_blank";
+          mobileButton.rel = "noopener noreferrer";
+          mobileButton.className = "table-board-mobile-button secondary-button";
 
-      const underline = document.createElement("span");
-      underline.className = "underline";
+          const underlineContainer = document.createElement("span");
+          underlineContainer.className = "underline-container";
+          underlineContainer.textContent = buttonText;
 
-      underlineContainer.appendChild(buttonText);
-      underlineContainer.appendChild(underline);
-      mobileButton.appendChild(underlineContainer);
-      textContent.append(mobileButton);
+          const underline = document.createElement("span");
+          underline.className = "underline";
+
+          underlineContainer.appendChild(underline);
+          mobileButton.appendChild(underlineContainer);
+
+          textContent.append(mobileButton);
+        }
+      }
     }
 
     itemContent.append(textContent);
@@ -159,6 +176,32 @@ export default function decorate(block) {
   }
 
   container.append(itemsContainer);
+
+  if (viewAllLink && viewAllText) {
+    const viewAllContainer = document.createElement("div");
+    viewAllContainer.className = "table-board-view-all";
+
+    const viewAllLinkElement = document.createElement("a");
+    viewAllLinkElement.href = viewAllLink;
+    viewAllLinkElement.target = "_blank";
+    viewAllLinkElement.rel = "noopener noreferrer";
+    viewAllLinkElement.className = "table-board-view-all-link";
+
+    const underlineContainer = document.createElement("span");
+    underlineContainer.className = "underline-container";
+    underlineContainer.textContent = viewAllText;
+
+    const underline = document.createElement("span");
+    underline.className = "underline";
+
+    underlineContainer.appendChild(underline);
+    viewAllLinkElement.innerHTML = "";
+    viewAllLinkElement.appendChild(underlineContainer);
+
+    viewAllContainer.append(viewAllLinkElement);
+    container.append(viewAllContainer);
+  }
+
   block.innerHTML = "";
   block.append(container);
 }
