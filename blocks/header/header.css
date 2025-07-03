@@ -69,7 +69,7 @@
 }
 
 .green {
-    display: none;
+    display: block;
     width: 42px;
     height: 42px;
 }
@@ -173,7 +173,7 @@ body.appear.nav-open .nav-hamburger span {
     margin: auto;
 }
 .nav-logo .green-flower {
-    opacity: 0;
+    opacity: 1;
 }
 
 .header-wrapper.is-scrolled .nav-logo .white-flower {

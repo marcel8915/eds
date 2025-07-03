@@ -179,6 +179,8 @@ export default async function decorate(block) {
   const navLogoText = nav.querySelector(".nav-logo-text");
   const navLogoWhite = nav.querySelector(".nav-logo .white");
   const navLogoGreen = nav.querySelector(".nav-logo .green");
+  const hasHero = !!document.querySelector(".hero-container");
+  console.log(hasHero);
   let lastScrollY = window.scrollY;
   let ticking = false;
   let navHidden = false;
@@ -189,16 +191,16 @@ export default async function decorate(block) {
     // Fade out nav-logo-text as you scroll down from top (0 to 1vh)
     if (navLogoText) {
       let opacity = 1;
-      if (scrollY < vh) {
+      if (scrollY < vh && hasHero) {
         opacity = 1 - Math.min(scrollY / (vh * 0.2), 1); // fade out faster in first 50vh
       } else {
         opacity = 0;
       }
       navLogoText.style.opacity = opacity;
     }
-    // Logo swap after 100vh
+    // Logo swap after 100vh or if no hero
     if (navLogoWhite && navLogoGreen) {
-      if (scrollY > vh) {
+      if (!hasHero || scrollY > vh) {
         navLogoWhite.style.opacity = 0;
         navLogoGreen.style.opacity = 1;
       } else {
@@ -206,8 +208,10 @@ export default async function decorate(block) {
         navLogoGreen.style.opacity = 0;
       }
     }
-    // Header slide up/down after 100vh
-    if (scrollY > vh) {
+    // Header slide up/down: after 100vh if hero, always if no hero
+    if ((hasHero && scrollY > vh) || !hasHero) {
+      header.style.backgroundColor = 'white';
+      header.classList.add('is-scrolled');
       const delta = scrollY - lastScrollY;
       if (delta > 0 && !navHidden) {
         // Scrolling down (any amount)
@@ -219,16 +223,13 @@ export default async function decorate(block) {
         navHidden = false;
       }
     } else {
-      // Before 100vh, always show header (with is-scrolled styles)
+      // Before 100vh (if hero), always show header (with is-scrolled styles)
+      header.style.backgroundColor = '';
+      header.classList.remove('is-scrolled');
       header.style.transform = "translateY(0)";
       navHidden = false;
     }
-    // Add/remove is-scrolled
-    if (scrollY > vh) {
-      header.classList.add("is-scrolled");
-    } else {
-      header.classList.remove("is-scrolled");
-    }
+    // Add/remove is-scrolled (handled above for slide logic)
     lastScrollY = scrollY;
     ticking = false;
   }
