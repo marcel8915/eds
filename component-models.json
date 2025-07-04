@@ -1427,7 +1427,7 @@
     ]
   },
   {
-    "id": "faq-accordion-item",
+    "id": "faq-accordion-item-unit",
     "fields": [
       {
         "component": "text",
