@@ -148,9 +148,9 @@ export default async function decorate(block) {
   // Main and language links
   const lists2 = fragment.querySelectorAll("ul");
   if (lists2.length > 0) mainLinks.append(lists2[0]);
-  lists2.forEach((ul) => {
+  lists2.forEach((ul, idx) => {
     ul.querySelectorAll("a").forEach((a) => {
-      if (a.href.includes("https")) {
+      if (idx !== 0) {
         a.classList.add("text-b");
         const span = document.createElement("span");
         span.textContent = a.textContent.trim();
