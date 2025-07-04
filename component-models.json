@@ -1112,6 +1112,12 @@
         "name": "venue",
         "label": "Venue",
         "description": "Location "
+      },
+      {
+        "component": "date-time",
+        "label": "Date & Time",
+        "name": "date",
+        "valueType": "date"
       }
     ]
   },
