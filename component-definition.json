@@ -600,15 +600,15 @@
           }
         },
         {
-          "title": "Faq Accordion Item",
-          "id": "faq-accordion-item",
+          "title": "Faq Accordion Item Unit",
+          "id": "faq-accordion-item-unit",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Faq Accordion Item",
-                  "model": "faq-accordion-item"
+                  "name": "Faq Accordion Item Unit",
+                  "model": "faq-accordion-item-unit"
                 }
               }
             }
