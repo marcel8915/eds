@@ -25,7 +25,7 @@
       "info-card",
       "events-listing",
       "three-column-tile",
-      "swiper-highlight3",
+      "swiper-highlight4",
       "image-gallery-tile2",
       "hero-banner-alt",
       "faq-accordion",
@@ -75,8 +75,8 @@
     "components": ["hero-card", "secondary-card"]
   },
   {
-    "id": "swiper-highlight3",
-    "components": ["highlight-card3"]
+    "id": "swiper-highlight4",
+    "components": ["highlight-card4"]
   },
   {
     "id": "image-gallery-tile2",
