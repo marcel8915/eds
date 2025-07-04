@@ -31,7 +31,8 @@
       "faq-accordion",
       "table-board2",
       "newsletter-modal",
-      "flower-splash-screen"
+      "flower-splash-screen",
+      "test-component"
     ]
   },
   {
@@ -89,5 +90,9 @@
   {
     "id": "table-board2",
     "components": ["table-board-item2"]
+  },
+  {
+    "id": "test-component",
+    "components": ["test-item"]
   }
 ]
