@@ -1073,7 +1073,7 @@
     ]
   },
   {
-    "id": "highlight-card2",
+    "id": "highlight-card3",
     "fields": [
       {
         "component": "reference",
@@ -1114,11 +1114,10 @@
         "description": "Location "
       },
       {
-        "component": "datetime",
-        "name": "eventDateTime",
-        "label": "Event Date/Time",
-        "format": "YYYY-MM-DDTHH:mm",
-        "description": "Used for sorting/calculations"
+        "component": "date-time",
+        "label": "Date & Time",
+        "name": "date",
+        "valueType": "date"
       }
     ]
   },
