@@ -586,7 +586,7 @@ export default async function decorate(block) {
 
     if (!futureEvents || futureEvents.length === 0) {
       container.innerHTML = `<div class="no-events-message">
-        <h2 class="text-t1">No hosted experiences today, wander at will</h2>
+        <h2 class="text-h1">No hosted experiences today, wander at will</h2>
         <a class="cta-link split-text arrowRight"><span class="animate-underline">Know when experiences arrive</span></a>
       </div>`;
       // Remove pagination if present
