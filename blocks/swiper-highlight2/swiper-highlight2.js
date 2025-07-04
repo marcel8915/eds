@@ -108,14 +108,14 @@ export default async function decorate(block) {
 
     if (labelCell?.textContent.trim()) {
       const labelEl = document.createElement("div");
-      labelEl.className = "card-label";
+      labelEl.className = "card-label text-l2";
       labelEl.innerHTML = `<p>${labelCell.textContent}</p>`;
       leftCol.appendChild(labelEl);
     }
 
     if (titleCell?.textContent.trim()) {
       const titleEl = document.createElement("h3");
-      titleEl.className = "card-title";
+      titleEl.className = "card-title text-h3";
       titleEl.textContent = titleCell.textContent;
       leftCol.appendChild(titleEl);
     }
@@ -134,13 +134,13 @@ export default async function decorate(block) {
       }
 
       const item = document.createElement("div");
-      item.className = "card-icon-line";
+      item.className = "card-icon-line text-p1";
 
       const icon = document.createElement("div");
       icon.className = `card-icon icon-${iconName.toLowerCase()}`;
 
       const p = document.createElement("p");
-      p.className = "card-icon-text";
+      p.className = "card-icon-text text-p1";
       p.textContent = iconText;
 
       item.append(icon, p);
@@ -158,7 +158,7 @@ export default async function decorate(block) {
 
     if (descCell?.textContent.trim()) {
       const descEl = document.createElement("p");
-      descEl.className = "card-description";
+      descEl.className = "card-description text-p1";
       descEl.textContent = descCell.textContent;
       cardContent.appendChild(descEl);
     }

@@ -509,7 +509,7 @@
           }
         },
         {
-          "title": "Highlight Card",
+          "title": "Highlight Card2",
           "id": "highlight-card2",
           "plugins": {
             "xwalk": {
