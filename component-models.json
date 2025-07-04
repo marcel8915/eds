@@ -230,25 +230,124 @@
     "id": "hero",
     "fields": [
       {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "value": "",
+        "description": "Short text displayed above the hero text"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "mainHeroText",
+        "label": "Main Hero Text",
+        "value": "",
+        "required": true,
+        "description": "Main text displayed in the hero section"
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "isSlideInText",
+        "label": "Is Slide In Text",
+        "value": false,
+        "description": "If true, the hero text will slide in from the left and right"
+      },
+      {
         "component": "reference",
         "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
+        "name": "media",
+        "label": "Media",
+        "multi": false,
+        "required": true
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
+        "name": "mediaAlt",
+        "label": "Media Alt Text",
         "value": ""
       },
       {
-        "component": "richtext",
-        "name": "text",
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text",
+        "value": " ",
+        "description": "CTA link displayed below the hero text"
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "isVideoCta",
+        "label": "Is Video CTA",
+        "value": false,
+        "description": "If true, clicking on the CTA will open a video modal",
+        "condition": {
+          "!==": [
+            {
+              "var": "ctaText"
+            },
+            ""
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "video",
+        "label": "Video",
         "value": "",
-        "label": "Text",
-        "valueType": "string"
+        "description": "Video for the video modal",
+        "condition": {
+          "and": [
+            {
+              "!==": [
+                {
+                  "var": "ctaText"
+                },
+                " "
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "isVideoCta"
+                },
+                true
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaUrl",
+        "label": "CTA Url",
+        "value": " ",
+        "required": true,
+        "condition": {
+          "and": [
+            {
+              "!==": [
+                {
+                  "var": "ctaText"
+                },
+                " "
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "isVideoCta"
+                },
+                false
+              ]
+            }
+          ]
+        }
       }
     ]
   },
