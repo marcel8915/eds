@@ -28,7 +28,7 @@
       "swiper-highlight4",
       "image-gallery-tile2",
       "hero-banner-alt",
-      "faq-accordion-set",
+      "faq-accordion2",
       "table-board2",
       "newsletter-modal",
       "flower-splash-screen"
@@ -83,8 +83,8 @@
     "components": ["image-gallery-card2"]
   },
   {
-    "id": "faq-accordion-set",
-    "components": ["faq-accordion-item-set"]
+    "id": "faq-accordion2",
+    "components": ["faq-accordion-item2"]
   },
   {
     "id": "table-board2",
