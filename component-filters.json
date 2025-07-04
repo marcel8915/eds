@@ -22,7 +22,7 @@
       "column-tile-set",
       "section-header",
       "text-image",
-      "info-card-set",
+      "info-card2",
       "events-listing",
       "three-column-tile",
       "swiper-highlight4",
@@ -91,7 +91,7 @@
     "components": ["table-board-item2"]
   },
   {
-    "id": "info-card-set",
-    "components": ["info-item-set"]
+    "id": "info-card2",
+    "components": ["info-item2"]
   }
 ]
