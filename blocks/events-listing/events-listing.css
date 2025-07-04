@@ -10,6 +10,11 @@
     }
 }
 
+.events-listing.block {
+    width: 100%;
+    position: relative;
+}
+
 .events-listing-container .text-p1 {
     font-size: clamp(16px, 2.5vw, 20px);
 }
@@ -365,6 +370,8 @@
     flex-direction: column;
     padding: 1rem 1.5rem 2rem 1.5rem;
     margin-left: -5rem;
+    gap: 2rem;
+    box-sizing: border-box;
 }
 
 .no-events-message .cta-link {
@@ -398,6 +405,11 @@
 
     .event-date-wrapper {
         scale: 0.9;
+    }
+
+    .no-events-message {
+        padding: 7.5rem 3rem 7.5rem 3rem;
+        margin-left: -1.5rem;
     }
 }
 
