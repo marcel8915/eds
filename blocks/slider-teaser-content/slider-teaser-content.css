@@ -104,6 +104,10 @@
     border: none;
 }
 
+.slider-teaser-content div:has(> .cta-link) {
+    margin-top: 40px;
+}
+
 .overlay-container .text-h4 {
     margin-top: 2.5rem;
 }
