@@ -247,7 +247,7 @@
         "description": "Main text displayed in the hero section"
       },
       {
-        "component": "checkbox",
+        "component": "boolean",
         "valueType": "boolean",
         "name": "isSlideInText",
         "label": "Is Slide In Text",
@@ -278,7 +278,7 @@
         "description": "CTA link displayed below the hero text"
       },
       {
-        "component": "checkbox",
+        "component": "boolean",
         "valueType": "boolean",
         "name": "isVideoCta",
         "label": "Is Video CTA",
