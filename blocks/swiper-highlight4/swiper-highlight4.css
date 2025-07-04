@@ -1,4 +1,4 @@
-.swiper-highlight2 {
+.swiper-highlight4 {
     background-color: rgb(83 100 92 / var(--tw-bg-opacity, 1));
     overflow: hidden;
     padding-top: 5rem;
@@ -9,14 +9,14 @@
 }
 
 @media (min-width: 768px) {
-    .swiper-highlight2 {
+    .swiper-highlight4 {
         padding-left: 5rem;
         padding-right: 5rem;
     }
 }
 
 @media (min-width: 1024px) {
-    .swiper-highlight2 {
+    .swiper-highlight4 {
         padding-top: 7.5rem;
     }
 }

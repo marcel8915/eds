@@ -26,7 +26,7 @@ export default function decorate(block) {
     }
 
     const captionContainer = document.createElement("div");
-    captionContainer.className = "text-p2";
+    captionContainer.className = "text-p2 three-card-description";
     if (captionDiv) {
       captionContainer.innerHTML = captionDiv.innerHTML;
     }
