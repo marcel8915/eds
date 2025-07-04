@@ -1434,13 +1434,15 @@
         "name": "title",
         "label": "Title",
         "required": true,
-        "description": "Faq ccordion title"
+        "description": "Faq ccordion title",
+        "defaultValue": "Accordion Item Title"
       },
       {
         "component": "richtext",
         "name": "description",
         "label": "Description",
-        "description": "Detailed content about the accordion item"
+        "description": "Detailed content about the accordion item",
+        "defaultValue": "<p>Accordion item description.</p>"
       }
     ]
   },
