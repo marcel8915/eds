@@ -1,82 +1,61 @@
-/**
- * Decorates the text-image block.
- * @param {Element} block
- */
 export default function decorate(block) {
   const textCol = document.createElement("div");
   textCol.className = "text-image__text-column";
+
   const imageCol = document.createElement("div");
   imageCol.className = "text-image__image-column";
 
   const rows = [...block.children];
 
-  const titleRow = rows.find((row) =>
-    row.textContent.trim().toLowerCase().startsWith("title")
-  );
+  const titleRow = rows[0];
+  let title = "";
+  if (titleRow) {
+    title = titleRow.textContent.trim();
+    title = title.replace(/&amp;nbsp;/g, " ").replace(/&lt;\/?p&gt;/g, "");
+  }
 
-  const imageRow = rows.find((row) => row.querySelector("picture"));
+  const descRow = rows[1];
+  let description = "";
+  if (descRow) {
+    description = descRow.textContent.trim();
+    description = description
+      .replace(/&amp;nbsp;/g, "")
+      .replace(/^&lt;p&gt;/, "")
+      .replace(/&lt;\/p&gt;$/, "");
+  }
+
+  const imageRow = rows[2];
 
   const contentWrapper = document.createElement("div");
   contentWrapper.className = "text-image__content-wrapper";
 
-  rows.forEach((row) => {
-    if (row !== titleRow && row !== imageRow) {
-      contentWrapper.append(row);
-    }
-  });
-
-  if (imageRow) {
-    imageCol.append(imageRow);
-  }
-
-  if (titleRow) {
+  if (title) {
     const titleEl = document.createElement("h2");
     titleEl.className = "text-image__title";
-    titleEl.innerHTML = titleRow.innerHTML.replace(/^title/gi, "").trim();
+    titleEl.textContent = title;
     textCol.append(titleEl);
   }
 
-  textCol.append(contentWrapper);
-
-  const contentChildren = [...contentWrapper.children];
-  const lastDiv = contentChildren[contentChildren.length - 1];
-
-  if (
-    lastDiv &&
-    lastDiv.children.length === 3 &&
-    [...lastDiv.children].every(
-      (child) =>
-        child.tagName === "DIV" && child.firstElementChild?.tagName === "P"
-    )
-  ) {
-    const contactWrapper = document.createElement("div");
-    contactWrapper.className = "contact-detail";
-
-    const contactTypes = ["call", "book-event", "event"];
-
-    [...lastDiv.children].forEach((item, index) => {
-      const type = contactTypes[index];
-      const value = item.textContent.trim();
-
-      if (value) {
-        const contactItem = document.createElement("div");
-        contactItem.className = `contact-detail__item`;
-
-        const icon = document.createElement("span");
-        icon.className = `icon icon-${type}`;
-
-        const text = document.createElement("span");
-        text.className = "contact-detail__text";
-        text.textContent = value;
-
-        contactItem.append(icon, text);
-        contactWrapper.append(contactItem);
-      }
-    });
-
-    contentWrapper.replaceChild(contactWrapper, lastDiv);
+  if (description) {
+    const descEl = document.createElement("div");
+    descEl.className = "text-image__description";
+    descEl.innerHTML = description;
+    contentWrapper.append(descEl);
   }
 
+  if (imageRow && imageRow.querySelector("picture")) {
+    imageCol.append(imageRow.querySelector("picture").cloneNode(true));
+  }
+
+  const buttonRow = rows[3];
+  if (buttonRow && buttonRow.querySelector("a.button")) {
+    const button = buttonRow.querySelector("a.button").cloneNode(true);
+    contentWrapper.append(button);
+  }
+
+  textCol.append(contentWrapper);
   block.innerHTML = "";
-  block.append(imageCol, textCol);
+
+  // 👇 Changed to image on LEFT by default
+  block.append(imageCol, textCol); // ← Now image comes first
 }
