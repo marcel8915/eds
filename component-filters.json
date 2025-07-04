@@ -19,10 +19,10 @@
       "grid",
       "three-image-description",
       "layout",
-      "column-tile-set",
+      "column-tile",
       "section-header",
       "text-image",
-      "info-card2",
+      "info-card",
       "events-listing",
       "three-column-tile",
       "swiper-highlight4",
@@ -63,8 +63,8 @@
     "components": ["layout-card"]
   },
   {
-    "id": "column-tile-set",
-    "components": ["column-card-tile-set"]
+    "id": "column-tile",
+    "components": ["column-card-tile"]
   },
   {
     "id": "text-image",
@@ -91,7 +91,7 @@
     "components": ["table-board-item2"]
   },
   {
-    "id": "info-card2",
-    "components": ["info-item2"]
+    "id": "info-card",
+    "components": ["info-item"]
   }
 ]

@@ -848,7 +848,7 @@
     ]
   },
   {
-    "id": "column-card-tile-set",
+    "id": "column-card-tile",
     "fields": [
       {
         "component": "reference",
@@ -1025,7 +1025,7 @@
     ]
   },
   {
-    "id": "info-item2",
+    "id": "info-item",
     "fields": [
       {
         "component": "text",

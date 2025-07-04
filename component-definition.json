@@ -327,30 +327,30 @@
           }
         },
         {
-          "title": "Column Tile Set",
-          "id": "column-tile-set",
+          "title": "Column Tile",
+          "id": "column-tile",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Column Tile Set",
-                  "filter": "column-card-tile-set"
+                  "name": "Column Tile",
+                  "filter": "column-card-tile"
                 }
               }
             }
           }
         },
         {
-          "title": "Column Card Tile Set",
-          "id": "column-card-tile-set",
+          "title": "Column Card Tile",
+          "id": "column-card-tile",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Column Card Tile Set",
-                  "model": "column-card-tile-set"
+                  "name": "Column Card Tile",
+                  "model": "column-card-tile"
                 }
               }
             }
@@ -403,30 +403,30 @@
           }
         },
         {
-          "title": "Info Card2",
-          "id": "info-card2",
+          "title": "Info Card",
+          "id": "info-card",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Info Card2",
-                  "filter": "info-card2"
+                  "name": "Info Card",
+                  "filter": "info-card"
                 }
               }
             }
           }
         },
         {
-          "title": "Info Item2",
-          "id": "info-item2",
+          "title": "Info Item",
+          "id": "info-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Info Item2",
-                  "model": "info-item2"
+                  "name": "Info Item",
+                  "model": "info-item"
                 }
               }
             }
