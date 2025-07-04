@@ -19,8 +19,6 @@
 
 .text-image__title {
     margin-bottom: 2rem;
-    font-size: 2.25rem;
-    font-weight: 700;
 }
 
 .text-image__content-wrapper {
@@ -71,5 +69,73 @@
 
     .text-image.image-right {
         flex-direction: row-reverse;
+    }
+}
+
+.text-image__content-wrapper .button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #000;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+.text-image__content-wrapper .button:hover {
+    color: #000;
+}
+
+.text-image__content-wrapper .button span {
+    position: relative;
+    display: inline-block;
+}
+
+.text-image__content-wrapper .button span::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+    width: 0;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+}
+
+.text-image__content-wrapper .button:hover span::after {
+    width: 100%;
+}
+
+.text-image__content-wrapper .button .button-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #000;
+    transition: background-color 0.3s ease;
+    -webkit-mask: url("/icons/arrow.svg") center center/contain no-repeat;
+    mask: url("/icons/arrow.svg") center center/contain no-repeat;
+    transform: scaleX(-1);
+}
+
+@media (min-width: 768px) {
+    .text-image__content-wrapper .button {
+        font-size: 16px;
+    }
+}
+
+.text-image__description {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .text-image__description {
+        gap: 2.5rem;
     }
 }
