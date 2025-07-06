@@ -161,7 +161,7 @@ function enableSliderTeaserContent() {
       if (link) anchor.href = link.textContent.trim();
       const isExternal = isExternalLink[idx];
       if (isExternal?.textContent.trim() === "true") {
-        anchor.className = "cta-link arrowRight split-text animate-underline";
+        anchor.className = "cta-link arrow-right split-text animate-underline";
         anchor.target = "_blank";
         anchor.rel = "noopener noreferrer";
         const span = document.createElement("span");

@@ -69,7 +69,7 @@ export default async function decorate(block) {
     secondAnchor.href = secondCtaUrl[0].textContent.trim();
     secondAnchor.classList.add(
       "cta-link",
-      "arrowRight",
+      "arrow-right",
       "split-text",
       "animate-underline"
     );

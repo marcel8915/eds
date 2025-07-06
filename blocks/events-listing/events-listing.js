@@ -42,7 +42,7 @@ export default async function decorate(block) {
         <p class="event-venue text-p1">${event.venue ? event.venue : ""}</p>
         ${
           event.ctaText && ctaLink
-            ? `<a class="event-cta cta-link arrowRight text-b" href="${ctaLink}"><span class="animate-underline">${event.ctaText}</span></a>`
+            ? `<a class="event-cta cta-link arrow-right text-b" href="${ctaLink}"><span class="animate-underline">${event.ctaText}</span></a>`
             : event.ctaText
             ? `<p class="event-cta cta-link text-b">${event.ctaText}</p>`
             : ""
@@ -587,7 +587,7 @@ export default async function decorate(block) {
     if (!futureEvents || futureEvents.length === 0) {
       container.innerHTML = `<div class="no-events-message">
         <h2 class="text-h1">No hosted experiences today, wander at will</h2>
-        <a class="cta-link split-text arrowRight"><span class="animate-underline">Know when experiences arrive</span></a>
+        <a class="cta-link split-text arrow-right"><span class="animate-underline">Know when experiences arrive</span></a>
       </div>`;
       // Remove pagination if present
       const oldPagination = wrapper.querySelector(".events-pagination");

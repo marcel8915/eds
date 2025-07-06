@@ -84,7 +84,7 @@ button.secondary span:before,
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.animate-underline.arrowRight:hover:before,
+.animate-underline.arrow-right:hover:before,
 button.secondary:hover span:before,
 .main-links a:hover:before {
     width: calc(100% - 30px);
@@ -287,14 +287,14 @@ button.primary:hover,
     color: rgb(var(--text-white));
 }
 
-.arrowRight {
+.arrow-right {
     position: relative;
     padding-right: 2em;
     display: inline-flex;
     align-items: center;
 }
 
-.arrowRight::after {
+.arrow-right::after {
     content: "";
     display: inline-block;
     width: 21px;
