@@ -68,18 +68,11 @@ export function initTextSplitAnimation() {
  * Animates children of elements with .animate-stagger class to fade in and up one by one on scroll into view.
  */
 export function initStaggerAnimations() {
-  console.log("Initializing stagger animations");
   if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
   const staggerParents = document.querySelectorAll(".animate-stagger");
   staggerParents.forEach((parent) => {
     const children = Array.from(parent.children);
-    console.log(
-      "Staggering children for parent:",
-      parent,
-      "Children:",
-      children
-    );
     gsap.set(children, { opacity: 0, y: 50 });
     ScrollTrigger.create({
       trigger: parent,
@@ -108,14 +101,12 @@ export function parallaxSection(section) {
   const offsetTop = 0; // px or string, e.g. "100px"
   const zIndex = 1; // z-index value
 
-  console.log("test", section);
   if (section) {
     section.style.zIndex = zIndex;
     section.style.top =
       typeof offsetTop === "number" ? offsetTop + "px" : offsetTop;
     section.style.position = "sticky";
     section.style.height = "100vh";
-    console.log(section);
 
     gsap.registerPlugin(ScrollTrigger);
     gsap.to(section, {
