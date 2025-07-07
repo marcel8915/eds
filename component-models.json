@@ -463,19 +463,7 @@
   },
   {
     "id": "swiper3",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Swiper Title"
-      },
-      {
-        "component": "text",
-        "name": "autoplay",
-        "label": "Autoplay (ms)",
-        "description": "Set to 0 to disable autoplay"
-      }
-    ]
+    "fields": []
   },
   {
     "id": "main-card",

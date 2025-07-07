@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sound Button</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        font-family: sans-serif;
+        outline: none;
+      }
+
+      /* Style for the button */
+      .play-sound-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        border: 2px solid #007bff;
+        background-color: #ffffff;
+        color: #007bff;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .play-sound-button:hover {
+        background-color: #007bff;
+        color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <audio
+      id="sound"
+      src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"
+      preload="auto"
+    ></audio>
+
+    <button id="sound-btn" class="play-sound-button">Play Sound</button>
+
+    <script>
+      document.getElementById("sound-btn").addEventListener("click", () => {
+        const audio = document.getElementById("sound");
+        audio.currentTime = 0;
+        audio
+          .play()
+          .catch((error) => console.error("Audio play failed:", error));
+      });
+    </script>
+  </body>
+</html>

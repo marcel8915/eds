@@ -123,7 +123,6 @@ export default async function decorate(block) {
     const createIconLine = (cell, defaultIconName) => {
       if (!cell || !cell.textContent.trim()) return null;
       const text = cell.textContent.trim();
-
       let iconName = defaultIconName;
       let iconText = text;
 
@@ -132,17 +131,13 @@ export default async function decorate(block) {
         iconName = parts[0];
         iconText = parts[1];
       }
-
       const item = document.createElement("div");
       item.className = "card-icon-line text-p1";
-
       const icon = document.createElement("div");
       icon.className = `card-icon icon-${iconName.toLowerCase()}`;
-
       const p = document.createElement("p");
       p.className = "card-icon-text text-p1";
       p.textContent = iconText;
-
       item.append(icon, p);
       return item;
     };
@@ -170,6 +165,18 @@ export default async function decorate(block) {
 
   swiperContainer.appendChild(swiperWrapper);
   container.appendChild(swiperContainer);
+
+  const soundButtonIframe = document.createElement("iframe");
+  soundButtonIframe.src = "/blocks/swiper-highlight4/sound.html";
+
+  soundButtonIframe.style.border = "none";
+  soundButtonIframe.style.height = "70px";
+  soundButtonIframe.style.width = "100%";
+  soundButtonIframe.scrolling = "no";
+  soundButtonIframe.title = "Sound Player Button";
+
+  container.appendChild(soundButtonIframe);
+
   block.innerHTML = "";
   block.appendChild(container);
 
