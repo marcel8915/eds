@@ -155,6 +155,7 @@ h5 {
 
 .text-b {
     font-size: clamp(14px, 1.5vw, 15px);
+    font-family: var(--font-gill-sans, "Cabin", sans-serif);
 }
 h2,
 .text-h2 {
@@ -174,6 +175,7 @@ h5,
 }
 .text-l1 {
     font-size: clamp(14px, 2vw, 20px);
+    font-family: var(--font-gill-sans, "Cabin", sans-serif);
 }
 .text-l2 {
     font-size: clamp(14px, 1.8vw, 16px);
@@ -256,6 +258,7 @@ button.secondary {
     letter-spacing: 0.15em;
     text-transform: uppercase;
     padding: 0;
+    cursor: pointer;
 }
 
 .cta-button,
@@ -285,32 +288,6 @@ button.primary:hover,
 .reserve-button:hover {
     background-color: rgb(var(--brand-golden));
     color: rgb(var(--text-white));
-}
-
-.arrow-right {
-    position: relative;
-    padding-right: 2em;
-    display: inline-flex;
-    align-items: center;
-}
-
-.arrow-right::after {
-    content: "";
-    display: inline-block;
-    width: 21px;
-    height: 21px;
-    background: none;
-    mask: url("data:image/svg+xml;utf8,<svg width='21' height='21' viewBox='0 0 21 21' fill='none' xmlns='http://www.w3.org/2000/svg'><mask id='mask0_3331_9939' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='21' height='21'><rect x='0.447266' y='0.868164' width='20' height='20' fill='%23D9D9D9'/></mask><g mask='url(%23mask0_3331_9939)'><path d='M12.4166 16.9022L11.2923 15.7454L15.3662 11.6715H2.44727V10.0715H15.3662L11.2923 5.99762L12.4166 4.84082L18.4473 10.8715L12.4166 16.9022Z' fill='black'/></g></svg>")
-        no-repeat center center;
-    -webkit-mask: url("data:image/svg+xml;utf8,<svg width='21' height='21' viewBox='0 0 21 21' fill='none' xmlns='http://www.w3.org/2000/svg'><mask id='mask0_3331_9939' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='21' height='21'><rect x='0.447266' y='0.868164' width='20' height='20' fill='%23D9D9D9'/></mask><g mask='url(%23mask0_3331_9939)'><path d='M12.4166 16.9022L11.2923 15.7454L15.3662 11.6715H2.44727V10.0715H15.3662L11.2923 5.99762L12.4166 4.84082L18.4473 10.8715L12.4166 16.9022Z' fill='black'/></g></svg>")
-        no-repeat center center;
-    background-color: currentColor;
-    background-size: contain;
-    position: absolute;
-    right: 0.2em;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
 }
 
 .line {
