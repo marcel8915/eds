@@ -1,3 +1,5 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
     const infoCard = document.createElement("div");
     infoCard.className = "info-card-content";
@@ -5,9 +7,15 @@ export default function decorate(block) {
     Array.from(block.children).forEach((section, index) => {
       const sectionDiv = document.createElement("div");
       sectionDiv.className = `info-card-section`;
+      
+      // Move instrumentation from original section to new sectionDiv
+      moveInstrumentation(section, sectionDiv);
   
       Array.from(section.children).forEach((child, childIndex) => {
         const childDiv = document.createElement("div");
+        
+        // Move instrumentation from original child to new childDiv
+        moveInstrumentation(child, childDiv);
         
         if (childIndex === 0) {
           childDiv.className = "info-card-header";
