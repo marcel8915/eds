@@ -1,4 +1,5 @@
 import { parallaxSection } from "../../scripts/animations.js";
+import { handleMediaBlocks } from "../../scripts/utils.js";
 
 const sliderTeaserSection = document.querySelectorAll(
   ".slider-teaser-content-container"
@@ -173,48 +174,11 @@ function enableSliderTeaserContent() {
       el.replaceWith(anchor);
     });
 
+    const sliderTeaserMedia = section.querySelector(
+      ".slider-teaser-media-wrapper .slider-teaser-media"
+    );
     // Media handling
-    media.forEach((child, idx) => {
-      const isVideo = !child.querySelector("picture");
-      const sliderTeaserMedia = section.querySelector(
-        ".slider-teaser-media-wrapper .slider-teaser-media"
-      );
-
-      if (isVideo) {
-        const anchor = child.querySelector("a");
-        if (anchor) {
-          const video = document.createElement("video");
-          video.autoplay = true;
-          video.playsInline = true;
-          video.muted = true;
-          video.loop = true;
-          video.preload = "none";
-          video.setAttribute("aria-label", "Video player");
-          video.className = "video-player";
-          video.controls = false;
-          const source = document.createElement("source");
-          source.src =
-            "https://publish-p152536-e1620746.adobeaemcloud.com" +
-            anchor.innerText.trim();
-          source.type = "video/webm";
-          video.appendChild(source);
-          anchor.parentElement.remove();
-          child.appendChild(video);
-        }
-      } else {
-        const picture = child.querySelector("picture");
-        const img = picture?.querySelector("img");
-        if (img && imgAltText[idx]) {
-          img.alt = imgAltText[idx].textContent.trim();
-        }
-      }
-
-      if (sliderTeaserMedia) {
-        const childDiv = document.createElement("div");
-        childDiv.appendChild(child);
-        sliderTeaserMedia.appendChild(childDiv);
-      }
-    });
+    handleMediaBlocks(media, imgAltText, sliderTeaserMedia);
 
     if (sliderTeaserContent.length === 1) {
       setTimeout(() => {
