@@ -1,83 +1,284 @@
-/* hero.css */
-.hero.block {
+/* Hero Wrapper */
+.hero-wrapper {
     width: 100%;
     overflow: hidden;
+    z-index: 1;
+    top: -200px;
+    position: sticky;
 }
 
+/* Body class to disable scrolling when modal is open */
+body.modal-open {
+    overflow: hidden !important;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+/* Hero Container */
 .hero-container {
     position: relative;
     height: 100vh;
     width: 100vw;
-    background-color: #53645c; /* Fallback color */
+    background-color: #53645c;
 }
 
-.hero-video-background {
+/* Hero Media Container */
+.hero-media-container {
     position: absolute;
     inset: 0;
     height: 100%;
     width: 100%;
 }
 
+.hero-media-container video {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* Hero Video */
 .hero-video {
     height: 100%;
     width: 100vw;
-    object-fit: cover;
     background-size: cover;
+    object-fit: cover;
 }
 
+/* Hero Overlay */
 .hero-overlay {
     position: absolute;
-    inset: 0;
-    height: 100%;
-    width: 100%;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+/* Hero Content */
 .hero-content {
     position: absolute;
     left: 50%;
     top: 50%;
+    display: flex;
     transform: translate(-50%, -50%);
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Hero Text Container */
+.hero-text-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem; /* 32px */
-    text-align: center;
-    color: white;
+    gap: 0;
+}
+
+.hero-text-container > * {
+    line-height: 0.85;
+    padding: 0;
+}
+
+/* Hero Text */
+.hero-text {
+    text-transform: uppercase;
+    line-height: 0.8;
+    opacity: 1;
+    font-size: 3rem;
+    margin: 0;
+    translate: none;
+    rotate: none;
+    scale: none;
+    transform: translate(0%, 0px);
+}
+
+/* Hero Slide Text Animation Class */
+.hero-slide-text {
+    opacity: 0;
+    will-change: transform, opacity;
 }
 
 @media (min-width: 640px) {
-    .hero-text-wrapper h1,
-    .hero-text-wrapper h2 {
+    .hero-text {
         white-space: nowrap;
     }
 }
 
-.hero-cta {
-    display: none;
+/* Hero CTA Wrapper */
+.hero-cta-wrapper {
+    opacity: 1;
+    margin-top: 2.5rem;
+}
+
+.hero-cta-button::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 2rem;
+    height: 1px;
+    width: 0;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+}
+
+.hero-cta-button:hover::before {
+    width: calc(100% - 2rem);
+}
+
+@media (min-width: 768px) {
+    .hero-cta-button {
+        font-size: 1rem;
+    }
+}
+
+/* Hero CTA Icon */
+.hero-cta-icon {
+    display: inline-block;
+    transition: color 0.3s;
+    width: 24px;
+    height: 24px;
+    mask: url("/osaka/icons/play-outline.svg") center center / contain no-repeat;
+    background-color: white;
+}
+
+/* Video Modal */
+.video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    border: none;
+    max-height: none;
+    width: 100vw;
+    max-width: none;
     align-items: center;
-    gap: 0.5rem; /* 8px */
-    margin-top: 2rem; /* 32px */
-    padding: 1rem 0; /* py-4 */
-    font-family: "gillsans", sans-serif; /* Example font */
-    font-size: 0.875rem; /* text-sm */
-    text-transform: uppercase;
-    letter-spacing: 2.1px;
-    color: white;
+    justify-content: center;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.video-modal.fade-in {
+    opacity: 1;
+    z-index: 9999;
+    pointer-events: auto;
+}
+
+.video-modal.fade-out {
+    opacity: 0;
+    z-index: -10;
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    .modal-close-container {
+        left: 4rem;
+        top: 2rem;
+    }
+}
+
+/* Modal Close Button */
+.modal-close-btn {
     background: none;
     border: none;
     cursor: pointer;
+    padding: 0;
+    z-index: 10;
+    color: rgb(var(--text-white));
+    outline: none;
+    position: absolute;
+    top: 2rem;
+    left: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero-cta span {
+.modal-close-mobile {
+    display: block;
+}
+
+.modal-close-desktop {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .modal-close-mobile {
+        display: none;
+    }
+
+    .modal-close-desktop {
+        display: block;
+    }
+}
+
+/* Modal Close Text */
+.modal-close-text {
+    width: fit-content;
+    padding: 1.5rem 1rem;
+    font-family: "gillsans", sans-serif;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 2.1px;
+    transition: color 0.3s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.modal-close-text-mobile {
+    color: black;
+    display: block;
+}
+
+.modal-close-text-desktop {
+    color: white;
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .modal-close-text {
+        font-size: 1rem;
+    }
+
+    .modal-close-text-mobile {
+        display: none;
+    }
+
+    .modal-close-text-desktop {
+        display: block;
+    }
+}
+
+.modal-close-text:hover {
+    color: black;
+}
+
+@media (min-width: 768px) {
+    .modal-close-text-desktop:hover {
+        color: white;
+    }
+}
+
+/* Modal Close Span */
+.modal-close-span {
     position: relative;
     display: inline-block;
 }
 
-.hero-cta span::after {
+.modal-close-span::after {
     content: "";
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     left: 0;
     height: 1px;
     width: 0;
@@ -85,76 +286,57 @@
     transition: all 0.3s;
 }
 
-.hero-cta:hover span::after {
+.modal-close-text:hover .modal-close-span::after {
     width: 100%;
 }
 
-@media (min-width: 768px) {
-    .hero-cta span::after {
-        bottom: 4px;
-    }
-    .hero-cta {
-        font-size: 1rem; /* md:text-base */
-    }
-}
-
-.hero-cta-icon {
-    width: 24px;
-    height: 24px;
-    background-color: white;
-    mask: url("/icons/play-outline.svg") center / contain no-repeat;
-}
-
-/* --- Video Modal Styles --- */
-.hero-video-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
+/* Video Container Wrapper */
+.video-container-wrapper {
     display: flex;
+    height: 100vh;
+    width: 100vw;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.8);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+    position: relative;
+    background-color: rgba(var(--surface-white));
 }
 
-.hero-video-modal.is-open {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.hero-modal-close {
-    position: absolute;
-    top: 2rem;
-    left: 4rem;
-    z-index: 1001;
-    color: white;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: "gillsans", sans-serif;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.hero-modal-close::before {
-    content: "";
-    display: block;
-    width: 24px;
-    height: 24px;
-    background-color: white;
-    mask: url("/icons/close.svg") center / contain no-repeat;
-}
-
-.hero-modal-video-container {
-    width: 90%;
-    max-width: 1200px;
-}
-
-.hero-modal-video-container video {
+/* Video Player Container */
+.video-player-container {
+    position: relative;
     width: 100%;
-    height: auto;
+}
+
+/* Modal Video */
+.modal-video {
+    width: 100vw;
+    background-size: cover;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero .text-l1 {
+    margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .modal-video {
+        height: auto;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .modal-close-btn {
+        color: rgb(var(--text-black));
+        top: 1rem;
+        left: 1rem;
+    }
+}
+
+.hero .line {
+    padding: 0;
 }
