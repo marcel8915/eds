@@ -1427,20 +1427,22 @@
     ]
   },
   {
-    "id": "faq-accordion-item",
+    "id": "faq-accordion-item-unit",
     "fields": [
       {
         "component": "text",
         "name": "title",
         "label": "Title",
         "required": true,
-        "description": "Faq ccordion title"
+        "description": "Faq ccordion title",
+        "defaultValue": "Accordion Item Title"
       },
       {
         "component": "richtext",
         "name": "description",
         "label": "Description",
-        "description": "Detailed content about the accordion item"
+        "description": "Detailed content about the accordion item",
+        "defaultValue": "<p>Accordion item description.</p>"
       }
     ]
   },
@@ -1597,25 +1599,6 @@
         "label": "Main Text",
         "value": "<h4>Freedom is the luxury to<br>move effortlessly across worlds</h4>",
         "required": true
-      }
-    ]
-  },
-  {
-    "id": "test-item",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
       }
     ]
   }

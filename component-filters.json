@@ -28,11 +28,10 @@
       "swiper-highlight4",
       "image-gallery-tile2",
       "hero-banner-alt",
-      "faq-accordion",
+      "faq-accordion-item-unit",
       "table-board2",
       "newsletter-modal",
-      "flower-splash-screen",
-      "test-component"
+      "flower-splash-screen"
     ]
   },
   {
@@ -84,15 +83,11 @@
     "components": ["image-gallery-card2"]
   },
   {
-    "id": "faq-accordion",
-    "components": ["faq-accordion-item"]
-  },
-  {
     "id": "table-board2",
     "components": ["table-board-item2"]
   },
   {
-    "id": "test-component",
-    "components": ["test-item"]
+    "id": "info-card",
+    "components": ["info-item"]
   }
 ]
