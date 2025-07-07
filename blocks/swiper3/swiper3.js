@@ -1,3 +1,5 @@
+import { moveInstrumentation } from "../../scripts/scripts.js";
+
 function loadScript(src, attrs) {
   return new Promise((resolve, reject) => {
     if (document.querySelector(`script[src="${src}"]`)) {
@@ -109,6 +111,9 @@ export default async function decorate(block) {
 
     const slide = document.createElement("div");
     slide.className = "swiper-slide";
+    
+    // Move instrumentation from original card to slide
+    moveInstrumentation(card, slide);
 
     const cardContainer = document.createElement("div");
     cardContainer.className = "card";
