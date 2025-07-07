@@ -28,6 +28,7 @@
     --text-grey: 102, 102, 102;
     --text-white: 255, 255, 255;
     --border-grey: 217, 217, 217;
+    --brand-golden: 156, 133, 107;
 
     /* fonts */
     --font-cormorant: Cormorant, sans-serif;
@@ -77,11 +78,12 @@ button.secondary span:before,
     width: 0;
     background-color: currentColor;
     transition-property: width;
-    transition-duration: 0.3s;
+    transition-duration: 0.6s;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    animation-duration: 0.3s;
+    animation-duration: 0.6s;
     content: "";
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
 }
 
 .animate-underline.arrow-right:hover:before,
@@ -193,6 +195,7 @@ h5,
 }
 .text-p2 {
     font-size: clamp(16px, 2vw, 20px);
+    letter-spacing: -0.03em;
 }
 .text-p3 {
     font-size: clamp(14px, 1.5vw, 16px);
