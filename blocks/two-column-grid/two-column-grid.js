@@ -2,7 +2,6 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   // Create the main container structure that CSS expects
-  const mainContainer = document.createElement("div");
   const galleryContainer = document.createElement("div");
   galleryContainer.className = "column-tile-container-col";
   
@@ -10,93 +9,76 @@ export default function decorate(block) {
   galleryWrapper.className = "column-tile-wrapper-col";
   galleryContainer.appendChild(galleryWrapper);
 
-  // Process each card while preserving original elements where possible
-  Array.from(block.children).forEach((card) => {
+  // Process each card - follow the cards.js pattern
+  [...block.children].forEach((card) => {
     const hasContent = card.textContent.trim() !== "" || card.querySelector("picture");
     if (!hasContent) return;
 
-    // Create the card container
+    // Create the card container and move instrumentation from original card
     const galleryCard = document.createElement("div");
     galleryCard.className = "column-tile-card";
-    
-    // Move instrumentation from original card to new card container
     moveInstrumentation(card, galleryCard);
 
-    const cardSections = Array.from(card.children);
-
-    // Handle image section - preserve original image element
-    const image = cardSections[0]?.querySelector("picture");
-    if (image) {
-      const imageWrapper = document.createElement("div");
-      imageWrapper.className = "column-tile-images";
-      
-      // Move the original image element instead of cloning
-      moveInstrumentation(cardSections[0], imageWrapper);
-      imageWrapper.appendChild(image);
-      galleryCard.appendChild(imageWrapper);
+    // Move all children from original card to new card (like cards.js does)
+    while (card.firstElementChild) {
+      galleryCard.append(card.firstElementChild);
     }
 
+    // Now process the moved children to add appropriate classes
+    const cardSections = Array.from(galleryCard.children);
+
+    // Handle image section (first child)
+    if (cardSections[0]?.querySelector("picture")) {
+      cardSections[0].className = "column-tile-images";
+    }
+
+    // Create content container for the rest
     const contentContainer = document.createElement("div");
     contentContainer.className = "column-tile-content";
+
+    // Create main content wrapper
+    const contentMain = document.createElement("div");
+    contentMain.className = "column-tile-content-main";
 
     // LEFT COLUMN
     const leftColumn = document.createElement("div");
     leftColumn.className = "column-tile-left";
 
-    // Label section - preserve original content
+    // Label section (index 1)
     if (cardSections[1]?.textContent.trim()) {
-      const label = document.createElement("p");
-      label.className = "column-tile-label";
-      
-      // Move original content instead of copying text
-      moveInstrumentation(cardSections[1], label);
-      while (cardSections[1].firstChild) {
-        label.appendChild(cardSections[1].firstChild);
-      }
-      leftColumn.appendChild(label);
+      cardSections[1].className = "column-tile-label";
+      leftColumn.appendChild(cardSections[1]);
     }
 
-    // Secondary link section
-    const originalSecondaryLink = cardSections[2]?.querySelector("a");
-    if (originalSecondaryLink) {
-      const secondaryLink = document.createElement("a");
-      secondaryLink.href = originalSecondaryLink.getAttribute("href") || "#";
-      secondaryLink.className = "column-tile-sub-link";
+    // Secondary link wrapper
+    if (cardSections[2]?.querySelector("a") || cardSections[3]?.textContent.trim()) {
+      const secondaryLinkWrapper = document.createElement("div");
       
-      moveInstrumentation(originalSecondaryLink, secondaryLink);
-
-      // Sub description
-      if (cardSections[3]?.textContent.trim()) {
-        const subDescription = document.createElement("p");
-        subDescription.className = "column-tile-sub-description";
+      if (cardSections[2]?.querySelector("a")) {
+        const link = cardSections[2].querySelector("a");
+        link.className = "column-tile-sub-link";
         
-        moveInstrumentation(cardSections[3], subDescription);
-        while (cardSections[3].firstChild) {
-          subDescription.appendChild(cardSections[3].firstChild);
+        if (cardSections[3]?.textContent.trim()) {
+          cardSections[3].className = "column-tile-sub-description";
+          link.appendChild(cardSections[3]);
         }
-        secondaryLink.appendChild(subDescription);
+        
+        secondaryLinkWrapper.appendChild(link);
+        leftColumn.appendChild(secondaryLinkWrapper);
       }
-
-      leftColumn.appendChild(secondaryLink);
     }
 
     // RIGHT COLUMN
     const rightColumn = document.createElement("div");
     rightColumn.className = "column-tile-right";
 
-    // Supporting text
+    // Supporting text (index 6)
     if (cardSections[6]?.textContent.trim()) {
-      const rightDescription = document.createElement("p");
-      rightDescription.className = "column-tile-supporting-text";
-      
-      moveInstrumentation(cardSections[6], rightDescription);
-      while (cardSections[6].firstChild) {
-        rightDescription.appendChild(cardSections[6].firstChild);
-      }
-      rightColumn.appendChild(rightDescription);
+      cardSections[6].className = "column-tile-supporting-text";
+      rightColumn.appendChild(cardSections[6]);
     }
 
-    // Features section
+    // Features (indices 7+)
     const featuresContainer = document.createElement("div");
     featuresContainer.className = "column-tile-features";
 
@@ -105,26 +87,17 @@ export default function decorate(block) {
         const featureItem = document.createElement("div");
         featureItem.className = "column-tile-feature";
 
-        // Feature icon - preserve original picture element
-        const originalIcon = cardSections[i].querySelector("picture");
-        if (originalIcon) {
-          const iconWrapper = document.createElement("div");
-          iconWrapper.className = "column-tile-feature-icon";
-          
-          moveInstrumentation(cardSections[i], iconWrapper);
-          iconWrapper.appendChild(originalIcon);
-          featureItem.appendChild(iconWrapper);
+        // Feature icon
+        if (cardSections[i]?.querySelector("picture")) {
+          cardSections[i].className = "column-tile-feature-icon";
+          featureItem.appendChild(cardSections[i]);
         }
 
-        // Feature text - preserve original content
-        const text = document.createElement("div");
-        text.className = "column-tile-feature-text";
-        
-        moveInstrumentation(cardSections[i + 1], text);
-        while (cardSections[i + 1].firstChild) {
-          text.appendChild(cardSections[i + 1].firstChild);
+        // Feature text
+        if (cardSections[i + 1]?.textContent.trim()) {
+          cardSections[i + 1].className = "column-tile-feature-text";
+          featureItem.appendChild(cardSections[i + 1]);
         }
-        featureItem.appendChild(text);
 
         featuresContainer.appendChild(featureItem);
       }
@@ -134,10 +107,7 @@ export default function decorate(block) {
       rightColumn.appendChild(featuresContainer);
     }
 
-    // Content main wrapper
-    const contentMain = document.createElement("div");
-    contentMain.className = "column-tile-content-main";
-
+    // Add columns to main content
     if (leftColumn.children.length > 0) {
       contentMain.appendChild(leftColumn);
     }
@@ -149,45 +119,40 @@ export default function decorate(block) {
       contentContainer.appendChild(contentMain);
     }
 
-    // LINK SECTION - preserve original link element
-    const originalMainLink = cardSections[4]?.querySelector("a");
-    if (originalMainLink) {
+    // MAIN LINK SECTION (indices 4 & 5)
+    if (cardSections[4]?.querySelector("a") || cardSections[5]?.textContent.trim()) {
       const contentLink = document.createElement("div");
       contentLink.className = "column-tile-content-link";
 
-      const link = document.createElement("a");
-      link.href = originalMainLink.getAttribute("href") || "#";
-      link.className = "column-tile-link";
-      
-      moveInstrumentation(originalMainLink, link);
+      if (cardSections[4]?.querySelector("a")) {
+        const link = cardSections[4].querySelector("a");
+        link.className = "column-tile-link";
 
-      // Description section
-      if (cardSections[5]?.textContent.trim()) {
-        const description = document.createElement("p");
-        description.className = "column-tile-description";
+        if (cardSections[5]?.textContent.trim()) {
+          const description = document.createElement("div");
+          description.className = "column-tile-description";
+          
+          cardSections[5].className = "description-text";
+          description.appendChild(cardSections[5]);
 
-        const textSpan = document.createElement("span");
-        textSpan.className = "description-text";
-        
-        moveInstrumentation(cardSections[5], textSpan);
-        while (cardSections[5].firstChild) {
-          textSpan.appendChild(cardSections[5].firstChild);
+          const svg = document.createElement("img");
+          svg.src = "/icons/chevron_forward.svg";
+          svg.alt = "Arrow";
+          svg.className = "column-tile-description-icon";
+          description.appendChild(svg);
+
+          link.appendChild(description);
         }
-        description.appendChild(textSpan);
 
-        const svg = document.createElement("img");
-        svg.src = "/icons/chevron_forward.svg";
-        svg.alt = "Arrow";
-        svg.className = "column-tile-description-icon";
-        description.appendChild(svg);
-
-        link.appendChild(description);
+        contentLink.appendChild(link);
       }
 
-      contentLink.appendChild(link);
-      contentContainer.appendChild(contentLink);
+      if (contentLink.children.length > 0) {
+        contentContainer.appendChild(contentLink);
+      }
     }
 
+    // Add content container to card
     if (contentContainer.children.length > 0) {
       galleryCard.appendChild(contentContainer);
     }
@@ -195,7 +160,7 @@ export default function decorate(block) {
     galleryWrapper.appendChild(galleryCard);
   });
 
-  mainContainer.appendChild(galleryContainer);
-  block.innerHTML = "";
-  block.appendChild(mainContainer);
+  // Replace block content
+  block.textContent = '';
+  block.appendChild(galleryContainer);
 }
