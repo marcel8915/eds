@@ -1,3 +1,5 @@
+import { moveInstrumentation } from "../../scripts/scripts.js";
+
 export default function decorate(block) {
   const leftCol = document.createElement("div");
   leftCol.className = "three-image-grid__left-col";
@@ -12,23 +14,24 @@ export default function decorate(block) {
   imageContainers.forEach((container, index) => {
     const card = document.createElement("div");
     card.className = "three-image-grid__card";
+    moveInstrumentation(container, card);
 
     const imageDiv = container.querySelector(":scope > div:first-child");
-
     const captionDiv = container.querySelector(":scope > div:nth-child(2)");
 
     const imageContainer = document.createElement("div");
     imageContainer.className = "three-image-grid__image";
     if (imageDiv?.querySelector("picture, img")) {
-      imageContainer.append(
-        imageDiv.querySelector("picture, img").cloneNode(true)
-      );
+      const imgOrPic = imageDiv.querySelector("picture, img").cloneNode(true);
+      imageContainer.append(imgOrPic);
+      moveInstrumentation(imageDiv, imageContainer);
     }
 
     const captionContainer = document.createElement("div");
     captionContainer.className = "text-p2 three-card-description";
     if (captionDiv) {
       captionContainer.innerHTML = captionDiv.innerHTML;
+      moveInstrumentation(captionDiv, captionContainer);
     }
 
     card.append(imageContainer);
