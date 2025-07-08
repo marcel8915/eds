@@ -1,3 +1,5 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
   const container = document.createElement("div");
   container.className = "table-board-container";
@@ -48,6 +50,9 @@ export default function decorate(block) {
 
     const item = document.createElement("div");
     item.className = "table-board-item";
+    
+    // Move instrumentation from original row to new item
+    moveInstrumentation(row, item);
 
     const itemContent = document.createElement("div");
     itemContent.className = "table-board-item-content";
@@ -56,7 +61,14 @@ export default function decorate(block) {
     if (imageCol && imageCol.querySelector("picture")) {
       const imageContainer = document.createElement("div");
       imageContainer.className = "table-board-image-container";
-      imageContainer.append(imageCol.querySelector("picture").cloneNode(true));
+      
+      const picture = imageCol.querySelector("picture");
+      const clonedPicture = picture.cloneNode(true);
+      
+      // Move instrumentation from original picture to cloned picture
+      moveInstrumentation(picture, clonedPicture);
+      
+      imageContainer.append(clonedPicture);
       itemContent.append(imageContainer);
     }
 
@@ -68,6 +80,10 @@ export default function decorate(block) {
       const dateElement = document.createElement("div");
       dateElement.className = "text-l1 table-board-date";
       dateElement.textContent = dateCol.textContent.trim();
+      
+      // Move instrumentation from original dateCol to new dateElement
+      moveInstrumentation(dateCol, dateElement);
+      
       textContent.append(dateElement);
     }
 
@@ -76,6 +92,9 @@ export default function decorate(block) {
     if (titleCol) {
       const titleWrapper = document.createElement("div");
       titleWrapper.className = "table-board-item-title text-h2";
+      
+      // Move instrumentation from original titleCol to new titleWrapper
+      moveInstrumentation(titleCol, titleWrapper);
 
       const titleText = titleCol.textContent.trim();
       const titleHtml = titleCol.innerHTML.trim();
@@ -89,6 +108,10 @@ export default function decorate(block) {
         linkElement.rel = "noopener noreferrer";
         linkElement.className = "table-board-title-link";
         linkElement.style.whiteSpace = "pre-line";
+        
+        // Move instrumentation from original link to new linkElement
+        const originalLink = titleLinkCol.querySelector("a");
+        moveInstrumentation(originalLink, linkElement);
 
         const groupContainer = document.createElement("div");
         groupContainer.className = "table-board-title-group";
@@ -134,6 +157,10 @@ export default function decorate(block) {
       const descElement = document.createElement("div");
       descElement.className = "text-p2 table-board-description";
       descElement.innerHTML = descCol.innerHTML;
+      
+      // Move instrumentation from original descCol to new descElement
+      moveInstrumentation(descCol, descElement);
+      
       textContent.append(descElement);
     }
 
@@ -154,6 +181,10 @@ export default function decorate(block) {
           mobileButton.target = "_blank";
           mobileButton.rel = "noopener noreferrer";
           mobileButton.className = "table-board-mobile-button secondary-button";
+          
+          // Move instrumentation from original button link to new mobileButton
+          const originalButtonLink = buttonLinkCol.querySelector("a");
+          moveInstrumentation(originalButtonLink, mobileButton);
 
           const underlineContainer = document.createElement("span");
           underlineContainer.className = "underline-container";
