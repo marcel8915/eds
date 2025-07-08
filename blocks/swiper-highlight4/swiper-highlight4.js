@@ -1,4 +1,5 @@
 import { moveInstrumentation } from "../../scripts/scripts.js";
+import { isUniversalEditor } from "../../scripts/aem.js";
 
 function loadScript(src, attrs) {
   return new Promise((resolve, reject) => {
@@ -43,6 +44,11 @@ async function loadDependencies() {
 }
 
 export default async function decorate(block) {
+  if (isUniversalEditor()) {
+    console.log("authoring");
+  } else {
+    console.log("not authoring");
+  }
   await loadDependencies();
 
   const container = document.createElement("div");
