@@ -24,6 +24,7 @@ function createGalleryWithFilters(block) {
   const categories = new Set(["All"]);
   const cardsData = [];
 
+  // First pass: collect data without modifying DOM
   Array.from(block.children).forEach((card) => {
     const cardSections = Array.from(card.children);
     if (cardSections[6]?.textContent.trim()) {
@@ -57,23 +58,17 @@ function createGalleryWithFilters(block) {
       card.textContent.trim() !== "" || card.querySelector("picture");
     if (!hasContent) return;
 
+    // Create gallery card and apply moveInstrumentation ONCE
     const galleryCard = document.createElement("div");
     galleryCard.className = "image-gallery-tile-card";
     galleryCard.dataset.category = cardData.category;
-    
-    // Single moveInstrumentation call from original card to new card
     moveInstrumentation(card, galleryCard);
 
-    // Move all children from original card to new card (preserve original elements)
-    while (card.firstElementChild) {
-      galleryCard.append(card.firstElementChild);
-    }
-
-    // Now work with the moved children
-    const cardSections = Array.from(galleryCard.children);
+    // Get original sections before moving anything
+    const originalSections = Array.from(card.children);
     
-    // Handle images - move original elements, don't clone
-    const images = galleryCard.querySelectorAll("picture");
+    // Handle images first - create swiper structure
+    const images = card.querySelectorAll("picture");
     if (images.length > 0) {
       const imageWrapper = document.createElement("div");
       imageWrapper.className = "image-gallery-tile-images swiper-container";
@@ -84,14 +79,13 @@ function createGalleryWithFilters(block) {
       const swiperWrapper = document.createElement("div");
       swiperWrapper.className = "swiper-wrapper";
 
-      // Take first 3 images and move them (don't clone)
+      // Move first 3 images directly to swiper slides
       Array.from(images)
         .slice(0, 3)
         .forEach((image) => {
           const swiperSlide = document.createElement("div");
           swiperSlide.className = "swiper-slide";
-          // Move the original image element
-          swiperSlide.appendChild(image);
+          swiperSlide.appendChild(image); // Move original image
           swiperWrapper.appendChild(swiperSlide);
         });
 
@@ -113,33 +107,34 @@ function createGalleryWithFilters(block) {
       galleryCard.appendChild(imageWrapper);
     }
 
+    // Now handle content sections
     const contentContainer = document.createElement("div");
     contentContainer.className = "image-gallery-tile-content";
 
     const leftColumn = document.createElement("div");
     leftColumn.className = "image-gallery-tile-left";
 
-    // Title - add class to existing element
-    if (cardSections[3]?.textContent.trim()) {
-      cardSections[3].className = "image-gallery-tile-title";
-      leftColumn.appendChild(cardSections[3]);
+    // Title (section 3)
+    if (originalSections[3]?.textContent.trim()) {
+      originalSections[3].className = "image-gallery-tile-title";
+      leftColumn.appendChild(originalSections[3]);
     }
 
-    // Link - preserve original link element
-    if (cardSections[4]?.querySelector("a")) {
-      const originalLink = cardSections[4].querySelector("a");
+    // Link and description (sections 4 & 5)
+    if (originalSections[4]?.querySelector("a")) {
+      const linkSection = originalSections[4];
+      const originalLink = linkSection.querySelector("a");
       originalLink.className = "image-gallery-tile-link";
       
-      // Description - add to existing link
-      if (cardSections[5]?.textContent.trim()) {
-        cardSections[5].className = "image-gallery-tile-description";
-        // Move description content into the link
-        while (cardSections[5].firstChild) {
-          originalLink.appendChild(cardSections[5].firstChild);
-        }
+      if (originalSections[5]?.textContent.trim()) {
+        const descriptionText = originalSections[5].textContent.trim();
+        const descElement = document.createElement("p");
+        descElement.className = "image-gallery-tile-description";
+        descElement.textContent = descriptionText;
+        originalLink.appendChild(descElement);
       }
       
-      leftColumn.appendChild(cardSections[4]);
+      leftColumn.appendChild(linkSection);
     }
 
     const rightColumn = document.createElement("div");
@@ -148,22 +143,22 @@ function createGalleryWithFilters(block) {
     const featuresContainer = document.createElement("div");
     featuresContainer.className = "image-gallery-tile-features";
 
-    // Features - preserve original elements
-    for (let i = 7; i < cardSections.length; i += 2) {
-      if (i + 1 < cardSections.length) {
+    // Features (sections 7+)
+    for (let i = 7; i < originalSections.length; i += 2) {
+      if (i + 1 < originalSections.length) {
         const featureItem = document.createElement("div");
         featureItem.className = "image-gallery-tile-feature";
 
-        // Icon - move original picture element
-        if (cardSections[i]?.querySelector("picture")) {
-          cardSections[i].className = "image-gallery-tile-feature-icon";
-          featureItem.appendChild(cardSections[i]);
+        // Icon
+        if (originalSections[i]?.querySelector("picture")) {
+          originalSections[i].className = "image-gallery-tile-feature-icon";
+          featureItem.appendChild(originalSections[i]);
         }
 
-        // Text - add class to existing element
-        if (cardSections[i + 1]?.textContent.trim()) {
-          cardSections[i + 1].className = "image-gallery-tile-feature-text";
-          featureItem.appendChild(cardSections[i + 1]);
+        // Text
+        if (originalSections[i + 1]?.textContent.trim()) {
+          originalSections[i + 1].className = "image-gallery-tile-feature-text";
+          featureItem.appendChild(originalSections[i + 1]);
         }
 
         featuresContainer.appendChild(featureItem);
@@ -192,7 +187,9 @@ function createGalleryWithFilters(block) {
   block.innerHTML = "";
   block.appendChild(mainContainer);
 
-  setTimeout(() => {
+  // Initialize Swiper after DOM is fully constructed
+  // Use requestAnimationFrame for better timing
+  requestAnimationFrame(() => {
     document
       .querySelectorAll('[class^="swiper mySwiper-"]')
       .forEach((swiperEl) => {
@@ -209,7 +206,7 @@ function createGalleryWithFilters(block) {
           autoplay: false,
         });
       });
-  }, 100);
+  });
 }
 
 function createCategoryFilters(categories, cardsData) {
