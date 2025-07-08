@@ -136,7 +136,7 @@ export default async function decorate(block) {
             ${processedSocialsHTML}
           </div>
           <button class="footer-scroll-top" aria-label="Scroll to top">
-            <img src="/icons/arrowCircular.svg" alt="Scroll to top" />
+            <img src="/icons/arrow-circular.svg" alt="Scroll to top" />
           </button>
         </div>
       </section>
