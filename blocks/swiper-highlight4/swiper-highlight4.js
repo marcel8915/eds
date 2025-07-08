@@ -44,12 +44,7 @@ async function loadDependencies() {
 }
 
 export default async function decorate(block) {
-  if (isUniversalEditor()) {
-    console.log("authoring");
-  } else {
-    console.log("not authoring");
-  }
-  await loadDependencies();
+  const isAuthoring = isUniversalEditor();
 
   const container = document.createElement("div");
   container.className = "swiper-block-container";
@@ -84,7 +79,9 @@ export default async function decorate(block) {
     if (!row.textContent.trim() && !row.querySelector("picture")) return;
 
     const slide = document.createElement("div");
-    slide.className = "swiper-slide";
+    slide.className = isAuthoring
+      ? "swiper-slide authoring-slide"
+      : "swiper-slide";
     moveInstrumentation(row, slide);
 
     const card = document.createElement("div");
@@ -183,17 +180,27 @@ export default async function decorate(block) {
 
   const soundButtonIframe = document.createElement("iframe");
   soundButtonIframe.src = "/blocks/swiper-highlight4/sound.html";
-
   soundButtonIframe.style.border = "none";
   soundButtonIframe.style.height = "70px";
   soundButtonIframe.style.width = "100%";
   soundButtonIframe.scrolling = "no";
   soundButtonIframe.title = "Sound Player Button";
-
   container.appendChild(soundButtonIframe);
 
   block.innerHTML = "";
   block.appendChild(container);
+
+  if (isAuthoring) {
+    swiperContainer.style.display = "flex";
+    swiperWrapper.style.display = "flex";
+    swiperWrapper.style.gap = "24px";
+    arrowsContainer.style.display = "none";
+
+    container.classList.add("swiper-block-authoring");
+    return;
+  }
+
+  await loadDependencies();
 
   const positionArrows = (swiper) => {
     if (!cards.length) return;
