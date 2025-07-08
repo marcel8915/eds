@@ -75,13 +75,13 @@
     color: #000;
 }
 
-.image-gallery-tile-container {
+.image-gallery-tile2-container {
     display: flex;
     justify-content: center;
     padding: 2rem 1.5rem;
 }
 
-.image-gallery-tile-wrapper {
+.image-gallery-tile2-wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 3rem;
@@ -154,7 +154,7 @@
 }
 
 .swiper-pagination-bullet {
-    background-color: rgba(128, 128, 128) !important;
+    background-color: rgba(var(--border-grey)) !important;
     opacity: 1 !important;
     border-radius: 4px !important;
     width: 4px !important;
