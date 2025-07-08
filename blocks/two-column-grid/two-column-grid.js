@@ -73,17 +73,36 @@ export default function decorate(block) {
           }
           break;
         default: // Feature sections (7+)
-          if (sectionIndex >= 7) {
-            if (sectionIndex % 2 === 1) { // Odd indices are feature icons
-              if (section.querySelector('picture')) {
-                section.classList.add('column-tile-feature-icon');
+            // Group feature sections (7+) into a .column-tile-features container
+            if (sectionIndex === 7) {
+            // Create the features container if it doesn't exist
+            let featuresContainer = row.querySelector('.column-tile-features');
+            if (!featuresContainer) {
+              featuresContainer = document.createElement('div');
+              featuresContainer.className = 'column-tile-features';
+              row.appendChild(featuresContainer);
+            }
+            // Move all feature sections (7+) into the features container
+            for (let i = 7; i < cardSections.length; i += 2) {
+              const iconSection = cardSections[i];
+              const textSection = cardSections[i + 1];
+              if (iconSection || textSection) {
+              const featureDiv = document.createElement('div');
+              featureDiv.className = 'column-tile-feature';
+              if (iconSection) {
+                iconSection.classList.add('column-tile-feature-icon');
+                featureDiv.appendChild(iconSection);
               }
-            } else { // Even indices are feature text
-              if (section.textContent.trim()) {
-                section.classList.add('column-tile-feature-text');
+              if (textSection) {
+                textSection.classList.add('column-tile-feature-text');
+                featureDiv.appendChild(textSection);
+              }
+              featuresContainer.appendChild(featureDiv);
               }
             }
-          }
+            }
+            // Prevent further processing for feature sections
+            if (sectionIndex >= 7) return;
           break;
       }
     });
