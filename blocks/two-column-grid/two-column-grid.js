@@ -1,179 +1,211 @@
 import { moveInstrumentation } from '../../scripts/scripts.js'; 
 
 export default function decorate(block) {
-    const mainContainer = document.createElement("div");
-    const cardsData = [];
+  // Convert block to a more semantic structure while preserving original elements
+  const ul = document.createElement('ul');
+  ul.className = 'column-tile-container-col';
   
-    Array.from(block.children).forEach((card) => {
-      cardsData.push({
-        element: card,
-      });
-    });
-  
-    const galleryContainer = document.createElement("div");
-    galleryContainer.className = "column-tile-container-col";
-  
-    const galleryWrapper = document.createElement("div");
-    galleryWrapper.className = "column-tile-wrapper-col";
-    galleryContainer.appendChild(galleryWrapper);
-  
-    cardsData.forEach((cardData) => {
-      const card = cardData.element;
-      const hasContent = card.textContent.trim() !== "" || card.querySelector("picture");
-      if (!hasContent) return;
-  
-      const galleryCard = document.createElement("div");
-      galleryCard.className = "column-tile-card";
-      moveInstrumentation(card, galleryCard); 
-  
-      const image = card.querySelector("picture");
-      if (image) {
-        const imageWrapper = document.createElement("div");
-        imageWrapper.className = "column-tile-images";
-        const clonedImage = image.cloneNode(true);
-        moveInstrumentation(image, clonedImage); 
-        imageWrapper.appendChild(clonedImage);
-        galleryCard.appendChild(imageWrapper);
+  [...block.children].forEach((row) => {
+    const hasContent = row.textContent.trim() !== "" || row.querySelector("picture");
+    if (!hasContent) return;
+    
+    const li = document.createElement('li');
+    li.className = 'column-tile-card';
+    
+    // Move instrumentation from original row to new list item
+    moveInstrumentation(row, li);
+    
+    // Process the row's children and organize them
+    const cardSections = Array.from(row.children);
+    
+    // Handle image (first section)
+    const image = cardSections[0]?.querySelector('picture');
+    if (image) {
+      const imageWrapper = document.createElement('div');
+      imageWrapper.className = 'column-tile-images';
+      // Move the original image element, don't clone
+      moveInstrumentation(cardSections[0], imageWrapper);
+      while (cardSections[0].firstElementChild) {
+        imageWrapper.appendChild(cardSections[0].firstElementChild);
       }
-  
-      const contentContainer = document.createElement("div");
-      contentContainer.className = "column-tile-content";
-  
-      const cardSections = Array.from(card.children);
-  
-      // LEFT COLUMN
-      const leftColumn = document.createElement("div");
-      leftColumn.className = "column-tile-left";
-  
-      if (cardSections[1]?.textContent.trim()) {
-        const label = document.createElement("p");
-        label.className = "column-tile-label";
-        label.textContent = cardSections[1].textContent.trim();
-        moveInstrumentation(cardSections[1], label); 
-        leftColumn.appendChild(label);
+      li.appendChild(imageWrapper);
+    }
+    
+    // Create content container
+    const contentContainer = document.createElement('div');
+    contentContainer.className = 'column-tile-content';
+    
+    // LEFT COLUMN
+    const leftColumn = document.createElement('div');
+    leftColumn.className = 'column-tile-left';
+    
+    // Label (section 1)
+    if (cardSections[1]?.textContent.trim()) {
+      const labelWrapper = document.createElement('div');
+      labelWrapper.className = 'column-tile-label';
+      moveInstrumentation(cardSections[1], labelWrapper);
+      while (cardSections[1].firstChild) {
+        labelWrapper.appendChild(cardSections[1].firstChild);
       }
-  
-      const secondaryLink = document.createElement("a");
-      secondaryLink.href = cardSections[2]?.querySelector("a")?.getAttribute("href") || "#";
-      secondaryLink.className = "column-tile-sub-link";
-      if (cardSections[2]?.querySelector("a")) {
-        moveInstrumentation(cardSections[2].querySelector("a"), secondaryLink); 
+      leftColumn.appendChild(labelWrapper);
+    }
+    
+    // Secondary link (sections 2 & 3)
+    if (cardSections[2]?.querySelector('a') || cardSections[3]?.textContent.trim()) {
+      const secondaryLink = document.createElement('div');
+      secondaryLink.className = 'column-tile-sub-link';
+      
+      // Handle link from section 2
+      if (cardSections[2]?.querySelector('a')) {
+        const linkElement = cardSections[2].querySelector('a');
+        const newLink = document.createElement('a');
+        newLink.href = linkElement.getAttribute('href') || '#';
+        newLink.className = 'column-tile-sub-link';
+        moveInstrumentation(linkElement, newLink);
+        
+        // Handle description from section 3
+        if (cardSections[3]?.textContent.trim()) {
+          const subDescription = document.createElement('div');
+          subDescription.className = 'column-tile-sub-description';
+          moveInstrumentation(cardSections[3], subDescription);
+          while (cardSections[3].firstChild) {
+            subDescription.appendChild(cardSections[3].firstChild);
+          }
+          newLink.appendChild(subDescription);
+        }
+        
+        secondaryLink.appendChild(newLink);
       }
-  
-      if (cardSections[3]?.textContent.trim()) {
-        const subDescription = document.createElement("p");
-        subDescription.className = "column-tile-sub-description";
-        subDescription.textContent = cardSections[3].textContent.trim();
-        moveInstrumentation(cardSections[3], subDescription); 
-        secondaryLink.appendChild(subDescription);
-      }
-  
+      
       if (secondaryLink.children.length > 0) {
         leftColumn.appendChild(secondaryLink);
       }
-  
-      // RIGHT COLUMN
-      const rightColumn = document.createElement("div");
-      rightColumn.className = "column-tile-right";
-  
-      const featuresContainer = document.createElement("div");
-      featuresContainer.className = "column-tile-features";
-  
-      for (let i = 7; i < cardSections.length; i += 2) {
-        if (i + 1 < cardSections.length) {
-          const featureItem = document.createElement("div");
-          featureItem.className = "column-tile-feature";
-  
-          const icon = cardSections[i].querySelector("picture")?.cloneNode(true);
-          if (icon) {
-            const iconWrapper = document.createElement("div");
-            iconWrapper.className = "column-tile-feature-icon";
-            moveInstrumentation(cardSections[i].querySelector("picture"), icon); 
-            iconWrapper.appendChild(icon);
-            featureItem.appendChild(iconWrapper);
+    }
+    
+    // RIGHT COLUMN
+    const rightColumn = document.createElement('div');
+    rightColumn.className = 'column-tile-right';
+    
+    // Supporting text (section 6)
+    if (cardSections[6]?.textContent.trim()) {
+      const rightDescription = document.createElement('div');
+      rightDescription.className = 'column-tile-supporting-text';
+      moveInstrumentation(cardSections[6], rightDescription);
+      while (cardSections[6].firstChild) {
+        rightDescription.appendChild(cardSections[6].firstChild);
+      }
+      rightColumn.appendChild(rightDescription);
+    }
+    
+    // Features (sections 7+)
+    const featuresContainer = document.createElement('div');
+    featuresContainer.className = 'column-tile-features';
+    
+    for (let i = 7; i < cardSections.length; i += 2) {
+      if (i + 1 < cardSections.length) {
+        const featureItem = document.createElement('div');
+        featureItem.className = 'column-tile-feature';
+        
+        // Icon
+        const iconSection = cardSections[i];
+        if (iconSection?.querySelector('picture')) {
+          const iconWrapper = document.createElement('div');
+          iconWrapper.className = 'column-tile-feature-icon';
+          moveInstrumentation(iconSection, iconWrapper);
+          while (iconSection.firstElementChild) {
+            iconWrapper.appendChild(iconSection.firstElementChild);
           }
-  
-          const text = document.createElement("div");
-          text.className = "column-tile-feature-text";
-          text.textContent = cardSections[i + 1].textContent.trim();
-          moveInstrumentation(cardSections[i + 1], text); 
-          featureItem.appendChild(text);
-  
+          featureItem.appendChild(iconWrapper);
+        }
+        
+        // Text
+        const textSection = cardSections[i + 1];
+        if (textSection?.textContent.trim()) {
+          const textWrapper = document.createElement('div');
+          textWrapper.className = 'column-tile-feature-text';
+          moveInstrumentation(textSection, textWrapper);
+          while (textSection.firstChild) {
+            textWrapper.appendChild(textSection.firstChild);
+          }
+          featureItem.appendChild(textWrapper);
+        }
+        
+        if (featureItem.children.length > 0) {
           featuresContainer.appendChild(featureItem);
         }
       }
-  
-      if (cardSections[6]?.textContent.trim()) {
-        const rightDescription = document.createElement("p");
-        rightDescription.className = "column-tile-supporting-text";
-        rightDescription.textContent = cardSections[6].textContent.trim();
-        moveInstrumentation(cardSections[6], rightDescription); 
-        rightColumn.appendChild(rightDescription);
-      }
-  
-      if (featuresContainer.children.length > 0) {
-        rightColumn.appendChild(featuresContainer);
-      }
-  
-      // NEW WRAPPER for LEFT + RIGHT columns
-      const contentMain = document.createElement("div");
-      contentMain.className = "column-tile-content-main";
-  
-      if (leftColumn.children.length > 0) {
-        contentMain.appendChild(leftColumn);
-      }
-  
-      if (rightColumn.children.length > 0) {
-        contentMain.appendChild(rightColumn);
-      }
-  
-      if (contentMain.children.length > 0) {
-        contentContainer.appendChild(contentMain);
-      }
-  
-      // LINK SECTION
-      const contentLink = document.createElement("div");
-      contentLink.className = "column-tile-content-link";
-  
-      const link = document.createElement("a");
-      link.href = cardSections[4]?.querySelector("a")?.getAttribute("href") || "#";
-      link.className = "column-tile-link";
-      if (cardSections[4]?.querySelector("a")) {
-        moveInstrumentation(cardSections[4].querySelector("a"), link);
-      }
-  
-      if (cardSections[5]?.textContent.trim()) {
-        const description = document.createElement("p");
-        description.className = "column-tile-description";
-  
-        const textSpan = document.createElement("span");
-        textSpan.className = "description-text";
-        textSpan.textContent = cardSections[5].textContent.trim();
-        moveInstrumentation(cardSections[5], textSpan); 
-        description.appendChild(textSpan);
-  
-        const svg = document.createElement("img");
-        svg.src = "/icons/chevron_forward.svg";
-        svg.alt = "Arrow";
-        svg.className = "column-tile-description-icon";
-        description.appendChild(svg);
-  
-        link.appendChild(description);
-      }
-  
-      if (link.children.length > 0) {
+    }
+    
+    if (featuresContainer.children.length > 0) {
+      rightColumn.appendChild(featuresContainer);
+    }
+    
+    // Content main wrapper
+    const contentMain = document.createElement('div');
+    contentMain.className = 'column-tile-content-main';
+    
+    if (leftColumn.children.length > 0) {
+      contentMain.appendChild(leftColumn);
+    }
+    if (rightColumn.children.length > 0) {
+      contentMain.appendChild(rightColumn);
+    }
+    
+    if (contentMain.children.length > 0) {
+      contentContainer.appendChild(contentMain);
+    }
+    
+    // LINK SECTION (sections 4 & 5)
+    if (cardSections[4]?.querySelector('a') || cardSections[5]?.textContent.trim()) {
+      const contentLink = document.createElement('div');
+      contentLink.className = 'column-tile-content-link';
+      
+      const linkSection = cardSections[4];
+      if (linkSection?.querySelector('a')) {
+        const originalLink = linkSection.querySelector('a');
+        const link = document.createElement('a');
+        link.href = originalLink.getAttribute('href') || '#';
+        link.className = 'column-tile-link';
+        moveInstrumentation(originalLink, link);
+        
+        // Description from section 5
+        if (cardSections[5]?.textContent.trim()) {
+          const description = document.createElement('div');
+          description.className = 'column-tile-description';
+          
+          const textSpan = document.createElement('span');
+          textSpan.className = 'description-text';
+          moveInstrumentation(cardSections[5], textSpan);
+          while (cardSections[5].firstChild) {
+            textSpan.appendChild(cardSections[5].firstChild);
+          }
+          description.appendChild(textSpan);
+          
+          const svg = document.createElement('img');
+          svg.src = '/icons/chevron_forward.svg';
+          svg.alt = 'Arrow';
+          svg.className = 'column-tile-description-icon';
+          description.appendChild(svg);
+          
+          link.appendChild(description);
+        }
+        
         contentLink.appendChild(link);
+      }
+      
+      if (contentLink.children.length > 0) {
         contentContainer.appendChild(contentLink);
       }
+    }
+    
+    if (contentContainer.children.length > 0) {
+      li.appendChild(contentContainer);
+    }
+    
+    ul.appendChild(li);
+  });
   
-      if (contentContainer.children.length > 0) {
-        galleryCard.appendChild(contentContainer);
-      }
-  
-      galleryWrapper.appendChild(galleryCard);
-    });
-  
-    mainContainer.appendChild(galleryContainer);
-    block.innerHTML = "";
-    block.appendChild(mainContainer);
+  // Replace block content with the new structure
+  block.textContent = '';
+  block.appendChild(ul);
 }
