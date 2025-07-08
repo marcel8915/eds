@@ -16,10 +16,9 @@
       "fragment",
       "slider-teaser-content",
       "swiper3",
-      "grid",
       "three-image-description",
       "layout",
-      "column-tile",
+      "two-column-grid",
       "section-header",
       "text-image",
       "info-card",
@@ -51,10 +50,6 @@
     "components": ["swiper-card3"]
   },
   {
-    "id": "grid",
-    "components": ["grid-card"]
-  },
-  {
     "id": "three-image-description",
     "components": ["title", "text", "cards", "card", "grid-card"]
   },
@@ -63,8 +58,8 @@
     "components": ["layout-card"]
   },
   {
-    "id": "column-tile",
-    "components": ["column-card-tile"]
+    "id": "two-column-grid",
+    "components": ["grid-card"]
   },
   {
     "id": "text-image",
