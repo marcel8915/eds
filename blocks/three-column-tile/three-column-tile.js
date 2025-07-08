@@ -1,3 +1,5 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
     const tileContainer = document.createElement('div');
     tileContainer.className = 'three-column-tile-wrapper-main';
@@ -32,11 +34,13 @@ export default function decorate(block) {
 function createTile(column, tileClass) {
     const tile = document.createElement('div');
     tile.className = `${tileClass}`;
-    
+    moveInstrumentation(column, tile); 
+
     const image = column.querySelector('picture');
     if (image) {
         const imageWrapper = document.createElement('div');
         imageWrapper.className = 'grid-tile-image';
+        moveInstrumentation(image, imageWrapper); 
         imageWrapper.appendChild(image);
         tile.appendChild(imageWrapper);
     }
@@ -55,6 +59,7 @@ function createTile(column, tileClass) {
         const category = document.createElement('div');
         category.className = 'grid-tile-category';
         category.textContent = contentItems[1];
+        moveInstrumentation(elements[1], category); 
         contentContainer.appendChild(category);
     }
     
@@ -67,6 +72,7 @@ function createTile(column, tileClass) {
             const url = new URL(linkElement.href);
             titleWrapper.href = url.pathname; 
             titleWrapper.className = linkElement.className;
+            moveInstrumentation(linkElement, titleWrapper); 
             titleWrapper.appendChild(titleElement.cloneNode(true));
             const title = document.createElement('div');
             title.className = 'grid-tile-title';
