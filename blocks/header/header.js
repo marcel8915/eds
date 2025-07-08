@@ -131,7 +131,6 @@ export default async function decorate(block) {
 
   // --- Populate structure ---
   const langSelector = nav.querySelector(".language-selector");
-  const navLogo = nav.querySelector(".nav-logo a");
   const navReserve = nav.querySelector(".nav-reserve");
   const mainLinks = nav.querySelector(".main-links");
   const languageOptions = nav.querySelector(".language-options");
@@ -327,5 +326,12 @@ export default async function decorate(block) {
     }
   });
 
+  //  Reserve bar mobile
+  const reserveBarMobile = document.createElement("div");
+  reserveBarMobile.classList.add("reserve-bar-mobile");
+  reserveBarMobile.innerHTML = `
+    <button class="reserve-button">Reserve</button>
+  `;
+  document.body.append(reserveBarMobile);
   block.append(nav);
 }

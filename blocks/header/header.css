@@ -23,6 +23,7 @@
 }
 .header-wrapper.is-scrolled {
     background-color: var(--header-scrolled-bg-color);
+    max-height: var(--header-height);
 }
 
 .header nav {
@@ -464,5 +465,20 @@ body.nav-open {
     }
 }
 
-.reserve-button {
+.reserve-bar-mobile {
+    display: none;
+}
+@media (max-width: 767px) {
+    .reserve-bar-mobile {
+        display: block;
+        position: fixed;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 499;
+    }
+}
+
+.header .cta-button {
+    height: 54.4px !important;
 }
