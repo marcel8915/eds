@@ -739,6 +739,7 @@ function isUniversalEditor() {
     window.location.search.includes("universal-editor=true") ||
     window.location.pathname.startsWith("/editor.html") ||
     window.location.hash.includes("universal-editor") ||
+    window.location.hostname.includes("adobeaemcloud") ||
     !!document.querySelector("[data-universal-editor]")
   );
 }
