@@ -1,3 +1,5 @@
+import { moveInstrumentation } from '../../scripts/scripts.js'; 
+
 export default function decorate(block) {
     const mainContainer = document.createElement("div");
     const cardsData = [];
@@ -22,12 +24,15 @@ export default function decorate(block) {
   
       const galleryCard = document.createElement("div");
       galleryCard.className = "column-tile-card";
+      moveInstrumentation(card, galleryCard); 
   
       const image = card.querySelector("picture");
       if (image) {
         const imageWrapper = document.createElement("div");
         imageWrapper.className = "column-tile-images";
-        imageWrapper.appendChild(image.cloneNode(true));
+        const clonedImage = image.cloneNode(true);
+        moveInstrumentation(image, clonedImage); 
+        imageWrapper.appendChild(clonedImage);
         galleryCard.appendChild(imageWrapper);
       }
   
@@ -44,17 +49,22 @@ export default function decorate(block) {
         const label = document.createElement("p");
         label.className = "column-tile-label";
         label.textContent = cardSections[1].textContent.trim();
+        moveInstrumentation(cardSections[1], label); 
         leftColumn.appendChild(label);
       }
   
       const secondaryLink = document.createElement("a");
       secondaryLink.href = cardSections[2]?.querySelector("a")?.getAttribute("href") || "#";
       secondaryLink.className = "column-tile-sub-link";
+      if (cardSections[2]?.querySelector("a")) {
+        moveInstrumentation(cardSections[2].querySelector("a"), secondaryLink); 
+      }
   
       if (cardSections[3]?.textContent.trim()) {
         const subDescription = document.createElement("p");
         subDescription.className = "column-tile-sub-description";
         subDescription.textContent = cardSections[3].textContent.trim();
+        moveInstrumentation(cardSections[3], subDescription); 
         secondaryLink.appendChild(subDescription);
       }
   
@@ -78,6 +88,7 @@ export default function decorate(block) {
           if (icon) {
             const iconWrapper = document.createElement("div");
             iconWrapper.className = "column-tile-feature-icon";
+            moveInstrumentation(cardSections[i].querySelector("picture"), icon); 
             iconWrapper.appendChild(icon);
             featureItem.appendChild(iconWrapper);
           }
@@ -85,6 +96,7 @@ export default function decorate(block) {
           const text = document.createElement("div");
           text.className = "column-tile-feature-text";
           text.textContent = cardSections[i + 1].textContent.trim();
+          moveInstrumentation(cardSections[i + 1], text); 
           featureItem.appendChild(text);
   
           featuresContainer.appendChild(featureItem);
@@ -95,6 +107,7 @@ export default function decorate(block) {
         const rightDescription = document.createElement("p");
         rightDescription.className = "column-tile-supporting-text";
         rightDescription.textContent = cardSections[6].textContent.trim();
+        moveInstrumentation(cardSections[6], rightDescription); 
         rightColumn.appendChild(rightDescription);
       }
   
@@ -125,6 +138,9 @@ export default function decorate(block) {
       const link = document.createElement("a");
       link.href = cardSections[4]?.querySelector("a")?.getAttribute("href") || "#";
       link.className = "column-tile-link";
+      if (cardSections[4]?.querySelector("a")) {
+        moveInstrumentation(cardSections[4].querySelector("a"), link);
+      }
   
       if (cardSections[5]?.textContent.trim()) {
         const description = document.createElement("p");
@@ -133,6 +149,7 @@ export default function decorate(block) {
         const textSpan = document.createElement("span");
         textSpan.className = "description-text";
         textSpan.textContent = cardSections[5].textContent.trim();
+        moveInstrumentation(cardSections[5], textSpan); 
         description.appendChild(textSpan);
   
         const svg = document.createElement("img");
@@ -159,4 +176,4 @@ export default function decorate(block) {
     mainContainer.appendChild(galleryContainer);
     block.innerHTML = "";
     block.appendChild(mainContainer);
-  }
+}
