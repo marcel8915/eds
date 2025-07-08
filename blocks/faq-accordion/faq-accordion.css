@@ -1,4 +1,4 @@
-.faq-accordion2-wrapper {
+.faq-accordion-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,6 +30,12 @@
         border: none;
         text-align: left;
         font-weight: 500;
+    }
+
+        
+    .accordion-trigger svg {
+        width: 30px;
+        height: 30px;
     }
     
     .accordion-icon {
