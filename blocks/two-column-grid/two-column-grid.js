@@ -37,18 +37,11 @@ export default function decorate(block) {
               link.classList.add('column-tile-sub-link');
             }
           }
-          // Check if the next section is the sub-description and wrap it
-          const nextSection = cardSections[sectionIndex + 1];
-          if (
-            nextSection &&
-            nextSection.textContent.trim() &&
-            !nextSection.classList.contains('column-tile-sub-description')
-          ) {
-            nextSection.classList.add('column-tile-sub-description');
-            section.appendChild(nextSection);
-          }
           break;
-        // No need for case 3 anymore, handled above
+        case 3: // Secondary description section
+          if (section.textContent.trim()) {
+            section.classList.add('column-tile-sub-description');
+          }
           break;
         case 4: // Main link section
           if (section.querySelector('a')) {
@@ -58,19 +51,21 @@ export default function decorate(block) {
               link.classList.add('column-tile-link');
             }
           }
-          // Check if the next section is the main description and wrap it
-          const descSection = cardSections[sectionIndex + 1];
-          if (
-            descSection &&
-            descSection.textContent.trim() &&
-            !descSection.classList.contains('column-tile-description')
-          ) {
-            descSection.classList.add('column-tile-description');
-            section.appendChild(descSection);
-          }
           break;
-        case 5: // Main description section (already handled above)
-          // Do nothing here, as it's now wrapped by the link section
+        case 5: // Main description section
+          if (section.textContent.trim()) {
+            section.classList.add('column-tile-description');
+            
+            // Add arrow icon if this section has content
+            const existingIcon = section.querySelector('.column-tile-description-icon');
+            if (!existingIcon) {
+              const svg = document.createElement('img');
+              svg.src = '/icons/chevron_forward.svg';
+              svg.alt = 'Arrow';
+              svg.className = 'column-tile-description-icon';
+              section.appendChild(svg);
+            }
+          }
           break;
         case 6: // Supporting text section
           if (section.textContent.trim()) {
