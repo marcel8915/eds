@@ -1,5 +1,3 @@
-import { moveInstrumentation } from '../../scripts/scripts.js';
-
 export default function decorate(block) {
   const swiperStylesheet = document.createElement("link");
   swiperStylesheet.rel = "stylesheet";
@@ -19,49 +17,41 @@ export default function decorate(block) {
 }
 
 function createGalleryWithFilters(block) {
-  const mainContainer = document.createElement("div");
-
+  // Add main container class to the block itself
+  block.classList.add('image-gallery-tile-container');
+  
   const categories = new Set(["All"]);
   const cardsData = [];
 
-  Array.from(block.children).forEach((card) => {
+  // Collect card data and process each card in place
+  Array.from(block.children).forEach((card, cardIndex) => {
+    if (card.children.length === 0) return;
+    
     const cardSections = Array.from(card.children);
+    let category = "all";
+    
     if (cardSections[6]?.textContent.trim()) {
-      const category = cardSections[6].textContent.trim();
+      category = cardSections[6].textContent.trim();
       categories.add(category);
-      cardsData.push({
-        element: card,
-        category: category.toLowerCase(),
-      });
     }
-  });
-
-  if (categories.size > 1) {
-    const filtersContainer = createCategoryFilters(
-      Array.from(categories),
-      cardsData
-    );
-    mainContainer.appendChild(filtersContainer);
-  }
-
-  const galleryContainer = document.createElement("div");
-  galleryContainer.className = "image-gallery-tile-container";
-
-  const galleryWrapper = document.createElement("div");
-  galleryWrapper.className = "image-gallery-tile-wrapper";
-  galleryContainer.appendChild(galleryWrapper);
-
-  cardsData.forEach((cardData, cardIndex) => {
-    const card = cardData.element;
+    
+    cardsData.push({
+      element: card,
+      category: category.toLowerCase(),
+    });
+    
     const hasContent =
       card.textContent.trim() !== "" || card.querySelector("picture");
     if (!hasContent) return;
 
-    const galleryCard = document.createElement("div");
-    galleryCard.className = "image-gallery-tile-card";
-    galleryCard.dataset.category = cardData.category;
-    moveInstrumentation(card, galleryCard);
-
+    // Add gallery card class to the original card
+    card.classList.add('image-gallery-tile-card');
+    card.dataset.category = category.toLowerCase();
+    
+    // Process sections in place
+    const sections = Array.from(card.children);
+    
+    // Create image wrapper for first 3 images
     const images = card.querySelectorAll("picture");
     if (images.length > 0) {
       const imageWrapper = document.createElement("div");
@@ -73,19 +63,24 @@ function createGalleryWithFilters(block) {
       const swiperWrapper = document.createElement("div");
       swiperWrapper.className = "swiper-wrapper";
 
+      // Move first 3 images to swiper slides
       Array.from(images)
         .slice(0, 3)
         .forEach((image) => {
           const swiperSlide = document.createElement("div");
           swiperSlide.className = "swiper-slide";
-          const clonedImage = image.cloneNode(true);
-          moveInstrumentation(image, clonedImage);
-          swiperSlide.appendChild(clonedImage);
+          // Move the entire section containing the image
+          const imageSection = image.closest('div');
+          if (imageSection && imageSection.parentNode === card) {
+            swiperSlide.appendChild(image);
+            imageSection.style.display = 'none'; // Hide original section
+          }
           swiperWrapper.appendChild(swiperSlide);
         });
 
       swiperContainer.appendChild(swiperWrapper);
 
+      // Add navigation
       const nextButton = document.createElement("div");
       nextButton.className = "swiper-button-next";
       swiperContainer.appendChild(nextButton);
@@ -99,97 +94,112 @@ function createGalleryWithFilters(block) {
       swiperContainer.appendChild(pagination);
 
       imageWrapper.appendChild(swiperContainer);
-      galleryCard.appendChild(imageWrapper);
+      
+      // Insert image wrapper at the beginning of the card
+      card.insertBefore(imageWrapper, card.firstChild);
     }
 
+    // Create content container
     const contentContainer = document.createElement("div");
     contentContainer.className = "image-gallery-tile-content";
-
-    const cardSections = Array.from(card.children);
 
     const leftColumn = document.createElement("div");
     leftColumn.className = "image-gallery-tile-left";
 
-    if (cardSections[3]?.textContent.trim()) {
-      const title = document.createElement("h3");
-      title.className = "image-gallery-tile-title";
-      title.textContent = cardSections[3].textContent.trim();
-      moveInstrumentation(cardSections[3], title);
-      leftColumn.appendChild(title);
-    }
-
-    const link = document.createElement("a");
-    link.href =
-      cardSections[4]?.querySelector("a")?.getAttribute("href") || "#";
-    link.className = "image-gallery-tile-link";
-    if (cardSections[4]?.querySelector("a")) {
-      moveInstrumentation(cardSections[4].querySelector("a"), link); 
-    }
-
-    if (cardSections[5]?.textContent.trim()) {
-      const description = document.createElement("p");
-      description.className = "image-gallery-tile-description";
-      description.textContent = cardSections[5].textContent.trim();
-      moveInstrumentation(cardSections[5], description);
-      link.appendChild(description);
-    }
-
-    if (link.children.length > 0) {
-      leftColumn.appendChild(link);
-    }
-
     const rightColumn = document.createElement("div");
     rightColumn.className = "image-gallery-tile-right";
 
-    const featuresContainer = document.createElement("div");
-    featuresContainer.className = "image-gallery-tile-features";
-
-    for (let i = 7; i < cardSections.length; i += 2) {
-      if (i + 1 < cardSections.length) {
-        const featureItem = document.createElement("div");
-        featureItem.className = "image-gallery-tile-feature";
-
-        const icon = cardSections[i].querySelector("picture")?.cloneNode(true);
-        if (icon) {
-          const iconWrapper = document.createElement("div");
-          iconWrapper.className = "image-gallery-tile-feature-icon";
-          moveInstrumentation(cardSections[i].querySelector("picture"), icon);
-          iconWrapper.appendChild(icon);
-          featureItem.appendChild(iconWrapper);
-        }
-
-        const text = document.createElement("div");
-        text.className = "image-gallery-tile-feature-text";
-        text.textContent = cardSections[i + 1].textContent.trim();
-        moveInstrumentation(cardSections[i + 1], text); 
-        featureItem.appendChild(text);
-
-        featuresContainer.appendChild(featureItem);
+    // Process sections and add classes
+    sections.forEach((section, index) => {
+      switch (index) {
+        case 3: // Title
+          if (section.textContent.trim()) {
+            section.classList.add('image-gallery-tile-title');
+            leftColumn.appendChild(section);
+          }
+          break;
+        case 4: // Link
+          if (section.querySelector('a')) {
+            section.classList.add('image-gallery-tile-link-section');
+            const link = section.querySelector('a');
+            link.classList.add('image-gallery-tile-link');
+            
+            // Add description to link if exists
+            if (sections[5]?.textContent.trim()) {
+              const descriptionText = sections[5].textContent.trim();
+              const descElement = document.createElement("p");
+              descElement.className = "image-gallery-tile-description";
+              descElement.textContent = descriptionText;
+              link.appendChild(descElement);
+              sections[5].style.display = 'none'; // Hide original description section
+            }
+            
+            leftColumn.appendChild(section);
+          }
+          break;
+        case 6: // Category (hidden)
+          section.style.display = 'none';
+          break;
+        default:
+          // Features (sections 7+)
+          if (index >= 7) {
+            // Create features container if it doesn't exist
+            let featuresContainer = rightColumn.querySelector('.image-gallery-tile-features');
+            if (!featuresContainer) {
+              featuresContainer = document.createElement('div');
+              featuresContainer.className = 'image-gallery-tile-features';
+              rightColumn.appendChild(featuresContainer);
+            }
+            
+            // Process features in pairs (icon + text)
+            if (index % 2 === 1) { // Odd index = icon
+              const textSection = sections[index + 1];
+              if (textSection) {
+                const featureItem = document.createElement('div');
+                featureItem.className = 'image-gallery-tile-feature';
+                
+                // Icon
+                if (section.querySelector('picture')) {
+                  section.classList.add('image-gallery-tile-feature-icon');
+                  featureItem.appendChild(section);
+                }
+                
+                // Text
+                if (textSection.textContent.trim()) {
+                  textSection.classList.add('image-gallery-tile-feature-text');
+                  featureItem.appendChild(textSection);
+                }
+                
+                featuresContainer.appendChild(featureItem);
+              }
+            }
+          }
+          break;
       }
-    }
+    });
 
-    if (featuresContainer.children.length > 0) {
-      rightColumn.appendChild(featuresContainer);
-    }
-
+    // Append content containers to card
     if (leftColumn.children.length > 0) {
       contentContainer.appendChild(leftColumn);
     }
     if (rightColumn.children.length > 0) {
       contentContainer.appendChild(rightColumn);
     }
-
     if (contentContainer.children.length > 0) {
-      galleryCard.appendChild(contentContainer);
+      card.appendChild(contentContainer);
     }
-
-    galleryWrapper.appendChild(galleryCard);
   });
 
-  mainContainer.appendChild(galleryContainer);
-  block.innerHTML = "";
-  block.appendChild(mainContainer);
+  // Create filters if needed
+  if (categories.size > 1) {
+    const filtersContainer = createCategoryFilters(
+      Array.from(categories),
+      cardsData
+    );
+    block.insertBefore(filtersContainer, block.firstChild);
+  }
 
+  // Initialize Swiper with proper timing
   setTimeout(() => {
     document
       .querySelectorAll('[class^="swiper mySwiper-"]')

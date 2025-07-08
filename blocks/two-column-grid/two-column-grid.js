@@ -24,29 +24,12 @@ export default function decorate(block) {
             section.classList.add('column-tile-images');
           }
           break;
-        // Wrap sections 1-6 in a .column-tile-left div
-        case 1: {
-          let leftContainer = row.querySelector('.column-tile-left');
-          if (!leftContainer) {
-            leftContainer = document.createElement('div');
-            leftContainer.className = 'column-tile-left';
-            // Insert after the image section (section 0)
-            if (cardSections[0].nextSibling) {
-              row.insertBefore(leftContainer, cardSections[0].nextSibling);
-            } else {
-              row.appendChild(leftContainer);
-            }
-          }
-          // Move section 1 into leftContainer
-          leftContainer.appendChild(section);
+        case 1: // Label section
           if (section.textContent.trim()) {
             section.classList.add('column-tile-label');
           }
           break;
-        }
-        case 2: {
-          const leftContainer = row.querySelector('.column-tile-left');
-          if (leftContainer) leftContainer.appendChild(section);
+        case 2: // Secondary link section
           if (section.querySelector('a')) {
             section.classList.add('column-tile-sub-link');
             const link = section.querySelector('a');
@@ -55,18 +38,12 @@ export default function decorate(block) {
             }
           }
           break;
-        }
-        case 3: {
-          const leftContainer = row.querySelector('.column-tile-left');
-          if (leftContainer) leftContainer.appendChild(section);
+        case 3: // Secondary description section
           if (section.textContent.trim()) {
             section.classList.add('column-tile-sub-description');
           }
           break;
-        }
-        case 4: {
-          const leftContainer = row.querySelector('.column-tile-left');
-          if (leftContainer) leftContainer.appendChild(section);
+        case 4: // Main link section
           if (section.querySelector('a')) {
             section.classList.add('column-tile-content-link');
             const link = section.querySelector('a');
@@ -75,12 +52,10 @@ export default function decorate(block) {
             }
           }
           break;
-        }
-        case 5: {
-          const leftContainer = row.querySelector('.column-tile-left');
-          if (leftContainer) leftContainer.appendChild(section);
+        case 5: // Main description section
           if (section.textContent.trim()) {
             section.classList.add('column-tile-description');
+            
             // Add arrow icon if this section has content
             const existingIcon = section.querySelector('.column-tile-description-icon');
             if (!existingIcon) {
@@ -92,15 +67,11 @@ export default function decorate(block) {
             }
           }
           break;
-        }
-        case 6: {
-          const leftContainer = row.querySelector('.column-tile-left');
-          if (leftContainer) leftContainer.appendChild(section);
+        case 6: // Supporting text section
           if (section.textContent.trim()) {
             section.classList.add('column-tile-supporting-text');
           }
           break;
-        }
         default: // Feature sections (7+)
             // Group feature sections (7+) into a .column-tile-features container
             if (sectionIndex === 7) {
