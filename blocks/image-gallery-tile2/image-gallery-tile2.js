@@ -12,54 +12,19 @@ export default function decorate(block) {
     "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
 
   swiperScript.onload = () => {
-    // Wait for all children to be created before processing
-    waitForChildrenAndProcess(block);
+    createGalleryWithFilters(block);
   };
 
   document.head.appendChild(swiperScript);
 }
 
-function waitForChildrenAndProcess(block) {
-  // Use MutationObserver to detect when children are fully loaded
-  const observer = new MutationObserver((mutations) => {
-    let hasNewChildren = false;
-    mutations.forEach((mutation) => {
-      if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-        hasNewChildren = true;
-      }
-    });
-    
-    if (hasNewChildren) {
-      // Debounce to wait for all children to be added
-      clearTimeout(observer.timeoutId);
-      observer.timeoutId = setTimeout(() => {
-        observer.disconnect();
-        createGalleryWithFilters(block);
-      }, 100);
-    }
-  });
-
-  observer.observe(block, {
-    childList: true,
-    subtree: true
-  });
-
-  // Also set a fallback timeout in case no mutations are detected
-  setTimeout(() => {
-    observer.disconnect();
-    createGalleryWithFilters(block);
-  }, 500);
-}
-
 function createGalleryWithFilters(block) {
   const mainContainer = document.createElement("div");
-
   const categories = new Set(["All"]);
   const cardsData = [];
 
-  // Process each card individually as they become available
+  // Collect card data first
   Array.from(block.children).forEach((card) => {
-    // Wait for this specific card to have all its children
     if (card.children.length === 0) return;
     
     const cardSections = Array.from(card.children);
@@ -73,6 +38,7 @@ function createGalleryWithFilters(block) {
     }
   });
 
+  // Create filters if needed
   if (categories.size > 1) {
     const filtersContainer = createCategoryFilters(
       Array.from(categories),
@@ -88,27 +54,30 @@ function createGalleryWithFilters(block) {
   galleryWrapper.className = "image-gallery-tile-wrapper";
   galleryContainer.appendChild(galleryWrapper);
 
+  // Process each card following Universal Editor patterns
   cardsData.forEach((cardData, cardIndex) => {
     const card = cardData.element;
     const hasContent =
       card.textContent.trim() !== "" || card.querySelector("picture");
     if (!hasContent) return;
 
-    // Create gallery card and apply moveInstrumentation ONCE
+    // Create new gallery card
     const galleryCard = document.createElement("div");
     galleryCard.className = "image-gallery-tile-card";
     galleryCard.dataset.category = cardData.category;
     
-    // Move all children first, then apply moveInstrumentation
-    while (card.firstChild) {
-      galleryCard.appendChild(card.firstChild);
-    }
+    // Apply moveInstrumentation FIRST, before any content manipulation
     moveInstrumentation(card, galleryCard);
+    
+    // Move content using the Universal Editor pattern (like cards.js)
+    while (card.firstElementChild) {
+      galleryCard.appendChild(card.firstElementChild);
+    }
 
-    // Now process the moved children
+    // Now process the moved sections
     const sections = Array.from(galleryCard.children);
     
-    // Handle images first - create swiper structure
+    // Handle images - create swiper structure
     const images = galleryCard.querySelectorAll("picture");
     if (images.length > 0) {
       const imageWrapper = document.createElement("div");
@@ -132,6 +101,7 @@ function createGalleryWithFilters(block) {
 
       swiperContainer.appendChild(swiperWrapper);
 
+      // Add navigation
       const nextButton = document.createElement("div");
       nextButton.className = "swiper-button-next";
       swiperContainer.appendChild(nextButton);
@@ -228,8 +198,8 @@ function createGalleryWithFilters(block) {
   block.innerHTML = "";
   block.appendChild(mainContainer);
 
-  // Initialize Swiper after DOM is fully constructed
-  requestAnimationFrame(() => {
+  // Initialize Swiper with proper timing for Universal Editor
+  setTimeout(() => {
     document
       .querySelectorAll('[class^="swiper mySwiper-"]')
       .forEach((swiperEl) => {
@@ -246,10 +216,9 @@ function createGalleryWithFilters(block) {
           autoplay: false,
         });
       });
-  });
+  }, 100);
 }
 
-// ... existing code ...
 function createCategoryFilters(categories, cardsData) {
   const container = document.createElement("div");
   container.className = "category-filters-container";
