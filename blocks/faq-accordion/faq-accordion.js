@@ -1,39 +1,30 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
-    // Create accordion container
-    const accordionContainer = document.createElement("div");
-    accordionContainer.className = "accordion-container-item";
-  
     // Process each accordion item
     Array.from(block.children).forEach((item, index) => {
       const hasContent = item.textContent.trim() !== "";
       if (!hasContent) return;
   
-      const accordionItem = document.createElement("div");
-      accordionItem.className = "accordion-item";
-      accordionItem.dataset.value = `item-${index + 1}`;
-      
-      // Move instrumentation from original item to new accordionItem
-      moveInstrumentation(item, accordionItem);
+      // Add accordion item class to the original row
+      item.className = "accordion-item";
+      item.dataset.value = `item-${index + 1}`;
   
       // Get all sections of the accordion item
       const itemSections = Array.from(item.children);
   
-      // Create header (title) section with trigger button
+      // Transform the first section into header
       if (itemSections[0]) {
-        const header = document.createElement("div");
-        header.className = "accordion-header";
+        const headerSection = itemSections[0];
+        headerSection.className = "accordion-header";
         
+        // Create trigger button and move content
         const trigger = document.createElement("button");
         trigger.className = "accordion-trigger";
         
-        // Move instrumentation from original header section to trigger button
-        moveInstrumentation(itemSections[0], trigger);
-        
-        // Move the content from original section to trigger, preserving the DOM structure
-        while (itemSections[0].firstChild) {
-          trigger.appendChild(itemSections[0].firstChild);
+        // Move all content from header section to trigger
+        while (headerSection.firstChild) {
+          trigger.appendChild(headerSection.firstChild);
         }
         
         // Add the icon
@@ -53,32 +44,24 @@ export default function decorate(block) {
         icon.appendChild(path);
         trigger.appendChild(icon);
         
-        header.appendChild(trigger);
-        accordionItem.appendChild(header);
+        // Move instrumentation from original header section to trigger
+        moveInstrumentation(headerSection, trigger);
+        
+        // Clear header section and add trigger
+        headerSection.innerHTML = '';
+        headerSection.appendChild(trigger);
       }
   
-      // Create content section
+      // Transform the second section into content
       if (itemSections[1]) {
-        const content = document.createElement("div");
-        content.className = "accordion-content";
-        
-        // Move instrumentation from original content section to new content
-        moveInstrumentation(itemSections[1], content);
-        
-        // Move the content from original section to new content, preserving the DOM structure
-        while (itemSections[1].firstChild) {
-          content.appendChild(itemSections[1].firstChild);
-        }
-        
-        accordionItem.appendChild(content);
+        const contentSection = itemSections[1];
+        contentSection.className = "accordion-content";
+        // Keep the original content section as-is to preserve Universal Editor attributes
       }
-  
-      accordionContainer.appendChild(accordionItem);
     });
   
-    // Replace original block content with our accordion
-    block.innerHTML = "";
-    block.appendChild(accordionContainer);
+    // Add container class to the block itself
+    block.className += ' accordion-container-item';
   
     // Add click handlers for all triggers
     const triggers = block.querySelectorAll('.accordion-trigger');
