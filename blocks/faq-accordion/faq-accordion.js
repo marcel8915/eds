@@ -27,22 +27,20 @@ export default function decorate(block) {
           trigger.appendChild(headerSection.firstChild);
         }
         
-        // Add the icon
-        const icon = document.createElement('svg');
-        icon.className = 'accordion-icon';
-        icon.setAttribute('width', '16');
-        icon.setAttribute('height', '16');
-        icon.setAttribute('viewBox', '0 0 16 16');
-        icon.setAttribute('fill', 'none');
+        // Add the new icon
+        const iconHTML = `
+          <svg class="accordion-icon" xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none">
+            <mask id="mask0_${index}" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="41" height="41">
+              <rect x="0.675781" y="0.015625" width="40" height="40" fill="#D9D9D9"/>
+            </mask>
+            <g mask="url(#mask0_${index})">
+              <path d="M19.431 21.265H9.84766V18.765H19.431V9.18164H21.931V18.765H31.5143V21.265H21.931V30.8483H19.431V21.265Z" fill="currentColor" fill-opacity="0.8"/>
+            </g>
+          </svg>
+        `;
         
-        const path = document.createElement('path');
-        path.setAttribute('d', 'M8 3V13M3 8H13');
-        path.setAttribute('stroke', 'currentColor');
-        path.setAttribute('stroke-width', '2');
-        path.setAttribute('stroke-linecap', 'round');
-        
-        icon.appendChild(path);
-        trigger.appendChild(icon);
+        // Insert the icon using innerHTML
+        trigger.insertAdjacentHTML('beforeend', iconHTML);
         
         // Move instrumentation from original header section to trigger
         moveInstrumentation(headerSection, trigger);
@@ -56,7 +54,6 @@ export default function decorate(block) {
       if (itemSections[1]) {
         const contentSection = itemSections[1];
         contentSection.className = "accordion-content";
-        // Keep the original content section as-is to preserve Universal Editor attributes
       }
     });
   
