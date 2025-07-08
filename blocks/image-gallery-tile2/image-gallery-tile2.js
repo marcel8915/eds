@@ -60,9 +60,20 @@ function createGalleryWithFilters(block) {
     const galleryCard = document.createElement("div");
     galleryCard.className = "image-gallery-tile-card";
     galleryCard.dataset.category = cardData.category;
+    
+    // Single moveInstrumentation call from original card to new card
     moveInstrumentation(card, galleryCard);
 
-    const images = card.querySelectorAll("picture");
+    // Move all children from original card to new card (preserve original elements)
+    while (card.firstElementChild) {
+      galleryCard.append(card.firstElementChild);
+    }
+
+    // Now work with the moved children
+    const cardSections = Array.from(galleryCard.children);
+    
+    // Handle images - move original elements, don't clone
+    const images = galleryCard.querySelectorAll("picture");
     if (images.length > 0) {
       const imageWrapper = document.createElement("div");
       imageWrapper.className = "image-gallery-tile-images swiper-container";
@@ -73,14 +84,14 @@ function createGalleryWithFilters(block) {
       const swiperWrapper = document.createElement("div");
       swiperWrapper.className = "swiper-wrapper";
 
+      // Take first 3 images and move them (don't clone)
       Array.from(images)
         .slice(0, 3)
         .forEach((image) => {
           const swiperSlide = document.createElement("div");
           swiperSlide.className = "swiper-slide";
-          const clonedImage = image.cloneNode(true);
-          moveInstrumentation(image, clonedImage);
-          swiperSlide.appendChild(clonedImage);
+          // Move the original image element
+          swiperSlide.appendChild(image);
           swiperWrapper.appendChild(swiperSlide);
         });
 
@@ -105,37 +116,30 @@ function createGalleryWithFilters(block) {
     const contentContainer = document.createElement("div");
     contentContainer.className = "image-gallery-tile-content";
 
-    const cardSections = Array.from(card.children);
-
     const leftColumn = document.createElement("div");
     leftColumn.className = "image-gallery-tile-left";
 
+    // Title - add class to existing element
     if (cardSections[3]?.textContent.trim()) {
-      const title = document.createElement("h3");
-      title.className = "image-gallery-tile-title";
-      title.textContent = cardSections[3].textContent.trim();
-      moveInstrumentation(cardSections[3], title);
-      leftColumn.appendChild(title);
+      cardSections[3].className = "image-gallery-tile-title";
+      leftColumn.appendChild(cardSections[3]);
     }
 
-    const link = document.createElement("a");
-    link.href =
-      cardSections[4]?.querySelector("a")?.getAttribute("href") || "#";
-    link.className = "image-gallery-tile-link";
+    // Link - preserve original link element
     if (cardSections[4]?.querySelector("a")) {
-      moveInstrumentation(cardSections[4].querySelector("a"), link); 
-    }
-
-    if (cardSections[5]?.textContent.trim()) {
-      const description = document.createElement("p");
-      description.className = "image-gallery-tile-description";
-      description.textContent = cardSections[5].textContent.trim();
-      moveInstrumentation(cardSections[5], description);
-      link.appendChild(description);
-    }
-
-    if (link.children.length > 0) {
-      leftColumn.appendChild(link);
+      const originalLink = cardSections[4].querySelector("a");
+      originalLink.className = "image-gallery-tile-link";
+      
+      // Description - add to existing link
+      if (cardSections[5]?.textContent.trim()) {
+        cardSections[5].className = "image-gallery-tile-description";
+        // Move description content into the link
+        while (cardSections[5].firstChild) {
+          originalLink.appendChild(cardSections[5].firstChild);
+        }
+      }
+      
+      leftColumn.appendChild(cardSections[4]);
     }
 
     const rightColumn = document.createElement("div");
@@ -144,25 +148,23 @@ function createGalleryWithFilters(block) {
     const featuresContainer = document.createElement("div");
     featuresContainer.className = "image-gallery-tile-features";
 
+    // Features - preserve original elements
     for (let i = 7; i < cardSections.length; i += 2) {
       if (i + 1 < cardSections.length) {
         const featureItem = document.createElement("div");
         featureItem.className = "image-gallery-tile-feature";
 
-        const icon = cardSections[i].querySelector("picture")?.cloneNode(true);
-        if (icon) {
-          const iconWrapper = document.createElement("div");
-          iconWrapper.className = "image-gallery-tile-feature-icon";
-          moveInstrumentation(cardSections[i].querySelector("picture"), icon);
-          iconWrapper.appendChild(icon);
-          featureItem.appendChild(iconWrapper);
+        // Icon - move original picture element
+        if (cardSections[i]?.querySelector("picture")) {
+          cardSections[i].className = "image-gallery-tile-feature-icon";
+          featureItem.appendChild(cardSections[i]);
         }
 
-        const text = document.createElement("div");
-        text.className = "image-gallery-tile-feature-text";
-        text.textContent = cardSections[i + 1].textContent.trim();
-        moveInstrumentation(cardSections[i + 1], text); 
-        featureItem.appendChild(text);
+        // Text - add class to existing element
+        if (cardSections[i + 1]?.textContent.trim()) {
+          cardSections[i + 1].className = "image-gallery-tile-feature-text";
+          featureItem.appendChild(cardSections[i + 1]);
+        }
 
         featuresContainer.appendChild(featureItem);
       }
