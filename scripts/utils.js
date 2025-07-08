@@ -87,3 +87,60 @@ export function handleMediaBlocks(media, imgAltText, section) {
     }
   });
 }
+
+/**
+ * Dynamically loads a script if it hasn't been loaded already.
+ * @param {string} src - The script URL.
+ * @param {Object} [attrs] - Optional attributes to add to the script tag.
+ * @returns {Promise<void>}
+ */
+export function loadScript(src, attrs) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) {
+      resolve();
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = src;
+    if (attrs) {
+      Object.keys(attrs).forEach((key) => {
+        script.setAttribute(key, attrs[key]);
+      });
+    }
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
+/**
+ * Dynamically loads a CSS file if it hasn't been loaded already.
+ * @param {string} href - The CSS URL.
+ * @returns {Promise<void>}
+ */
+export function loadCSS(href) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`link[href="${href}"]`)) {
+      resolve();
+      return;
+    }
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    link.onload = resolve;
+    link.onerror = reject;
+    document.head.appendChild(link);
+  });
+}
+
+/**
+ * Loads Swiper CSS/JS dependencies (idempotent).
+ * @returns {Promise<void>}
+ */
+export async function loadSwiper() {
+  if (window.Swiper) return;
+  await Promise.all([
+    loadCSS("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"),
+    loadScript("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"),
+  ]);
+}
