@@ -1,211 +1,91 @@
-import { moveInstrumentation } from '../../scripts/scripts.js'; 
+// import { moveInstrumentation } from '../../scripts/scripts.js'; 
 
 export default function decorate(block) {
-  // Convert block to a more semantic structure while preserving original elements
-  const ul = document.createElement('ul');
-  ul.className = 'column-tile-container-col';
+  // Add container class to the block itself
+  block.classList.add('column-tile-container-col');
   
-  [...block.children].forEach((row) => {
+  // Process each row (card)
+  Array.from(block.children).forEach((row, index) => {
     const hasContent = row.textContent.trim() !== "" || row.querySelector("picture");
     if (!hasContent) return;
     
-    const li = document.createElement('li');
-    li.className = 'column-tile-card';
+    // Add card class to the original row
+    row.classList.add('column-tile-card');
+    row.dataset.value = `card-${index + 1}`;
     
-    // Move instrumentation from original row to new list item
-    moveInstrumentation(row, li);
-    
-    // Process the row's children and organize them
+    // Get all sections of the card
     const cardSections = Array.from(row.children);
     
-    // Handle image (first section)
-    const image = cardSections[0]?.querySelector('picture');
-    if (image) {
-      const imageWrapper = document.createElement('div');
-      imageWrapper.className = 'column-tile-images';
-      // Move the original image element, don't clone
-      moveInstrumentation(cardSections[0], imageWrapper);
-      while (cardSections[0].firstElementChild) {
-        imageWrapper.appendChild(cardSections[0].firstElementChild);
-      }
-      li.appendChild(imageWrapper);
-    }
-    
-    // Create content container
-    const contentContainer = document.createElement('div');
-    contentContainer.className = 'column-tile-content';
-    
-    // LEFT COLUMN
-    const leftColumn = document.createElement('div');
-    leftColumn.className = 'column-tile-left';
-    
-    // Label (section 1)
-    if (cardSections[1]?.textContent.trim()) {
-      const labelWrapper = document.createElement('div');
-      labelWrapper.className = 'column-tile-label';
-      moveInstrumentation(cardSections[1], labelWrapper);
-      while (cardSections[1].firstChild) {
-        labelWrapper.appendChild(cardSections[1].firstChild);
-      }
-      leftColumn.appendChild(labelWrapper);
-    }
-    
-    // Secondary link (sections 2 & 3)
-    if (cardSections[2]?.querySelector('a') || cardSections[3]?.textContent.trim()) {
-      const secondaryLink = document.createElement('div');
-      secondaryLink.className = 'column-tile-sub-link';
-      
-      // Handle link from section 2
-      if (cardSections[2]?.querySelector('a')) {
-        const linkElement = cardSections[2].querySelector('a');
-        const newLink = document.createElement('a');
-        newLink.href = linkElement.getAttribute('href') || '#';
-        newLink.className = 'column-tile-sub-link';
-        moveInstrumentation(linkElement, newLink);
-        
-        // Handle description from section 3
-        if (cardSections[3]?.textContent.trim()) {
-          const subDescription = document.createElement('div');
-          subDescription.className = 'column-tile-sub-description';
-          moveInstrumentation(cardSections[3], subDescription);
-          while (cardSections[3].firstChild) {
-            subDescription.appendChild(cardSections[3].firstChild);
+    // Process each section and add appropriate classes
+    cardSections.forEach((section, sectionIndex) => {
+      switch(sectionIndex) {
+        case 0: // Image section
+          if (section.querySelector('picture')) {
+            section.classList.add('column-tile-images');
           }
-          newLink.appendChild(subDescription);
-        }
-        
-        secondaryLink.appendChild(newLink);
-      }
-      
-      if (secondaryLink.children.length > 0) {
-        leftColumn.appendChild(secondaryLink);
-      }
-    }
-    
-    // RIGHT COLUMN
-    const rightColumn = document.createElement('div');
-    rightColumn.className = 'column-tile-right';
-    
-    // Supporting text (section 6)
-    if (cardSections[6]?.textContent.trim()) {
-      const rightDescription = document.createElement('div');
-      rightDescription.className = 'column-tile-supporting-text';
-      moveInstrumentation(cardSections[6], rightDescription);
-      while (cardSections[6].firstChild) {
-        rightDescription.appendChild(cardSections[6].firstChild);
-      }
-      rightColumn.appendChild(rightDescription);
-    }
-    
-    // Features (sections 7+)
-    const featuresContainer = document.createElement('div');
-    featuresContainer.className = 'column-tile-features';
-    
-    for (let i = 7; i < cardSections.length; i += 2) {
-      if (i + 1 < cardSections.length) {
-        const featureItem = document.createElement('div');
-        featureItem.className = 'column-tile-feature';
-        
-        // Icon
-        const iconSection = cardSections[i];
-        if (iconSection?.querySelector('picture')) {
-          const iconWrapper = document.createElement('div');
-          iconWrapper.className = 'column-tile-feature-icon';
-          moveInstrumentation(iconSection, iconWrapper);
-          while (iconSection.firstElementChild) {
-            iconWrapper.appendChild(iconSection.firstElementChild);
+          break;
+        case 1: // Label section
+          if (section.textContent.trim()) {
+            section.classList.add('column-tile-label');
           }
-          featureItem.appendChild(iconWrapper);
-        }
-        
-        // Text
-        const textSection = cardSections[i + 1];
-        if (textSection?.textContent.trim()) {
-          const textWrapper = document.createElement('div');
-          textWrapper.className = 'column-tile-feature-text';
-          moveInstrumentation(textSection, textWrapper);
-          while (textSection.firstChild) {
-            textWrapper.appendChild(textSection.firstChild);
+          break;
+        case 2: // Secondary link section
+          if (section.querySelector('a')) {
+            section.classList.add('column-tile-sub-link');
+            const link = section.querySelector('a');
+            if (link) {
+              link.classList.add('column-tile-sub-link');
+            }
           }
-          featureItem.appendChild(textWrapper);
-        }
-        
-        if (featureItem.children.length > 0) {
-          featuresContainer.appendChild(featureItem);
-        }
-      }
-    }
-    
-    if (featuresContainer.children.length > 0) {
-      rightColumn.appendChild(featuresContainer);
-    }
-    
-    // Content main wrapper
-    const contentMain = document.createElement('div');
-    contentMain.className = 'column-tile-content-main';
-    
-    if (leftColumn.children.length > 0) {
-      contentMain.appendChild(leftColumn);
-    }
-    if (rightColumn.children.length > 0) {
-      contentMain.appendChild(rightColumn);
-    }
-    
-    if (contentMain.children.length > 0) {
-      contentContainer.appendChild(contentMain);
-    }
-    
-    // LINK SECTION (sections 4 & 5)
-    if (cardSections[4]?.querySelector('a') || cardSections[5]?.textContent.trim()) {
-      const contentLink = document.createElement('div');
-      contentLink.className = 'column-tile-content-link';
-      
-      const linkSection = cardSections[4];
-      if (linkSection?.querySelector('a')) {
-        const originalLink = linkSection.querySelector('a');
-        const link = document.createElement('a');
-        link.href = originalLink.getAttribute('href') || '#';
-        link.className = 'column-tile-link';
-        moveInstrumentation(originalLink, link);
-        
-        // Description from section 5
-        if (cardSections[5]?.textContent.trim()) {
-          const description = document.createElement('div');
-          description.className = 'column-tile-description';
-          
-          const textSpan = document.createElement('span');
-          textSpan.className = 'description-text';
-          moveInstrumentation(cardSections[5], textSpan);
-          while (cardSections[5].firstChild) {
-            textSpan.appendChild(cardSections[5].firstChild);
+          break;
+        case 3: // Secondary description section
+          if (section.textContent.trim()) {
+            section.classList.add('column-tile-sub-description');
           }
-          description.appendChild(textSpan);
-          
-          const svg = document.createElement('img');
-          svg.src = '/icons/chevron_forward.svg';
-          svg.alt = 'Arrow';
-          svg.className = 'column-tile-description-icon';
-          description.appendChild(svg);
-          
-          link.appendChild(description);
-        }
-        
-        contentLink.appendChild(link);
+          break;
+        case 4: // Main link section
+          if (section.querySelector('a')) {
+            section.classList.add('column-tile-content-link');
+            const link = section.querySelector('a');
+            if (link) {
+              link.classList.add('column-tile-link');
+            }
+          }
+          break;
+        case 5: // Main description section
+          if (section.textContent.trim()) {
+            section.classList.add('column-tile-description');
+            
+            // Add arrow icon if this section has content
+            const existingIcon = section.querySelector('.column-tile-description-icon');
+            if (!existingIcon) {
+              const svg = document.createElement('img');
+              svg.src = '/icons/chevron_forward.svg';
+              svg.alt = 'Arrow';
+              svg.className = 'column-tile-description-icon';
+              section.appendChild(svg);
+            }
+          }
+          break;
+        case 6: // Supporting text section
+          if (section.textContent.trim()) {
+            section.classList.add('column-tile-supporting-text');
+          }
+          break;
+        default: // Feature sections (7+)
+          if (sectionIndex >= 7) {
+            if (sectionIndex % 2 === 1) { // Odd indices are feature icons
+              if (section.querySelector('picture')) {
+                section.classList.add('column-tile-feature-icon');
+              }
+            } else { // Even indices are feature text
+              if (section.textContent.trim()) {
+                section.classList.add('column-tile-feature-text');
+              }
+            }
+          }
+          break;
       }
-      
-      if (contentLink.children.length > 0) {
-        contentContainer.appendChild(contentLink);
-      }
-    }
-    
-    if (contentContainer.children.length > 0) {
-      li.appendChild(contentContainer);
-    }
-    
-    ul.appendChild(li);
+    });
   });
-  
-  // Replace block content with the new structure
-  block.textContent = '';
-  block.appendChild(ul);
 }
