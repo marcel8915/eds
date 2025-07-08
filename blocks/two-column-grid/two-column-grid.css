@@ -47,6 +47,7 @@
     display: flex;
     flex-direction: row;
     gap: 32px;
+    padding-top: 32px;
 }
 
 .column-tile-left {
@@ -206,16 +207,16 @@
 
 /* Responsive */
 @media (max-width: 800px) {
-    .column-tile-container {
+    .two-column-grid-container {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
 
-    .column-tile-wrapper-col {
+    .column-tile-container-col {
         grid-template-columns: 1fr;
     }
 
-    .column-tile-content {
+    .column-tile-content-main {
         padding-top: 24px;
     }
 
