@@ -1,4 +1,4 @@
-.column-tile-container {
+.two-column-grid-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +17,7 @@
     }
 }
 
-.column-tile-wrapper-col {
+.column-tile-container-col {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     /* auto-rows: 1fr; */
