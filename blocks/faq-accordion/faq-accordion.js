@@ -1,3 +1,5 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
     // Create accordion container
     const accordionContainer = document.createElement("div");
@@ -11,6 +13,9 @@ export default function decorate(block) {
       const accordionItem = document.createElement("div");
       accordionItem.className = "accordion-item";
       accordionItem.dataset.value = `item-${index + 1}`;
+      
+      // Move instrumentation from original item to new accordionItem
+      moveInstrumentation(item, accordionItem);
   
       // Get all sections of the accordion item
       const itemSections = Array.from(item.children);
@@ -19,6 +24,9 @@ export default function decorate(block) {
       if (itemSections[0]) {
         const header = document.createElement("div");
         header.className = "accordion-header";
+        
+        // Move instrumentation from original header section to new header
+        moveInstrumentation(itemSections[0], header);
         
         const trigger = document.createElement("button");
         trigger.className = "accordion-trigger";
@@ -38,6 +46,10 @@ export default function decorate(block) {
         const content = document.createElement("div");
         content.className = "accordion-content";
         content.innerHTML = itemSections[1].innerHTML;
+        
+        // Move instrumentation from original content section to new content
+        moveInstrumentation(itemSections[1], content);
+        
         accordionItem.appendChild(content);
       }
   
