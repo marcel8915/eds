@@ -1,3 +1,5 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
   const swiperStylesheet = document.createElement("link");
   swiperStylesheet.rel = "stylesheet";
@@ -58,6 +60,7 @@ function createGalleryWithFilters(block) {
     const galleryCard = document.createElement("div");
     galleryCard.className = "image-gallery-tile-card";
     galleryCard.dataset.category = cardData.category;
+    moveInstrumentation(card, galleryCard);
 
     const images = card.querySelectorAll("picture");
     if (images.length > 0) {
@@ -75,7 +78,9 @@ function createGalleryWithFilters(block) {
         .forEach((image) => {
           const swiperSlide = document.createElement("div");
           swiperSlide.className = "swiper-slide";
-          swiperSlide.appendChild(image.cloneNode(true));
+          const clonedImage = image.cloneNode(true);
+          moveInstrumentation(image, clonedImage);
+          swiperSlide.appendChild(clonedImage);
           swiperWrapper.appendChild(swiperSlide);
         });
 
@@ -109,6 +114,7 @@ function createGalleryWithFilters(block) {
       const title = document.createElement("h3");
       title.className = "image-gallery-tile-title";
       title.textContent = cardSections[3].textContent.trim();
+      moveInstrumentation(cardSections[3], title);
       leftColumn.appendChild(title);
     }
 
@@ -116,11 +122,15 @@ function createGalleryWithFilters(block) {
     link.href =
       cardSections[4]?.querySelector("a")?.getAttribute("href") || "#";
     link.className = "image-gallery-tile-link";
+    if (cardSections[4]?.querySelector("a")) {
+      moveInstrumentation(cardSections[4].querySelector("a"), link); 
+    }
 
     if (cardSections[5]?.textContent.trim()) {
       const description = document.createElement("p");
       description.className = "image-gallery-tile-description";
       description.textContent = cardSections[5].textContent.trim();
+      moveInstrumentation(cardSections[5], description);
       link.appendChild(description);
     }
 
@@ -143,6 +153,7 @@ function createGalleryWithFilters(block) {
         if (icon) {
           const iconWrapper = document.createElement("div");
           iconWrapper.className = "image-gallery-tile-feature-icon";
+          moveInstrumentation(cardSections[i].querySelector("picture"), icon);
           iconWrapper.appendChild(icon);
           featureItem.appendChild(iconWrapper);
         }
@@ -150,6 +161,7 @@ function createGalleryWithFilters(block) {
         const text = document.createElement("div");
         text.className = "image-gallery-tile-feature-text";
         text.textContent = cardSections[i + 1].textContent.trim();
+        moveInstrumentation(cardSections[i + 1], text); 
         featureItem.appendChild(text);
 
         featuresContainer.appendChild(featureItem);
