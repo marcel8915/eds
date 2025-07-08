@@ -25,17 +25,33 @@ export default function decorate(block) {
         const header = document.createElement("div");
         header.className = "accordion-header";
         
-        // Move instrumentation from original header section to new header
-        moveInstrumentation(itemSections[0], header);
-        
         const trigger = document.createElement("button");
         trigger.className = "accordion-trigger";
-        trigger.innerHTML = `
-          ${itemSections[0].innerHTML}
-          <svg class="accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        `;
+        
+        // Move instrumentation from original header section to trigger button
+        moveInstrumentation(itemSections[0], trigger);
+        
+        // Move the content from original section to trigger, preserving the DOM structure
+        while (itemSections[0].firstChild) {
+          trigger.appendChild(itemSections[0].firstChild);
+        }
+        
+        // Add the icon
+        const icon = document.createElement('svg');
+        icon.className = 'accordion-icon';
+        icon.setAttribute('width', '16');
+        icon.setAttribute('height', '16');
+        icon.setAttribute('viewBox', '0 0 16 16');
+        icon.setAttribute('fill', 'none');
+        
+        const path = document.createElement('path');
+        path.setAttribute('d', 'M8 3V13M3 8H13');
+        path.setAttribute('stroke', 'currentColor');
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('stroke-linecap', 'round');
+        
+        icon.appendChild(path);
+        trigger.appendChild(icon);
         
         header.appendChild(trigger);
         accordionItem.appendChild(header);
@@ -45,10 +61,14 @@ export default function decorate(block) {
       if (itemSections[1]) {
         const content = document.createElement("div");
         content.className = "accordion-content";
-        content.innerHTML = itemSections[1].innerHTML;
         
         // Move instrumentation from original content section to new content
         moveInstrumentation(itemSections[1], content);
+        
+        // Move the content from original section to new content, preserving the DOM structure
+        while (itemSections[1].firstChild) {
+          content.appendChild(itemSections[1].firstChild);
+        }
         
         accordionItem.appendChild(content);
       }
