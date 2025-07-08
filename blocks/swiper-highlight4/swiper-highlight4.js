@@ -1,3 +1,5 @@
+import { moveInstrumentation } from "../../scripts/scripts.js";
+
 function loadScript(src, attrs) {
   return new Promise((resolve, reject) => {
     if (document.querySelector(`script[src="${src}"]`)) {
@@ -77,9 +79,11 @@ export default async function decorate(block) {
 
     const slide = document.createElement("div");
     slide.className = "swiper-slide";
+    moveInstrumentation(row, slide);
 
     const card = document.createElement("div");
     card.className = "card";
+    moveInstrumentation(row, card);
     cards.push(card);
 
     const [imageCell, labelCell, titleCell, descCell, timeCell, venueCell] = [
@@ -91,6 +95,7 @@ export default async function decorate(block) {
       const imageWrapper = document.createElement("div");
       imageWrapper.className = "image-container";
       imageWrapper.appendChild(picture);
+      moveInstrumentation(imageCell, imageWrapper);
       card.appendChild(imageWrapper);
     }
 
@@ -110,6 +115,7 @@ export default async function decorate(block) {
       const labelEl = document.createElement("div");
       labelEl.className = "card-label text-l2";
       labelEl.innerHTML = `<p>${labelCell.textContent}</p>`;
+      moveInstrumentation(labelCell, labelEl);
       leftCol.appendChild(labelEl);
     }
 
@@ -117,6 +123,7 @@ export default async function decorate(block) {
       const titleEl = document.createElement("h3");
       titleEl.className = "card-title text-h3";
       titleEl.textContent = titleCell.textContent;
+      moveInstrumentation(titleCell, titleEl);
       leftCol.appendChild(titleEl);
     }
 
@@ -139,6 +146,7 @@ export default async function decorate(block) {
       p.className = "card-icon-text text-p1";
       p.textContent = iconText;
       item.append(icon, p);
+      moveInstrumentation(cell, item);
       return item;
     };
 
@@ -155,6 +163,7 @@ export default async function decorate(block) {
       const descEl = document.createElement("p");
       descEl.className = "card-description text-p1";
       descEl.textContent = descCell.textContent;
+      moveInstrumentation(descCell, descEl);
       cardContent.appendChild(descEl);
     }
 
