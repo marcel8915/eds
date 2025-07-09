@@ -78,10 +78,17 @@
 .image-gallery-tile2-container {
     display: flex;
     justify-content: center;
-    padding: 2rem 1.5rem;
+    flex-direction: column;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
 .image-gallery-tile2-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+}
+.image-gallery-tile2 {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 3rem;
@@ -266,6 +273,7 @@
 }
 
 @media (max-width: 768px) {
+
     .image-gallery-tile-content {
         flex-direction: column;
         gap: 1.5rem;
