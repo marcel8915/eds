@@ -16,6 +16,9 @@ export default async function decorate(block) {
 }
 
 function createGalleryWithFilters(block) {
+  // Get the parent section element
+  const section = block.closest('.section');
+  
   block.classList.add("image-gallery-tile-container");
 
   const categories = new Set(["All"]);
@@ -184,7 +187,8 @@ function createGalleryWithFilters(block) {
       Array.from(categories),
       cardsData
     );
-    block.insertBefore(filtersContainer, block.firstChild);
+    // Insert filters container before the wrapper in the section
+    section.insertBefore(filtersContainer, section.firstChild);
   }
 
   initializeGallerySwipers();
