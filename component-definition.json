@@ -485,7 +485,10 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Highlight Card4",
-                  "model": "highlight-card4"
+                  "model": "highlight-card4",
+                  "Highlightlabel": "default label",
+                  "Highlighttitle": "default title",
+                  "Highlightdescription": "default description"
                 }
               }
             }
