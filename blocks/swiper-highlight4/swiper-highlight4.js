@@ -1,12 +1,11 @@
-import { moveInstrumentation } from "../../scripts/scripts.js";
 import { isUniversalEditor } from "../../scripts/aem.js";
 import { loadSwiper } from "../../scripts/utils.js";
 
 export default async function decorate(block) {
   const isAuthoring = isUniversalEditor();
 
-  const container = document.createElement("div");
-  container.className = "swiper-block-container";
+  // Add main container class to the block itself
+  block.classList.add('swiper-block-container');
 
   const swiperContainer = document.createElement("div");
   swiperContainer.className = "swiper-container";
@@ -29,36 +28,40 @@ export default async function decorate(block) {
   rightArrow.setAttribute("aria-label", "Next Slide");
 
   arrowsContainer.append(leftArrow, rightArrow);
-  container.append(arrowsContainer);
+  block.appendChild(arrowsContainer);
 
   const cards = [];
-
   const rows = [...block.children];
-  rows.forEach((row) => {
+  
+  // Process each row in place
+  rows.forEach((row, index) => {
     if (!row.textContent.trim() && !row.querySelector("picture")) return;
+    if (row === arrowsContainer) return; // Skip the arrows container
 
-    const slide = document.createElement("div");
-    slide.className = isAuthoring
+    // Add slide classes to the original row
+    row.className = isAuthoring
       ? "swiper-slide authoring-slide"
       : "swiper-slide";
-    moveInstrumentation(row, slide);
 
+    // Create card container within the original row
     const card = document.createElement("div");
     card.className = "card";
-    moveInstrumentation(row, card);
     cards.push(card);
 
-    const [imageCell, labelCell, titleCell, descCell, timeCell, venueCell] = [
-      ...row.children,
-    ];
+    // Get original sections
+    const sections = Array.from(row.children);
+    const [imageCell, labelCell, titleCell, descCell, timeCell, venueCell] = sections;
 
+    // Process image section
     const picture = imageCell?.querySelector("picture");
     if (picture) {
       const imageWrapper = document.createElement("div");
       imageWrapper.className = "image-container";
       imageWrapper.appendChild(picture);
-      moveInstrumentation(imageCell, imageWrapper);
       card.appendChild(imageWrapper);
+      
+      // Hide original image section
+      if (imageCell) imageCell.style.display = 'none';
     }
 
     const cardContent = document.createElement("div");
@@ -73,20 +76,22 @@ export default async function decorate(block) {
     const rightCol = document.createElement("div");
     rightCol.className = "card-content__right-col";
 
+    // Process label section
     if (labelCell?.textContent.trim()) {
       const labelEl = document.createElement("div");
       labelEl.className = "card-label text-l2";
       labelEl.innerHTML = `<p>${labelCell.textContent}</p>`;
-      moveInstrumentation(labelCell, labelEl);
       leftCol.appendChild(labelEl);
+      labelCell.style.display = 'none';
     }
 
+    // Process title section
     if (titleCell?.textContent.trim()) {
       const titleEl = document.createElement("h3");
       titleEl.className = "card-title text-h3";
       titleEl.textContent = titleCell.textContent;
-      moveInstrumentation(titleCell, titleEl);
       leftCol.appendChild(titleEl);
+      titleCell.style.display = 'none';
     }
 
     const createIconLine = (cell, defaultIconName) => {
@@ -108,34 +113,42 @@ export default async function decorate(block) {
       p.className = "card-icon-text text-p1";
       p.textContent = iconText;
       item.append(icon, p);
-      moveInstrumentation(cell, item);
       return item;
     };
 
+    // Process time section
     const timeLine = createIconLine(timeCell, "clock");
-    if (timeLine) rightCol.appendChild(timeLine);
+    if (timeLine) {
+      rightCol.appendChild(timeLine);
+      if (timeCell) timeCell.style.display = 'none';
+    }
 
+    // Process venue section
     const venueLine = createIconLine(venueCell, "location");
-    if (venueLine) rightCol.appendChild(venueLine);
+    if (venueLine) {
+      rightCol.appendChild(venueLine);
+      if (venueCell) venueCell.style.display = 'none';
+    }
 
     mainRow.append(leftCol, rightCol);
     cardContent.append(mainRow);
 
+    // Process description section
     if (descCell?.textContent.trim()) {
       const descEl = document.createElement("p");
       descEl.className = "card-description text-p1";
       descEl.textContent = descCell.textContent;
-      moveInstrumentation(descCell, descEl);
       cardContent.appendChild(descEl);
+      descCell.style.display = 'none';
     }
 
     card.appendChild(cardContent);
-    slide.appendChild(card);
-    swiperWrapper.appendChild(slide);
+    row.appendChild(card);
+    swiperWrapper.appendChild(row);
   });
 
   swiperContainer.appendChild(swiperWrapper);
-  container.appendChild(swiperContainer);
+  block.appendChild(swiperContainer);
 
   /* const soundButtonIframe = document.createElement("iframe");
   soundButtonIframe.src = "/blocks/swiper-highlight4/sound.html";
@@ -144,11 +157,8 @@ export default async function decorate(block) {
   soundButtonIframe.style.width = "100%";
   soundButtonIframe.scrolling = "no";
   soundButtonIframe.title = "Sound Player Button";
-  container.appendChild(soundButtonIframe);
+  block.appendChild(soundButtonIframe);
   */
-
-  block.innerHTML = "";
-  block.appendChild(container);
 
   if (isAuthoring) {
     swiperContainer.style.display = "flex";
@@ -156,7 +166,7 @@ export default async function decorate(block) {
     swiperWrapper.style.gap = "24px";
     arrowsContainer.style.display = "none";
 
-    container.classList.add("swiper-block-authoring");
+    block.classList.add("swiper-block-authoring");
     return;
   }
 
