@@ -137,7 +137,7 @@ export default async function decorate(block) {
   swiperContainer.appendChild(swiperWrapper);
   container.appendChild(swiperContainer);
 
-  const soundButtonIframe = document.createElement("iframe");
+  /* const soundButtonIframe = document.createElement("iframe");
   soundButtonIframe.src = "/blocks/swiper-highlight4/sound.html";
   soundButtonIframe.style.border = "none";
   soundButtonIframe.style.height = "70px";
@@ -145,6 +145,7 @@ export default async function decorate(block) {
   soundButtonIframe.scrolling = "no";
   soundButtonIframe.title = "Sound Player Button";
   container.appendChild(soundButtonIframe);
+  */
 
   block.innerHTML = "";
   block.appendChild(container);
