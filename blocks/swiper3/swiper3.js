@@ -1,11 +1,10 @@
-import { moveInstrumentation } from "../../scripts/scripts.js";
 import { isUniversalEditor } from "../../scripts/aem.js";
 import { loadSwiper } from "../../scripts/utils.js";
 
 export default async function decorate(block) {
-  const container = document.createElement("div");
-  container.className = "swiper-block-container";
-  container.style.position = "relative";
+  // Add main container class to the block itself
+  block.classList.add('swiper-block-container');
+  block.style.position = "relative";
 
   // Create arrows container
   const arrowsContainer = document.createElement("div");
@@ -20,7 +19,7 @@ export default async function decorate(block) {
   arrowsContainer.style.justifyContent = "space-between";
   arrowsContainer.style.alignItems = "center";
   arrowsContainer.style.height = "100%";
-  container.appendChild(arrowsContainer);
+  block.appendChild(arrowsContainer);
 
   const swiperContainer = document.createElement("div");
   swiperContainer.className = "swiper-container";
@@ -31,13 +30,17 @@ export default async function decorate(block) {
     : "swiper-wrapper animate-stagger";
 
   const imageContainers = [];
-  Array.from(block.children).forEach((card) => {
+  const cards = [...block.children];
+  
+  // Process each card in place
+  cards.forEach((card) => {
     if (!card.textContent.trim() && !card.querySelector("picture")) return;
+    if (card === arrowsContainer) return; // Skip the arrows container
 
-    const slide = document.createElement("div");
-    slide.className = "swiper-slide";
-    moveInstrumentation(card, slide);
+    // Add slide class to the original card
+    card.classList.add('swiper-slide');
 
+    // Create card container within the original card
     const cardContainer = document.createElement("div");
     cardContainer.className = "card";
 
@@ -48,34 +51,41 @@ export default async function decorate(block) {
       imageContainers.push(imageWrapper);
       imageWrapper.appendChild(picture);
       cardContainer.appendChild(imageWrapper);
+      
+      // Hide the original picture section
+      const pictureSection = picture.closest('div');
+      if (pictureSection && pictureSection.parentNode === card) {
+        pictureSection.style.display = 'none';
+      }
     }
 
     // Handle content - specifically style paragraphs
     const para = card.querySelector("p");
     if (para) {
-      para.className = "card-description text-p1";
+      para.classList.add('card-description', 'text-p1');
     }
 
-    // Move all content
+    // Move all non-picture content
     const contentElements = [...card.children].filter(
-      (el) => !el.querySelector("picture")
+      (el) => !el.querySelector("picture") && el !== cardContainer
     );
-    contentElements.forEach((element) => cardContainer.appendChild(element));
+    contentElements.forEach((element) => {
+      cardContainer.appendChild(element.cloneNode(true));
+      element.style.display = 'none';
+    });
 
-    slide.appendChild(cardContainer);
-    swiperWrapper.appendChild(slide);
+    card.appendChild(cardContainer);
+    swiperWrapper.appendChild(card);
   });
 
   swiperContainer.appendChild(swiperWrapper);
-  container.appendChild(swiperContainer);
-  block.innerHTML = "";
-  block.appendChild(container);
+  block.appendChild(swiperContainer);
 
   if (!isUniversalEditor()) {
     try {
       await loadSwiper();
       initializeSwiper(
-        container,
+        block,
         swiperContainer,
         arrowsContainer,
         imageContainers
