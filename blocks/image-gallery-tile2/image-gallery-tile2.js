@@ -107,12 +107,17 @@ function createGalleryWithFilters(block) {
             leftColumn.appendChild(section);
           }
           break;
-        case 4:
+        case 4: // Link
           if (section.querySelector("a")) {
             section.classList.add("image-gallery-tile-link-section");
             const link = section.querySelector("a");
             link.classList.add("image-gallery-tile-link");
 
+            // Remove title attribute and clear link text if not needed
+            link.removeAttribute("title");
+            link.textContent = ""; // Clear any existing text content
+
+            // Add description to link if exists
             if (sections[5]?.textContent.trim()) {
               const descriptionText = sections[5].textContent.trim();
               const descElement = document.createElement("p");
