@@ -17,7 +17,6 @@
       "slider-teaser-content",
       "swiper3",
       "three-image-description",
-      "layout",
       "two-column-grid",
       "section-header",
       "text-image",
@@ -52,10 +51,6 @@
   {
     "id": "three-image-description",
     "components": ["title", "text", "cards", "card", "grid-card"]
-  },
-  {
-    "id": "layout",
-    "components": ["layout-card"]
   },
   {
     "id": "two-column-grid",
