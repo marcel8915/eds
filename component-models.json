@@ -1141,53 +1141,46 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "image",
+        "name": "Highlightimage",
         "label": "Image",
-        "multi": false,
-        "defaultValue": "/content/dam/site/default-image.jpg"
+        "multi": false
       },
       {
         "component": "text",
-        "name": "label",
+        "name": "Highlightlabel",
         "label": "Label",
-        "description": "Short identifying label",
-        "defaultValue": "Featured"
+        "description": "Short identifying label"
       },
       {
         "component": "text",
-        "name": "title",
+        "name": "Highlighttitle",
         "label": "Title",
         "required": true,
-        "description": "Main headline for the card",
-        "defaultValue": "Default Title"
+        "description": "Main headline for the card"
       },
       {
         "component": "richtext",
-        "name": "description",
+        "name": "Highlightdescription",
         "label": "Description",
-        "description": "Detailed content about the highlight",
-        "defaultValue": "<p>Default description text</p>"
+        "description": "Detailed content about the highlight"
       },
       {
         "component": "text",
-        "name": "time",
+        "name": "Highlighttime",
         "label": "Time",
-        "description": "2pm example",
-        "defaultValue": "12:00 PM"
+        "description": "2pm example"
       },
       {
         "component": "text",
-        "name": "venue",
+        "name": "Highlightvenue",
         "label": "Venue",
-        "description": "Location",
-        "defaultValue": "Main Hall"
+        "description": "Location "
       },
       {
         "component": "date-time",
         "label": "Date & Time",
         "name": "date",
-        "valueType": "date",
-        "defaultValue": "2023-01-01T12:00:00.000Z"
+        "valueType": "date"
       }
     ]
   },
