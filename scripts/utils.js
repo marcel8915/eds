@@ -87,3 +87,15 @@ export function handleMediaBlocks(media, imgAltText, section) {
     }
   });
 }
+
+/**
+ * Loads Swiper CSS/JS dependencies (idempotent).
+ * @returns {Promise<void>}
+ */
+export async function loadSwiper() {
+  if (window.Swiper) return;
+  await Promise.all([
+    loadCSS("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"),
+    loadScript("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"),
+  ]);
+}

@@ -1,47 +1,6 @@
 import { moveInstrumentation } from "../../scripts/scripts.js";
 import { isUniversalEditor } from "../../scripts/aem.js";
-
-function loadScript(src, attrs) {
-  return new Promise((resolve, reject) => {
-    if (document.querySelector(`script[src="${src}"]`)) {
-      resolve();
-      return;
-    }
-    const script = document.createElement("script");
-    script.src = src;
-    if (attrs) {
-      Object.keys(attrs).forEach((key) => {
-        script.setAttribute(key, attrs[key]);
-      });
-    }
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
-}
-
-function loadCSS(href) {
-  return new Promise((resolve, reject) => {
-    if (document.querySelector(`link[href="${href}"]`)) {
-      resolve();
-      return;
-    }
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = href;
-    link.onload = resolve;
-    link.onerror = reject;
-    document.head.appendChild(link);
-  });
-}
-
-async function loadDependencies() {
-  if (window.Swiper) return;
-  await Promise.all([
-    loadCSS("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"),
-    loadScript("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"),
-  ]);
-}
+import { loadSwiper } from "../../scripts/utils.js";
 
 export default async function decorate(block) {
   const isAuthoring = isUniversalEditor();
@@ -200,7 +159,7 @@ export default async function decorate(block) {
     return;
   }
 
-  await loadDependencies();
+  await loadSwiper();
 
   const positionArrows = (swiper) => {
     if (!cards.length) return;
