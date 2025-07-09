@@ -1143,44 +1143,51 @@
         "valueType": "string",
         "name": "image",
         "label": "Image",
-        "multi": false
+        "multi": false,
+        "defaultValue": "/content/dam/site/default-image.jpg"
       },
       {
         "component": "text",
         "name": "label",
         "label": "Label",
-        "description": "Short identifying label"
+        "description": "Short identifying label",
+        "defaultValue": "Featured"
       },
       {
         "component": "text",
         "name": "title",
         "label": "Title",
         "required": true,
-        "description": "Main headline for the card"
+        "description": "Main headline for the card",
+        "defaultValue": "Default Title"
       },
       {
         "component": "richtext",
         "name": "description",
         "label": "Description",
-        "description": "Detailed content about the highlight"
+        "description": "Detailed content about the highlight",
+        "defaultValue": "<p>Default description text</p>"
       },
       {
         "component": "text",
         "name": "time",
         "label": "Time",
-        "description": "2pm example"
+        "description": "2pm example",
+        "defaultValue": "12:00 PM"
       },
       {
         "component": "text",
         "name": "venue",
         "label": "Venue",
-        "description": "Location "
+        "description": "Location",
+        "defaultValue": "Main Hall"
       },
       {
         "component": "date-time",
         "label": "Date & Time",
         "name": "date",
-        "valueType": "date"
+        "valueType": "date",
+        "defaultValue": "2023-01-01T12:00:00.000Z"
       }
     ]
   },
