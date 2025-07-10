@@ -1212,15 +1212,6 @@
         "description": "Optional subtitle for the section"
       },
       {
-        "component": "multifield",
-        "name": "topics",
-        "label": "Values to be inserted into the topics filter",
-        "description": "Add topics for the filter dropdown. Each entry will be a new option.",
-        "field": {
-          "component": "text"
-        }
-      },
-      {
         "component": "text",
         "name": "buttonText",
         "label": "Button Text",
@@ -1231,6 +1222,13 @@
         "name": "buttonLink",
         "label": "Button Link URL",
         "description": "URL for the action button"
+      },
+      {
+        "component": "text",
+        "name": "topics",
+        "label": "Values to be inserted into the topics filter",
+        "description": "Add topics for the filter dropdown. Each entry will be a new option.",
+        "multi": true
       }
     ]
   },
