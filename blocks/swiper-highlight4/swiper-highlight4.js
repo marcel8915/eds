@@ -1,172 +1,101 @@
 import { isUniversalEditor } from "../../scripts/aem.js";
 import { loadSwiper } from "../../scripts/utils.js";
+import { fetchVenueEvents } from "./events-api.js";
 
 export default async function decorate(block) {
   const isAuthoring = isUniversalEditor();
 
-  // Add main container class to the block itself
-  block.classList.add('swiper-block-container');
+  block.classList.add("swiper-highlight4-container"); // Changed from swiper-block-container
 
   const swiperContainer = document.createElement("div");
-  swiperContainer.className = "swiper-container";
+  swiperContainer.className = "swiper-container-highlight4";
 
   const swiperWrapper = document.createElement("div");
-  swiperWrapper.className = "swiper-wrapper";
+  swiperWrapper.className = "swiper-wrapper"; // Changed from swiper-wrapper
 
   const arrowsContainer = document.createElement("div");
-  arrowsContainer.className = "swiper-arrows-container";
+  arrowsContainer.className = "swiper-highlight4-arrows-container"; // Changed from swiper-highlight-arrows-container
 
   const leftArrow = document.createElement("button");
-  leftArrow.className = "swiper-arrow-button left-arrow";
-  leftArrow.innerHTML = `<div class="arrow-icon"></div>`;
+  leftArrow.className = "swiper-highlight4-arrow-button highlight4-left-arrow"; // Changed class names
+  leftArrow.innerHTML = `<div class="highlight4-arrow-icon"></div>`; // Changed class
   leftArrow.setAttribute("aria-label", "Previous Slide");
   leftArrow.style.opacity = "0";
 
   const rightArrow = document.createElement("button");
-  rightArrow.className = "swiper-arrow-button right-arrow";
-  rightArrow.innerHTML = `<div class="arrow-icon"></div>`;
+  rightArrow.className =
+    "swiper-highlight4-arrow-button highlight4-right-arrow"; // Changed class names
+  rightArrow.innerHTML = `<div class="highlight4-arrow-icon"></div>`; // Changed class
   rightArrow.setAttribute("aria-label", "Next Slide");
 
   arrowsContainer.append(leftArrow, rightArrow);
   block.appendChild(arrowsContainer);
 
   const cards = [];
-  const rows = [...block.children];
-  
-  // Process each row in place
-  rows.forEach((row, index) => {
-    if (!row.textContent.trim() && !row.querySelector("picture")) return;
-    if (row === arrowsContainer) return; // Skip the arrows container
 
-    // Add slide classes to the original row
-    row.className = isAuthoring
-      ? "swiper-slide authoring-slide"
-      : "swiper-slide";
+  if (isAuthoring) {
+    const rows = [...block.children];
+    rows.forEach((row, index) => {
+      if (!row.textContent.trim() && !row.querySelector("picture")) return;
+      if (row === arrowsContainer) return;
 
-    // Create card container within the original row
-    const card = document.createElement("div");
-    card.className = "card";
-    cards.push(card);
+      processRow(row, isAuthoring, cards, swiperWrapper);
+    });
+  } else {
+    const venue = block.getAttribute("data-venue") || "P72";
+    const events = await fetchVenueEvents(venue);
 
-    // Get original sections
-    const sections = Array.from(row.children);
-    const [imageCell, labelCell, titleCell, descCell, timeCell, venueCell] = sections;
+    events.forEach((event) => {
+      const row = document.createElement("div");
+      row.className = "swiper-slide";
+      row.dataset.displayDate = event.displayDate;
 
-    // Process image section
-    const picture = imageCell?.querySelector("picture");
-    if (picture) {
-      const imageWrapper = document.createElement("div");
-      imageWrapper.className = "image-container";
-      imageWrapper.appendChild(picture);
-      card.appendChild(imageWrapper);
-      
-      // Hide original image section
-      if (imageCell) imageCell.style.display = 'none';
-    }
-
-    const cardContent = document.createElement("div");
-    cardContent.className = "card-content";
-
-    const mainRow = document.createElement("div");
-    mainRow.className = "card-content__main-row";
-
-    const leftCol = document.createElement("div");
-    leftCol.className = "card-content__left-col";
-
-    const rightCol = document.createElement("div");
-    rightCol.className = "card-content__right-col";
-
-    // Process label section
-    if (labelCell?.textContent.trim()) {
-      const labelEl = document.createElement("div");
-      labelEl.className = "card-label text-l2";
-      labelEl.innerHTML = `<p>${labelCell.textContent}</p>`;
-      leftCol.appendChild(labelEl);
-      labelCell.style.display = 'none';
-    }
-
-    // Process title section
-    if (titleCell?.textContent.trim()) {
-      const titleEl = document.createElement("h3");
-      titleEl.className = "card-title text-h3";
-      titleEl.textContent = titleCell.textContent;
-      leftCol.appendChild(titleEl);
-      titleCell.style.display = 'none';
-    }
-
-    const createIconLine = (cell, defaultIconName) => {
-      if (!cell || !cell.textContent.trim()) return null;
-      const text = cell.textContent.trim();
-      let iconName = defaultIconName;
-      let iconText = text;
-
-      if (text.includes("|")) {
-        const parts = text.split("|").map((s) => s.trim());
-        iconName = parts[0];
-        iconText = parts[1];
+      const imageCell = document.createElement("div");
+      if (event.images?.[0]?._publishUrl) {
+        const picture = document.createElement("picture");
+        const img = document.createElement("img");
+        img.src = event.images[0]._publishUrl;
+        img.alt = event.title;
+        picture.appendChild(img);
+        imageCell.appendChild(picture);
       }
-      const item = document.createElement("div");
-      item.className = "card-icon-line text-p1";
-      const icon = document.createElement("div");
-      icon.className = `card-icon icon-${iconName.toLowerCase()}`;
-      const p = document.createElement("p");
-      p.className = "card-icon-text text-p1";
-      p.textContent = iconText;
-      item.append(icon, p);
-      return item;
-    };
 
-    // Process time section
-    const timeLine = createIconLine(timeCell, "clock");
-    if (timeLine) {
-      rightCol.appendChild(timeLine);
-      if (timeCell) timeCell.style.display = 'none';
-    }
+      const labelCell = document.createElement("div");
+      labelCell.textContent = event.category;
 
-    // Process venue section
-    const venueLine = createIconLine(venueCell, "location");
-    if (venueLine) {
-      rightCol.appendChild(venueLine);
-      if (venueCell) venueCell.style.display = 'none';
-    }
+      const titleCell = document.createElement("div");
+      titleCell.textContent = event.title;
 
-    mainRow.append(leftCol, rightCol);
-    cardContent.append(mainRow);
+      const descCell = document.createElement("div");
+      descCell.textContent = event.description;
 
-    // Process description section
-    if (descCell?.textContent.trim()) {
-      const descEl = document.createElement("p");
-      descEl.className = "card-description text-p1";
-      descEl.textContent = descCell.textContent;
-      cardContent.appendChild(descEl);
-      descCell.style.display = 'none';
-    }
+      const timeCell = document.createElement("div");
+      timeCell.textContent = event.displayTiming || "";
 
-    card.appendChild(cardContent);
-    row.appendChild(card);
-    swiperWrapper.appendChild(row);
-  });
+      const venueCell = document.createElement("div");
+      venueCell.textContent = event.venue || "";
+
+      row.append(
+        imageCell,
+        labelCell,
+        titleCell,
+        descCell,
+        timeCell,
+        venueCell
+      );
+      processRow(row, isAuthoring, cards, swiperWrapper, event);
+    });
+  }
 
   swiperContainer.appendChild(swiperWrapper);
   block.appendChild(swiperContainer);
-
-  /* const soundButtonIframe = document.createElement("iframe");
-  soundButtonIframe.src = "/blocks/swiper-highlight4/sound.html";
-  soundButtonIframe.style.border = "none";
-  soundButtonIframe.style.height = "70px";
-  soundButtonIframe.style.width = "100%";
-  soundButtonIframe.scrolling = "no";
-  soundButtonIframe.title = "Sound Player Button";
-  block.appendChild(soundButtonIframe);
-  */
 
   if (isAuthoring) {
     swiperContainer.style.display = "flex";
     swiperWrapper.style.display = "flex";
     swiperWrapper.style.gap = "24px";
     arrowsContainer.style.display = "none";
-
-    block.classList.add("swiper-block-authoring");
+    block.classList.add("swiper-highlight4-authoring");
     return;
   }
 
@@ -221,4 +150,128 @@ export default async function decorate(block) {
     const resizeObserver = new ResizeObserver(() => positionArrows(swiper));
     cards.forEach((card) => resizeObserver.observe(card));
   }
+}
+
+function processRow(row, isAuthoring, cards, swiperWrapper, event) {
+  row.className = isAuthoring
+    ? "swiper-slide-highlight4 authoring-slide"
+    : "swiper-slide"; // Changed from swiper-slide
+
+  const card = document.createElement("div");
+  card.className = "highlight4-card"; // Changed from card
+  cards.push(card);
+
+  const sections = Array.from(row.children);
+  const [imageCell, labelCell, titleCell, descCell, timeCell, venueCell] =
+    sections;
+
+  const picture = imageCell?.querySelector("picture");
+  if (picture) {
+    const imageWrapper = document.createElement("div");
+    imageWrapper.className = "highlight4-image-container"; // Changed from image-container
+    imageWrapper.appendChild(picture);
+    card.appendChild(imageWrapper);
+    if (imageCell) imageCell.style.display = "none";
+  }
+
+  const cardContent = document.createElement("div");
+  cardContent.className = "highlight4-card-content"; // Changed from card-content
+
+  if (!isAuthoring && row.dataset.displayDate) {
+    const displayDate = new Date(row.dataset.displayDate);
+    const calendarContainer = document.createElement("div");
+    calendarContainer.className = "highlight4-calendar-container"; // Changed from calendar-container
+
+    const weekday = document.createElement("div");
+    weekday.className = "highlight4-calendar-weekday"; // Changed from calendar-weekday
+    weekday.textContent = displayDate.toLocaleDateString("en-US", {
+      weekday: "short",
+    });
+
+    const dayMonth = document.createElement("div");
+    dayMonth.className = "highlight4-calendar-day-month"; // Changed from calendar-day-month
+    dayMonth.textContent = `${displayDate.getDate()} ${displayDate.toLocaleDateString(
+      "en-US",
+      {
+        month: "short",
+      }
+    )}`;
+
+    calendarContainer.append(weekday, dayMonth);
+    cardContent.appendChild(calendarContainer);
+  }
+
+  const mainRow = document.createElement("div");
+  mainRow.className = "highlight4-card-content__main-row"; // Changed from card-content__main-row
+
+  const leftCol = document.createElement("div");
+  leftCol.className = "highlight4-card-content__left-col"; // Changed from card-content__left-col
+
+  const rightCol = document.createElement("div");
+  rightCol.className = "highlight4-card-content__right-col"; // Changed from card-content__right-col
+
+  if (labelCell?.textContent.trim()) {
+    const labelEl = document.createElement("div");
+    labelEl.className = "highlight4-card-label text-l2"; // Changed from card-label
+    labelEl.innerHTML = `<p>${labelCell.textContent}</p>`;
+    leftCol.appendChild(labelEl);
+    labelCell.style.display = "none";
+  }
+
+  if (titleCell?.textContent.trim()) {
+    const titleEl = document.createElement("h3");
+    titleEl.className = "highlight4-card-title text-h3"; // Changed from card-title
+    titleEl.textContent = titleCell.textContent;
+    leftCol.appendChild(titleEl);
+    titleCell.style.display = "none";
+  }
+
+  const createIconLine = (cell, defaultIconName) => {
+    if (!cell || !cell.textContent.trim()) return null;
+    const text = cell.textContent.trim();
+    let iconName = defaultIconName;
+    let iconText = text;
+
+    if (text.includes("|")) {
+      const parts = text.split("|").map((s) => s.trim());
+      iconName = parts[0];
+      iconText = parts[1];
+    }
+    const item = document.createElement("div");
+    item.className = "highlight4-card-icon-line text-p1"; // Changed from card-icon-line
+    const icon = document.createElement("div");
+    icon.className = `highlight4-card-icon icon-${iconName.toLowerCase()}`; // Changed from card-icon
+    const p = document.createElement("p");
+    p.className = "highlight4-card-icon-text text-p1"; // Changed from card-icon-text
+    p.textContent = iconText;
+    item.append(icon, p);
+    return item;
+  };
+
+  const timeLine = createIconLine(timeCell, "clock");
+  if (timeLine) {
+    rightCol.appendChild(timeLine);
+    if (timeCell) timeCell.style.display = "none";
+  }
+
+  const venueLine = createIconLine(venueCell, "location");
+  if (venueLine) {
+    rightCol.appendChild(venueLine);
+    if (venueCell) venueCell.style.display = "none";
+  }
+
+  mainRow.append(leftCol, rightCol);
+  cardContent.append(mainRow);
+
+  if (descCell?.textContent.trim()) {
+    const descEl = document.createElement("p");
+    descEl.className = "highlight4-card-description text-p1"; // Changed from card-description
+    descEl.textContent = descCell.textContent;
+    cardContent.appendChild(descEl);
+    descCell.style.display = "none";
+  }
+
+  card.appendChild(cardContent);
+  row.appendChild(card);
+  swiperWrapper.appendChild(row);
 }
