@@ -1,3 +1,9 @@
+// future note
+// filter is based on authoring content coming from AEM
+// filter values are either {set, user just select what values they want} or {user can input in as string, the values they want}
+// either or approach, the values needs to be the same as the values put inside each card
+// right now the values are hard coded
+
 import { moveInstrumentation } from "../../scripts/scripts.js";
 import { createCalendarBoard } from "./calendar-board.js";
 import { createTopicsFilter } from "./topics-filter.js";

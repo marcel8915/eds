@@ -1,5 +1,3 @@
-// scripts/blocks/table-board/calendar-board.js
-
 function isSameDay(d1, d2) {
   return (
     d1 &&
@@ -30,9 +28,8 @@ export function createCalendarBoard({
   let tempEnd = selectedRange ? new Date(selectedRange[1]) : null;
 
   const calendar = document.createElement("div");
-  calendar.className = "calendar-dropdown"; // The container handles the main dropdown class
+  calendar.className = "calendar-dropdown";
 
-  // *** FIX: Stop clicks inside the calendar from closing the dropdown ***
   calendar.addEventListener("click", (e) => e.stopPropagation());
 
   function render() {
@@ -176,7 +173,6 @@ export function createCalendarBoard({
     }
     calendar.appendChild(grid);
 
-    // Done button
     const doneBtn = document.createElement("button");
     doneBtn.type = "button";
     doneBtn.className = "table-board-filter-done-btn";
