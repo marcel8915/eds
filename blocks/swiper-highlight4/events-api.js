@@ -1,6 +1,5 @@
 export async function fetchVenueEvents(venue) {
   const API_URL = `https://publish-p152536-e1620746.adobeaemcloud.com/graphql/execute.json/CHG/GetEventListByVenue;venue=${venue}`;
-
   try {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error("Network response was not ok");

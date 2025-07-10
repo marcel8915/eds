@@ -852,68 +852,7 @@
       }
     ]
   },
-  {
-    "id": "icon-text",
-    "fields": [
-      {
-        "component": "group",
-        "name": "phoneItem",
-        "label": "Phone",
-        "fields": [
-          {
-            "component": "reference",
-            "name": "phoneIcon",
-            "label": "Phone Icon",
-            "description": "Upload phone icon SVG"
-          },
-          {
-            "component": "text",
-            "name": "phoneNumber",
-            "label": "Phone Number",
-            "description": "Format: +1 (123) 456-7890"
-          }
-        ]
-      },
-      {
-        "component": "group",
-        "name": "emailItem",
-        "label": "Email",
-        "fields": [
-          {
-            "component": "reference",
-            "name": "emailIcon",
-            "label": "Email Icon",
-            "description": "Upload email icon SVG"
-          },
-          {
-            "component": "text",
-            "name": "emailAddress",
-            "label": "Email Address",
-            "description": "Format: user@example.com"
-          }
-        ]
-      },
-      {
-        "component": "group",
-        "name": "eventItem",
-        "label": "Event",
-        "fields": [
-          {
-            "component": "reference",
-            "name": "eventIcon",
-            "label": "Event Icon",
-            "description": "Upload event icon SVG"
-          },
-          {
-            "component": "text",
-            "name": "eventDetails",
-            "label": "Event Details",
-            "description": "E.g.: June 25, 2:00 PM EST"
-          }
-        ]
-      }
-    ]
-  },
+
   {
     "id": "events-listing",
     "fields": [

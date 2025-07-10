@@ -5,27 +5,27 @@ import { fetchVenueEvents } from "./events-api.js";
 export default async function decorate(block) {
   const isAuthoring = isUniversalEditor();
 
-  block.classList.add("swiper-highlight4-container"); // Changed from swiper-block-container
+  block.classList.add("swiper-highlight4-container");
 
   const swiperContainer = document.createElement("div");
   swiperContainer.className = "swiper-container-highlight4";
 
   const swiperWrapper = document.createElement("div");
-  swiperWrapper.className = "swiper-wrapper"; // Changed from swiper-wrapper
+  swiperWrapper.className = "swiper-wrapper";
 
   const arrowsContainer = document.createElement("div");
-  arrowsContainer.className = "swiper-highlight4-arrows-container"; // Changed from swiper-highlight-arrows-container
+  arrowsContainer.className = "swiper-highlight4-arrows-container";
 
   const leftArrow = document.createElement("button");
-  leftArrow.className = "swiper-highlight4-arrow-button highlight4-left-arrow"; // Changed class names
-  leftArrow.innerHTML = `<div class="highlight4-arrow-icon"></div>`; // Changed class
+  leftArrow.className = "swiper-highlight4-arrow-button highlight4-left-arrow";
+  leftArrow.innerHTML = `<div class="highlight4-arrow-icon"></div>`;
   leftArrow.setAttribute("aria-label", "Previous Slide");
   leftArrow.style.opacity = "0";
 
   const rightArrow = document.createElement("button");
   rightArrow.className =
-    "swiper-highlight4-arrow-button highlight4-right-arrow"; // Changed class names
-  rightArrow.innerHTML = `<div class="highlight4-arrow-icon"></div>`; // Changed class
+    "swiper-highlight4-arrow-button highlight4-right-arrow";
+  rightArrow.innerHTML = `<div class="highlight4-arrow-icon"></div>`;
   rightArrow.setAttribute("aria-label", "Next Slide");
 
   arrowsContainer.append(leftArrow, rightArrow);
@@ -35,14 +35,16 @@ export default async function decorate(block) {
 
   if (isAuthoring) {
     const rows = [...block.children];
-    rows.forEach((row, index) => {
+    rows.forEach((row) => {
       if (!row.textContent.trim() && !row.querySelector("picture")) return;
       if (row === arrowsContainer) return;
-
       processRow(row, isAuthoring, cards, swiperWrapper);
     });
   } else {
-    const venue = block.getAttribute("data-venue") || "P72";
+    const pathSegments = window.location.pathname.split("/").filter(Boolean);
+    const venue = (
+      pathSegments[pathSegments.length - 1] || "P72"
+    ).toUpperCase();
     const events = await fetchVenueEvents(venue);
 
     events.forEach((event) => {
@@ -155,10 +157,10 @@ export default async function decorate(block) {
 function processRow(row, isAuthoring, cards, swiperWrapper, event) {
   row.className = isAuthoring
     ? "swiper-slide-highlight4 authoring-slide"
-    : "swiper-slide"; // Changed from swiper-slide
+    : "swiper-slide";
 
   const card = document.createElement("div");
-  card.className = "highlight4-card"; // Changed from card
+  card.className = "highlight4-card";
   cards.push(card);
 
   const sections = Array.from(row.children);
@@ -168,28 +170,28 @@ function processRow(row, isAuthoring, cards, swiperWrapper, event) {
   const picture = imageCell?.querySelector("picture");
   if (picture) {
     const imageWrapper = document.createElement("div");
-    imageWrapper.className = "highlight4-image-container"; // Changed from image-container
+    imageWrapper.className = "highlight4-image-container";
     imageWrapper.appendChild(picture);
     card.appendChild(imageWrapper);
     if (imageCell) imageCell.style.display = "none";
   }
 
   const cardContent = document.createElement("div");
-  cardContent.className = "highlight4-card-content"; // Changed from card-content
+  cardContent.className = "highlight4-card-content";
 
   if (!isAuthoring && row.dataset.displayDate) {
     const displayDate = new Date(row.dataset.displayDate);
     const calendarContainer = document.createElement("div");
-    calendarContainer.className = "highlight4-calendar-container"; // Changed from calendar-container
+    calendarContainer.className = "highlight4-calendar-container";
 
     const weekday = document.createElement("div");
-    weekday.className = "highlight4-calendar-weekday"; // Changed from calendar-weekday
+    weekday.className = "highlight4-calendar-weekday";
     weekday.textContent = displayDate.toLocaleDateString("en-US", {
       weekday: "short",
     });
 
     const dayMonth = document.createElement("div");
-    dayMonth.className = "highlight4-calendar-day-month"; // Changed from calendar-day-month
+    dayMonth.className = "highlight4-calendar-day-month";
     dayMonth.textContent = `${displayDate.getDate()} ${displayDate.toLocaleDateString(
       "en-US",
       {
@@ -202,17 +204,17 @@ function processRow(row, isAuthoring, cards, swiperWrapper, event) {
   }
 
   const mainRow = document.createElement("div");
-  mainRow.className = "highlight4-card-content__main-row"; // Changed from card-content__main-row
+  mainRow.className = "highlight4-card-content__main-row";
 
   const leftCol = document.createElement("div");
-  leftCol.className = "highlight4-card-content__left-col"; // Changed from card-content__left-col
+  leftCol.className = "highlight4-card-content__left-col";
 
   const rightCol = document.createElement("div");
-  rightCol.className = "highlight4-card-content__right-col"; // Changed from card-content__right-col
+  rightCol.className = "highlight4-card-content__right-col";
 
   if (labelCell?.textContent.trim()) {
     const labelEl = document.createElement("div");
-    labelEl.className = "highlight4-card-label text-l2"; // Changed from card-label
+    labelEl.className = "highlight4-card-label text-l2";
     labelEl.innerHTML = `<p>${labelCell.textContent}</p>`;
     leftCol.appendChild(labelEl);
     labelCell.style.display = "none";
@@ -220,7 +222,7 @@ function processRow(row, isAuthoring, cards, swiperWrapper, event) {
 
   if (titleCell?.textContent.trim()) {
     const titleEl = document.createElement("h3");
-    titleEl.className = "highlight4-card-title text-h3"; // Changed from card-title
+    titleEl.className = "highlight4-card-title text-h3";
     titleEl.textContent = titleCell.textContent;
     leftCol.appendChild(titleEl);
     titleCell.style.display = "none";
@@ -238,11 +240,11 @@ function processRow(row, isAuthoring, cards, swiperWrapper, event) {
       iconText = parts[1];
     }
     const item = document.createElement("div");
-    item.className = "highlight4-card-icon-line text-p1"; // Changed from card-icon-line
+    item.className = "highlight4-card-icon-line text-p1";
     const icon = document.createElement("div");
-    icon.className = `highlight4-card-icon icon-${iconName.toLowerCase()}`; // Changed from card-icon
+    icon.className = `highlight4-card-icon icon-${iconName.toLowerCase()}`;
     const p = document.createElement("p");
-    p.className = "highlight4-card-icon-text text-p1"; // Changed from card-icon-text
+    p.className = "highlight4-card-icon-text text-p1";
     p.textContent = iconText;
     item.append(icon, p);
     return item;
@@ -265,7 +267,7 @@ function processRow(row, isAuthoring, cards, swiperWrapper, event) {
 
   if (descCell?.textContent.trim()) {
     const descEl = document.createElement("p");
-    descEl.className = "highlight4-card-description text-p1"; // Changed from card-description
+    descEl.className = "highlight4-card-description text-p1";
     descEl.textContent = descCell.textContent;
     cardContent.appendChild(descEl);
     descCell.style.display = "none";
