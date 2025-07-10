@@ -1,94 +1,9 @@
-.table-board-view-all {
-    margin-top: 3rem;
-    text-align: center;
-}
-@media (min-width: 768px) {
-    .table-board-view-all {
-        margin-top: 5rem;
-    }
-}
-
-.table-board-view-all-link {
-    display: inline-block;
-    font-family: "Gill Sans", sans-serif;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    line-height: 1;
-    letter-spacing: 2.1px;
-    color: #000;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    text-decoration: none;
-    font-weight: inherit;
-    padding: 0;
-    margin: 0 auto;
-}
-
-.table-board-view-all-link:hover {
-    color: #333;
-}
-
-.table-board-view-all-link .underline-container {
-    position: relative;
-    display: inline-block;
-}
-
-.table-board-view-all-link .underline {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 1px;
-    width: 0;
-    background-color: currentColor;
-    transition: width 0.3s ease;
-}
-
-.table-board-view-all-link:hover .underline {
-    width: 100%;
-}
-
-.table-board-title-link {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    display: inline-block;
-    white-space: pre-line;
-}
-
-.table-board-title-link:hover {
-    color: #b8860b;
-}
-
-.table-board-title-group {
-    position: relative;
-    display: inline;
-}
-
-.table-board-title-line {
-    position: relative;
-    display: inline;
-}
-
-.table-board-title-underline {
-    position: absolute;
-    bottom: 4px;
-    left: 0;
-    height: 2px;
-    width: 0;
-    background-color: currentColor;
-    transition: width 0.5s ease;
-}
-
-.table-board-title-link:hover .table-board-title-underline {
-    width: 100%;
-}
-
-@media (min-width: 768px) {
-    .table-board-title-underline {
-        bottom: 7px;
-    }
+:root {
+    --brand-tan: #9c856b;
+    --border-grey: #e5e7eb;
+    --surface-white: #ffffff;
+    --text-white: #ffffff;
+    --text-black: #000000;
 }
 
 .table-board-container {
@@ -111,22 +26,19 @@
     }
 }
 
-.table-board-section-title {
-    font-size: clamp(32px, 4vw, 52px);
-    margin-bottom: 40px;
-    margin-top: 0px;
-    position: relative;
-    word-break: break-word;
+.table-board-header {
     display: flex;
     justify-content: center;
+    margin-bottom: 1rem;
 }
 
-.table-board-label {
-    display: block;
-    font-size: 0.875rem;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.table-board-section-title {
+    font-size: clamp(32px, 4vw, 52px);
+    margin: 0;
+    position: relative;
+    word-break: break-word;
+    text-align: center;
+    flex-grow: 1;
 }
 
 .table-board-items {
@@ -192,7 +104,7 @@
 }
 
 .text-l1 {
-    font-family: Gill Sans, sans-serif;
+    font-family: "Gill Sans", sans-serif;
     margin-bottom: 0.5rem;
     word-break: break-word;
 }
@@ -215,25 +127,44 @@
     }
 }
 
-.table-board-item-title a {
+.table-board-title-link {
     color: inherit;
     text-decoration: none;
     transition: color 0.3s ease;
-    position: relative;
     display: inline-block;
-    max-width: 100%;
+    white-space: pre-line;
 }
 
-.table-board-item-title a:hover {
+.table-board-title-link:hover {
     color: #b8860b;
 }
 
-.table-board-item-title a:hover::after {
+.table-board-title-group {
+    position: relative;
+    display: inline;
+}
+
+.table-board-title-line {
+    position: relative;
+    display: inline;
+}
+
+.table-board-title-underline {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: currentColor;
+    transition: width 0.5s ease;
+}
+
+.table-board-title-link:hover .table-board-title-underline {
     width: 100%;
 }
 
 @media (min-width: 768px) {
-    .table-board-item-title a::after {
+    .table-board-title-underline {
         bottom: 7px;
     }
 }
@@ -252,7 +183,7 @@
     text-transform: uppercase;
     line-height: 1;
     letter-spacing: 2.1px;
-    color: #000;
+    color: var(--text-black);
     background: none;
     border: none;
     cursor: pointer;
@@ -288,4 +219,377 @@
     .table-board-mobile-button {
         display: none;
     }
+}
+
+.table-board-view-all {
+    margin-top: 3rem;
+    text-align: center;
+}
+@media (min-width: 768px) {
+    .table-board-view-all {
+        margin-top: 5rem;
+    }
+}
+
+.table-board-view-all-link {
+    display: inline-block;
+    font-family: "Gill Sans", sans-serif;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 2.1px;
+    color: var(--text-black);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    font-weight: inherit;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.table-board-view-all-link:hover {
+    color: #333;
+}
+
+.table-board-view-all-link .underline-container {
+    position: relative;
+    display: inline-block;
+}
+
+.table-board-view-all-link .underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 0;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+}
+
+.table-board-view-all-link:hover .underline {
+    width: 100%;
+}
+
+/* ==========================================================================
+   Filter Styles
+   ========================================================================== */
+
+.table-board-all-filters-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+.table-board-filter-container,
+.topics-filter-button-wrapper {
+    position: relative;
+    max-width: 320px;
+    width: 100%;
+}
+
+/* --- Pill Date Picker Styles --- */
+.table-board-filter-button {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 96px;
+    border: 1px solid var(--border-grey);
+    background-color: var(--surface-white);
+    padding: 16px 24px;
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease-in-out;
+    cursor: pointer;
+    text-align: left;
+}
+
+.table-board-filter-button[aria-expanded="true"] {
+    border-color: var(--brand-tan);
+}
+
+.table-board-filter-button-text {
+    font-weight: 500;
+    color: var(--text-black);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-board-filter-button-icon {
+    margin-left: 8px;
+    transition: transform 0.2s ease-in-out;
+    flex-shrink: 0;
+}
+
+.table-board-filter-button-icon svg {
+    color: var(--text-black);
+}
+
+.table-board-filter-button[aria-expanded="true"]
+    .table-board-filter-button-icon {
+    transform: rotate(180deg);
+}
+
+.table-board-filter-dropdown-container {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    max-width: 320px;
+    top: calc(100% + 8px);
+    right: 0;
+}
+
+.table-board-filter-button[aria-expanded="true"]
+    + .table-board-filter-dropdown-container {
+    display: block;
+}
+
+.calendar-dropdown {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--text-white);
+    font-family: "Gill Sans", "Cabin", sans-serif;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px -2px rgba(0, 0, 0, 0.18);
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.filter-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    padding-bottom: 0.5rem;
+}
+
+.calendar-nav {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+.calendar-nav:not([disabled]):hover img {
+    filter: invert(1) brightness(2) !important;
+}
+
+.calendar-nav-disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.calendar-month-label {
+    font-weight: 600;
+    margin: 0;
+}
+
+.calendar-days-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.2rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.calendar-day-label {
+    font-size: 0.8rem;
+    color: #ccc;
+    text-transform: uppercase;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.2rem;
+}
+
+.calendar-date-btn,
+.calendar-date-blank {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.875rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+    color: var(--text-white);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.calendar-date-blank {
+    cursor: default;
+}
+
+.calendar-date-btn:not(.calendar-date-selected):not(
+        .calendar-date-disabled
+    ):not(.calendar-date-inrange):hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.calendar-date-disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.calendar-date-today {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.calendar-date-selected,
+.calendar-date-inrange {
+    background-color: var(--brand-tan) !important;
+    color: var(--text-black) !important;
+}
+
+.table-board-filter-done-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem 0 0 auto;
+    background: var(--surface-white);
+    color: var(--text-black);
+    border: none;
+    border-radius: 96px;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-transform: uppercase;
+}
+
+.table-board-filter-done-btn:hover {
+    background-color: var(--brand-tan);
+    color: var(--text-white);
+}
+
+/* --- Topics Filter Styles --- */
+
+.topics-filter-pill {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 96px;
+    border: 1px solid var(--border-grey);
+    background-color: var(--surface-white);
+    padding: 16px 24px;
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease-in-out;
+    cursor: pointer;
+    text-align: left;
+}
+
+.topics-filter-pill[aria-expanded="true"] {
+    border-color: var(--brand-tan);
+}
+
+.topics-filter-pill-text {
+    font-weight: 500;
+    color: var(--text-black);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.topics-filter-pill-icon {
+    margin-left: 8px;
+    transition: transform 0.2s ease-in-out;
+    flex-shrink: 0;
+}
+
+.topics-filter-pill-icon svg {
+    color: var(--text-black);
+}
+
+.topics-filter-pill[aria-expanded="true"] .topics-filter-pill-icon {
+    transform: rotate(180deg);
+}
+
+.topics-filter-dropdown {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    max-width: 320px;
+    top: calc(100% + 8px);
+    right: 0;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--text-white);
+    font-family: "Gill Sans", "Cabin", sans-serif;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px -2px rgba(0, 0, 0, 0.18);
+    padding: 1.5rem;
+}
+
+.topics-filter-dropdown[aria-open="true"] {
+    display: block;
+}
+
+.topics-filter-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.topics-filter-dropdown-header p {
+    margin: 0;
+    font-weight: 600;
+}
+
+.topics-filter-select-all-btn {
+    background: none;
+    border: none;
+    color: #ddd;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.topics-filter-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    cursor: pointer;
+}
+
+.topics-filter-item input[type="checkbox"] {
+    margin-left: auto;
+}
+
+.topics-filter-done-btn {
+    display: block;
+    margin: 1.5rem 0 0 auto;
+    background: var(--surface-white);
+    color: var(--text-black);
+    border: none;
+    border-radius: 96px;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-transform: uppercase;
+}
+
+.topics-filter-done-btn:hover {
+    background-color: var(--brand-tan);
+    color: var(--text-white);
 }

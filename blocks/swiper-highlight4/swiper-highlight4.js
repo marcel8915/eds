@@ -45,6 +45,7 @@ export default async function decorate(block) {
     const venue = (
       pathSegments[pathSegments.length - 1] || "P72"
     ).toUpperCase();
+    console.log("venue:", venue);
     const events = await fetchVenueEvents(venue);
 
     events.forEach((event) => {
