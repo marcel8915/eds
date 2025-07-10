@@ -1,107 +1,35 @@
 import { isUniversalEditor } from "../../scripts/aem.js";
 import { loadSwiper } from "../../scripts/utils.js";
 
-export default async function decorate(block) {
-  // Add main container class to the block itself
-  block.classList.add('swiper-block-container');
-  block.style.position = "relative";
+/**
+ * Creates an arrow button for the swiper navigation.
+ * @param {'left' | 'right'} direction The direction of the arrow.
+ * @returns {HTMLButtonElement} The created button element.
+ */
+function createArrowButton(direction) {
+  const arrow = document.createElement("button");
+  arrow.className = `swiper-arrow-button ${direction}-arrow`;
+  arrow.style.pointerEvents = "auto";
+  arrow.style.opacity = direction === "left" ? "0" : "1";
+  arrow.style.transition = "opacity 300ms";
+  arrow.style.position = "absolute";
+  arrow.style[direction] = "20px";
 
-  // Create arrows container
-  const arrowsContainer = document.createElement("div");
-  arrowsContainer.className = "swiper-arrows-container";
-  arrowsContainer.style.position = "absolute";
-  arrowsContainer.style.top = "0";
-  arrowsContainer.style.left = "0";
-  arrowsContainer.style.right = "0";
-  arrowsContainer.style.zIndex = "20";
-  arrowsContainer.style.pointerEvents = "none";
-  arrowsContainer.style.display = "flex";
-  arrowsContainer.style.justifyContent = "space-between";
-  arrowsContainer.style.alignItems = "center";
-  arrowsContainer.style.height = "100%";
-  block.appendChild(arrowsContainer);
+  const icon = document.createElement("div");
+  icon.className = "arrow-icon";
+  if (direction === "right") icon.style.transform = "rotate(180deg)";
+  arrow.appendChild(icon);
 
-  const swiperContainer = document.createElement("div");
-  swiperContainer.className = "swiper-container";
-
-  const swiperWrapper = document.createElement("div");
-  swiperWrapper.className = isUniversalEditor()
-    ? "swiper-wrapper authoring-mode"
-    : "swiper-wrapper animate-stagger";
-
-  const imageContainers = [];
-  const cards = [...block.children];
-  
-  // Process each card in place
-  cards.forEach((card) => {
-    if (!card.textContent.trim() && !card.querySelector("picture")) return;
-    if (card === arrowsContainer) return; // Skip the arrows container
-
-    // Add slide class to the original card
-    card.classList.add('swiper-slide');
-
-    // Create card container within the original card
-    const cardContainer = document.createElement("div");
-    cardContainer.className = "card";
-
-    const picture = card.querySelector("picture");
-    if (picture) {
-      const imageWrapper = document.createElement("div");
-      imageWrapper.className = "image-container";
-      imageContainers.push(imageWrapper);
-      imageWrapper.appendChild(picture);
-      cardContainer.appendChild(imageWrapper);
-      
-      // Hide the original picture section
-      const pictureSection = picture.closest('div');
-      if (pictureSection && pictureSection.parentNode === card) {
-        pictureSection.style.display = 'none';
-      }
-    }
-
-    // Handle content - specifically style paragraphs
-    const para = card.querySelector("p");
-    if (para) {
-      para.classList.add('card-description', 'text-p1');
-    }
-
-    // Move all non-picture content
-    const contentElements = [...card.children].filter(
-      (el) => !el.querySelector("picture") && el !== cardContainer
-    );
-    contentElements.forEach((element) => {
-      cardContainer.appendChild(element.cloneNode(true));
-      element.style.display = 'none';
-    });
-
-    card.appendChild(cardContainer);
-    swiperWrapper.appendChild(card);
-  });
-
-  swiperContainer.appendChild(swiperWrapper);
-  block.appendChild(swiperContainer);
-
-  if (!isUniversalEditor()) {
-    try {
-      await loadSwiper();
-      initializeSwiper(
-        block,
-        swiperContainer,
-        arrowsContainer,
-        imageContainers
-      );
-    } catch (error) {
-      console.error("Swiper initialization failed:", error);
-    }
-  } else {
-    swiperContainer.style.display = "flex";
-    swiperContainer.style.overflow = "visible";
-    swiperWrapper.style.display = "flex";
-    swiperWrapper.style.gap = "24px";
-    arrowsContainer.style.display = "none";
-  }
+  return arrow;
 }
 
+/**
+ * Initializes the Swiper instance with navigation and event listeners.
+ * @param {Element} container The main block element.
+ * @param {Element} swiperContainer The .swiper-container element.
+ * @param {Element} arrowsContainer The container for navigation arrows.
+ * @param {Element[]} imageContainers An array of the image containers to track for height changes.
+ */
 function initializeSwiper(
   container,
   swiperContainer,
@@ -144,15 +72,15 @@ function initializeSwiper(
     },
   });
 
-  function updateArrows(swiperInstance, containers, arrowsContainer) {
-    if (!arrowsContainer || !containers?.length) return;
+  function updateArrows(swiperInstance, containers, arrContainer) {
+    if (!arrContainer || !containers?.length) return;
 
     const activeIndex = swiperInstance.activeIndex;
     const activeContainer = containers[activeIndex];
     if (!activeContainer) return;
 
     const height = activeContainer.offsetHeight;
-    arrowsContainer.style.height = `${height}px`;
+    arrContainer.style.height = `${height}px`;
 
     const containerRect = activeContainer.getBoundingClientRect();
     const swiperRect = swiperContainer.getBoundingClientRect();
@@ -175,19 +103,93 @@ function initializeSwiper(
   );
 }
 
-function createArrowButton(direction) {
-  const arrow = document.createElement("button");
-  arrow.className = `swiper-arrow-button ${direction}-arrow`;
-  arrow.style.pointerEvents = "auto";
-  arrow.style.opacity = direction === "left" ? "0" : "1";
-  arrow.style.transition = "opacity 300ms";
-  arrow.style.position = "absolute";
-  arrow.style[direction] = "20px";
+/**
+ * Decorates the Swiper block.
+ * @param {Element} block The swiper block element.
+ */
+export default async function decorate(block) {
+  block.classList.add("swiper-block-container");
+  block.style.position = "relative";
 
-  const icon = document.createElement("div");
-  icon.className = "arrow-icon";
-  if (direction === "right") icon.style.transform = "rotate(180deg)";
-  arrow.appendChild(icon);
+  const arrowsContainer = document.createElement("div");
+  arrowsContainer.className = "swiper-arrows-container";
+  block.appendChild(arrowsContainer);
 
-  return arrow;
+  const swiperContainer = document.createElement("div");
+  swiperContainer.className = "swiper-container";
+
+  const swiperWrapper = document.createElement("div");
+  swiperWrapper.className = isUniversalEditor()
+    ? "swiper-wrapper authoring-mode"
+    : "swiper-wrapper animate-stagger";
+
+  const imageContainers = [];
+  const cards = [...block.children];
+
+  cards.forEach((card) => {
+    if (
+      (!card.textContent.trim() && !card.querySelector("picture")) ||
+      card === arrowsContainer
+    ) {
+      return;
+    }
+
+    card.classList.add("swiper-slide");
+
+    const cardContainer = document.createElement("div");
+    cardContainer.className = "card";
+
+    const picture = card.querySelector("picture");
+    if (picture) {
+      const imageWrapper = document.createElement("div");
+      imageWrapper.className = "image-container";
+      imageContainers.push(imageWrapper);
+      imageWrapper.appendChild(picture);
+      cardContainer.appendChild(imageWrapper);
+
+      const pictureSection = picture.closest("div");
+      if (pictureSection && pictureSection.parentNode === card) {
+        pictureSection.style.display = "none";
+      }
+    }
+
+    const para = card.querySelector("p");
+    if (para) {
+      para.classList.add("card-description", "text-p1");
+    }
+
+    const contentElements = [...card.children].filter(
+      (el) => !el.querySelector("picture") && el !== cardContainer
+    );
+    contentElements.forEach((element) => {
+      cardContainer.appendChild(element.cloneNode(true));
+      element.style.display = "none";
+    });
+
+    card.appendChild(cardContainer);
+    swiperWrapper.appendChild(card);
+  });
+
+  swiperContainer.appendChild(swiperWrapper);
+  block.appendChild(swiperContainer);
+
+  if (!isUniversalEditor()) {
+    try {
+      await loadSwiper();
+      initializeSwiper(
+        block,
+        swiperContainer,
+        arrowsContainer,
+        imageContainers
+      );
+    } catch (error) {
+      console.error("Swiper initialization failed:", error);
+    }
+  } else {
+    swiperContainer.style.display = "flex";
+    swiperContainer.style.overflow = "visible";
+    swiperWrapper.style.display = "flex";
+    swiperWrapper.style.gap = "24px";
+    arrowsContainer.style.display = "none";
+  }
 }
