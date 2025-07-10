@@ -1222,6 +1222,16 @@
         "name": "buttonLink",
         "label": "Button Link URL",
         "description": "URL for the action button"
+      },
+      {
+        "component": "multifield",
+        "name": "topics",
+        "label": "Values to be inserted into the topics filter",
+        "description": "Add topics for the filter dropdown. Each entry will be a new option.",
+        "field": {
+          "component": "text",
+          "name": "topic"
+        }
       }
     ]
   },
