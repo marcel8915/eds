@@ -324,21 +324,7 @@
             }
           }
         },
-        {
-          "title": "Icon Text",
-          "id": "icon-text",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Icon Text",
-                  "model": "icon-text"
-                }
-              }
-            }
-          }
-        },
+
         {
           "title": "Events Listing",
           "id": "events-listing",

@@ -58,7 +58,7 @@
   },
   {
     "id": "text-image",
-    "components": ["title", "text", "image", "icon-text", "button"]
+    "components": ["title", "text", "image", "button"]
   },
   {
     "id": "three-column-tile",
