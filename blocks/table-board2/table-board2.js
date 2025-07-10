@@ -1,9 +1,3 @@
-// future note
-// filter is based on authoring content coming from AEM
-// filter values are either {set, user just select what values they want} or {user can input in as string, the values they want}
-// either or approach, the values needs to be the same as the values put inside each card
-// right now the values are hard coded
-
 import { moveInstrumentation } from "../../scripts/scripts.js";
 import { createCalendarBoard } from "./calendar-board.js";
 import { createTopicsFilter } from "./topics-filter.js";
@@ -29,33 +23,21 @@ export default function decorate(block) {
   const container = document.createElement("div");
   container.className = "table-board-container";
 
-  const rows = [...block.children];
+  const allRows = [...block.children];
 
-  const sectionTitleRow = rows[0];
-  let sectionTitle = "";
-  if (sectionTitleRow) {
-    sectionTitle = sectionTitleRow.textContent.trim();
-    sectionTitleRow.remove();
-  }
+  const sectionTitle = allRows[0]?.textContent.trim() || "";
+  const viewAllText = allRows[2]?.textContent.trim() || "";
+  const viewAllLink =
+    allRows[3]?.querySelector("a")?.getAttribute("href") || "";
 
-  if (rows.length > 1 && rows[1].textContent.trim() === "") {
-    rows[1].remove();
-  }
+  const topicsString = allRows[4]?.textContent.trim() || "";
+  const allTopics = topicsString
+    ? topicsString.split(",").map((topic) => topic.trim())
+    : [];
 
-  let viewAllText = "";
-  let viewAllLink = "";
-  if (rows.length > 2) {
-    const viewAllTextRow = rows[2];
-    viewAllText = viewAllTextRow.textContent.trim();
+  const itemRows = allRows.slice(5);
 
-    if (rows.length > 3 && rows[3].querySelector(".button-container a")) {
-      viewAllLink = rows[3]
-        .querySelector(".button-container a")
-        .getAttribute("href");
-
-      rows.splice(2, 2);
-    }
-  }
+  block.innerHTML = "";
 
   const header = document.createElement("div");
   header.className = "table-board-header";
@@ -70,11 +52,20 @@ export default function decorate(block) {
   const allFiltersContainer = document.createElement("div");
   allFiltersContainer.className = "table-board-all-filters-container";
 
+  let selectedTopics = [];
+  const topicsFilter = createTopicsFilter({
+    allTopics: allTopics,
+    selectedTopics: selectedTopics,
+    onFilterChange: (newSelectedTopics) => {
+      selectedTopics = newSelectedTopics;
+      applyAllFilters();
+    },
+  });
+
   const dateFilterContainer = document.createElement("div");
   dateFilterContainer.className = "table-board-filter-container";
   const dateFilterButton = document.createElement("button");
   dateFilterButton.className = "table-board-filter-button";
-
   dateFilterButton.setAttribute("aria-expanded", "false");
   const buttonTextSpan = document.createElement("span");
   buttonTextSpan.className = "table-board-filter-button-text";
@@ -88,32 +79,18 @@ export default function decorate(block) {
   dateFilterContainer.append(dateFilterButton);
   dateFilterContainer.append(dropdownContainer);
 
-  const allTopics = ["Technology", "Arts & Culture", "Science", "Business"];
-  let selectedTopics = [];
-
-  const topicsFilter = createTopicsFilter({
-    allTopics: allTopics,
-    selectedTopics: selectedTopics,
-    onFilterChange: (newSelectedTopics) => {
-      selectedTopics = newSelectedTopics;
-
-      applyAllFilters();
-    },
-  });
-
   allFiltersContainer.append(topicsFilter);
   allFiltersContainer.append(dateFilterContainer);
-
   container.append(allFiltersContainer);
 
   const itemsContainer = document.createElement("div");
   itemsContainer.className = "table-board-items";
-
   let originalItems = [];
-  for (let i = 1; i < rows.length; i++) {
-    const row = rows[i];
+
+  itemRows.forEach((row) => {
     const columns = [...row.children];
-    if (columns.length < 5) continue;
+    if (columns.length < 5) return;
+
     const item = document.createElement("div");
     item.className = "table-board-item";
     moveInstrumentation(row, item);
@@ -128,7 +105,7 @@ export default function decorate(block) {
       }
     }
 
-    const topic = allTopics[i % allTopics.length];
+    const topic = columns[7]?.textContent.trim() || "";
     item.dataset.topic = topic;
 
     const itemContent = document.createElement("div");
@@ -242,7 +219,7 @@ export default function decorate(block) {
     item.append(itemContent);
     originalItems.push({ element: item, date: itemDate, topic: topic });
     itemsContainer.append(item);
-  }
+  });
   container.append(itemsContainer);
 
   let selectedDates = [];
@@ -325,6 +302,5 @@ export default function decorate(block) {
     container.append(viewAllContainer);
   }
 
-  block.innerHTML = "";
   block.append(container);
 }
