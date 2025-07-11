@@ -757,7 +757,13 @@
       {
         "component": "text",
         "name": "categories",
-        "label": "insert category here",
+        "label": "Insert category for destination here",
+        "description": "Add category to be matched with the filter."
+      },
+      {
+        "component": "text",
+        "name": "categories-type",
+        "label": "Insert category for types here",
         "description": "Add category to be matched with the filter."
       }
     ]
