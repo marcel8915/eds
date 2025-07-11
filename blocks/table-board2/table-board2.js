@@ -31,13 +31,17 @@ export default function decorate(block) {
 
   const topicsString = allRows[4]?.textContent.trim() || "";
   const allTopics = topicsString
-    ? topicsString.split(",").map((topic) => topic.trim())
+    ? [
+        ...new Set(
+          topicsString.split(",").map((topic) => topic.trim().toLowerCase())
+        ),
+      ]
     : [];
 
   const itemRows = allRows.slice(5);
-
   block.innerHTML = "";
 
+  // header section
   const header = document.createElement("div");
   header.className = "table-board-header";
   if (sectionTitle) {
@@ -48,9 +52,11 @@ export default function decorate(block) {
   }
   container.append(header);
 
+  // filters container
   const allFiltersContainer = document.createElement("div");
   allFiltersContainer.className = "table-board-all-filters-container";
 
+  // date ranges configuration
   const dateRanges = [
     {
       label: "Jan 2025 - Mar 2025",
@@ -94,7 +100,8 @@ export default function decorate(block) {
     activeTopic: "All Topics",
     defaultLabel: "All Topics",
     onFilterChange: (selectedLabel) => {
-      selectedTopics = selectedLabel === "All Topics" ? [] : [selectedLabel];
+      selectedTopics =
+        selectedLabel === "All Topics" ? [] : [selectedLabel.toLowerCase()]; // Store lowercase for comparison
       applyAllFilters();
     },
   });
@@ -103,18 +110,21 @@ export default function decorate(block) {
   allFiltersContainer.append(dateRangeFilter);
   container.append(allFiltersContainer);
 
+  // Items container
   const itemsContainer = document.createElement("div");
   itemsContainer.className = "table-board-items";
   let originalItems = [];
 
+  // Process each item row
   itemRows.forEach((row) => {
     const columns = [...row.children];
-    if (columns.length < 5) return;
+    if (columns.length < 8) return;
 
     const item = document.createElement("div");
     item.className = "table-board-item";
     moveInstrumentation(row, item);
 
+    // process date
     let itemDate = null;
     const dateCol = columns[1];
     if (dateCol) {
@@ -125,14 +135,16 @@ export default function decorate(block) {
       }
     }
 
-    const topic = columns[7]?.textContent.trim() || "";
-    item.dataset.topic = topic;
+    // process category (lowercase)
+    const category = columns[7]?.textContent.trim().toLowerCase() || "";
+    item.dataset.category = category;
 
     const itemContent = document.createElement("div");
     itemContent.className = "table-board-item-content";
 
+    // image handling
     const imageCol = columns[0];
-    if (imageCol && imageCol.querySelector("picture")) {
+    if (imageCol?.querySelector("picture")) {
       const imageContainer = document.createElement("div");
       imageContainer.className = "table-board-image-container";
       const picture = imageCol.querySelector("picture");
@@ -142,9 +154,11 @@ export default function decorate(block) {
       itemContent.append(imageContainer);
     }
 
+    // text content
     const textContent = document.createElement("div");
     textContent.className = "table-board-text-content";
 
+    // date
     if (dateCol) {
       const dateElement = document.createElement("div");
       dateElement.className = "text-l1 table-board-date";
@@ -153,6 +167,7 @@ export default function decorate(block) {
       textContent.append(dateElement);
     }
 
+    // title with optional link
     const titleCol = columns[2];
     const titleLinkCol = columns[3];
     if (titleCol) {
@@ -160,50 +175,23 @@ export default function decorate(block) {
       titleWrapper.className = "table-board-item-title text-h2";
       moveInstrumentation(titleCol, titleWrapper);
       const titleText = titleCol.textContent.trim();
-      const titleHtml = titleCol.innerHTML.trim();
-      const hasNewline = titleText.includes("\n") || titleHtml.includes("<br>");
 
-      if (titleLinkCol && titleLinkCol.querySelector("a")) {
+      if (titleLinkCol?.querySelector("a")) {
         const link = titleLinkCol.querySelector("a").getAttribute("href");
         const linkElement = document.createElement("a");
         linkElement.href = link;
         linkElement.target = "_blank";
         linkElement.rel = "noopener noreferrer";
         linkElement.className = "table-board-title-link";
-        linkElement.style.whiteSpace = "pre-line";
-        const originalLink = titleLinkCol.querySelector("a");
-        moveInstrumentation(originalLink, linkElement);
-
-        const groupContainer = document.createElement("div");
-        groupContainer.className = "table-board-title-group";
-        if (hasNewline) {
-          const lines = titleText.split("\n");
-          groupContainer.appendChild(document.createTextNode(lines[0].trim()));
-          groupContainer.appendChild(document.createElement("br"));
-          const secondLine = document.createElement("span");
-          secondLine.className = "table-board-title-line";
-          secondLine.textContent = lines[1] ? lines[1].trim() : "";
-          const underline = document.createElement("span");
-          underline.className = "table-board-title-underline";
-          secondLine.appendChild(underline);
-          groupContainer.appendChild(secondLine);
-        } else {
-          const titleLine = document.createElement("span");
-          titleLine.className = "table-board-title-line";
-          titleLine.textContent = titleText;
-          const underline = document.createElement("span");
-          underline.className = "table-board-title-underline";
-          titleLine.appendChild(underline);
-          groupContainer.appendChild(titleLine);
-        }
-        linkElement.appendChild(groupContainer);
-        titleWrapper.appendChild(linkElement);
+        linkElement.textContent = titleText;
+        titleWrapper.append(linkElement);
       } else {
         titleWrapper.textContent = titleText;
       }
       textContent.append(titleWrapper);
     }
 
+    // description
     const descCol = columns[4];
     if (descCol) {
       const descElement = document.createElement("div");
@@ -213,62 +201,46 @@ export default function decorate(block) {
       textContent.append(descElement);
     }
 
-    if (columns.length > 6) {
-      const buttonTextCol = columns[5];
-      const buttonLinkCol = columns[6];
-      if (buttonTextCol && buttonLinkCol && buttonLinkCol.querySelector("a")) {
-        const buttonText =
-          buttonTextCol.textContent.trim() || "View Press Info";
-        const buttonLink = buttonLinkCol
-          .querySelector("a")
-          .getAttribute("href");
-        if (buttonLink) {
-          const mobileButton = document.createElement("a");
-          mobileButton.href = buttonLink;
-          mobileButton.target = "_blank";
-          mobileButton.rel = "noopener noreferrer";
-          mobileButton.className = "table-board-mobile-button secondary-button";
-          const originalButtonLink = buttonLinkCol.querySelector("a");
-          moveInstrumentation(originalButtonLink, mobileButton);
-
-          const underlineContainer = document.createElement("span");
-          underlineContainer.className = "underline-container";
-          underlineContainer.textContent = buttonText;
-          const underline = document.createElement("span");
-          underline.className = "underline";
-          underlineContainer.appendChild(underline);
-          mobileButton.appendChild(underlineContainer);
-          textContent.append(mobileButton);
-        }
+    // button
+    const buttonTextCol = columns[5];
+    const buttonLinkCol = columns[6];
+    if (buttonTextCol && buttonLinkCol?.querySelector("a")) {
+      const buttonText = buttonTextCol.textContent.trim() || "View Press Info";
+      const buttonLink = buttonLinkCol.querySelector("a").getAttribute("href");
+      if (buttonLink) {
+        const button = document.createElement("a");
+        button.href = buttonLink;
+        button.target = "_blank";
+        button.rel = "noopener noreferrer";
+        button.className = "table-board-mobile-button secondary-button";
+        button.textContent = buttonText;
+        textContent.append(button);
       }
     }
 
     itemContent.append(textContent);
     item.append(itemContent);
-    originalItems.push({ element: item, date: itemDate, topic: topic });
+    originalItems.push({ element: item, date: itemDate, category });
     itemsContainer.append(item);
   });
 
   container.append(itemsContainer);
 
+  // filtering function
   function applyAllFilters() {
     itemsContainer.innerHTML = "";
+
     originalItems.forEach((item) => {
-      // Date range filter
-      const dateMatch = (() => {
-        if (!selectedDateRange) return true;
-        return (
-          item.date &&
-          isInRange(item.date, selectedDateRange.start, selectedDateRange.end)
-        );
-      })();
+      const dateMatch =
+        !selectedDateRange ||
+        (item.date &&
+          isInRange(item.date, selectedDateRange.start, selectedDateRange.end));
 
-      const topicMatch = (() => {
-        if (selectedTopics.length === 0) return true;
-        return selectedTopics.includes(item.topic);
-      })();
+      const categoryMatch =
+        selectedTopics.length === 0 ||
+        selectedTopics.some((topic) => item.category === topic.toLowerCase());
 
-      if (dateMatch && topicMatch) {
+      if (dateMatch && categoryMatch) {
         itemsContainer.append(item.element);
       }
     });
@@ -282,14 +254,7 @@ export default function decorate(block) {
     viewAllLinkElement.target = "_blank";
     viewAllLinkElement.rel = "noopener noreferrer";
     viewAllLinkElement.className = "table-board-view-all-link";
-    const underlineContainer = document.createElement("span");
-    underlineContainer.className = "underline-container";
-    underlineContainer.textContent = viewAllText;
-    const underline = document.createElement("span");
-    underline.className = "underline";
-    underlineContainer.appendChild(underline);
-    viewAllLinkElement.innerHTML = "";
-    viewAllLinkElement.appendChild(underlineContainer);
+    viewAllLinkElement.textContent = viewAllText;
     viewAllContainer.append(viewAllLinkElement);
     container.append(viewAllContainer);
   }
