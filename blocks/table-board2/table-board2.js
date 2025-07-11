@@ -18,6 +18,52 @@ function isInRange(date, start, end) {
   return time >= startTime && time <= endTime;
 }
 
+function parseDateRangeString(rangeString) {
+  const normalizedRange = rangeString
+    .split(" ")
+    .map((part, i) => {
+      if (i === 0 || i === 3) {
+        return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+      }
+      return part;
+    })
+    .join(" ");
+
+  const [startPart, endPart] = normalizedRange.split("-").map((s) => s.trim());
+
+  const startMatch = startPart.match(/([A-Za-z]+)\s(\d{4})/);
+  const endMatch = endPart.match(/([A-Za-z]+)\s(\d{4})/);
+
+  if (!startMatch || !endMatch) return null;
+
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const startMonth = monthNames.indexOf(startMatch[1]);
+  const startYear = parseInt(startMatch[2]);
+  const endMonth = monthNames.indexOf(endMatch[1]);
+  const endYear = parseInt(endMatch[2]);
+
+  if (startMonth === -1 || endMonth === -1) return null;
+
+  return {
+    label: normalizedRange,
+    start: new Date(startYear, startMonth, 1),
+    end: new Date(endYear, endMonth + 1, 0),
+  };
+}
+
 export default function decorate(block) {
   const container = document.createElement("div");
   container.className = "table-board-container";
@@ -29,6 +75,7 @@ export default function decorate(block) {
   const viewAllLink =
     allRows[3]?.querySelector("a")?.getAttribute("href") || "";
 
+  // process topics
   const topicsString = allRows[4]?.textContent.trim() || "";
   const allTopics = topicsString
     ? [
@@ -38,7 +85,17 @@ export default function decorate(block) {
       ]
     : [];
 
-  const itemRows = allRows.slice(5);
+  // process date ranges
+  const dateRangesString = allRows[5]?.textContent.trim() || "";
+  const dateRanges = dateRangesString
+    ? dateRangesString
+        .split(",")
+        .map((range) => parseDateRangeString(range.trim()))
+        .filter((range) => range !== null)
+        .sort((a, b) => b.start - a.start)
+    : [];
+
+  const itemRows = allRows.slice(6);
   block.innerHTML = "";
 
   // header section
@@ -55,30 +112,6 @@ export default function decorate(block) {
   // filters container
   const allFiltersContainer = document.createElement("div");
   allFiltersContainer.className = "table-board-all-filters-container";
-
-  // date ranges configuration
-  const dateRanges = [
-    {
-      label: "Jan 2025 - Mar 2025",
-      start: new Date(2025, 0, 1),
-      end: new Date(2025, 2, 31),
-    },
-    {
-      label: "Apr 2025 - Jun 2025",
-      start: new Date(2025, 3, 1),
-      end: new Date(2025, 5, 30),
-    },
-    {
-      label: "Jul 2025 - Sep 2025",
-      start: new Date(2025, 6, 1),
-      end: new Date(2025, 8, 30),
-    },
-    {
-      label: "Oct 2025 - Dec 2025",
-      start: new Date(2025, 9, 1),
-      end: new Date(2025, 11, 31),
-    },
-  ];
 
   let selectedDateRange = null;
   const dateRangeFilter = createTopicsFilter({
@@ -101,7 +134,7 @@ export default function decorate(block) {
     defaultLabel: "All Topics",
     onFilterChange: (selectedLabel) => {
       selectedTopics =
-        selectedLabel === "All Topics" ? [] : [selectedLabel.toLowerCase()]; // Store lowercase for comparison
+        selectedLabel === "All Topics" ? [] : [selectedLabel.toLowerCase()];
       applyAllFilters();
     },
   });
@@ -110,12 +143,12 @@ export default function decorate(block) {
   allFiltersContainer.append(dateRangeFilter);
   container.append(allFiltersContainer);
 
-  // Items container
+  // items container
   const itemsContainer = document.createElement("div");
   itemsContainer.className = "table-board-items";
   let originalItems = [];
 
-  // Process each item row
+  // process each item row
   itemRows.forEach((row) => {
     const columns = [...row.children];
     if (columns.length < 8) return;
