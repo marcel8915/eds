@@ -1228,6 +1228,13 @@
         "label": "Values to be inserted into the topics filter",
         "description": "Add topics for the filter dropdown. Each entry will be a new option.",
         "multi": true
+      },
+      {
+        "component": "text",
+        "name": "dates",
+        "label": "Values to be inserted into the dates filter",
+        "description": "Add date ranges IE 'Jan 2025 - Mar 2025' for the filter dropdown. Each entry will be a new option.",
+        "multi": true
       }
     ]
   },
