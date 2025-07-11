@@ -1,24 +1,24 @@
 const TOPICS_PILL_CLASS = "topics-filter-pill";
 const TOPICS_DROPDOWN_CLASS = "topics-filter-dropdown";
-const TOPICS_DONE_BTN_CLASS = "topics-filter-done-btn";
-const TOPICS_SELECT_ALL_BTN_CLASS = "topics-filter-select-all-btn";
 
 /**
- * Creates a dropdown filter component for topics.
+ * Creates a generic dropdown filter component.
  * @param {object} options
- * @param {string[]} [options.allTopics=[]]
- * @param {string[]} [options.selectedTopics=[]]
- * @param {function} [options.onFilterChange=()=>{}]
- * @returns {HTMLElement}
+ * @param {string[]} [options.allTopics=[]] - The list of available filter options.
+ * @param {string} [options.activeTopic] - The initially selected topic.
+ * @param {string} [options.defaultLabel='All Topics'] - The label for the "all" state.
+ * @param {function} [options.onFilterChange=()=>{}] - Callback function.
+ * @returns {HTMLElement} The filter component's root element.
  */
 export function createTopicsFilter({
   allTopics = [],
-  selectedTopics = [],
+  activeTopic,
+  defaultLabel = "All Topics",
   onFilterChange = () => {},
 }) {
   const filterState = {
-    all: [...allTopics],
-    selected: [...selectedTopics],
+    all: [defaultLabel, ...allTopics],
+    active: activeTopic || defaultLabel,
   };
 
   const buttonWrapper = document.createElement("div");
@@ -38,17 +38,16 @@ export function createTopicsFilter({
   pillButton.append(pillText, pillIcon);
   buttonWrapper.append(pillButton);
 
+  function formatTopicName(text) {
+    if (typeof text !== "string" || !text) return "";
+
+    if (text === defaultLabel) return text;
+    const lowercased = text.toLowerCase();
+    return lowercased.charAt(0).toUpperCase() + lowercased.slice(1);
+  }
+
   function updatePillText() {
-    const sel = filterState.selected;
-    if (sel.length === 0 || sel.length === filterState.all.length) {
-      pillText.textContent = "All Topics";
-      return;
-    }
-    if (sel.length === 1) {
-      pillText.textContent = sel[0];
-      return;
-    }
-    pillText.textContent = `${sel.length} Topics Selected`;
+    pillText.textContent = formatTopicName(filterState.active);
   }
 
   function closeDropdown(dropdown) {
@@ -71,62 +70,26 @@ export function createTopicsFilter({
     dropdown.className = TOPICS_DROPDOWN_CLASS;
     dropdown.setAttribute("aria-open", "false");
 
-    let html = `<div class="topics-filter-dropdown-inner">`;
-    html += `<div class="topics-filter-dropdown-header"><p>Select Topic</p><button type="button" class="${TOPICS_SELECT_ALL_BTN_CLASS}">${
-      filterState.selected.length === filterState.all.length
-        ? "Deselect All"
-        : "Select All"
-    }</button></div>`;
-
     filterState.all.forEach((topic) => {
-      const checked = filterState.selected.includes(topic) ? "checked" : "";
-      html += `<label class="topics-filter-item"> ${topic}<input type="checkbox" value="${topic}" ${checked}/></label>`;
-    });
+      const item = document.createElement("button");
+      item.className = "topics-filter-item";
+      item.textContent = formatTopicName(topic);
 
-    html += `<button type="button" class="${TOPICS_DONE_BTN_CLASS}">Done</button>`;
-    html += `</div>`;
-    dropdown.innerHTML = html;
-    buttonWrapper.appendChild(dropdown);
+      if (topic === filterState.active) {
+        item.classList.add("active");
+      }
 
-    dropdown.addEventListener("click", (e) => e.stopPropagation());
-
-    dropdown.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
-      cb.addEventListener("change", (e) => {
-        const { value, checked } = e.target;
-        if (checked) {
-          filterState.selected.push(value);
-        } else {
-          filterState.selected = filterState.selected.filter(
-            (s) => s !== value
-          );
-        }
+      item.addEventListener("click", () => {
+        filterState.active = topic;
+        onFilterChange(topic);
         updatePillText();
-      });
-    });
-
-    dropdown
-      .querySelector(`.${TOPICS_DONE_BTN_CLASS}`)
-      .addEventListener("click", () => {
-        onFilterChange(filterState.selected);
         closeDropdown(dropdown);
       });
 
-    dropdown
-      .querySelector(`.${TOPICS_SELECT_ALL_BTN_CLASS}`)
-      .addEventListener("click", (e) => {
-        const btn = e.target;
-        if (filterState.selected.length === filterState.all.length) {
-          filterState.selected = [];
-          btn.textContent = "Select All";
-        } else {
-          filterState.selected = [...filterState.all];
-          btn.textContent = "Deselect All";
-        }
-        dropdown.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
-          cb.checked = filterState.selected.includes(cb.value);
-        });
-        updatePillText();
-      });
+      dropdown.appendChild(item);
+    });
+
+    buttonWrapper.appendChild(dropdown);
 
     setTimeout(() => {
       dropdown.setAttribute("aria-open", "true");

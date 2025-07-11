@@ -1,5 +1,4 @@
 import { moveInstrumentation } from "../../scripts/scripts.js";
-import { createCalendarBoard } from "./calendar-board.js";
 import { createTopicsFilter } from "./topics-filter.js";
 
 function isSameDay(d1, d2) {
@@ -52,35 +51,56 @@ export default function decorate(block) {
   const allFiltersContainer = document.createElement("div");
   allFiltersContainer.className = "table-board-all-filters-container";
 
-  let selectedTopics = [];
-  const topicsFilter = createTopicsFilter({
-    allTopics: allTopics,
-    selectedTopics: selectedTopics,
-    onFilterChange: (newSelectedTopics) => {
-      selectedTopics = newSelectedTopics;
+  const dateRanges = [
+    {
+      label: "Jan 2025 - Mar 2025",
+      start: new Date(2025, 0, 1),
+      end: new Date(2025, 2, 31),
+    },
+    {
+      label: "Apr 2025 - Jun 2025",
+      start: new Date(2025, 3, 1),
+      end: new Date(2025, 5, 30),
+    },
+    {
+      label: "Jul 2025 - Sep 2025",
+      start: new Date(2025, 6, 1),
+      end: new Date(2025, 8, 30),
+    },
+    {
+      label: "Oct 2025 - Dec 2025",
+      start: new Date(2025, 9, 1),
+      end: new Date(2025, 11, 31),
+    },
+  ];
+
+  let selectedDateRange = null;
+  const dateRangeFilter = createTopicsFilter({
+    allTopics: dateRanges.map((range) => range.label),
+    activeTopic: "All Dates",
+    defaultLabel: "All Dates",
+    onFilterChange: (selectedLabel) => {
+      selectedDateRange =
+        selectedLabel === "All Dates"
+          ? null
+          : dateRanges.find((range) => range.label === selectedLabel);
       applyAllFilters();
     },
   });
 
-  const dateFilterContainer = document.createElement("div");
-  dateFilterContainer.className = "table-board-filter-container";
-  const dateFilterButton = document.createElement("button");
-  dateFilterButton.className = "table-board-filter-button";
-  dateFilterButton.setAttribute("aria-expanded", "false");
-  const buttonTextSpan = document.createElement("span");
-  buttonTextSpan.className = "table-board-filter-button-text";
-  buttonTextSpan.textContent = "Filter by Date";
-  const buttonIconSpan = document.createElement("span");
-  buttonIconSpan.className = "table-board-filter-button-icon";
-  buttonIconSpan.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>`;
-  dateFilterButton.append(buttonTextSpan, buttonIconSpan);
-  const dropdownContainer = document.createElement("div");
-  dropdownContainer.className = "table-board-filter-dropdown-container";
-  dateFilterContainer.append(dateFilterButton);
-  dateFilterContainer.append(dropdownContainer);
+  let selectedTopics = [];
+  const topicsFilter = createTopicsFilter({
+    allTopics: allTopics,
+    activeTopic: "All Topics",
+    defaultLabel: "All Topics",
+    onFilterChange: (selectedLabel) => {
+      selectedTopics = selectedLabel === "All Topics" ? [] : [selectedLabel];
+      applyAllFilters();
+    },
+  });
 
   allFiltersContainer.append(topicsFilter);
-  allFiltersContainer.append(dateFilterContainer);
+  allFiltersContainer.append(dateRangeFilter);
   container.append(allFiltersContainer);
 
   const itemsContainer = document.createElement("div");
@@ -121,8 +141,10 @@ export default function decorate(block) {
       imageContainer.append(clonedPicture);
       itemContent.append(imageContainer);
     }
+
     const textContent = document.createElement("div");
     textContent.className = "table-board-text-content";
+
     if (dateCol) {
       const dateElement = document.createElement("div");
       dateElement.className = "text-l1 table-board-date";
@@ -130,6 +152,7 @@ export default function decorate(block) {
       moveInstrumentation(dateCol, dateElement);
       textContent.append(dateElement);
     }
+
     const titleCol = columns[2];
     const titleLinkCol = columns[3];
     if (titleCol) {
@@ -139,6 +162,7 @@ export default function decorate(block) {
       const titleText = titleCol.textContent.trim();
       const titleHtml = titleCol.innerHTML.trim();
       const hasNewline = titleText.includes("\n") || titleHtml.includes("<br>");
+
       if (titleLinkCol && titleLinkCol.querySelector("a")) {
         const link = titleLinkCol.querySelector("a").getAttribute("href");
         const linkElement = document.createElement("a");
@@ -149,6 +173,7 @@ export default function decorate(block) {
         linkElement.style.whiteSpace = "pre-line";
         const originalLink = titleLinkCol.querySelector("a");
         moveInstrumentation(originalLink, linkElement);
+
         const groupContainer = document.createElement("div");
         groupContainer.className = "table-board-title-group";
         if (hasNewline) {
@@ -178,6 +203,7 @@ export default function decorate(block) {
       }
       textContent.append(titleWrapper);
     }
+
     const descCol = columns[4];
     if (descCol) {
       const descElement = document.createElement("div");
@@ -186,6 +212,7 @@ export default function decorate(block) {
       moveInstrumentation(descCol, descElement);
       textContent.append(descElement);
     }
+
     if (columns.length > 6) {
       const buttonTextCol = columns[5];
       const buttonLinkCol = columns[6];
@@ -203,6 +230,7 @@ export default function decorate(block) {
           mobileButton.className = "table-board-mobile-button secondary-button";
           const originalButtonLink = buttonLinkCol.querySelector("a");
           moveInstrumentation(originalButtonLink, mobileButton);
+
           const underlineContainer = document.createElement("span");
           underlineContainer.className = "underline-container";
           underlineContainer.textContent = buttonText;
@@ -220,36 +248,23 @@ export default function decorate(block) {
     originalItems.push({ element: item, date: itemDate, topic: topic });
     itemsContainer.append(item);
   });
-  container.append(itemsContainer);
 
-  let selectedDates = [];
-  const formatDateRange = (range) => {
-    if (!range || range.length === 0 || !range[0]) return "Filter by Date";
-    const options = { month: "short", day: "numeric", year: "numeric" };
-    const fromDate = range[0].toLocaleDateString("en-US", options);
-    if (range.length === 1 || isSameDay(range[0], range[1])) return fromDate;
-    const toDate = range[1].toLocaleDateString("en-US", options);
-    return `${fromDate} – ${toDate}`;
-  };
+  container.append(itemsContainer);
 
   function applyAllFilters() {
     itemsContainer.innerHTML = "";
     originalItems.forEach((item) => {
+      // Date range filter
       const dateMatch = (() => {
-        if (!selectedDates || selectedDates.length === 0) return true;
-        const [start, end] =
-          selectedDates.length === 1
-            ? [selectedDates[0], selectedDates[0]]
-            : selectedDates;
-        return item.date && isInRange(item.date, start, end);
+        if (!selectedDateRange) return true;
+        return (
+          item.date &&
+          isInRange(item.date, selectedDateRange.start, selectedDateRange.end)
+        );
       })();
 
       const topicMatch = (() => {
-        if (
-          selectedTopics.length === 0 ||
-          selectedTopics.length === allTopics.length
-        )
-          return true;
+        if (selectedTopics.length === 0) return true;
         return selectedTopics.includes(item.topic);
       })();
 
@@ -258,29 +273,6 @@ export default function decorate(block) {
       }
     });
   }
-
-  const calendar = createCalendarBoard({
-    onSelect: (dates) => {
-      selectedDates = dates;
-      buttonTextSpan.textContent = formatDateRange(dates);
-      applyAllFilters();
-    },
-    onDone: () => {
-      dateFilterButton.setAttribute("aria-expanded", "false");
-    },
-  });
-  dropdownContainer.append(calendar);
-
-  dateFilterButton.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const isExpanded =
-      dateFilterButton.getAttribute("aria-expanded") === "true";
-    dateFilterButton.setAttribute("aria-expanded", !isExpanded);
-  });
-
-  document.addEventListener("click", () => {
-    dateFilterButton.setAttribute("aria-expanded", "false");
-  });
 
   if (viewAllLink && viewAllText) {
     const viewAllContainer = document.createElement("div");

@@ -852,7 +852,6 @@
       }
     ]
   },
-
   {
     "id": "events-listing",
     "fields": [
@@ -1275,6 +1274,12 @@
         "name": "buttonLink",
         "label": "Button Link URL",
         "description": "URL for the action button"
+      },
+      {
+        "component": "text",
+        "name": "categories",
+        "label": "insert category here",
+        "description": "Add category to be matched with the filter."
       }
     ]
   },
