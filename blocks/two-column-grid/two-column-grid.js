@@ -14,9 +14,27 @@ export default function decorate(block) {
   filterRow.className = "filter-row";
   filterWrapper.appendChild(filterRow);
 
-  // Hardcoded filter values
-  const typeValues = ["Design", "Development", "Marketing", "Strategy"];
-  const destinationValues = ["Maldives", "Osaka", "Singapore", "Hong Kong"];
+  // Extract filter values from the first two divs' text content
+  const children = Array.from(block.children);
+  let destinationValues = [];
+  let typeValues = [];
+
+  if (children.length > 0) {
+    destinationValues = children[0].textContent
+      .trim()
+      .split(",")
+      .map((item) => item.trim());
+    children[0].remove();
+  }
+
+  if (children.length > 1) {
+    typeValues = children[1].textContent
+      .trim()
+      .split(",")
+      .map((item) => item.trim());
+    children[1].remove();
+  }
+
   const typeDefaultLabel = "All Work";
   const destinationDefaultLabel = "All Destinations";
 
@@ -52,21 +70,14 @@ export default function decorate(block) {
   typeFilter.classList.add("type-filter");
   filterRow.appendChild(typeFilter);
 
-  // Store original cards for filtering
-  const originalCards = Array.from(block.children);
+  // Process remaining cards
+  const cards = Array.from(block.children);
   let processedCards = [];
 
-  // Process each card
-  originalCards.forEach((row, index) => {
+  cards.forEach((row, index) => {
     const hasContent =
       row.textContent.trim() !== "" || row.querySelector("picture");
     if (!hasContent) return;
-
-    // Add random types for demo (replace with real data in production)
-    row.dataset.type =
-      typeValues[Math.floor(Math.random() * typeValues.length)];
-    row.dataset.destination =
-      destinationValues[Math.floor(Math.random() * destinationValues.length)];
 
     // Process card structure
     processCard(row, index);
@@ -87,10 +98,15 @@ export default function decorate(block) {
     });
   }
 
-  // Your original card processing logic
+  // Card processing function
   function processCard(row, index) {
     row.classList.add("column-tile-card");
     row.dataset.value = `card-${index + 1}`;
+
+    // Assign type and destination based on position (modify as needed)
+    row.dataset.destination =
+      destinationValues[index % destinationValues.length];
+    row.dataset.type = typeValues[index % typeValues.length];
 
     const cardSections = Array.from(row.children);
 

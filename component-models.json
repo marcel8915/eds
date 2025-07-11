@@ -753,6 +753,12 @@
             "label": "Feature Description 3"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "categories",
+        "label": "insert category here",
+        "description": "Add category to be matched with the filter."
       }
     ]
   },
