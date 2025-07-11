@@ -1,20 +1,16 @@
 import { createTypesFilter } from "./types-filter.js";
 
 export default function decorate(block) {
-  // Add container class
   block.classList.add("column-tile-container-col");
 
-  // Create filter container and add it before the grid
   const filterWrapper = document.createElement("div");
   filterWrapper.className = "two-column-grid-filter-wrapper";
   block.parentNode.insertBefore(filterWrapper, block);
 
-  // Create row container for filters
   const filterRow = document.createElement("div");
   filterRow.className = "filter-row";
   filterWrapper.appendChild(filterRow);
 
-  // Extract filter values from the first two divs' text content
   const children = Array.from(block.children);
   let destinationValues = [];
   let typeValues = [];
@@ -23,7 +19,7 @@ export default function decorate(block) {
     destinationValues = children[0].textContent
       .trim()
       .split(",")
-      .map((item) => item.trim());
+      .map((item) => item.trim().toLowerCase());
     children[0].remove();
   }
 
@@ -31,46 +27,42 @@ export default function decorate(block) {
     typeValues = children[1].textContent
       .trim()
       .split(",")
-      .map((item) => item.trim());
+      .map((item) => item.trim().toLowerCase());
     children[1].remove();
   }
 
   const typeDefaultLabel = "All Work";
   const destinationDefaultLabel = "All Destinations";
 
-  // Track filter states
   const filterState = {
-    type: typeDefaultLabel,
-    destination: destinationDefaultLabel,
+    type: typeDefaultLabel.toLowerCase(),
+    destination: destinationDefaultLabel.toLowerCase(),
   };
 
-  // Create destination filter
   const destinationFilter = createTypesFilter({
     allTypes: destinationValues,
     defaultLabel: destinationDefaultLabel,
     activeType: destinationDefaultLabel,
     onFilterChange: (selectedDestination) => {
-      filterState.destination = selectedDestination;
+      filterState.destination = selectedDestination.toLowerCase();
       applyFilters();
     },
   });
   destinationFilter.classList.add("destination-filter");
   filterRow.appendChild(destinationFilter);
 
-  // Create type filter
   const typeFilter = createTypesFilter({
     allTypes: typeValues,
     defaultLabel: typeDefaultLabel,
     activeType: typeDefaultLabel,
     onFilterChange: (selectedType) => {
-      filterState.type = selectedType;
+      filterState.type = selectedType.toLowerCase();
       applyFilters();
     },
   });
   typeFilter.classList.add("type-filter");
   filterRow.appendChild(typeFilter);
 
-  // Process remaining cards
   const cards = Array.from(block.children);
   let processedCards = [];
 
@@ -79,38 +71,42 @@ export default function decorate(block) {
       row.textContent.trim() !== "" || row.querySelector("picture");
     if (!hasContent) return;
 
-    // Process card structure
     processCard(row, index);
     processedCards.push(row);
   });
 
-  // Combined filter function
   function applyFilters() {
     processedCards.forEach((card) => {
+      const cardDestination = card.dataset.destination?.toLowerCase() || "";
+      const cardType = card.dataset.type?.toLowerCase() || "";
+
       const typeMatch =
-        filterState.type === typeDefaultLabel ||
-        card.dataset.type === filterState.type;
+        filterState.type === typeDefaultLabel.toLowerCase() ||
+        cardType === filterState.type;
+
       const destinationMatch =
-        filterState.destination === destinationDefaultLabel ||
-        card.dataset.destination === filterState.destination;
+        filterState.destination === destinationDefaultLabel.toLowerCase() ||
+        cardDestination === filterState.destination;
 
       card.style.display = typeMatch && destinationMatch ? "" : "none";
     });
   }
 
-  // Card processing function
   function processCard(row, index) {
     row.classList.add("column-tile-card");
     row.dataset.value = `card-${index + 1}`;
 
-    // Assign type and destination based on position (modify as needed)
-    row.dataset.destination =
-      destinationValues[index % destinationValues.length];
-    row.dataset.type = typeValues[index % typeValues.length];
+    const cardDivs = Array.from(row.children);
+    const valueDivs = cardDivs.slice(-2);
+
+    if (valueDivs.length >= 2) {
+      row.dataset.destination = valueDivs[0].textContent.trim().toLowerCase();
+      row.dataset.type = valueDivs[1].textContent.trim().toLowerCase();
+
+      valueDivs.forEach((div) => div.remove());
+    }
 
     const cardSections = Array.from(row.children);
-
-    // Only create contentMain if have sections that will go into it
     const needsContentMain = cardSections.some((_, i) => i > 0 && i < 8);
     let contentMain, leftContainer, rightContainer;
 
@@ -118,7 +114,6 @@ export default function decorate(block) {
       contentMain = document.createElement("div");
       contentMain.className = "column-tile-content-main";
 
-      // Only create containers if have content for them
       const hasLeftContent = cardSections.some((_, i) => i > 0 && i < 6);
       const hasRightContent = cardSections.some((_, i) => i > 5 && i < 8);
 
@@ -145,7 +140,7 @@ export default function decorate(block) {
       }
 
       switch (sectionIndex) {
-        case 0: // Image section
+        case 0:
           if (section.querySelector("picture")) {
             section.classList.add("column-tile-images");
             if (contentMain) {

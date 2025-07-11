@@ -1,15 +1,6 @@
 const TYPE_PILL_CLASS = "type-filter-pill";
 const TYPE_DROPDOWN_CLASS = "type-filter-dropdown";
 
-/**
- * Creates a generic dropdown filter component for types/categories
- * @param {object} options
- * @param {string[]} [options.allTypes=[]] - The list of available filter options
- * @param {string} [options.activeType] - The initially selected type
- * @param {string} [options.defaultLabel='All Types'] - The label for the "all" state
- * @param {function} [options.onFilterChange=()=>{}] - Callback function
- * @returns {HTMLElement} The filter component's root element
- */
 export function createTypesFilter({
   allTypes = [],
   activeType,
@@ -17,8 +8,8 @@ export function createTypesFilter({
   onFilterChange = () => {},
 }) {
   const filterState = {
-    all: [defaultLabel, ...allTypes],
-    active: activeType || defaultLabel,
+    all: [defaultLabel.toLowerCase(), ...allTypes.map((t) => t.toLowerCase())],
+    active: (activeType || defaultLabel).toLowerCase(),
   };
 
   const buttonWrapper = document.createElement("div");
@@ -41,7 +32,7 @@ export function createTypesFilter({
 
   function formatTypeName(text) {
     if (typeof text !== "string" || !text) return "";
-    if (text === defaultLabel) return text;
+    if (text.toLowerCase() === defaultLabel.toLowerCase()) return defaultLabel;
     const lowercased = text.toLowerCase();
     return lowercased.charAt(0).toUpperCase() + lowercased.slice(1);
   }
@@ -69,18 +60,19 @@ export function createTypesFilter({
     dropdown.className = TYPE_DROPDOWN_CLASS;
     dropdown.setAttribute("aria-open", "false");
 
-    filterState.all.forEach((type) => {
+    [defaultLabel, ...allTypes].forEach((displayText) => {
+      const typeValue = displayText.toLowerCase();
       const item = document.createElement("button");
       item.className = "type-filter-item";
-      item.textContent = formatTypeName(type);
+      item.textContent = formatTypeName(displayText);
 
-      if (type === filterState.active) {
+      if (typeValue === filterState.active) {
         item.classList.add("active");
       }
 
       item.addEventListener("click", () => {
-        filterState.active = type;
-        onFilterChange(type);
+        filterState.active = typeValue;
+        onFilterChange(displayText);
         updatePillText();
         closeDropdown();
       });
