@@ -1370,5 +1370,24 @@
         "required": true
       }
     ]
+  },
+  {
+    "id": "two-column-grid",
+    "fields": [
+      {
+        "component": "text",
+        "name": "destinations",
+        "label": "Destination Filter Options",
+        "description": "Add destinations for the filter dropdown",
+        "multi": true
+      },
+      {
+        "component": "text",
+        "name": "types",
+        "label": "Type Filter Options",
+        "description": "Add types for the filter dropdown",
+        "multi": true
+      }
+    ]
   }
 ]
