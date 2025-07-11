@@ -1,48 +1,100 @@
 import { createTypesFilter } from "./types-filter.js";
 
 export default function decorate(block) {
-  const parentContainer = block.closest(".section.section-header-container");
-  if (!parentContainer) return;
+  // Add container class
+  block.classList.add("column-tile-container-col");
 
-  if (!parentContainer.querySelector(".column-tile-filters")) {
-    const filterContainer = document.createElement("div");
-    filterContainer.className = "column-tile-filters";
+  // Create filter container and add it before the grid
+  const filterWrapper = document.createElement("div");
+  filterWrapper.className = "two-column-grid-filter-wrapper";
+  block.parentNode.insertBefore(filterWrapper, block);
 
-    const allTypes = ["science", "technology", "music", "art"];
-    let selectedTypes = [];
+  // Create row container for filters
+  const filterRow = document.createElement("div");
+  filterRow.className = "filter-row";
+  filterWrapper.appendChild(filterRow);
 
-    const typesFilter = createTypesFilter({
-      allTypes: allTypes,
-      activeType: "All Types",
-      defaultLabel: "All Types",
-      onFilterChange: (selectedLabel) => {
-        selectedTypes =
-          selectedLabel === "All Types" ? [] : [selectedLabel.toLowerCase()];
-        applyFilters();
-      },
+  // Hardcoded filter values
+  const typeValues = ["Design", "Development", "Marketing", "Strategy"];
+  const destinationValues = ["Maldives", "Osaka", "Singapore", "Hong Kong"];
+  const typeDefaultLabel = "All Work";
+  const destinationDefaultLabel = "All Destinations";
+
+  // Track filter states
+  const filterState = {
+    type: typeDefaultLabel,
+    destination: destinationDefaultLabel,
+  };
+
+  // Create destination filter
+  const destinationFilter = createTypesFilter({
+    allTypes: destinationValues,
+    defaultLabel: destinationDefaultLabel,
+    activeType: destinationDefaultLabel,
+    onFilterChange: (selectedDestination) => {
+      filterState.destination = selectedDestination;
+      applyFilters();
+    },
+  });
+  destinationFilter.classList.add("destination-filter");
+  filterRow.appendChild(destinationFilter);
+
+  // Create type filter
+  const typeFilter = createTypesFilter({
+    allTypes: typeValues,
+    defaultLabel: typeDefaultLabel,
+    activeType: typeDefaultLabel,
+    onFilterChange: (selectedType) => {
+      filterState.type = selectedType;
+      applyFilters();
+    },
+  });
+  typeFilter.classList.add("type-filter");
+  filterRow.appendChild(typeFilter);
+
+  // Store original cards for filtering
+  const originalCards = Array.from(block.children);
+  let processedCards = [];
+
+  // Process each card
+  originalCards.forEach((row, index) => {
+    const hasContent =
+      row.textContent.trim() !== "" || row.querySelector("picture");
+    if (!hasContent) return;
+
+    // Add random types for demo (replace with real data in production)
+    row.dataset.type =
+      typeValues[Math.floor(Math.random() * typeValues.length)];
+    row.dataset.destination =
+      destinationValues[Math.floor(Math.random() * destinationValues.length)];
+
+    // Process card structure
+    processCard(row, index);
+    processedCards.push(row);
+  });
+
+  // Combined filter function
+  function applyFilters() {
+    processedCards.forEach((card) => {
+      const typeMatch =
+        filterState.type === typeDefaultLabel ||
+        card.dataset.type === filterState.type;
+      const destinationMatch =
+        filterState.destination === destinationDefaultLabel ||
+        card.dataset.destination === filterState.destination;
+
+      card.style.display = typeMatch && destinationMatch ? "" : "none";
     });
-
-    filterContainer.append(typesFilter);
-
-    const header = parentContainer.querySelector(".section-header-wrapper");
-    if (header) {
-      header.after(filterContainer);
-    } else {
-      parentContainer.prepend(filterContainer);
-    }
   }
 
-  block.classList.add("column-tile-container-col");
-  const cards = Array.from(block.children).filter(
-    (row) => row.textContent.trim() !== "" || row.querySelector("picture")
-  );
-
-  cards.forEach((row, index) => {
+  // Your original card processing logic
+  function processCard(row, index) {
     row.classList.add("column-tile-card");
     row.dataset.value = `card-${index + 1}`;
-    row.dataset.type = ["science", "technology", "music", "art"][index % 4];
 
     const cardSections = Array.from(row.children);
+
+    // Only create contentMain if have sections that will go into it
     const needsContentMain = cardSections.some((_, i) => i > 0 && i < 8);
     let contentMain, leftContainer, rightContainer;
 
@@ -50,6 +102,7 @@ export default function decorate(block) {
       contentMain = document.createElement("div");
       contentMain.className = "column-tile-content-main";
 
+      // Only create containers if have content for them
       const hasLeftContent = cardSections.some((_, i) => i > 0 && i < 6);
       const hasRightContent = cardSections.some((_, i) => i > 5 && i < 8);
 
@@ -76,7 +129,7 @@ export default function decorate(block) {
       }
 
       switch (sectionIndex) {
-        case 0:
+        case 0: // Image section
           if (section.querySelector("picture")) {
             section.classList.add("column-tile-images");
             if (contentMain) {
@@ -232,22 +285,6 @@ export default function decorate(block) {
           }
           break;
       }
-    });
-  });
-
-  // 4. Filter function that works across all blocks
-  function applyFilters() {
-    const allCards = document.querySelectorAll(".column-tile-card");
-    const activeFilter = parentContainer
-      .querySelector(".type-filter-pill-text")
-      ?.textContent.toLowerCase();
-    const selectedTypes = activeFilter === "all types" ? [] : [activeFilter];
-
-    allCards.forEach((card) => {
-      const cardType = card.dataset.type.toLowerCase();
-      const shouldShow =
-        selectedTypes.length === 0 || selectedTypes.includes(cardType);
-      card.style.display = shouldShow ? "" : "none";
     });
   }
 }
