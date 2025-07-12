@@ -66,7 +66,7 @@ function parseDateRangeString(rangeString) {
 
 export default function decorate(block) {
   const container = document.createElement("div");
-  container.className = "table-board-container";
+  container.className = "highlights-container";
 
   const allRows = [...block.children];
 
@@ -100,10 +100,10 @@ export default function decorate(block) {
 
   // header section
   const header = document.createElement("div");
-  header.className = "table-board-header";
+  header.className = "highlights-container-header";
   if (sectionTitle) {
     const titleElement = document.createElement("h2");
-    titleElement.className = "table-board-section-title";
+    titleElement.className = "highlights-container-section-title";
     titleElement.textContent = sectionTitle;
     header.append(titleElement);
   }
@@ -111,7 +111,7 @@ export default function decorate(block) {
 
   // filters container
   const allFiltersContainer = document.createElement("div");
-  allFiltersContainer.className = "table-board-all-filters-container";
+  allFiltersContainer.className = "highlights-container-all-filters-container";
 
   let selectedDateRange = null;
   const dateRangeFilter = createTopicsFilter({
@@ -145,7 +145,7 @@ export default function decorate(block) {
 
   // items container
   const itemsContainer = document.createElement("div");
-  itemsContainer.className = "table-board-items";
+  itemsContainer.className = "highlights-container-items";
   let originalItems = [];
 
   // process each item row
@@ -154,7 +154,7 @@ export default function decorate(block) {
     if (columns.length < 8) return;
 
     const item = document.createElement("div");
-    item.className = "table-board-item";
+    item.className = "highlights-container-item";
     moveInstrumentation(row, item);
 
     // process date
@@ -173,13 +173,13 @@ export default function decorate(block) {
     item.dataset.category = category;
 
     const itemContent = document.createElement("div");
-    itemContent.className = "table-board-item-content";
+    itemContent.className = "highlights-container-item-content";
 
     // image handling
     const imageCol = columns[0];
     if (imageCol?.querySelector("picture")) {
       const imageContainer = document.createElement("div");
-      imageContainer.className = "table-board-image-container";
+      imageContainer.className = "highlights-container-image-container";
       const picture = imageCol.querySelector("picture");
       const clonedPicture = picture.cloneNode(true);
       moveInstrumentation(picture, clonedPicture);
@@ -189,12 +189,12 @@ export default function decorate(block) {
 
     // text content
     const textContent = document.createElement("div");
-    textContent.className = "table-board-text-content";
+    textContent.className = "highlights-container-text-content";
 
     // date
     if (dateCol) {
       const dateElement = document.createElement("div");
-      dateElement.className = "text-l1 table-board-date";
+      dateElement.className = "text-l1 highlights-container-date";
       dateElement.textContent = dateCol.textContent.trim();
       moveInstrumentation(dateCol, dateElement);
       textContent.append(dateElement);
@@ -205,7 +205,7 @@ export default function decorate(block) {
     const titleLinkCol = columns[3];
     if (titleCol) {
       const titleWrapper = document.createElement("div");
-      titleWrapper.className = "table-board-item-title text-h2";
+      titleWrapper.className = "highlights-container-item-title text-h2";
       moveInstrumentation(titleCol, titleWrapper);
       const titleText = titleCol.textContent.trim();
 
@@ -215,7 +215,7 @@ export default function decorate(block) {
         linkElement.href = link;
         linkElement.target = "_blank";
         linkElement.rel = "noopener noreferrer";
-        linkElement.className = "table-board-title-link";
+        linkElement.className = "highlights-container-title-link";
         linkElement.textContent = titleText;
         titleWrapper.append(linkElement);
       } else {
@@ -228,7 +228,7 @@ export default function decorate(block) {
     const descCol = columns[4];
     if (descCol) {
       const descElement = document.createElement("div");
-      descElement.className = "text-p2 table-board-description";
+      descElement.className = "text-p2 highlights-container-description";
       descElement.innerHTML = descCol.innerHTML;
       moveInstrumentation(descCol, descElement);
       textContent.append(descElement);
@@ -245,7 +245,8 @@ export default function decorate(block) {
         button.href = buttonLink;
         button.target = "_blank";
         button.rel = "noopener noreferrer";
-        button.className = "table-board-mobile-button secondary-button";
+        button.className =
+          "highlights-container-mobile-button secondary-button";
         button.textContent = buttonText;
         textContent.append(button);
       }
@@ -281,12 +282,12 @@ export default function decorate(block) {
 
   if (viewAllLink && viewAllText) {
     const viewAllContainer = document.createElement("div");
-    viewAllContainer.className = "table-board-view-all";
+    viewAllContainer.className = "highlights-container-view-all";
     const viewAllLinkElement = document.createElement("a");
     viewAllLinkElement.href = viewAllLink;
     viewAllLinkElement.target = "_blank";
     viewAllLinkElement.rel = "noopener noreferrer";
-    viewAllLinkElement.className = "table-board-view-all-link";
+    viewAllLinkElement.className = "highlights-container-view-all-link";
     viewAllLinkElement.textContent = viewAllText;
     viewAllContainer.append(viewAllLinkElement);
     container.append(viewAllContainer);

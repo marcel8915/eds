@@ -1,5 +1,5 @@
-/* Table Board 2 Styles */
-.table-board-container {
+/* Highlights Container Styles */
+.highlights-container {
     width: 100%;
     margin: 0 auto;
     padding-left: 1.5rem;
@@ -9,25 +9,25 @@
 }
 
 @media (min-width: 768px) {
-    .table-board-container {
+    .highlights-container {
         padding-left: 5rem;
         padding-right: 5rem;
     }
 }
 
 @media (min-width: 1024px) {
-    .table-board-container {
+    .highlights-container {
         padding-top: 7.5rem;
     }
 }
 
-.table-board-header {
+.highlights-container-header {
     display: flex;
     justify-content: center;
     margin-bottom: 1rem;
 }
 
-.table-board-section-title {
+.highlights-container-section-title {
     font-size: clamp(32px, 4vw, 52px);
     margin: 0;
     position: relative;
@@ -36,21 +36,21 @@
     flex-grow: 1;
 }
 
-.table-board-items {
+.highlights-container-items {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
     width: 100%;
 }
 
-.table-board-item {
+.highlights-container-item {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding-bottom: 40px;
     width: 100%;
     overflow: hidden;
 }
 
-.table-board-item-content {
+.highlights-container-item-content {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -58,26 +58,26 @@
 }
 
 @media (min-width: 768px) {
-    .table-board-item-content {
+    .highlights-container-item-content {
         flex-direction: row;
         gap: 5rem;
     }
 }
 
-.table-board-image-container {
+.highlights-container-image-container {
     width: 100%;
     flex-shrink: 0;
     max-width: 100%;
 }
 
 @media (min-width: 768px) {
-    .table-board-image-container {
+    .highlights-container-image-container {
         width: 300px;
         max-width: 300px;
     }
 }
 
-.table-board-image-container img {
+.highlights-container-image-container img {
     width: 100%;
     height: auto;
     object-fit: cover;
@@ -85,7 +85,7 @@
     display: block;
 }
 
-.table-board-text-content {
+.highlights-container-text-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -93,7 +93,7 @@
 }
 
 @media (min-width: 768px) {
-    .table-board-text-content {
+    .highlights-container-text-content {
         width: 750px;
     }
 }
@@ -122,7 +122,7 @@
     }
 }
 
-.table-board-title-link {
+.highlights-container-title-link {
     color: inherit;
     text-decoration: none;
     transition: color 0.3s ease;
@@ -130,21 +130,21 @@
     white-space: pre-line;
 }
 
-.table-board-title-link:hover {
+.highlights-container-title-link:hover {
     color: #b8860b;
 }
 
-.table-board-title-group {
+.highlights-container-title-group {
     position: relative;
     display: inline;
 }
 
-.table-board-title-line {
+.highlights-container-title-line {
     position: relative;
     display: inline;
 }
 
-.table-board-title-underline {
+.highlights-container-title-underline {
     position: absolute;
     bottom: 4px;
     left: 0;
@@ -154,12 +154,12 @@
     transition: width 0.5s ease;
 }
 
-.table-board-title-link:hover .table-board-title-underline {
+.highlights-container-title-link:hover .highlights-container-title-underline {
     width: 100%;
 }
 
 @media (min-width: 768px) {
-    .table-board-title-underline {
+    .highlights-container-title-underline {
         bottom: 7px;
     }
 }
@@ -169,7 +169,7 @@
     word-break: break-word;
 }
 
-.table-board-mobile-button {
+.highlights-container-mobile-button {
     display: block;
     width: fit-content;
     padding: 0;
@@ -187,16 +187,16 @@
     font-weight: inherit;
 }
 
-.table-board-mobile-button:hover {
+.highlights-container-mobile-button:hover {
     color: #333;
 }
 
-.table-board-mobile-button .underline-container {
+.highlights-container-mobile-button .underline-container {
     position: relative;
     display: inline-block;
 }
 
-.table-board-mobile-button .underline {
+.highlights-container-mobile-button .underline {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -206,27 +206,27 @@
     transition: width 0.3s ease;
 }
 
-.table-board-mobile-button:hover .underline {
+.highlights-container-mobile-button:hover .underline {
     width: 100%;
 }
 
 @media (min-width: 768px) {
-    .table-board-mobile-button {
+    .highlights-container-mobile-button {
         display: none;
     }
 }
 
-.table-board-view-all {
+.highlights-container-view-all {
     margin-top: 3rem;
     text-align: center;
 }
 @media (min-width: 768px) {
-    .table-board-view-all {
+    .highlights-container-view-all {
         margin-top: 5rem;
     }
 }
 
-.table-board-view-all-link {
+.highlights-container-view-all-link {
     display: inline-block;
     font-family: "Gill Sans", sans-serif;
     font-size: 0.875rem;
@@ -244,16 +244,16 @@
     margin: 0 auto;
 }
 
-.table-board-view-all-link:hover {
+.highlights-container-view-all-link:hover {
     color: #333;
 }
 
-.table-board-view-all-link .underline-container {
+.highlights-container-view-all-link .underline-container {
     position: relative;
     display: inline-block;
 }
 
-.table-board-view-all-link .underline {
+.highlights-container-view-all-link .underline {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -263,13 +263,13 @@
     transition: width 0.3s ease;
 }
 
-.table-board-view-all-link:hover .underline {
+.highlights-container-view-all-link:hover .underline {
     width: 100%;
 }
 
 /* Filter styles */
 
-.table-board-all-filters-container {
+.highlights-container-all-filters-container {
     display: flex;
     justify-content: center;
     gap: 1rem;
@@ -278,7 +278,7 @@
 }
 
 /* Filter Pill Containers */
-.table-board-filter-container,
+.highlights-container-filter-container,
 .topics-filter-button-wrapper {
     position: relative;
     width: 100%;
@@ -287,7 +287,7 @@
 }
 
 /* Filter Button/Pill Base Styles */
-.table-board-filter-button,
+.highlights-container-filter-button,
 .topics-filter-pill {
     display: flex;
     width: 100%;
@@ -306,13 +306,13 @@
 }
 
 /* Active State */
-.table-board-filter-button[aria-expanded="true"],
+.highlights-container-filter-button[aria-expanded="true"],
 .topics-filter-pill[aria-expanded="true"] {
     border-color: #9c856b;
 }
 
 /* Text Styles */
-.table-board-filter-button-text,
+.highlights-container-filter-button-text,
 .topics-filter-pill-text {
     font-weight: 500;
     color: #000000;
@@ -322,27 +322,27 @@
 }
 
 /* Icons */
-.table-board-filter-button-icon,
+.highlights-container-filter-button-icon,
 .topics-filter-pill-icon {
     margin-left: 8px;
     transition: transform 0.2s ease-in-out;
     flex-shrink: 0;
 }
 
-.table-board-filter-button-icon svg,
+.highlights-container-filter-button-icon svg,
 .topics-filter-pill-icon svg {
     color: #000000;
 }
 
 /* Expanded State */
-.table-board-filter-button[aria-expanded="true"]
-    .table-board-filter-button-icon,
+.highlights-container-filter-button[aria-expanded="true"]
+    .highlights-container-filter-button-icon,
 .topics-filter-pill[aria-expanded="true"] .topics-filter-pill-icon {
     transform: rotate(180deg);
 }
 
 /* Dropdown Containers */
-.table-board-filter-dropdown-container,
+.highlights-container-filter-dropdown-container,
 .topics-filter-dropdown {
     display: none;
     position: absolute;
@@ -363,8 +363,8 @@
 }
 
 /* Active Dropdowns */
-.table-board-filter-button[aria-expanded="true"]
-    + .table-board-filter-dropdown-container,
+.highlights-container-filter-button[aria-expanded="true"]
+    + .highlights-container-filter-dropdown-container,
 .topics-filter-dropdown[aria-open="true"] {
     display: flex;
     flex-direction: column;
@@ -468,7 +468,7 @@
     color: #000000 !important;
 }
 
-.table-board-filter-done-btn,
+.highlights-container-filter-done-btn,
 .topics-filter-done-btn {
     display: inline-flex;
     align-items: center;
@@ -487,7 +487,7 @@
     align-self: flex-end;
 }
 
-.table-board-filter-done-btn:hover,
+.highlights-container-filter-done-btn:hover,
 .topics-filter-done-btn:hover {
     background-color: #9c856b;
     color: #ffffff;
@@ -517,12 +517,12 @@
 
 /* Responsive Adjustments */
 @media (max-width: 767px) {
-    .table-board-filter-container,
+    .highlights-container-filter-container,
     .topics-filter-button-wrapper {
         min-width: 160px;
     }
 
-    .table-board-filter-button,
+    .highlights-container-filter-button,
     .topics-filter-pill {
         min-width: 160px;
         padding: 12px 16px;
