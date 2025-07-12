@@ -659,7 +659,7 @@
     ]
   },
   {
-    "id": "grid-card",
+    "id": "two-columns-card",
     "fields": [
       {
         "component": "reference",
@@ -1384,7 +1384,7 @@
     ]
   },
   {
-    "id": "two-column-grid",
+    "id": "two-columns-container",
     "fields": [
       {
         "component": "text",
