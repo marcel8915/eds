@@ -1,7 +1,9 @@
 [
   {
     "id": "main",
-    "components": ["section"]
+    "components": [
+      "section"
+    ]
   },
   {
     "id": "section",
@@ -29,59 +31,103 @@
       "faq-accordion",
       "highlights-container",
       "newsletter-modal",
-      "flower-splash-screen"
+      "flower-splash-screen",
+      "banner-toggle"
     ]
   },
   {
     "id": "cards",
-    "components": ["card"]
+    "components": [
+      "card"
+    ]
   },
   {
     "id": "columns",
-    "components": ["column"]
+    "components": [
+      "column"
+    ]
   },
   {
     "id": "column",
-    "components": ["text", "image", "button", "title"]
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
+    ]
   },
   {
     "id": "swiper3",
-    "components": ["swiper-card3"]
+    "components": [
+      "swiper-card3"
+    ]
   },
   {
     "id": "three-image-description",
-    "components": ["title", "text", "cards", "card", "two-columns-card"]
+    "components": [
+      "title",
+      "text",
+      "cards",
+      "card",
+      "two-columns-card"
+    ]
   },
   {
     "id": "two-columns-container",
-    "components": ["two-columns-card"]
+    "components": [
+      "two-columns-card"
+    ]
   },
   {
     "id": "text-image",
-    "components": ["title", "text", "image", "button"]
+    "components": [
+      "title",
+      "text",
+      "image",
+      "button"
+    ]
   },
   {
     "id": "three-column-tile",
-    "components": ["hero-card", "secondary-card"]
+    "components": [
+      "hero-card",
+      "secondary-card"
+    ]
   },
   {
     "id": "swiper-highlight4",
-    "components": ["highlight-card4"]
+    "components": [
+      "highlight-card4"
+    ]
   },
   {
     "id": "image-gallery-tile2",
-    "components": ["image-gallery-card2"]
+    "components": [
+      "image-gallery-card2"
+    ]
   },
   {
     "id": "highlights-container",
-    "components": ["highlights-feed"]
+    "components": [
+      "highlights-feed"
+    ]
   },
   {
     "id": "info-card",
-    "components": ["info-item"]
+    "components": [
+      "info-item"
+    ]
   },
   {
     "id": "faq-accordion",
-    "components": ["faq-accordion-item-unit"]
+    "components": [
+      "faq-accordion-item-unit"
+    ]
+  },
+  {
+    "id": "banner-toggle",
+    "components": [
+      "banner-card"
+    ]
   }
 ]

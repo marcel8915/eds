@@ -1401,5 +1401,88 @@
         "multi": true
       }
     ]
+  },
+  {
+    "id": "banner-toggle",
+    "fields": [
+      {
+        "component": "text",
+        "name": "autoplayDelay",
+        "label": "Autoplay Delay (ms)",
+        "value": "5000",
+        "description": "Delay between slides in milliseconds (0 to disable autoplay)"
+      },
+      {
+        "component": "boolean",
+        "name": "showNavigation",
+        "label": "Show Navigation Arrows",
+        "value": true
+      },
+      {
+        "component": "boolean",
+        "name": "showPagination",
+        "label": "Show Pagination Dots",
+        "value": true
+      }
+    ]
+  },
+  {
+    "id": "banner-card",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "dayImage",
+        "label": "Day Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "dayImageAlt",
+        "label": "Day Image Alt Text"
+      },
+      {
+        "component": "reference",
+        "name": "nightImage",
+        "label": "Night Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "nightImageAlt",
+        "label": "Night Image Alt Text"
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "description": "Small text above the title"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "aem-content",
+        "name": "ctaLink",
+        "label": "CTA Link",
+        "condition": {
+          "!==": [
+            {
+              "var": "ctaText"
+            },
+            ""
+          ]
+        }
+      }
+    ]
   }
 ]
