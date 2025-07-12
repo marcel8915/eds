@@ -217,6 +217,21 @@ export default function decorate(block) {
         linkElement.rel = "noopener noreferrer";
         linkElement.className = "highlights-container-title-link";
         linkElement.textContent = titleText;
+
+        const underlineContainer = document.createElement("span");
+        underlineContainer.className = "highlights-container-title-group";
+
+        const textSpan = document.createElement("span");
+        textSpan.className = "highlights-container-title-line";
+        textSpan.textContent = titleText;
+
+        const underline = document.createElement("span");
+        underline.className = "highlights-container-title-underline";
+
+        underlineContainer.append(textSpan, underline);
+        linkElement.innerHTML = "";
+        linkElement.appendChild(underlineContainer);
+
         titleWrapper.append(linkElement);
       } else {
         titleWrapper.textContent = titleText;
@@ -247,7 +262,14 @@ export default function decorate(block) {
         button.rel = "noopener noreferrer";
         button.className =
           "highlights-container-mobile-button secondary-button";
-        button.textContent = buttonText;
+
+        button.innerHTML = `
+      <span class="underline-container">
+        ${buttonText}
+        <span class="underline"></span>
+      </span>
+    `;
+
         textContent.append(button);
       }
     }
@@ -288,7 +310,14 @@ export default function decorate(block) {
     viewAllLinkElement.target = "_blank";
     viewAllLinkElement.rel = "noopener noreferrer";
     viewAllLinkElement.className = "highlights-container-view-all-link";
-    viewAllLinkElement.textContent = viewAllText;
+
+    viewAllLinkElement.innerHTML = `
+    <span class="underline-container">
+      ${viewAllText}
+      <span class="underline"></span>
+    </span>
+  `;
+
     viewAllContainer.append(viewAllLinkElement);
     container.append(viewAllContainer);
   }

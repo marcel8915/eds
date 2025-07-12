@@ -1,14 +1,14 @@
 import { createTypesFilter } from "./types-filter.js";
 
 export default function decorate(block) {
-  block.classList.add("column-tile-container-col");
+  block.classList.add("two-columns-container-col");
 
   const filterWrapper = document.createElement("div");
-  filterWrapper.className = "two-column-grid-filter-wrapper";
+  filterWrapper.className = "two-columns-container-filter-wrapper";
   block.parentNode.insertBefore(filterWrapper, block);
 
   const filterRow = document.createElement("div");
-  filterRow.className = "filter-row";
+  filterRow.className = "two-columns-container-filter-row";
   filterWrapper.appendChild(filterRow);
 
   const children = Array.from(block.children);
@@ -93,7 +93,7 @@ export default function decorate(block) {
   }
 
   function processCard(row, index) {
-    row.classList.add("column-tile-card");
+    row.classList.add("two-columns-container-card");
     row.dataset.value = `card-${index + 1}`;
 
     const cardDivs = Array.from(row.children);
@@ -112,20 +112,20 @@ export default function decorate(block) {
 
     if (needsContentMain) {
       contentMain = document.createElement("div");
-      contentMain.className = "column-tile-content-main";
+      contentMain.className = "two-columns-container-content-main";
 
       const hasLeftContent = cardSections.some((_, i) => i > 0 && i < 6);
       const hasRightContent = cardSections.some((_, i) => i > 5 && i < 8);
 
       if (hasLeftContent) {
         leftContainer = document.createElement("div");
-        leftContainer.className = "column-tile-left";
+        leftContainer.className = "two-columns-container-left";
         contentMain.appendChild(leftContainer);
       }
 
       if (hasRightContent) {
         rightContainer = document.createElement("div");
-        rightContainer.className = "column-tile-right";
+        rightContainer.className = "two-columns-container-right";
         contentMain.appendChild(rightContainer);
       }
     }
@@ -142,7 +142,7 @@ export default function decorate(block) {
       switch (sectionIndex) {
         case 0:
           if (section.querySelector("picture")) {
-            section.classList.add("column-tile-images");
+            section.classList.add("two-columns-container-images");
             if (contentMain) {
               row.insertBefore(contentMain, section.nextSibling);
             }
@@ -151,7 +151,7 @@ export default function decorate(block) {
 
         case 1:
           if (leftContainer && section.textContent.trim()) {
-            section.classList.add("column-tile-label");
+            section.classList.add("two-columns-container-label");
             leftContainer.appendChild(section);
           }
           break;
@@ -171,10 +171,10 @@ export default function decorate(block) {
           if (hasDescription) {
             const secondaryLink = document.createElement("a");
             secondaryLink.href = link.getAttribute("href") || "#";
-            secondaryLink.className = "column-tile-sub-link";
+            secondaryLink.className = "two-columns-container-sub-link";
 
             const subDescription = document.createElement("p");
-            subDescription.className = "column-tile-sub-description";
+            subDescription.className = "two-columns-container-sub-description";
             subDescription.textContent = nextSection.textContent.trim();
             secondaryLink.appendChild(subDescription);
 
@@ -184,8 +184,8 @@ export default function decorate(block) {
 
             if (leftContainer) leftContainer.appendChild(secondaryLink);
           } else if (leftContainer) {
-            section.classList.add("column-tile-sub-link");
-            link.classList.add("column-tile-sub-link");
+            section.classList.add("two-columns-container-sub-link");
+            link.classList.add("two-columns-container-sub-link");
             leftContainer.appendChild(section);
           }
           break;
@@ -193,7 +193,7 @@ export default function decorate(block) {
 
         case 3:
           if (section && leftContainer && section.textContent.trim()) {
-            section.classList.add("column-tile-sub-description");
+            section.classList.add("two-columns-container-sub-description");
             leftContainer.appendChild(section);
           }
           break;
@@ -213,16 +213,16 @@ export default function decorate(block) {
           if (hasDescription) {
             const contentLink = document.createElement("a");
             contentLink.href = link.getAttribute("href") || "#";
-            contentLink.className = "column-tile-link";
+            contentLink.className = "two-columns-container-link";
 
             const description = document.createElement("div");
-            description.className = "column-tile-description";
+            description.className = "two-columns-container-description";
             description.textContent = nextSection.textContent.trim();
 
             const svg = document.createElement("img");
             svg.src = "/icons/chevron_forward.svg";
             svg.alt = "Arrow";
-            svg.className = "column-tile-description-icon";
+            svg.className = "two-columns-container-description-icon";
             description.appendChild(svg);
 
             contentLink.appendChild(description);
@@ -232,8 +232,8 @@ export default function decorate(block) {
 
             if (leftContainer) leftContainer.appendChild(contentLink);
           } else if (leftContainer) {
-            section.classList.add("column-tile-content-link");
-            link.classList.add("column-tile-link");
+            section.classList.add("two-columns-container-link");
+            link.classList.add("two-columns-container-link");
             leftContainer.appendChild(section);
           }
           break;
@@ -241,13 +241,15 @@ export default function decorate(block) {
 
         case 5:
           if (section && leftContainer && section.textContent.trim()) {
-            section.classList.add("column-tile-description");
+            section.classList.add("two-columns-container-description");
 
-            if (!section.querySelector(".column-tile-description-icon")) {
+            if (
+              !section.querySelector(".two-columns-container-description-icon")
+            ) {
               const svg = document.createElement("img");
               svg.src = "/icons/chevron_forward.svg";
               svg.alt = "Arrow";
-              svg.className = "column-tile-description-icon";
+              svg.className = "two-columns-container-description-icon";
               section.appendChild(svg);
             }
 
@@ -257,7 +259,7 @@ export default function decorate(block) {
 
         case 6:
           if (rightContainer && section.textContent.trim()) {
-            section.classList.add("column-tile-supporting-text");
+            section.classList.add("two-columns-container-supporting-text");
             rightContainer.appendChild(section);
           }
           break;
@@ -265,7 +267,7 @@ export default function decorate(block) {
         default:
           if (sectionIndex === 7 && rightContainer) {
             const featuresContainer = document.createElement("div");
-            featuresContainer.className = "column-tile-features";
+            featuresContainer.className = "two-columns-container-features";
             rightContainer.appendChild(featuresContainer);
 
             for (let i = 7; i < cardSections.length; i += 2) {
@@ -279,14 +281,18 @@ export default function decorate(block) {
                 (textSection && textSection.textContent.trim())
               ) {
                 const featureDiv = document.createElement("div");
-                featureDiv.className = "column-tile-feature";
+                featureDiv.className = "two-columns-container-feature";
 
                 if (iconSection) {
-                  iconSection.classList.add("column-tile-feature-icon");
+                  iconSection.classList.add(
+                    "two-columns-container-feature-icon"
+                  );
                   featureDiv.appendChild(iconSection);
                 }
                 if (textSection) {
-                  textSection.classList.add("column-tile-feature-text");
+                  textSection.classList.add(
+                    "two-columns-container-feature-text"
+                  );
                   featureDiv.appendChild(textSection);
                 }
 

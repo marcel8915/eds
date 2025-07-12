@@ -17,7 +17,7 @@
       "slider-teaser-content",
       "swiper3",
       "three-image-description",
-      "two-column-grid",
+      "two-columns-container",
       "section-header",
       "text-image",
       "info-card",
@@ -50,11 +50,11 @@
   },
   {
     "id": "three-image-description",
-    "components": ["title", "text", "cards", "card", "grid-card"]
+    "components": ["title", "text", "cards", "card", "two-columns-card"]
   },
   {
-    "id": "two-column-grid",
-    "components": ["grid-card"]
+    "id": "two-columns-container",
+    "components": ["two-columns-card"]
   },
   {
     "id": "text-image",
