@@ -1403,30 +1403,6 @@
     ]
   },
   {
-    "id": "banner-toggle",
-    "fields": [
-      {
-        "component": "text",
-        "name": "autoplayDelay",
-        "label": "Autoplay Delay (ms)",
-        "value": "5000",
-        "description": "Delay between slides in milliseconds (0 to disable autoplay)"
-      },
-      {
-        "component": "boolean",
-        "name": "showNavigation",
-        "label": "Show Navigation Arrows",
-        "value": true
-      },
-      {
-        "component": "boolean",
-        "name": "showPagination",
-        "label": "Show Pagination Dots",
-        "value": true
-      }
-    ]
-  },
-  {
     "id": "banner-card",
     "fields": [
       {
