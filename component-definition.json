@@ -325,7 +325,6 @@
             }
           }
         },
-
         {
           "title": "Events Listing",
           "id": "events-listing",
@@ -552,6 +551,37 @@
                 "template": {
                   "name": "Flower Splash Screen",
                   "model": "flower-splash-screen"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Banner Toggle",
+          "id": "banner-toggle",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Banner Toggle",
+                  "filter": "banner-toggle",
+                  "model": "banner-toggle"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Banner Card",
+          "id": "banner-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Banner Card",
+                  "model": "banner-card"
                 }
               }
             }
