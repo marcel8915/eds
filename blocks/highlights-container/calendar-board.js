@@ -175,7 +175,7 @@ export function createCalendarBoard({
 
     const doneBtn = document.createElement("button");
     doneBtn.type = "button";
-    doneBtn.className = "table-board-filter-done-btn";
+    doneBtn.className = "highlights-container-filter-done-btn";
     doneBtn.textContent = "Done";
     doneBtn.onclick = () => {
       if (!tempStart && !tempEnd) {

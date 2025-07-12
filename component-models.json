@@ -1208,7 +1208,7 @@
     ]
   },
   {
-    "id": "table-board2",
+    "id": "highlights-container",
     "fields": [
       {
         "component": "text",
@@ -1251,7 +1251,7 @@
     ]
   },
   {
-    "id": "table-board-item2",
+    "id": "highlights-feed",
     "fields": [
       {
         "component": "reference",
