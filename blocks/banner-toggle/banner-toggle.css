@@ -1,19 +1,19 @@
-/* Main container styles */
 .banner-toggle-container {
     position: relative;
     width: 100%;
+    height: 100vh;
+    min-height: 600px;
     overflow: hidden;
 }
 
-.banner-toggle-swiper {
+.banner-toggle-swiper.swiper {
     width: 100%;
     height: 100%;
 }
 
 /* Card styles */
 .banner-card {
-    height: 100vh;
-    min-height: 600px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,12 +22,97 @@
 
 .banner-card-content {
     position: relative;
-    z-index: 2;
     width: 100%;
     height: 100%;
     margin: 0 auto;
     color: white;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Text wrapper styles */
+.banner-text-wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Toggle controls */
+.banner-toggle-controls {
+    display: flex;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 2rem;
+    padding: 4px;
+    position: relative;
+    margin-top: 2rem;
+}
+
+.banner-toggle-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-toggle-day-icon,
+.banner-toggle-night-icon {
+    width: 24px;
+    height: 24px;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    background-color: white;
+    transition: background-color 0.3s ease;
+}
+
+.banner-toggle-day-icon {
+    mask-image: url("/icons/day.svg");
+}
+
+.banner-toggle-night-icon {
+    mask-image: url("/icons/night.svg");
+}
+
+.day-toggle.active .banner-toggle-day-icon,
+.night-toggle.active .banner-toggle-night-icon {
+    background-color: black;
+}
+
+.day-toggle:not(.active) .banner-toggle-day-icon,
+.night-toggle:not(.active) .banner-toggle-night-icon {
+    background-color: white;
+}
+
+.banner-toggle-thumb {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.day-toggle.active ~ .banner-toggle-thumb {
+    transform: translateX(0);
+}
+
+.night-toggle.active ~ .banner-toggle-thumb {
+    transform: translateX(100%);
 }
 
 /* Image container styles */
@@ -61,36 +146,6 @@
     object-fit: cover;
 }
 
-/* Toggle controls */
-.banner-toggle-controls {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    display: flex;
-    gap: 0.5rem;
-    z-index: 3;
-}
-
-.banner-toggle-button {
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid white;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.banner-toggle-button.active {
-    background: white;
-    color: black;
-}
-
-.banner-toggle-button:hover {
-    background: rgba(255, 255, 255, 0.8);
-    color: black;
-}
-
 /* Content styles */
 .banner-label {
     font-size: 1rem;
@@ -111,22 +166,35 @@
     max-width: 600px;
 }
 
+/* CTA Button Styles */
 .banner-cta-container {
     margin-top: 2rem;
+    width: 100%;
+    text-align: center;
 }
 
-.banner-cta {
+.banner-cta-button {
     display: inline-block;
     padding: 1rem 2rem;
     background: white;
     color: black;
     text-decoration: none;
     border-radius: 2rem;
+    border: none;
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
     transition: all 0.3s ease;
+    text-align: center;
 }
 
-.banner-cta:hover {
+.banner-cta-button:hover {
     background: rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+}
+
+.banner-cta-button:active {
+    transform: translateY(0);
 }
 
 /* Navigation arrows */
@@ -143,20 +211,28 @@
 .banner-toggle-arrow-button {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     width: 40px;
     height: 40px;
     background: rgba(0, 0, 0, 0.5);
     border: none;
     border-radius: 50%;
-    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     pointer-events: auto;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
     z-index: 10;
+    transform: translateY(-50%);
+}
+
+.banner-toggle-arrow-button .banner-toggle-arrow-icon {
+    width: 24px;
+    height: 24px;
+    mask: url("/icons/arrow.svg") center center / contain no-repeat;
+    -webkit-mask: url("/icons/arrow.svg") center center / contain no-repeat;
+    background-color: white;
+    transition: background-color 0.3s ease;
 }
 
 .banner-toggle-prev-arrow {
@@ -167,39 +243,58 @@
     right: 2rem;
 }
 
-.banner-toggle-arrow-icon {
-    width: 20px;
-    height: 20px;
+.banner-toggle-next-arrow .banner-toggle-arrow-icon {
+    transform: rotate(180deg);
 }
 
-/* Pagination */
-.swiper-pagination {
+/* Fixed Swiper Pagination Styles */
+.banner-swiper-pagination.swiper-pagination {
     position: absolute;
     bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
     z-index: 10;
+    margin: 0 auto;
+    padding: 0;
 }
 
-.swiper-pagination-bullet {
+.banner-swiper-pagination.swiper-pagination-horizontal {
+    width: auto;
+    left: 50% !important;
+    transform: translateX(-50%);
+}
+
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: var(--swiper-pagination-bottom, 2rem);
+    top: auto;
+}
+
+.banner-swiper-pagination .swiper-pagination-bullet {
     width: 10px;
     height: 10px;
     background: white;
     opacity: 0.5;
-    margin: 0 5px;
+    margin: 0 !important;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.swiper-pagination-bullet-active {
+.banner-swiper-pagination .swiper-pagination-bullet:hover {
+    transform: scale(1.1);
+}
+
+.banner-swiper-pagination .swiper-pagination-bullet-active {
     opacity: 1;
+    transform: scale(1.2);
 }
 
-/* Authoring mode */
-.banner-toggle-authoring .banner-card {
-    height: auto;
-    min-height: 400px;
-}
-
-/* Responsive styles */
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .banner-title {
         font-size: 2rem;
@@ -209,14 +304,14 @@
         font-size: 1.25rem;
     }
 
-    .banner-toggle-controls {
-        top: 1rem;
-        right: 1rem;
+    .banner-toggle-arrow-button {
+        width: 32px;
+        height: 32px;
     }
 
-    .banner-toggle-arrow-button {
-        width: 30px;
-        height: 30px;
+    .banner-toggle-arrow-button .banner-toggle-arrow-icon {
+        width: 20px;
+        height: 20px;
     }
 
     .banner-toggle-prev-arrow {
@@ -226,12 +321,31 @@
     .banner-toggle-next-arrow {
         right: 1rem;
     }
-}
 
-.banner-toggle-swiper.swiper {
-    width: 100%;
-    height: 100vh;
-    min-height: 600px;
+    .banner-toggle-button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .banner-toggle-thumb {
+        width: 36px;
+        height: 36px;
+    }
+
+    .banner-toggle-day-icon,
+    .banner-toggle-night-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .banner-swiper-pagination.swiper-pagination {
+        bottom: 1.5rem;
+    }
+
+    .banner-swiper-pagination .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+    }
 }
 
 .swiper-wrapper {
