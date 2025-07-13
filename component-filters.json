@@ -32,7 +32,8 @@
       "highlights-container",
       "newsletter-modal",
       "flower-splash-screen",
-      "banner-toggle"
+      "banner-toggle",
+      "property-gallery"
     ]
   },
   {
@@ -128,6 +129,12 @@
     "id": "banner-toggle",
     "components": [
       "banner-card"
+    ]
+  },
+  {
+    "id": "property-gallery",
+    "components": [
+      "property-gallery-feed"
     ]
   }
 ]

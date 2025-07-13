@@ -25,7 +25,6 @@ export default async function decorate(block) {
     document.createElement("div");
   swiperWrapper.className = "swiper-wrapper";
 
-  // Clear and rebuild swiper structure
   swiperContainer.innerHTML = "";
   swiperContainer.append(swiperWrapper);
 
@@ -74,18 +73,20 @@ export default async function decorate(block) {
     const toggleContainer = document.createElement("div");
     toggleContainer.className = "banner-toggle-controls";
 
+    const toggleThumb = document.createElement("div");
+    toggleThumb.className = "banner-toggle-thumb";
+
     const dayButton = document.createElement("button");
-    dayButton.className = "banner-toggle-button active";
-    dayButton.textContent = "Day";
+    dayButton.className = "banner-toggle-button day-toggle active";
+    dayButton.innerHTML = '<div class="banner-toggle-day-icon"></div>';
     dayButton.setAttribute("aria-label", "Show day view");
 
     const nightButton = document.createElement("button");
-    nightButton.className = "banner-toggle-button";
-    nightButton.textContent = "Night";
+    nightButton.className = "banner-toggle-button night-toggle";
+    nightButton.innerHTML = '<div class="banner-toggle-night-icon"></div>';
     nightButton.setAttribute("aria-label", "Show night view");
 
-    toggleContainer.append(dayButton, nightButton);
-    slideContent.append(toggleContainer);
+    toggleContainer.append(dayButton, nightButton, toggleThumb);
 
     const imageContainer = document.createElement("div");
     imageContainer.className = "banner-image-container";
@@ -109,32 +110,63 @@ export default async function decorate(block) {
 
     slideContent.append(imageContainer);
 
-    const processContent = (index, className, tagName = "div") => {
-      if (cardGroup.children[index]?.textContent?.trim()) {
+    const textWrapper = document.createElement("div");
+    textWrapper.className = "banner-text-wrapper";
+
+    const processContent = (cell, className, tagName = "div") => {
+      if (cell && cell.firstElementChild) {
         const el = document.createElement(tagName);
         el.className = className;
-        el.textContent = cardGroup.children[index].textContent.trim();
+        el.innerHTML = cell.innerHTML;
         return el;
       }
       return null;
     };
 
-    const elements = [
-      processContent(2, "banner-label"),
-      processContent(3, "banner-title", "h2"),
-      processContent(4, "banner-subtitle", "p"),
-    ];
+    const labelEl = processContent(cardGroup.children[2], "banner-label");
+    const titleEl = processContent(cardGroup.children[3], "banner-title", "h2");
 
-    elements.forEach((el) => el && slideContent.append(el));
+    const ctaTextCell = cardGroup.children[4];
+    const ctaLinkCell = cardGroup.children[5];
 
-    const ctaLink = cardGroup.children[5]?.querySelector("a");
-    if (ctaLink) {
-      ctaLink.className = "banner-cta";
-      const ctaContainer = document.createElement("div");
-      ctaContainer.className = "banner-cta-container";
-      ctaContainer.append(ctaLink);
-      slideContent.append(ctaContainer);
+    if (labelEl) textWrapper.append(labelEl);
+    if (titleEl) textWrapper.append(titleEl);
+
+    if (ctaTextCell && ctaLinkCell) {
+      const ctaLink = ctaLinkCell.querySelector("a");
+
+      if (ctaLink) {
+        const ctaContainer = document.createElement("div");
+        ctaContainer.className = "banner-cta-container";
+
+        const ctaButton = document.createElement("button");
+        ctaButton.className = "banner-cta-button";
+
+        const ctaText = document.createElement("span");
+        ctaText.className = "banner-cta-text";
+        ctaText.innerHTML = ctaTextCell.innerHTML.trim();
+
+        ctaButton.append(ctaText);
+
+        Array.from(ctaLink.attributes).forEach((attr) => {
+          if (attr.name !== "class") {
+            ctaButton.setAttribute(attr.name, attr.value);
+          }
+        });
+
+        ctaButton.addEventListener("click", () => {
+          window.location.href = ctaLink.href;
+        });
+
+        ctaContainer.append(ctaButton);
+        textWrapper.append(ctaContainer);
+        textWrapper.append(toggleContainer);
+      }
+    } else {
+      textWrapper.append(toggleContainer);
     }
+
+    slideContent.append(textWrapper);
 
     if (dayImage && nightImage) {
       dayButton.addEventListener("click", () => {
@@ -161,6 +193,10 @@ export default async function decorate(block) {
   bannerToggle.innerHTML = "";
   bannerToggle.append(arrowsContainer, swiperContainer);
 
+  const pagination = document.createElement("div");
+  pagination.className = "swiper-pagination banner-swiper-pagination";
+  swiperContainer.append(pagination);
+
   if (isAuthoring) {
     swiperContainer.style.display = "flex";
     swiperWrapper.style.display = "flex";
@@ -169,46 +205,49 @@ export default async function decorate(block) {
     return;
   }
 
-  // Initialize Swiper
   try {
     await loadSwiper();
 
     if (swiperWrapper.children.length > 0) {
-      new Swiper(swiperContainer, {
+      const swiper = new Swiper(swiperContainer, {
         slidesPerView: 1,
         spaceBetween: 0,
-        loop: true,
+        loop: cardGroups.length > 1,
         keyboard: { enabled: true, onlyInViewport: true },
         navigation: {
           nextEl: nextArrow,
           prevEl: prevArrow,
         },
         pagination: {
-          el: ".swiper-pagination",
+          el: pagination,
+          type: "bullets",
           clickable: true,
+          bulletClass: "swiper-pagination-bullet",
+          bulletActiveClass: "swiper-pagination-bullet-active",
+          renderBullet: function (index, className) {
+            return `<span class="${className}"></span>`;
+          },
         },
         on: {
-          init: (swiper) => {
-            updateArrowVisibility(swiper);
-          },
-          slideChange: (swiper) => {
-            updateArrowVisibility(swiper);
-          },
+          init: (s) => updateArrowVisibility(s),
+          slideChange: (s) => updateArrowVisibility(s),
         },
       });
 
-      const pagination = document.createElement("div");
-      pagination.className = "swiper-pagination";
-      swiperContainer.append(pagination);
+      updateArrowVisibility(swiper);
     }
   } catch (error) {
     console.error("Failed to initialize Swiper:", error);
   }
 
   function updateArrowVisibility(swiper) {
-    if (!prevArrow || !nextArrow) return;
-    prevArrow.style.opacity = swiper.isBeginning ? "0" : "1";
-    nextArrow.style.opacity = swiper.isEnd ? "0" : "1";
+    if (!prevArrow || !nextArrow || swiper.params.loop) {
+      if (prevArrow) prevArrow.style.opacity = "1";
+      if (nextArrow) nextArrow.style.opacity = "1";
+      return;
+    }
+    prevArrow.style.opacity = swiper.isBeginning ? "0.5" : "1";
+    nextArrow.style.opacity = swiper.isEnd ? "0.5" : "1";
     prevArrow.style.pointerEvents = swiper.isBeginning ? "none" : "auto";
     nextArrow.style.pointerEvents = swiper.isEnd ? "none" : "auto";
   }
