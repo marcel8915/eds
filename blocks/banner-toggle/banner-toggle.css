@@ -1,0 +1,250 @@
+/* Main container styles */
+.banner-toggle-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.banner-toggle-swiper {
+    width: 100%;
+    height: 100%;
+}
+
+/* Card styles */
+.banner-card {
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.banner-card-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    color: white;
+    padding: 2rem;
+}
+
+/* Image container styles */
+.banner-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.banner-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.5s ease;
+    opacity: 0;
+}
+
+.banner-image.active {
+    opacity: 1;
+}
+
+.banner-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Toggle controls */
+.banner-toggle-controls {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 3;
+}
+
+.banner-toggle-button {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid white;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.banner-toggle-button.active {
+    background: white;
+    color: black;
+}
+
+.banner-toggle-button:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color: black;
+}
+
+/* Content styles */
+.banner-label {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.banner-title {
+    font-size: 3rem;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+}
+
+.banner-subtitle {
+    font-size: 1.5rem;
+    margin: 0 0 2rem 0;
+    max-width: 600px;
+}
+
+.banner-cta-container {
+    margin-top: 2rem;
+}
+
+.banner-cta {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 2rem;
+    transition: all 0.3s ease;
+}
+
+.banner-cta:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Navigation arrows */
+.banner-toggle-arrows-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.banner-toggle-arrow-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.banner-toggle-prev-arrow {
+    left: 2rem;
+}
+
+.banner-toggle-next-arrow {
+    right: 2rem;
+}
+
+.banner-toggle-arrow-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Pagination */
+.swiper-pagination {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: white;
+    opacity: 0.5;
+    margin: 0 5px;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+}
+
+/* Authoring mode */
+.banner-toggle-authoring .banner-card {
+    height: auto;
+    min-height: 400px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .banner-title {
+        font-size: 2rem;
+    }
+
+    .banner-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .banner-toggle-controls {
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .banner-toggle-arrow-button {
+        width: 30px;
+        height: 30px;
+    }
+
+    .banner-toggle-prev-arrow {
+        left: 1rem;
+    }
+
+    .banner-toggle-next-arrow {
+        right: 1rem;
+    }
+}
+
+.banner-toggle-swiper.swiper {
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+}
+
+.swiper-wrapper {
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    z-index: 1;
+}
+
+.swiper-slide {
+    width: 100% !important;
+    height: 100% !important;
+    flex-shrink: 0 !important;
+    position: relative;
+}
