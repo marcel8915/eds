@@ -1460,5 +1460,42 @@
         }
       }
     ]
+  },
+  {
+    "id": "property-gallery",
+    "fields": [
+      {
+        "component": "text",
+        "name": "categories",
+        "label": "Gallery Filter Categories",
+        "description": "Comma-separated list of categories for filtering",
+        "multi": true
+      }
+    ]
+  },
+  {
+    "id": "property-gallery-feed",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "category",
+        "label": "Category",
+        "description": "Must match one of the categories defined in the container",
+        "required": true
+      }
+    ]
   }
 ]
