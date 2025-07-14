@@ -15,9 +15,7 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "carousel-with-desc",
-      "carousel-card"
+      "fragment"
     ]
   },
   {
@@ -39,12 +37,6 @@
       "image",
       "button",
       "title"
-    ]
-  },
-  {
-    "id": "carousel-with-desc",
-    "components": [
-      "carousel-card"
     ]
   }
 ]
