@@ -519,14 +519,14 @@ function decorateSections(main) {
  * @param {string} blockName name of the block
  * @param {*} content two dimensional array or string or object of content
  */
-function buildBlock(blockName, content) {
+function buildBlock(blockName, content) {console.log('buildBlock', blockName, content);
   const table = Array.isArray(content) ? content : [[content]];
   const blockEl = document.createElement('div');
   // build image block nested div structure
   blockEl.classList.add(blockName);
   table.forEach((row) => {
     const rowEl = document.createElement('div');
-    row.forEach((col) => {
+    row.forEach((col) => {console.log('col', col);
       const colEl = document.createElement('div');
       const vals = col.elems ? col.elems : [col];
       vals.forEach((val) => {
