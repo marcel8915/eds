@@ -586,7 +586,7 @@ async function loadBlock(block) {
  * Decorates a block.
  * @param {Element} block The block element
  */
-function decorateBlock(block) {console.log('block', block);
+function decorateBlock(block) {
   const shortBlockName = block.classList[0];
   if (shortBlockName && !block.dataset.blockStatus) {
     block.classList.add('block');

@@ -25,7 +25,7 @@
           "valueType": "string",
           "name": "image",
           "label": "Image",
-          "multi": true
+          "multi": false
         },
         {
           "component": "text",
