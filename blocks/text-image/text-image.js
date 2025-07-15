@@ -3,6 +3,7 @@ import { handleGalleryTrigger } from "../property-gallery/property-gallery.js";
 
 export default function decorate(block) {
   const textCol = document.createElement("div");
+
   textCol.className = "text-image__text-column";
 
   const imageCol = document.createElement("div");
@@ -95,7 +96,9 @@ export default function decorate(block) {
 
   viewGalleryLink.addEventListener("click", (e) => {
     e.preventDefault();
-    handleGalleryTrigger();
+    e.stopPropagation();
+
+    handleGalleryTrigger(e);
   });
 
   contentWrapper.append(viewGalleryLink);
