@@ -1,11 +1,10 @@
+import { moveInstrumentation } from "../../scripts/scripts.js";
+
 /**
  * Repeating card size pattern: square → landscape → square → portrait
  */
 const DIMENSION_CYCLE = ["square", "landscape", "square", "portrait"];
 
-/**
- * Creates fullscreen lightbox overlay
- */
 function createLightbox() {
   const lightbox = document.createElement("div");
   lightbox.className = "property-gallery-lightbox";
@@ -22,7 +21,25 @@ function createLightbox() {
   return lightbox;
 }
 
+export function handleGalleryTrigger(e) {
+  if (e) e.preventDefault();
+
+  const galleryWrapper = document.querySelector(".image-gallery");
+  if (galleryWrapper) {
+    galleryWrapper.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  } else {
+    console.warn("Gallery wrapper (.image-gallery) not found");
+  }
+}
+
 export default async function decorate(block) {
+  const galleryWrapper = document.createElement("div");
+  galleryWrapper.className = "image-gallery";
+
+  block.parentNode.insertBefore(galleryWrapper, block);
+  galleryWrapper.appendChild(block);
+
   const allCards = [...block.children];
   block.innerHTML = "";
 
@@ -50,8 +67,12 @@ export default async function decorate(block) {
     const card = document.createElement("div");
     card.className = `property-gallery-card is-${dimension}`;
 
+    moveInstrumentation(row, card);
+
     const imageWrapper = document.createElement("div");
     imageWrapper.className = "property-gallery-card__image-wrapper";
+
+    moveInstrumentation(imageCell, imageWrapper);
 
     const img = picture.querySelector("img");
     const highResSrc = img.src;
@@ -68,6 +89,8 @@ export default async function decorate(block) {
       const labelEl = document.createElement("div");
       labelEl.className = "property-gallery-card__label";
       labelEl.textContent = label;
+
+      moveInstrumentation(labelCell, labelEl);
       card.append(labelEl);
     }
 
@@ -80,5 +103,18 @@ export default async function decorate(block) {
     container.appendChild(card);
   });
 
-  block.append(container, scrollPrompt);
+  const closeModalBtn = document.createElement("button");
+  closeModalBtn.className = "property-gallery-modal-close";
+  closeModalBtn.innerHTML = "&times;";
+  closeModalBtn.addEventListener("click", () => {
+    galleryWrapper.style.display = "none";
+    document.body.style.overflow = "";
+  });
+
+  block.append(closeModalBtn, container, scrollPrompt);
+  block.classList.add("decorated");
 }
+
+document.querySelectorAll('a[href="/imageGallery"]').forEach((anchor) => {
+  anchor.addEventListener("click", handleGalleryTrigger);
+});
