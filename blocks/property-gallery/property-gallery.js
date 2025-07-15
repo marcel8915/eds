@@ -1,14 +1,10 @@
-import { loadSwiper } from "../../scripts/utils.js";
-
 /**
- * Defines the repeating cycle of card dimensions.
- * The new cycle is: square, landscape, square, portrait
+ * Repeating card size pattern: square → landscape → square → portrait
  */
 const DIMENSION_CYCLE = ["square", "landscape", "square", "portrait"];
 
 /**
- * Creates the lightbox element for full-screen image viewing.
- * @returns {HTMLElement} The lightbox element.
+ * Creates fullscreen lightbox overlay
  */
 function createLightbox() {
   const lightbox = document.createElement("div");
@@ -27,23 +23,15 @@ function createLightbox() {
 }
 
 export default async function decorate(block) {
-  await loadSwiper();
-
   const allCards = [...block.children];
   block.innerHTML = "";
 
-  const swiperContainer = document.createElement("div");
-  swiperContainer.className = "swiper property-gallery-container";
-
-  const swiperWrapper = document.createElement("div");
-  swiperWrapper.className = "swiper-wrapper";
+  const container = document.createElement("div");
+  container.className = "property-gallery-container";
 
   const scrollPrompt = document.createElement("div");
   scrollPrompt.className = "property-gallery-scroll-prompt";
   scrollPrompt.innerHTML = "<span>Scroll to Explore</span>";
-
-  swiperContainer.append(swiperWrapper);
-  block.append(swiperContainer, scrollPrompt);
 
   const lightbox = createLightbox();
 
@@ -59,8 +47,8 @@ export default async function decorate(block) {
     const dimension = DIMENSION_CYCLE[validCardIndex % DIMENSION_CYCLE.length];
     validCardIndex++;
 
-    const slide = document.createElement("div");
-    slide.className = `swiper-slide property-gallery-card is-${dimension}`;
+    const card = document.createElement("div");
+    card.className = `property-gallery-card is-${dimension}`;
 
     const imageWrapper = document.createElement("div");
     imageWrapper.className = "property-gallery-card__image-wrapper";
@@ -68,40 +56,29 @@ export default async function decorate(block) {
     const img = picture.querySelector("img");
     const highResSrc = img.src;
 
-    const imageForCard = document.createElement("img");
-    imageForCard.src = highResSrc;
-    imageForCard.alt = img.alt;
-    imageForCard.loading = "lazy";
+    const image = document.createElement("img");
+    image.src = highResSrc;
+    image.alt = img.alt;
+    image.loading = "lazy";
 
-    imageWrapper.append(imageForCard);
-    slide.append(imageWrapper);
+    imageWrapper.append(image);
+    card.append(imageWrapper);
 
     if (label) {
       const labelEl = document.createElement("div");
       labelEl.className = "property-gallery-card__label";
       labelEl.textContent = label;
-      slide.append(labelEl);
+      card.append(labelEl);
     }
 
-    slide.addEventListener("click", () => {
+    card.addEventListener("click", () => {
       const lightboxImg = lightbox.querySelector("img");
       lightboxImg.src = highResSrc;
       lightbox.classList.add("active");
     });
 
-    swiperWrapper.append(slide);
+    container.appendChild(card);
   });
 
-  new Swiper(swiperContainer, {
-    slidesPerView: "auto",
-    spaceBetween: 24,
-    freeMode: true,
-    mousewheel: true,
-    on: {
-      scroll() {
-        scrollPrompt.style.opacity = "0";
-        scrollPrompt.style.pointerEvents = "none";
-      },
-    },
-  });
+  block.append(container, scrollPrompt);
 }

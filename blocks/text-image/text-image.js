@@ -1,3 +1,4 @@
+import { loadCSS } from "../../scripts/aem.js";
 export default function decorate(block) {
   const textCol = document.createElement("div");
   textCol.className = "text-image__text-column";
@@ -77,6 +78,39 @@ export default function decorate(block) {
 
     contentWrapper.append(buttonLink);
   }
+
+  // ✅ Add "View Image Gallery" Button
+  const viewGalleryBtn = document.createElement("button");
+  viewGalleryBtn.className = "view-gallery-button button-styled";
+  viewGalleryBtn.textContent = "View Image Gallery";
+
+  viewGalleryBtn.addEventListener("click", async () => {
+    // Load CSS (only if needed)
+    loadCSS(
+      `${window.hlx.codeBasePath}/blocks/property-gallery/property-gallery.css`
+    );
+
+    // Load JS
+    const module = await import("../property-gallery/property-gallery.js");
+
+    // Call decorate() only if not already decorated
+    const galleryBlock = document.querySelector(".property-gallery.block");
+    if (galleryBlock && !galleryBlock.classList.contains("decorated")) {
+      await module.default(galleryBlock);
+    }
+
+    // Show the section
+    const gallerySection = document.querySelector(
+      ".property-gallery-container"
+    );
+    if (gallerySection) {
+      gallerySection.classList.remove("hidden");
+    } else {
+      console.warn("Gallery section not found.");
+    }
+  });
+
+  contentWrapper.append(viewGalleryBtn);
 
   textCol.append(contentWrapper);
   block.innerHTML = "";
