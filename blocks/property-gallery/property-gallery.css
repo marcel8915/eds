@@ -1,7 +1,24 @@
-.property-gallery {
+/* Styles for the main gallery modal wrapper */
+.image-gallery {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 1000;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Styles for the original block, which now lives inside the .image-gallery modal */
+.image-gallery .property-gallery.block {
     padding: 4rem 0;
     position: relative;
     overflow-x: hidden;
+    width: 100%;
 }
 
 /* Horizontal scroll container */
@@ -11,7 +28,11 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding: 1rem 2rem 2rem;
+    /* Hide scrollbar by default */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
 }
+
 @media (min-width: 769px) {
     .property-gallery-container {
         align-items: center;
@@ -44,17 +65,14 @@
 .property-gallery-card.is-square {
     width: 314px;
     height: 314px;
-    aspect-ratio: auto;
 }
 .property-gallery-card.is-landscape {
     width: 660px;
     height: 480px;
-    aspect-ratio: auto;
 }
 .property-gallery-card.is-portrait {
     width: 314px;
     height: 480px;
-    aspect-ratio: auto;
 }
 
 @media (max-width: 768px) {
@@ -62,13 +80,29 @@
         flex-direction: column;
         overflow-x: hidden;
         overflow-y: auto;
+        scroll-snap-type: y mandatory;
+        padding: 1rem;
     }
 
     .property-gallery-card {
         width: 100% !important;
         max-width: none;
-        aspect-ratio: auto;
         height: auto;
+    }
+
+    .property-gallery-card.is-square,
+    .property-gallery-card.is-landscape,
+    .property-gallery-card.is-portrait {
+        height: auto;
+        aspect-ratio: 1 / 1; /* Default to square on mobile, can be adjusted */
+    }
+
+    .property-gallery-card.is-landscape {
+        aspect-ratio: 16 / 9;
+    }
+
+    .property-gallery-card.is-portrait {
+        aspect-ratio: 3 / 4;
     }
 
     .property-gallery-card__image-wrapper {
@@ -77,7 +111,7 @@
 
     .property-gallery-card__image-wrapper img {
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: cover;
     }
 }
@@ -154,4 +188,16 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     transition: opacity 0.5s ease;
+}
+
+.property-gallery-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2.5rem;
+    color: #333;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1010;
 }
