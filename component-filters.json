@@ -9,6 +9,7 @@
     "id": "section",
     "components": [
       "text",
+      "text-core",
       "image",
       "button",
       "title",
