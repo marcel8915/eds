@@ -274,7 +274,7 @@
                 "template": {
                   "name": "Text Image",
                   "model": "text-image-container",
-                  "filter": "text-image-container"
+                  "filter": "text-image"
                 }
               }
             }
