@@ -616,6 +616,21 @@
               }
             }
           }
+        },
+        {
+          "title": "Text Image item",
+          "id": "text-image-model",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Text Image item",
+                  "model": "text-image-model"
+                }
+              }
+            }
+          }
         }
       ]
     }
