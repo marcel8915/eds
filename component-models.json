@@ -48,11 +48,6 @@
         "label": "Title"
       },
       {
-        "component": "text-core",
-        "name": "title2",
-        "label": "Title2"
-      },
-      {
         "component": "select",
         "name": "titleType",
         "label": "Title Type",
@@ -216,6 +211,13 @@
         "name": "text",
         "value": "",
         "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text-core",
+        "name": "text2",
+        "value": "",
+        "label": "Text2",
         "valueType": "string"
       }
     ]
