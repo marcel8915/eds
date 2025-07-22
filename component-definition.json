@@ -17,6 +17,17 @@
           }
         },
         {
+          "title": "Text Core",
+          "id": "text-core",
+          "plugins": {
+            "aem": {
+              "page": {
+                "resourceType": "capellahotelgroupprogram/components/text"
+              }
+            }
+          }
+        },
+        {
           "title": "Title",
           "id": "title",
           "plugins": {
