@@ -17,20 +17,6 @@
           }
         },
         {
-          "title": "Text Core",
-          "id": "text-core",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "capellahotelgroupprogram/components/helloworld",
-                "template": {
-                  "model": "text-core"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Title",
           "id": "title",
           "plugins": {
