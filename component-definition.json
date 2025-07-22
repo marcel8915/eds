@@ -20,7 +20,7 @@
           "title": "Text Core",
           "id": "text-core",
           "plugins": {
-            "aem": {
+            "xwalk": {
               "page": {
                 "resourceType": "capellahotelgroupprogram/components/text"
               }
