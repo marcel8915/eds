@@ -22,7 +22,7 @@
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "capellahotelgroupprogram/components/text"
+                "resourceType": "capellahotelgroupprogram/components/helloworld"
               }
             }
           }
