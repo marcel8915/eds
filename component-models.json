@@ -1497,5 +1497,18 @@
         "required": true
       }
     ]
+  },
+  {
+    "id": "text-image-container",
+    "fields": [
+      {
+        "component": "text",
+        "name": "categories",
+        "label": "Categories",
+        "description": "Category to filter",
+        "valueType": "string",
+        "multi": true
+      }
+    ]
   }
 ]
