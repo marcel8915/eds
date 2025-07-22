@@ -40,6 +40,22 @@
     ]
   },
   {
+    "id": "text-core",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "imageAlt",
+        "label": "Alt Text"
+      }
+    ]
+  },
+  {
     "id": "title",
     "fields": [
       {
@@ -210,14 +226,7 @@
         "component": "richtext",
         "name": "text",
         "value": "",
-        "label": "Text 1",
-        "valueType": "string"
-      },
-      {
-        "component": "text-core",
-        "name": "text2",
-        "value": "",
-        "label": "Text2",
+        "label": "Text",
         "valueType": "string"
       }
     ]
