@@ -60,7 +60,7 @@
   },
   {
     "id": "text-image",
-    "components": ["title", "text", "image", "button"]
+    "components": ["title", "text", "image", "button", "text-image-model"]
   },
   {
     "id": "three-column-tile",
