@@ -5,7 +5,6 @@
     "/content/eds/metadata:/metadata.json"
   ],
   "includes": [
-    "/content/eds/",
-    "/content/dam/patina/"
+    "/content/eds/"
   ]
 }
