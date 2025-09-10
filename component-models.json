@@ -1517,7 +1517,7 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "image",
+        "name": "background_image",
         "label": "Background Image",
         "multi": false
       },
@@ -1532,19 +1532,19 @@
         "component": "text",
         "name": "foreground_pretitle",
         "value": "",
-        "label": "Pre title",
+        "label": "Pre Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "foreground_pretitle",
+        "name": "foreground_title",
         "value": "",
         "label": "Title", 
         "valueType": "string"
       },
       {
         "component": "select",
-        "name": "foreground_pretitle",
+        "name": "foreground_titleType",
         "value": "h3",
         "label": "Title Type", 
         "valueType": "string",
@@ -1556,7 +1556,7 @@
       },
       {
         "component": "richtext",
-        "name": "foreground_pretitle",
+        "name": "foreground_description",
         "value": "",
         "label": "Description", 
         "valueType": "string"
