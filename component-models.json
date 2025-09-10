@@ -190,7 +190,692 @@
     ]
   },
   {
-    "id": "grid-card",
+    "id": "hero",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "value": "",
+        "description": "Short text displayed above the hero text"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "mainHeroText",
+        "label": "Main Hero Text",
+        "value": "",
+        "required": true,
+        "description": "Main text displayed in the hero section"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "isSlideInText",
+        "label": "Is Slide In Text",
+        "value": false,
+        "description": "If true, the hero text will slide in from the left and right"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "media",
+        "label": "Media",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "mediaAlt",
+        "label": "Media Alt Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text",
+        "value": " ",
+        "description": "CTA link displayed below the hero text"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "isVideoCta",
+        "label": "Is Video CTA",
+        "value": false,
+        "description": "If true, clicking on the CTA will open a video modal",
+        "condition": {
+          "!==": [
+            {
+              "var": "ctaText"
+            },
+            " "
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "video",
+        "label": "Video",
+        "value": "",
+        "description": "Video for the video modal",
+        "condition": {
+          "and": [
+            {
+              "!==": [
+                {
+                  "var": "ctaText"
+                },
+                " "
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "isVideoCta"
+                },
+                true
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaUrl",
+        "label": "CTA Url",
+        "value": " ",
+        "required": true,
+        "condition": {
+          "and": [
+            {
+              "!==": [
+                {
+                  "var": "ctaText"
+                },
+                " "
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "isVideoCta"
+                },
+                false
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "carousel-card",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "reference",
+        "valueType": "array",
+        "name": "images",
+        "label": "Images",
+        "multi": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link",
+        "value": ""
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "isExternalLink",
+        "label": "Is External Link",
+        "value": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "slideText",
+        "label": "Slide Text",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "isVideo",
+        "label": "Is Video",
+        "value": false
+      }
+    ]
+  },
+  {
+    "id": "swiper-card3",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Card Title"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "valueType": "string",
+        "label": "Card Description"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Card Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Link Text"
+      }
+    ]
+  },
+  {
+    "id": "slider-teaser-content",
+    "fields": [
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "overlay",
+        "label": "Overlay",
+        "value": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": "",
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonText",
+        "label": "Button Text",
+        "value": "",
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonUrl",
+        "label": "Button URL",
+        "value": "",
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            false
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": "",
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            false
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            false
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaUrl",
+        "label": "CTA Url",
+        "value": "",
+        "required": true,
+        "condition": {
+          "and": [
+            {
+              "!==": [
+                {
+                  "var": "ctaText"
+                },
+                ""
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "overlay"
+                },
+                false
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "isExternalLink",
+        "label": "Is External Link",
+        "value": false,
+        "condition": {
+          "and": [
+            {
+              "!==": [
+                {
+                  "var": "ctaText"
+                },
+                ""
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "overlay"
+                },
+                false
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "media",
+        "label": "Media",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": "",
+        "description": "Add alt text to media if media is an image"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "logo",
+        "label": "Logo",
+        "multi": false,
+        "required": true,
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "overlay"
+            },
+            true
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "three-image-description",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Section Title",
+        "description": "Main title for the section"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Main description text for the section"
+      },
+      {
+        "component": "select",
+        "name": "layout",
+        "label": "Layout Style",
+        "options": [
+          {
+            "name": "Images Above",
+            "value": "images-above"
+          },
+          {
+            "name": "Images Below",
+            "value": "images-below"
+          },
+          {
+            "name": "Images Left",
+            "value": "images-left"
+          },
+          {
+            "name": "Images Right",
+            "value": "images-right"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "two-columns-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaTitleLink",
+        "label": "CTA Title Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaTitleText",
+        "label": "CTA Title Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "singleDescription",
+        "value": "",
+        "label": "Single Description"
+      },
+      {
+        "component": "container",
+        "name": "features",
+        "label": "Features",
+        "fields": [
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "icon 1",
+            "label": "Icon 1",
+            "description": "Small icon 1 for the feature",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "description 1",
+            "label": "Feature Description 1"
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "icon 2",
+            "label": "Icon 2",
+            "description": "Small icon 2 for the feature",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "description 2",
+            "label": "Feature Description 2"
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "icon 3",
+            "label": "Icon 3",
+            "description": "Small icon 3 for the feature",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "description 3",
+            "label": "Feature Description 3"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "categories",
+        "label": "Insert category for destination here",
+        "description": "Add category to be matched with the filter."
+      },
+      {
+        "component": "text",
+        "name": "categories-type",
+        "label": "Insert category for types here",
+        "description": "Add category to be matched with the filter."
+      }
+    ]
+  },
+  {
+    "id": "section-header",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Title",
+        "required": true,
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "ctaText",
+        "label": "CTA Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "ctaLink",
+        "label": "CTA Link",
+        "condition": {
+          "!==": [
+            {
+              "var": "ctaText"
+            },
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "text-image-model",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content"
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image"
+      },
+      {
+        "component": "select",
+        "name": "imagePosition",
+        "label": "Image Position",
+        "options": [
+          {
+            "name": "Left",
+            "value": "left"
+          },
+          {
+            "name": "Right",
+            "value": "right"
+          }
+        ],
+        "value": "left"
+      }
+    ]
+  },
+  {
+    "id": "info-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Section Title",
+        "description": "Main title for the card"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Main description text for the card"
+      }
+    ]
+  },
+  {
+    "id": "events-listing",
+    "fields": [
+      {
+        "component": "text",
+        "name": "test",
+        "label": "Test"
+      }
+    ]
+  },
+  {
+    "id": "hero-card",
     "fields": [
       {
         "component": "reference",
@@ -227,7 +912,7 @@
     ]
   },
   {
-    "id": "hero",
+    "id": "secondary-card",
     "fields": [
       {
         "component": "reference",
@@ -239,15 +924,641 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "highlight-card4",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "Highlightimage",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "Highlightlabel",
+        "label": "Label",
+        "description": "Short identifying label"
+      },
+      {
+        "component": "text",
+        "name": "Highlighttitle",
+        "label": "Title",
+        "required": true,
+        "description": "Main headline for the card"
       },
       {
         "component": "richtext",
-        "name": "text",
+        "name": "Highlightdescription",
+        "label": "Description",
+        "description": "Detailed content about the highlight"
+      },
+      {
+        "component": "text",
+        "name": "Highlighttime",
+        "label": "Time",
+        "description": "2pm example"
+      },
+      {
+        "component": "text",
+        "name": "Highlightvenue",
+        "label": "Venue",
+        "description": "Location "
+      },
+      {
+        "component": "date-time",
+        "label": "Date & Time",
+        "name": "date",
+        "valueType": "date"
+      }
+    ]
+  },
+  {
+    "id": "image-gallery-card2",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mainImages 1",
+        "label": "Main Images 1",
+        "description": "Multiple images 1",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mainImages 2",
+        "label": "Main Images 2",
+        "description": "Multiple images 2",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mainImages 3",
+        "label": "Main Images 3",
+        "description": "Multiple images 3",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "select",
+        "name": "roomtype",
+        "label": "room type",
+        "options": [
+          {
+            "name": "default",
+            "value": "default"
+          },
+          {
+            "name": "rooms",
+            "value": "rooms"
+          },
+          {
+            "name": "suites",
+            "value": "suites"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "features",
+        "label": "Features",
+        "fields": [
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "icon 1",
+            "label": "Icon 1",
+            "description": "Small icon 1 for the feature",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "description 1",
+            "label": "Feature Description 1"
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "icon 2",
+            "label": "Icon 2",
+            "description": "Small icon 2 for the feature",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "description 2",
+            "label": "Feature Description 2"
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "icon 3",
+            "label": "Icon 3",
+            "description": "Small icon 3 for the feature",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "description 3",
+            "label": "Feature Description 3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hero-banner-alt",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "upperHeroText",
+        "label": "Upper Hero Text",
         "value": "",
-        "label": "Text",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "lowerHeroText",
+        "label": "Lower Hero Text",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": " "
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "firstCtaText",
+        "label": "First CTA Text",
+        "value": " "
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "firstCtaUrl",
+        "label": "First CTA Url",
+        "value": " ",
+        "required": true,
+        "description": "For email links, use 'mailto:' prefix. Eg. mailto:someone@example.com",
+        "condition": {
+          "!==": [
+            {
+              "var": "firstCtaText"
+            },
+            " "
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "secondCtaText",
+        "label": "Second CTA Text",
+        "value": " "
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "secondCtaUrl",
+        "label": "Second CTA Url",
+        "value": " ",
+        "required": true,
+        "condition": {
+          "!==": [
+            {
+              "var": "secondCtaText"
+            },
+            " "
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "faq-accordion-item-unit",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "required": true,
+        "description": "Faq ccordion title",
+        "defaultValue": "Accordion Item Title"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "description": "Detailed content about the accordion item",
+        "defaultValue": "<p>Accordion item description.</p>"
+      }
+    ]
+  },
+  {
+    "id": "highlights-container",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Section Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Section Label",
+        "description": "Optional subtitle for the section"
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Button Text",
+        "description": "text for action button"
+      },
+      {
+        "component": "aem-content",
+        "name": "buttonLink",
+        "label": "Button Link URL",
+        "description": "URL for the action button"
+      },
+      {
+        "component": "text",
+        "name": "topics",
+        "label": "Values to be inserted into the topics filter",
+        "description": "Add topics for the filter dropdown. Each entry will be a new option.",
+        "multi": true
+      },
+      {
+        "component": "text",
+        "name": "dates",
+        "label": "Values to be inserted into the dates filter",
+        "description": "Add date ranges IE 'Jan 2025 - Mar 2025' for the filter dropdown. Each entry will be a new option.",
+        "multi": true
+      }
+    ]
+  },
+  {
+    "id": "highlights-feed",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "date",
+        "label": "Date",
+        "description": "Display date"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "description": "Title text"
+      },
+      {
+        "component": "aem-content",
+        "name": "titleLink",
+        "label": "Title Link URL",
+        "description": "URL for the title"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description"
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Button Text",
+        "description": "text for action button"
+      },
+      {
+        "component": "aem-content",
+        "name": "buttonLink",
+        "label": "Button Link URL",
+        "description": "URL for the action button"
+      },
+      {
+        "component": "text",
+        "name": "categories",
+        "label": "insert category here",
+        "description": "Add category to be matched with the filter."
+      }
+    ]
+  },
+  {
+    "id": "newsletter-modal",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "headerText",
+        "label": "Header Text",
+        "value": "<p>Subscribe to<br></br>our newsletter</p>",
+        "description": "Text displayed at the top of the modal",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Button Text",
+        "value": "Continue",
+        "description": "Text displayed on the button",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "termsText",
+        "label": "Terms Text",
+        "value": "<p>By Subscribing To Our Newsletter, You Accept The <a href='https://capellahotelgroup.com/privacy-policy/'>Privacy Policy</a>.</p>",
+        "description": "Text displayed at the bottom of the modal",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "description": "Image displayed when the user successfully subscribes",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": "Patina Osaka",
+        "description": "Alternative text for the image displayed when the user successfully subscribes",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "successHeaderText",
+        "label": "Success Header Text",
+        "value": "<p>You're in.<br></br>The journey begins</p>",
+        "description": "Text displayed when the user successfully subscribes",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "successDescriptionText",
+        "label": "Success Description Text",
+        "value": "Expect exclusive updates from the world of Patina, sent straight to your inbox",
+        "description": "Text displayed when the user successfully subscribes",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "closeButtonText",
+        "label": "Close Button Text",
+        "value": "Done",
+        "description": "Text displayed on the button to close the modal after subscription",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "flower-splash-screen",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "mainText",
+        "label": "Main Text",
+        "value": "<h4>Freedom is the luxury to<br>move effortlessly across worlds</h4>",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "two-columns-container",
+    "fields": [
+      {
+        "component": "text",
+        "name": "destinations",
+        "label": "Destination Filter Options",
+        "description": "Add destinations for the filter dropdown",
+        "multi": true
+      },
+      {
+        "component": "text",
+        "name": "types",
+        "label": "Type Filter Options",
+        "description": "Add types for the filter dropdown",
+        "multi": true
+      }
+    ]
+  },
+  {
+    "id": "banner-card",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "dayImage",
+        "label": "Day Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "dayImageAlt",
+        "label": "Day Image Alt Text"
+      },
+      {
+        "component": "reference",
+        "name": "nightImage",
+        "label": "Night Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "nightImageAlt",
+        "label": "Night Image Alt Text"
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "description": "Small text above the title"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "aem-content",
+        "name": "ctaLink",
+        "label": "CTA Link",
+        "condition": {
+          "!==": [
+            {
+              "var": "ctaText"
+            },
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "property-gallery",
+    "fields": [
+      {
+        "component": "text",
+        "name": "categories",
+        "label": "Gallery Filter Categories",
+        "description": "Comma-separated list of categories for filtering",
+        "multi": true
+      }
+    ]
+  },
+  {
+    "id": "property-gallery-feed",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Label",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "category",
+        "label": "Category",
+        "description": "Must match one of the categories defined in the container",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "text-image-container",
+    "fields": [
+      {
+        "component": "text",
+        "name": "categories",
+        "label": "Categories",
+        "description": "Category to filter",
+        "valueType": "string",
+        "multi": true
+      }
+    ]
+  },
+  {
+    "id": "teaser",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "background_image",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "background_imageAlt",
+        "value": "",
+        "label": "Image Alt",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "foreground_pretitle",
+        "value": "",
+        "label": "Pre Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "foreground_title",
+        "value": "",
+        "label": "Title", 
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "foreground_titleType",
+        "value": "h3",
+        "label": "Title Type", 
+        "valueType": "string",
+        "options": [
+          {"name": "h2", "value": "h2"},
+          {"name": "h3", "value": "h3"},
+          {"name": "h4", "value": "h4"}
+        ]
+      },
+      {
+        "component": "richtext",
+        "name": "foreground_description",
+        "value": "",
+        "label": "Description", 
         "valueType": "string"
       }
     ]
