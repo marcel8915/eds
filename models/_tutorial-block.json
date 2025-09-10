@@ -1,0 +1,30 @@
+{
+  "models": [
+    {
+      "id": "tutorial-block",
+      "fields": [
+        {
+          "component": "text",
+          "name": "title",
+          "value": "",
+          "label": "Block Title",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "description",
+          "value": "",
+          "label": "Block Description",
+          "valueType": "string"
+        },
+        {
+          "component": "reference",
+          "name": "image",
+          "value": "",
+          "label": "Block Image",
+          "valueType": "string"
+        }
+      ]
+    }
+  ]
+}
