@@ -26,6 +26,12 @@
         "valueType": "string",
         "name": "pageTitle",
         "label": "Page Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cq:canonicalUrl",
+        "label": "Canonical URL"
       }
     ]
   },
