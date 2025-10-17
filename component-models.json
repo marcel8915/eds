@@ -20,42 +20,6 @@
         "name": "keywords",
         "multi": true,
         "label": "Keywords"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "test",
-        "label": "Test"
-      }
-    ]
-  },
-  {
-    "id": "aem-content-picker",
-    "fields": [
-      {
-        "component": "aem-content",
-        "name": "reference",
-        "value": "",
-        "label": "AEM Content Picker",
-        "valueType": "string",
-        "validation": {
-              "rootPath": "/content"
-          }
-      }
-    ]
-  },
-  {
-    "id": "aem-content-fragment",
-    "fields": [
-      {
-        "component": "aem-content-fragment",
-        "name": "picker",
-        "label": "Content Fragment Picker",
-        "valueType": "string",
-        "variationName": "main",
-        "validation": {
-            "rootPath": "/content"
-        }
       }
     ]
   },

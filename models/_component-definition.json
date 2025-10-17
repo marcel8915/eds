@@ -28,6 +28,15 @@
       ]
     },
     {
+      "title": "Custom",
+      "id": "custom",
+      "components": [
+        {
+          "...": "./_title.json#/definitions"
+        }
+      ]
+    },
+    {
       "title": "Blocks",
       "id": "blocks",
       "components": [
